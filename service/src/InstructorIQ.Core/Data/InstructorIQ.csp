@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <variables>
+    <add key="ConnectionString1" value="Data Source=(local);Initial Catalog=InstructorIQ;Integrated Security=True" />
+  </variables>
+  <propertySets>
+    <propertySet name="Entity" template="..\..\..\..\..\PLINQO.EntityFrameworkCore\CSharp\Entity.cst">
+      <property name="ContextDirectory">.\</property>
+      <property name="EntityDirectory">.\Entities</property>
+      <property name="MappingDirectory">.\Mapping</property>
+      <property name="TableNaming">Singular</property>
+      <property name="EntityNaming">Singular</property>
+      <property name="RelationshipNaming">Plural</property>
+      <property name="ContextNaming">Plural</property>
+      <property name="CleanExpressions">
+        <stringList>
+          <string>^(sp|tbl|udf|vw)_</string>
+        </stringList>
+      </property>
+      <property name="ContextBaseClass">DbContext</property>
+      <property name="IncludeEditable">True</property>
+      <property name="IncludeQuery">True</property>
+      <property name="QueryDirectory">.\Queries</property>
+      <property name="MethodPrefix">By</property>
+      <property name="UniqueMethodPrefix">GetBy</property>
+      <property name="MethodKeySuffix">Key</property>
+      <property name="IncludeViewModels">True</property>
+      <property name="ViewModelDirectory">D:\Projects\github\InstructorIQ\service\src\InstructorIQ.Core\Mediator\Models</property>
+      <property name="ValidationDirectory">D:\Projects\github\InstructorIQ\service\src\InstructorIQ.Core\Mediator\Validation</property>
+      <property name="ProfileDirectory">D:\Projects\github\InstructorIQ\service\src\InstructorIQ.Core\Mediator\Profiles</property>
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString1)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+        <mode>Exclude</mode>
+      </property>
+      <property name="ContextNamespace">InstructorIQ.Core.Data</property>
+      <property name="EntityNamespace">InstructorIQ.Core.Data.Entities</property>
+      <property name="MappingNamespace">InstructorIQ.Core.Data.Mapping</property>
+      <property name="QueryNamespace">InstructorIQ.Core.Data.Queries</property>
+      <property name="ViewModelNamespace">InstructorIQ.Core.Mediator.Models</property>
+      <property name="ValidationNamespace">InstructorIQ.Core.Mediator.Validation</property>
+      <property name="ProfileNamespace">InstructorIQ.Core.Mediator.Models</property>
+      <property name="RegistrationFile">D:\Projects\github\InstructorIQ\service\src\InstructorIQ.Core\Mediator\MediatorServiceModule.cs</property>
+      <property name="IgnoredProperties">
+        <stringList>
+          <string>Id</string>
+          <string>Created</string>
+          <string>CreatedBy</string>
+          <string>Updated</string>
+          <string>UpdatedBy</string>
+          <string>RowVersion</string>
+        </stringList>
+      </property>
+    </propertySet>
+  </propertySets>
+</codeSmith>
