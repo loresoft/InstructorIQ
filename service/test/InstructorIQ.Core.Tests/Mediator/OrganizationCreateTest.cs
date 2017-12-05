@@ -48,11 +48,12 @@ namespace InstructorIQ.Core.Tests.Mediator
             var mediator = ServiceProvider.GetService<IMediator>();
             mediator.Should().NotBeNull();
 
-            var command = new EntityListQuery<Organization, OrganizationReadModel>
+            var query = new EntityQuery
             {
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Abbreviation", Value = "TEST" }
             };
+            var command = new EntityListQuery<Organization, OrganizationReadModel>(query, MockPrincipal.Default);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();

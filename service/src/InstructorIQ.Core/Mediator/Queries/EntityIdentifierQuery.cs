@@ -10,6 +10,12 @@ namespace InstructorIQ.Core.Mediator.Queries
         where TEntity : class, new()
         where TReadModel : EntityReadModel
     {
+        public EntityIdentifierQuery(Guid id, IPrincipal principal)
+        {
+            Principal = principal;
+            Id = id;
+        }
+
         public IPrincipal Principal { get; set; }
 
         public Guid Id { get; set; }

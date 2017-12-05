@@ -16,8 +16,8 @@
   <ItemGroup>
     <PackageReference Include="DataGenerator" Version="4.0.0.18" />
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
-    <PackageReference Include="KickStart.AutoMapper" Version="6.0.0.112" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.112" />
+    <PackageReference Include="KickStart.AutoMapper" Version="6.0.0.113" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.113" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />

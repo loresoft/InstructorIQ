@@ -15,7 +15,6 @@ namespace InstructorIQ.Core.Data.Entities
             Locations = new HashSet<Location>();
             Sessions = new HashSet<Session>();
             Topics = new HashSet<Topic>();
-            UserRoles = new HashSet<UserRole>();
         }
 
         public Guid Id { get; set; }
@@ -33,6 +32,5 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<Topic> Topics { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

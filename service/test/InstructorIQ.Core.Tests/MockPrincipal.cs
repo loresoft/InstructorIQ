@@ -31,6 +31,7 @@ namespace InstructorIQ.Core.Tests
 
         public IReadOnlyCollection<string> Roles => _roles;
 
+
         public static IPrincipal Default => new MockPrincipal("test.user@email.com");
     }
 }

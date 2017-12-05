@@ -5,6 +5,9 @@ using System.Text;
 namespace InstructorIQ.Core.Mediator.Models
 {
     public class InstructorOrganizationCreateModel : EntityCreateModel
+    #region "Custom Interfaces"
+        , InstructorIQ.Core.Data.Definitions.IHaveOrganization
+    #endregion
     {
         public Guid InstructorId { get; set; }
         public Guid OrganizationId { get; set; }

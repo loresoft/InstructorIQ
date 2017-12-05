@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Principal;
-using System.Text;
 using InstructorIQ.Core.Mediator.Models;
 using MediatR;
 
@@ -17,6 +15,9 @@ namespace InstructorIQ.Core.Mediator.Commands
             Model = model ?? throw new ArgumentNullException(nameof(model));
             Principal = principal;
 
+            Model.Created = DateTimeOffset.UtcNow;
+            Model.Updated = DateTimeOffset.UtcNow;
+
             if (principal?.Identity?.IsAuthenticated != true)
                 return;
 
@@ -27,6 +28,7 @@ namespace InstructorIQ.Core.Mediator.Commands
         }
 
         public IPrincipal Principal { get; set; }
+
         public TCreateModel Model { get; set; }
     }
 }

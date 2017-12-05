@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Security.Principal;
 using InstructorIQ.Core.Mediator.Models;
 using MediatR;
 
@@ -9,14 +9,14 @@ namespace InstructorIQ.Core.Mediator.Queries
         where TEntity : class
         where TReadModel : EntityReadModel
     {
-        public string Search { get; set; }
+        public EntityListQuery(EntityQuery query, IPrincipal principal)
+        {
+            Query = query;
+            Principal = principal;
+        }
 
-        public int Page { get; set; } = 1;
+        public IPrincipal Principal { get; set; }
 
-        public int PageSize { get; set; } = 20;
-
-        public IEnumerable<EntitySort> Sort { get; set; }
-
-        public EntityFilter Filter { get; set; }
+        public EntityQuery Query { get; set; }
     }
 }

@@ -11,8 +11,8 @@ namespace InstructorIQ.Core.Mediator.Commands
     {
         public EntityDeleteCommand(Guid id, IPrincipal principal)
         {
-            Principal = principal;
             Id = id;
+            Principal = principal;
         }
 
         public IPrincipal Principal { get; set; }

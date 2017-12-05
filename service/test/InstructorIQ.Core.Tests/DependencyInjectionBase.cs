@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using InstructorIQ.Core.Data;
+using InstructorIQ.Core.Tests.Logger;
 using InstructorIQ.Core.Tests.Samples;
 using KickStart;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ namespace InstructorIQ.Core.Tests
 
             var services = new ServiceCollection();
             services.AddSingleton(p => configuration);
+            services.AddLogging(log => log.AddXunit(OutputHelper, Microsoft.Extensions.Logging.LogLevel.Trace));
 
             services.KickStart(config => config
                 .IncludeAssemblyFor<InstructorIQContext>()

@@ -21,19 +21,12 @@ namespace InstructorIQ.Core.Mediator
             RegisterEntity<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
             RegisterEntity<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>(services);
             RegisterEntity<Instructor, InstructorReadModel, InstructorCreateModel, InstructorUpdateModel>(services);
-            RegisterEntity<User, UserReadModel, UserCreateModel, UserUpdateModel>(services);
             RegisterEntity<InstructorOrganization, InstructorOrganizationReadModel, InstructorOrganizationCreateModel, InstructorOrganizationUpdateModel>(services);
             RegisterEntity<Location, LocationReadModel, LocationCreateModel, LocationUpdateModel>(services);
-            RegisterEntity<Role, RoleReadModel, RoleCreateModel, RoleUpdateModel>(services);
-            RegisterEntity<RoleClaim, RoleClaimReadModel, RoleClaimCreateModel, RoleClaimUpdateModel>(services);
             RegisterEntity<Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
             RegisterEntity<Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
             RegisterEntity<SessionGroup, SessionGroupReadModel, SessionGroupCreateModel, SessionGroupUpdateModel>(services);
             RegisterEntity<SessionInstructor, SessionInstructorReadModel, SessionInstructorCreateModel, SessionInstructorUpdateModel>(services);
-            RegisterEntity<UserClaim, UserClaimReadModel, UserClaimCreateModel, UserClaimUpdateModel>(services);
-            RegisterEntity<UserLogin, UserLoginReadModel, UserLoginCreateModel, UserLoginUpdateModel>(services);
-            RegisterEntity<UserRole, UserRoleReadModel, UserRoleCreateModel, UserRoleUpdateModel>(services);
-            RegisterEntity<UserToken, UserTokenReadModel, UserTokenCreateModel, UserTokenUpdateModel>(services);
 
             #endregion
 
@@ -50,14 +43,14 @@ namespace InstructorIQ.Core.Mediator
             where TUpdateModel : EntityUpdateModel
         {
             // standard crud commands
-            services.TryAddTransient<IAsyncRequestHandler<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, EntityCreateCommandHandler<TEntity, TCreateModel, TReadModel>>();
-            services.TryAddTransient<IAsyncRequestHandler<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, EntityUpdateCommandHandler<TEntity, TUpdateModel, TReadModel>>();
-            services.TryAddTransient<IAsyncRequestHandler<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, EntityPatchCommandHandler<TEntity, TReadModel>>();
-            services.TryAddTransient<IAsyncRequestHandler<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, EntityDeleteCommandHandler<TEntity, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, EntityCreateCommandHandler<TEntity, TCreateModel, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, EntityUpdateCommandHandler<TEntity, TUpdateModel, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, EntityPatchCommandHandler<TEntity, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, EntityDeleteCommandHandler<TEntity, TReadModel>>();
 
             // standard queries
-            services.TryAddTransient<IAsyncRequestHandler<EntityIdentifierQuery<TEntity, TReadModel>, TReadModel>, EntityIdentifierQueryHandler<TEntity, TReadModel>>();
-            services.TryAddTransient<IAsyncRequestHandler<EntityListQuery<TEntity, TReadModel>, EntityListResult<TReadModel>>, EntityListQueryHandler<TEntity, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<TEntity, TReadModel>, TReadModel>, EntityIdentifierQueryHandler<TEntity, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityListQuery<TEntity, TReadModel>, EntityListResult<TReadModel>>, EntityListQueryHandler<TEntity, TReadModel>>();
 
             // pipeline registration,  run in order registered
             services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, AuthenticateEntityCreateCommandBehavior<TEntity, TCreateModel, TReadModel>>();

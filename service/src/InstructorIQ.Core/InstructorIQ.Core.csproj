@@ -7,17 +7,14 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.1" />
     <PackageReference Include="FluentValidation" Version="7.2.1" />
-    <PackageReference Include="KickStart" Version="6.0.0.112" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.112" />
-    <PackageReference Include="MediatR" Version="3.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="3.0.0" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.113" />
+    <PackageReference Include="MediatR" Version="4.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.4.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mediator\Validation\" />
-  </ItemGroup>
 
 </Project>

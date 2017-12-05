@@ -5,6 +5,9 @@ using System.Text;
 namespace InstructorIQ.Core.Mediator.Models
 {
     public class GroupUpdateModel : EntityUpdateModel
+    #region "Custom Interfaces"
+        , InstructorIQ.Core.Data.Definitions.IHaveOrganization
+    #endregion
     {
         public string Name { get; set; }
         public string Description { get; set; }

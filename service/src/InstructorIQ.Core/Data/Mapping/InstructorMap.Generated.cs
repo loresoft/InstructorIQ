@@ -72,7 +72,7 @@ namespace InstructorIQ.Core.Data.Mapping
 
             // Relationships
             builder.HasOne(t => t.User)
-                .WithMany(t => t.Instructors)
+                .WithMany()
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_Instructor_User_UserId");
 

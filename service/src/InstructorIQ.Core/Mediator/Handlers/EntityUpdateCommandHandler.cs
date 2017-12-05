@@ -1,14 +1,14 @@
-﻿using System;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Mediator.Commands;
 using InstructorIQ.Core.Mediator.Models;
-using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Mediator.Handlers
 {
-    public class EntityUpdateCommandHandler<TEntity, TUpdateModel, TReadModel> : IAsyncRequestHandler<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>
+    public class EntityUpdateCommandHandler<TEntity, TUpdateModel, TReadModel> : RequestHandlerBase<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>
         where TEntity : class, new()
         where TUpdateModel : EntityUpdateModel
         where TReadModel : EntityReadModel
@@ -16,42 +16,39 @@ namespace InstructorIQ.Core.Mediator.Handlers
         private readonly InstructorIQContext _context;
         private readonly IMapper _mapper;
 
-        public EntityUpdateCommandHandler(InstructorIQContext context, IMapper mapper)
+        public EntityUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext context, IMapper mapper) : base(loggerFactory)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<TReadModel> Handle(EntityUpdateCommand<TEntity, TUpdateModel, TReadModel> message)
+        protected override async Task<TReadModel> Process(EntityUpdateCommand<TEntity, TUpdateModel, TReadModel> message, CancellationToken cancellationToken)
         {
             var dbSet = _context
                 .Set<TEntity>();
 
+            var keyValue = new[] { message.Id };
+
+            // find entity to update by message id, not model id
             var entity = await dbSet
-                .FindAsync(message.Id)
+                .FindAsync(keyValue, cancellationToken)
                 .ConfigureAwait(false);
 
-            if (entity == null && !message.Upsert)
+            if (entity == null)
                 return null;
 
-            if (entity != null)
-            {
-                _mapper.Map(message.Model, entity);
-            }
-            else
-            {
-                entity = _mapper.Map<TEntity>(message.Model);
-                await dbSet
-                    .AddAsync(entity)
-                    .ConfigureAwait(false);
-            }
+            // save original for later pipeline processing
+            message.Original = _mapper.Map<TReadModel>(entity);
 
-            
+            // copy updates from model to entity
+            _mapper.Map(message.Model, entity);
 
+            // save updates
             await _context
-                .SaveChangesAsync()
+                .SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
 
+            // return read model
             var readModel = _mapper.Map<TReadModel>(entity);
 
             return readModel;
