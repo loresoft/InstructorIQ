@@ -10,6 +10,8 @@ namespace InstructorIQ.Core.Data.Entities
         {
             Created = DateTimeOffset.UtcNow;
             Updated = DateTimeOffset.UtcNow;
+            EmailDeliveries = new HashSet<EmailDelivery>();
+            EmailTemplates = new HashSet<EmailTemplate>();
             Groups = new HashSet<Group>();
             InstructorOrganizations = new HashSet<InstructorOrganization>();
             Locations = new HashSet<Location>();
@@ -30,6 +32,8 @@ namespace InstructorIQ.Core.Data.Entities
         public string UpdatedBy { get; set; }
         public Byte[] RowVersion { get; set; }
 
+        public virtual ICollection<EmailDelivery> EmailDeliveries { get; set; }
+        public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public virtual ICollection<InstructorOrganization> InstructorOrganizations { get; set; }
         public virtual ICollection<Location> Locations { get; set; }

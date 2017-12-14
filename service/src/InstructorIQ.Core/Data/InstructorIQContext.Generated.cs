@@ -11,8 +11,10 @@ namespace InstructorIQ.Core.Data
         {
         }
 
-        public DbSet<InstructorIQ.Core.Data.Entities.Group> Groups { get; set; }
+        public DbSet<InstructorIQ.Core.Data.Entities.EmailDelivery> EmailDeliveries { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.Organization> Organizations { get; set; }
+        public DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> EmailTemplates { get; set; }
+        public DbSet<InstructorIQ.Core.Data.Entities.Group> Groups { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.Instructor> Instructors { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.User> Users { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.InstructorOrganization> InstructorOrganizations { get; set; }
@@ -28,8 +30,10 @@ namespace InstructorIQ.Core.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailDeliveryMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.OrganizationMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailTemplateMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.UserMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorOrganizationMap());

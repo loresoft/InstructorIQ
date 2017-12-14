@@ -19,8 +19,10 @@ namespace InstructorIQ.Core.Mediator
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
             #region Generated Registrations
-            RegisterEntity<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
+            RegisterEntity<EmailDelivery, EmailDeliveryReadModel, EmailDeliveryCreateModel, EmailDeliveryUpdateModel>(services);
             RegisterEntity<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>(services);
+            RegisterEntity<EmailTemplate, EmailTemplateReadModel, EmailTemplateCreateModel, EmailTemplateUpdateModel>(services);
+            RegisterEntity<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
             RegisterEntity<Instructor, InstructorReadModel, InstructorCreateModel, InstructorUpdateModel>(services);
             RegisterEntity<User, UserReadModel, UserCreateModel, UserUpdateModel>(services);
             RegisterEntity<InstructorOrganization, InstructorOrganizationReadModel, InstructorOrganizationCreateModel, InstructorOrganizationUpdateModel>(services);
