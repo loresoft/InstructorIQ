@@ -15,12 +15,15 @@ namespace InstructorIQ.Core.Data.Entities
             Locations = new HashSet<Location>();
             Sessions = new HashSet<Session>();
             Topics = new HashSet<Topic>();
+            LastUsers = new HashSet<User>();
+            UserRoles = new HashSet<UserRole>();
         }
 
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public string Description { get; set; }
+        public bool IsDeleted { get; set; }
         public DateTimeOffset Created { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset Updated { get; set; }
@@ -32,5 +35,7 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<Topic> Topics { get; set; }
+        public virtual ICollection<User> LastUsers { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

@@ -5,11 +5,33 @@ namespace InstructorIQ.Core.Mediator.Queries
 {
     public class EntityQuery
     {
-        public string Search { get; set; }
+        /// <summary>Initializes a new instance of the <see cref="T:System.Object"></see> class.</summary>
+        public EntityQuery()
+        {
+            Page = 1;
+            PageSize = 20;
 
-        public int Page { get; set; } = 1;
+        }
 
-        public int PageSize { get; set; } = 20;
+        /// <summary>Initializes a new instance of the <see cref="T:System.Object"></see> class.</summary>
+        public EntityQuery(string query, int page, int pageSize, string sort)
+        {
+            Query = query;
+            Page = page;
+            PageSize = pageSize;
+
+            var entitySort = EntitySort.Parse(sort);
+            if (entitySort == null)
+                return;
+
+            Sort = new[] { entitySort };
+        }
+
+        public string Query { get; set; }
+
+        public int Page { get; set; }
+
+        public int PageSize { get; set; }
 
         public IEnumerable<EntitySort> Sort { get; set; }
 

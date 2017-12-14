@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using InstructorIQ.Core.Mediator.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -83,13 +84,17 @@ namespace InstructorIQ.Web.Middleware
         {
             context.Response.ContentType = "application/json";
 
-            var result = new ErrorResult { Message = exception.Message };
+            var result = new ErrorModel { Message = exception.Message };
 
             switch (exception)
             {
                 case ValidationException validationException:
-                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    result.Errors = validationException.Errors;
+                    var errors = validationException.Errors
+                        .Select(v => new ValidationErrorModel(v.PropertyName, v.ErrorMessage, v.AttemptedValue))
+                        .ToList();
+
+                    context.Response.StatusCode = 422; // Unprocessable Entity
+                    result.Errors = errors;
                     break;
             }
 
@@ -114,13 +119,5 @@ namespace InstructorIQ.Web.Middleware
             return Task.CompletedTask;
         }
 
-        private class ErrorResult
-        {
-            public string Code { get; set; }
-            public string Message { get; set; }
-            public string Detail { get; set; }
-
-            public IEnumerable<ValidationFailure> Errors { get; set; }
-        }
     }
 }

@@ -6,6 +6,7 @@ using InstructorIQ.Core.Mediator.Commands;
 using InstructorIQ.Core.Mediator.Handlers;
 using InstructorIQ.Core.Mediator.Models;
 using InstructorIQ.Core.Mediator.Queries;
+using InstructorIQ.Core.Security;
 using KickStart.DependencyInjection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ namespace InstructorIQ.Core.Mediator
             RegisterEntity<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
             RegisterEntity<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>(services);
             RegisterEntity<Instructor, InstructorReadModel, InstructorCreateModel, InstructorUpdateModel>(services);
+            RegisterEntity<User, UserReadModel, UserCreateModel, UserUpdateModel>(services);
             RegisterEntity<InstructorOrganization, InstructorOrganizationReadModel, InstructorOrganizationCreateModel, InstructorOrganizationUpdateModel>(services);
             RegisterEntity<Location, LocationReadModel, LocationCreateModel, LocationUpdateModel>(services);
             RegisterEntity<Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
@@ -30,9 +32,26 @@ namespace InstructorIQ.Core.Mediator
 
             #endregion
 
+            RegisterUserManagement(services);
+
             services.AddScoped<SingleInstanceFactory>(p => p.GetService);
             services.AddScoped<MultiInstanceFactory>(p => p.GetServices);
             services.AddScoped<IMediator, MediatR.Mediator>();
+        }
+
+        private static void RegisterUserManagement(IServiceCollection services)
+        {
+            services.TryAddTransient<IRequestHandler<AuthenticateCommand, TokenResponse>, AuthenticateCommandHandler>();
+
+            services.TryAddTransient<IRequestHandler<UserManagementCommand<UserRegisterModel>, UserReadModel>, UserRegisterCommandHandler>();
+            services.TryAddTransient<IRequestHandler<UserManagementCommand<UserChangePasswordModel>, UserReadModel>, UserChangePasswordCommandHandler>();
+            services.TryAddTransient<IRequestHandler<UserManagementCommand<UserForgotPasswordModel>, UserReadModel>, UserForgotPasswordCommandHandler>();
+            services.TryAddTransient<IRequestHandler<UserManagementCommand<UserResetPasswordModel>, UserReadModel>, UserResetPasswordCommandHandler>();
+
+            services.AddTransient<IPipelineBehavior<UserManagementCommand<UserRegisterModel>, UserReadModel>, ValidateEntityModelCommandBehavior<UserRegisterModel, UserReadModel>>();
+            services.AddTransient<IPipelineBehavior<UserManagementCommand<UserChangePasswordModel>, UserReadModel>, ValidateEntityModelCommandBehavior<UserChangePasswordModel, UserReadModel>>();
+            services.AddTransient<IPipelineBehavior<UserManagementCommand<UserForgotPasswordModel>, UserReadModel>, ValidateEntityModelCommandBehavior<UserForgotPasswordModel, UserReadModel>>();
+            services.AddTransient<IPipelineBehavior<UserManagementCommand<UserResetPasswordModel>, UserReadModel>, ValidateEntityModelCommandBehavior<UserResetPasswordModel, UserReadModel>>();
         }
 
 
@@ -58,8 +77,8 @@ namespace InstructorIQ.Core.Mediator
             services.AddTransient<IPipelineBehavior<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, AuthenticateEntityPatchCommandBehavior<TEntity, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, AuthenticateEntityDeleteCommandBehavior<TEntity, TReadModel>>();
 
-            services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, ValidateEntityCreateCommandBehavior<TEntity, TCreateModel, TReadModel>>();
-            services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, ValidateEntityUpdateCommandBehavior<TEntity, TUpdateModel, TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, ValidateEntityModelCommandBehavior<TCreateModel, TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, ValidateEntityModelCommandBehavior<TUpdateModel, TReadModel>>();
 
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, TrackChangeEntityUpdateCommandBehavior<TEntity, TUpdateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, TrackChangeEntityPatchCommandBehavior<TEntity, TReadModel>>();

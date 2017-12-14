@@ -15,9 +15,9 @@ using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Mediator
 {
-    public class OrganizationCreateTest : DependencyInjectionBase
+    public class OrganizationTest : DependencyInjectionBase
     {
-        public OrganizationCreateTest(ITestOutputHelper outputHelper) : base(outputHelper)
+        public OrganizationTest(ITestOutputHelper outputHelper) : base(outputHelper)
         {
 
         }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public class Role : IdentityRole<Guid>, IEntityIdentifier
+    public partial class Role : IEntityIdentifier
     {
 
     }

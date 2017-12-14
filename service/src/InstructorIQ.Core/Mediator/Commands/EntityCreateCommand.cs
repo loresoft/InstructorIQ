@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Security.Principal;
 using InstructorIQ.Core.Mediator.Models;
-using MediatR;
 
 namespace InstructorIQ.Core.Mediator.Commands
 {
-    public class EntityCreateCommand<TEntity, TCreateModel, TReadModel> : IRequest<TReadModel>
+    public class EntityCreateCommand<TEntity, TCreateModel, TReadModel> : EntityModelCommand<TCreateModel, TReadModel>
         where TEntity : class, new()
         where TCreateModel : EntityCreateModel
         where TReadModel : EntityReadModel
     {
-        public EntityCreateCommand(TCreateModel model, IPrincipal principal)
+        public EntityCreateCommand(TCreateModel model, IPrincipal principal) : base(model, principal)
         {
-            Model = model ?? throw new ArgumentNullException(nameof(model));
-            Principal = principal;
-
             Model.Created = DateTimeOffset.UtcNow;
             Model.Updated = DateTimeOffset.UtcNow;
 
@@ -26,9 +22,5 @@ namespace InstructorIQ.Core.Mediator.Commands
             Model.CreatedBy = identityName;
             Model.UpdatedBy = identityName;
         }
-
-        public IPrincipal Principal { get; set; }
-
-        public TCreateModel Model { get; set; }
     }
 }

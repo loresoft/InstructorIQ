@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using InstructorIQ.Core.Data;
+using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Tests.Logger;
 using InstructorIQ.Core.Tests.Samples;
 using KickStart;
@@ -25,10 +26,13 @@ namespace InstructorIQ.Core.Tests
             var services = new ServiceCollection();
             services.AddSingleton(p => configuration);
             services.AddLogging(log => log.AddXunit(OutputHelper, Microsoft.Extensions.Logging.LogLevel.Trace));
+            services.AddOptions();
 
             services.KickStart(config => config
                 .IncludeAssemblyFor<InstructorIQContext>()
                 .IncludeAssemblyFor<Fruit>()
+                .Data(ConfigurationServiceModule.ConfigurationKey, configuration)
+                .Data("hostProcess", "test")
                 .UseAutoMapper()
                 .UseStartupTask()
             );

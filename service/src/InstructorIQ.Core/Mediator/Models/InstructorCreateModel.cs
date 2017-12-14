@@ -6,6 +6,7 @@ namespace InstructorIQ.Core.Mediator.Models
 {
     public class InstructorCreateModel : EntityCreateModel
     {
+        #region Generated Properties
         public string GivenName { get; set; }
         public string MiddleName { get; set; }
         public string FamilyName { get; set; }
@@ -15,8 +16,6 @@ namespace InstructorIQ.Core.Mediator.Models
         public string BusinessPhone { get; set; }
         public Guid? UserId { get; set; }
 
-        #region "Custom Properties"
-        // The contents of this region will also be preserved during generation.
         #endregion
     }
 }

@@ -5,19 +5,17 @@ using MediatR;
 
 namespace InstructorIQ.Core.Mediator.Commands
 {
-    public class EntityUpdateCommand<TEntity, TUpdateModel, TReadModel> : IRequest<TReadModel>
+    public class EntityUpdateCommand<TEntity, TUpdateModel, TReadModel> : EntityModelCommand<TUpdateModel, TReadModel>
         where TEntity : class, new()
         where TUpdateModel : EntityUpdateModel
         where TReadModel : EntityReadModel
     {
-        public EntityUpdateCommand(Guid id, TUpdateModel model, IPrincipal principal)
+        public EntityUpdateCommand(Guid id, TUpdateModel model, IPrincipal principal) : base(model, principal)
         {
             if (id == default(Guid))
                 throw new ArgumentException($"Invalid value for entity Id: {id}", nameof(id));
 
             Id = id;
-            Model = model ?? throw new ArgumentNullException(nameof(model));
-            Principal = principal;
 
             Model.Updated = DateTimeOffset.UtcNow;
 
@@ -29,11 +27,7 @@ namespace InstructorIQ.Core.Mediator.Commands
             Model.UpdatedBy = identityName;
         }
 
-        public IPrincipal Principal { get; set; }
-
         public Guid Id { get; set; }
-
-        public TUpdateModel Model { get; set; }
 
         public TReadModel Original { get; set; }
     }

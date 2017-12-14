@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using InstructorIQ.Core.Data.Definitions;
 
 namespace InstructorIQ.Core.Mediator.Models
 {
-    public class LocationReadModel : EntityReadModel
-    #region "Custom Interfaces"
-        , InstructorIQ.Core.Data.Definitions.IHaveOrganization
-    #endregion
+    public class LocationReadModel : EntityReadModel, IHaveOrganization
     {
+        #region Generated Properties
         public string Name { get; set; }
         public string Description { get; set; }
         public string AddressLine1 { get; set; }
@@ -21,9 +20,8 @@ namespace InstructorIQ.Core.Mediator.Models
         public decimal? Longitude { get; set; }
         public Guid OrganizationId { get; set; }
 
-        #region "Custom Properties"
-        // The contents of this region will also be preserved during generation.
-        public string OrganizationName { get; set; }
         #endregion
+
+        public string OrganizationName { get; set; }
     }
 }

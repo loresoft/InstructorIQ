@@ -4,11 +4,9 @@ using System.Text;
 
 namespace InstructorIQ.Core.Mediator.Models
 {
-    public class TopicReadModel : EntityReadModel
-    #region "Custom Interfaces"
-        , InstructorIQ.Core.Data.Definitions.IHaveOrganization
-    #endregion
+    public class TopicReadModel : EntityReadModel, InstructorIQ.Core.Data.Definitions.IHaveOrganization
     {
+        #region Generated Properties
         public string Title { get; set; }
         public string Description { get; set; }
         public string Objectives { get; set; }
@@ -16,11 +14,10 @@ namespace InstructorIQ.Core.Mediator.Models
         public Guid? LeadInstructorId { get; set; }
         public short CalendarYear { get; set; }
 
-        #region "Custom Properties"
-        // The contents of this region will also be preserved during generation.
-        public string OrganizationName { get; set; }
+        #endregion
+        
+		public string OrganizationName { get; set; }
 
         public string LeadInstructorName { get; set; }
-        #endregion
     }
 }

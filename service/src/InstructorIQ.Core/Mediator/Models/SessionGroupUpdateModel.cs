@@ -6,11 +6,10 @@ namespace InstructorIQ.Core.Mediator.Models
 {
     public class SessionGroupUpdateModel : EntityUpdateModel
     {
+        #region Generated Properties
         public Guid SessionId { get; set; }
         public Guid GroupId { get; set; }
 
-        #region "Custom Properties"
-        // The contents of this region will also be preserved during generation.
         #endregion
     }
 }

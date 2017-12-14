@@ -32,6 +32,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasMaxLength(50);
             builder.Property(t => t.Description)
                 .HasColumnName("Description");
+            builder.Property(t => t.IsDeleted)
+                .IsRequired()
+                .HasColumnName("IsDeleted")
+                .HasDefaultValueSql("((0))");
             builder.Property(t => t.Created)
                 .IsRequired()
                 .HasColumnName("Created")

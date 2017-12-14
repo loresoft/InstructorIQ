@@ -38,6 +38,7 @@ namespace InstructorIQ.Web
                 .IncludeAssemblyFor<Startup>()
                 .Data(ConfigurationServiceModule.ConfigurationKey, Configuration)
                 .Data("hostProcess", "web")
+                .UseAutoMapper()
                 .UseStartupTask()
             );
 

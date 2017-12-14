@@ -6,12 +6,12 @@ namespace InstructorIQ.Core.Mediator.Models
 {
     public class OrganizationReadModel : EntityReadModel
     {
+        #region Generated Properties
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public string Description { get; set; }
+        public bool IsDeleted { get; set; }
 
-        #region "Custom Properties"
-        // The contents of this region will also be preserved during generation.
         #endregion
     }
 }
