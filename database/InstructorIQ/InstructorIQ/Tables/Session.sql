@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Session]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Session_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Session_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
 
     [Note] NVARCHAR(MAX) NULL,
@@ -13,9 +13,9 @@
     [LocationId] UNIQUEIDENTIFIER NULL,
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
 
-    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Session_Created] DEFAULT (sysutcdatetime()),
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Session_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
-    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Session_Updated] DEFAULT (sysutcdatetime()),
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Session_Updated] DEFAULT (SYSUTCDATETIME()),
     [UpdatedBy] NVARCHAR(100) NULL,
     [RowVersion] ROWVERSION NOT NULL,
 

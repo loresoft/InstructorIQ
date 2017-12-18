@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Location]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Location_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Location_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
     [Description] NVARCHAR(MAX) NULL,
 
@@ -16,9 +16,9 @@
 
     [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
 
-    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Location_Created] DEFAULT (sysutcdatetime()),
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Location_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
-    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Location_Updated] DEFAULT (sysutcdatetime()),
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Location_Updated] DEFAULT (SYSUTCDATETIME()),
     [UpdatedBy] NVARCHAR(100) NULL,
     [RowVersion] ROWVERSION NOT NULL,
 

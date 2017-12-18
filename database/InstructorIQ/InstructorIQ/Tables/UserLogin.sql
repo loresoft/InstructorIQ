@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[UserLogin]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_UserLogin_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_UserLogin_Id] DEFAULT (NEWSEQUENTIALID()),
 
     [LoginProvider] NVARCHAR(450) NOT NULL,
     [ProviderKey] NVARCHAR(450) NOT NULL,

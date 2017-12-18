@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Topic]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Topic_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Topic_Id] DEFAULT (NEWSEQUENTIALID()),
     [Title] NVARCHAR(256) NOT NULL,
 
     [Description] NVARCHAR(MAX) NULL,
@@ -11,9 +11,9 @@
 
     [CalendarYear] SMALLINT NOT NULL DEFAULT year(getdate()),
 
-    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Topic_Created] DEFAULT (sysutcdatetime()),
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Topic_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
-    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Topic_Updated] DEFAULT (sysutcdatetime()),
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Topic_Updated] DEFAULT (SYSUTCDATETIME()),
     [UpdatedBy] NVARCHAR(100) NULL,
     [RowVersion] ROWVERSION NOT NULL,
 

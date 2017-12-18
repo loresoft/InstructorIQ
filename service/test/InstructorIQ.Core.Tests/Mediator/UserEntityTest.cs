@@ -45,14 +45,25 @@ namespace InstructorIQ.Core.Tests.Mediator
             var mediator = ServiceProvider.GetService<IMediator>();
             mediator.Should().NotBeNull();
 
-            var model = new TokenRequest
+            var userAgent = new UserAgentModel
+            {
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36",
+                Browser = "Chrome",
+                DeviceBrand = "",
+                DeviceFamily = "Other",
+                DeviceModel = "",
+                OperatingSystem = "Windows 10",
+                IpAddress = "127.0.0.1"
+            };
+
+            var request = new TokenRequest
             {
                 GrantType = "password",
                 UserName = $"test@mailinator.com",
                 Password = "Th!s My Passw@ord"
             };
 
-            var command = new AuthenticateCommand(model);
+            var command = new AuthenticateCommand(userAgent, request);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();

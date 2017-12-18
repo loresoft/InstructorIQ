@@ -58,6 +58,8 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Deployments" />
+    <Folder Include="Procedures" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Topic.sql" />
@@ -70,14 +72,22 @@
     <Build Include="Tables\SessionGroup.sql" />
     <Build Include="Tables\Instructor.sql" />
     <Build Include="Tables\InstructorOrganization.sql" />
-    <Build Include="Tables\UserToken.sql" />
     <Build Include="Tables\UserLogin.sql" />
-    <Build Include="Tables\UserClaim.sql" />
     <Build Include="Tables\Role.sql" />
-    <Build Include="Tables\RoleClaim.sql" />
     <Build Include="Tables\UserRole.sql" />
+    <Build Include="Tables\RefreshToken.sql" />
+    <Build Include="Tables\EmailTemplate.sql" />
+    <Build Include="Tables\EmailDelivery.sql" />
+    <Build Include="Procedures\GetNextEmailDelivery.sql" />
+    <None Include="Deployments\EmailTemplate.sql" />
+    <Build Include="Tables\Datasweep.sql" />
+    <Build Include="Tables\UserLoginHistory.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />
+    <None Include="Datasweeps.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

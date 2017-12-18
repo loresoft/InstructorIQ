@@ -14,6 +14,7 @@ namespace InstructorIQ.Core.Data.Entities
             Instructors = new HashSet<Instructor>();
             RefreshTokens = new HashSet<RefreshToken>();
             UserLogins = new HashSet<UserLogin>();
+            UserLoginHistories = new HashSet<UserLoginHistory>();
             UserRoles = new HashSet<UserRole>();
         }
 
@@ -39,6 +40,7 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
         public virtual Organization LastOrganization { get; set; }
         public virtual ICollection<UserLogin> UserLogins { get; set; }
+        public virtual ICollection<UserLoginHistory> UserLoginHistories { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

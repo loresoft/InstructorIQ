@@ -26,6 +26,7 @@ namespace InstructorIQ.Core.Data
         public DbSet<InstructorIQ.Core.Data.Entities.SessionGroup> SessionGroups { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.SessionInstructor> SessionInstructors { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.UserLogin> UserLogins { get; set; }
+        public DbSet<InstructorIQ.Core.Data.Entities.UserLoginHistory> UserLoginHistories { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +46,7 @@ namespace InstructorIQ.Core.Data
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionGroupMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionInstructorMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.UserLoginMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.UserLoginHistoryMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.UserRoleMap());
 
             InitializeMapping(modelBuilder);

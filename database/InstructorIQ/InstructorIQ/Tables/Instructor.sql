@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Instructor]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Instructor_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Instructor_Id] DEFAULT (NEWSEQUENTIALID()),
 
     [GivenName] nvarchar(256) NOT NULL,
     [MiddleName] nvarchar(256) NULL,
@@ -14,9 +14,9 @@
 
     [UserId] UNIQUEIDENTIFIER NULL,
 
-    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Instructor_Created] DEFAULT (sysutcdatetime()),
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Instructor_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
-    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Instructor_Updated] DEFAULT (sysutcdatetime()),
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Instructor_Updated] DEFAULT (SYSUTCDATETIME()),
     [UpdatedBy] NVARCHAR(100) NULL,
     [RowVersion] ROWVERSION NOT NULL,
 

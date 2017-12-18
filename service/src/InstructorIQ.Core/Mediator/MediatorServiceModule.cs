@@ -19,7 +19,6 @@ namespace InstructorIQ.Core.Mediator
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
             #region Generated Registrations
-            RegisterEntity<EmailDelivery, EmailDeliveryReadModel, EmailDeliveryCreateModel, EmailDeliveryUpdateModel>(services);
             RegisterEntity<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>(services);
             RegisterEntity<EmailTemplate, EmailTemplateReadModel, EmailTemplateCreateModel, EmailTemplateUpdateModel>(services);
             RegisterEntity<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
@@ -33,6 +32,10 @@ namespace InstructorIQ.Core.Mediator
             RegisterEntity<SessionInstructor, SessionInstructorReadModel, SessionInstructorCreateModel, SessionInstructorUpdateModel>(services);
 
             #endregion
+
+            // read only models
+            RegisterEntityRead<EmailDelivery, EmailDeliveryReadModel>(services);
+            RegisterEntityRead<UserLoginHistory, UserLoginHistoryReadModel>(services);
 
             RegisterUserManagement(services);
 
@@ -63,15 +66,13 @@ namespace InstructorIQ.Core.Mediator
             where TCreateModel : EntityCreateModel
             where TUpdateModel : EntityUpdateModel
         {
+            RegisterEntityRead<TEntity, TReadModel>(services);
+
             // standard crud commands
             services.TryAddTransient<IRequestHandler<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, EntityCreateCommandHandler<TEntity, TCreateModel, TReadModel>>();
             services.TryAddTransient<IRequestHandler<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, EntityUpdateCommandHandler<TEntity, TUpdateModel, TReadModel>>();
             services.TryAddTransient<IRequestHandler<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, EntityPatchCommandHandler<TEntity, TReadModel>>();
             services.TryAddTransient<IRequestHandler<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, EntityDeleteCommandHandler<TEntity, TReadModel>>();
-
-            // standard queries
-            services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<TEntity, TReadModel>, TReadModel>, EntityIdentifierQueryHandler<TEntity, TReadModel>>();
-            services.TryAddTransient<IRequestHandler<EntityListQuery<TEntity, TReadModel>, EntityListResult<TReadModel>>, EntityListQueryHandler<TEntity, TReadModel>>();
 
             // pipeline registration,  run in order registered
             services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, AuthenticateEntityCreateCommandBehavior<TEntity, TCreateModel, TReadModel>>();
@@ -84,6 +85,15 @@ namespace InstructorIQ.Core.Mediator
 
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, TrackChangeEntityUpdateCommandBehavior<TEntity, TUpdateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, TrackChangeEntityPatchCommandBehavior<TEntity, TReadModel>>();
+        }
+
+        public void RegisterEntityRead<TEntity, TReadModel>(IServiceCollection services)
+           where TEntity : class, new()
+           where TReadModel : EntityReadModel
+        {
+            // standard queries
+            services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<TEntity, TReadModel>, TReadModel>, EntityIdentifierQueryHandler<TEntity, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityListQuery<TEntity, TReadModel>, EntityListResult<TReadModel>>, EntityListQueryHandler<TEntity, TReadModel>>();
         }
     }
 }

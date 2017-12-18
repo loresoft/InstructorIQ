@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[InstructorOrganization]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_InstructorOrganization_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_InstructorOrganization_Id] DEFAULT (NEWSEQUENTIALID()),
     [InstructorId] UNIQUEIDENTIFIER NOT NULL,
     [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
 

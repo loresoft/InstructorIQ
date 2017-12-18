@@ -10,6 +10,7 @@ using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Mediator.Commands;
+using InstructorIQ.Core.Mediator.Models;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using Microsoft.AspNetCore.Authentication;
@@ -38,25 +39,26 @@ namespace InstructorIQ.Core.Mediator.Handlers
             _principalOptions = principalOptions;
             _hostingOptions = hostingOptions;
             _dataContext = dataContext;
-            this._passwordHasher = passwordHasher;
+            _passwordHasher = passwordHasher;
         }
 
-        protected override async Task<TokenResponse> Process(AuthenticateCommand message, CancellationToken cancellationToken)
+        protected override async Task<TokenResponse> Process(AuthenticateCommand authenticateCommand, CancellationToken cancellationToken)
         {
-            var tokenRequest = message.TokenRequest;
+            var tokenRequest = authenticateCommand.TokenRequest;
 
             if (tokenRequest.GrantType == TokenConstants.GrantTypes.Password)
-                return await PasswordAuthenticate(tokenRequest).ConfigureAwait(false);
+                return await PasswordAuthenticate(authenticateCommand).ConfigureAwait(false);
 
             if (tokenRequest.GrantType == TokenConstants.GrantTypes.RefreshToken)
-                return await RefreshAuthenticate(tokenRequest).ConfigureAwait(false);
+                return await RefreshAuthenticate(authenticateCommand).ConfigureAwait(false);
 
             throw new AuthenticationException(TokenConstants.Errors.UnsupportedGrantType, "grant_type 'password' or 'refresh_token' required");
         }
 
 
-        private async Task<TokenResponse> RefreshAuthenticate(TokenRequest tokenRequest)
+        private async Task<TokenResponse> RefreshAuthenticate(AuthenticateCommand authenticateCommand)
         {
+            var tokenRequest = authenticateCommand.TokenRequest;
             var token = tokenRequest.RefreshToken;
 
             // hash refresh_token so session can't be hijacked
@@ -83,7 +85,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
             var userName = refreshToken.UserName;
 
             // create new token from refresh data
-            var result = await CreateToken(organizationId, clientId, userName, null, false).ConfigureAwait(false);
+            var result = await CreateToken(authenticateCommand.UserAgent, organizationId, clientId, userName, null, false).ConfigureAwait(false);
 
             // delete refresh token to prevent reuse
             _dataContext.RefreshTokens.Remove(refreshToken);
@@ -92,35 +94,47 @@ namespace InstructorIQ.Core.Mediator.Handlers
             return result;
         }
 
-        private async Task<TokenResponse> PasswordAuthenticate(TokenRequest tokenRequest)
+        private async Task<TokenResponse> PasswordAuthenticate(AuthenticateCommand authenticateCommand)
         {
+            var tokenRequest = authenticateCommand.TokenRequest;
             var clientId = tokenRequest.ClientId;
             var userName = tokenRequest.UserName;
             var password = tokenRequest.Password;
             var organizationId = tokenRequest.OrganizationId;
 
             if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrEmpty(password))
-                return await CreateToken(organizationId, clientId, userName, password, true).ConfigureAwait(false);
+                return await CreateToken(authenticateCommand.UserAgent, organizationId, clientId, userName, password, true).ConfigureAwait(false);
 
             // missing userName or password
             Logger.LogWarning($"User name or password not in form request; UserName: {userName}");
             throw new AuthenticationException(TokenConstants.Errors.InvalidGrant, "The user name or password is incorrect");
         }
 
-        private async Task<TokenResponse> CreateToken(Guid? organizationId, string clientId, string userName, string password, bool verifyPassword)
+        private async Task<TokenResponse> CreateToken(UserAgentModel userAgent, Guid? organizationId, string clientId, string userName, string password, bool verifyPassword)
         {
             var user = await _dataContext.Users
                 .GetByEmailAddressAsync(userName)
                 .ConfigureAwait(false);
 
-            if (user == null)
+            try
             {
-                Logger.LogWarning($"User name or password is incorrect; UserName: {userName}");
-                throw new AuthenticationException(TokenConstants.Errors.InvalidGrant, "The user name or password is incorrect");
+                if (user == null)
+                {
+                    Logger.LogWarning($"User name or password is incorrect; UserName: {userName}");
+                    throw new AuthenticationException(TokenConstants.Errors.InvalidGrant, "The user name or password is incorrect");
+                }
+
+                // validate user credentials
+                await ValidateUser(user, password, verifyPassword).ConfigureAwait(false);
+
+            }
+            catch (AuthenticationException ex)
+            {
+                await CreateHistory(userAgent, userName, user, ex).ConfigureAwait(false);
+                throw;
             }
 
-            // validate user credentials
-            await ValidateUser(user, password, verifyPassword).ConfigureAwait(false);
+            await CreateHistory(userAgent, userName, user).ConfigureAwait(false);
 
             organizationId = await GetOrganizationId(organizationId, user).ConfigureAwait(false);
 
@@ -146,6 +160,27 @@ namespace InstructorIQ.Core.Mediator.Handlers
             };
 
             return response;
+        }
+
+        private async Task CreateHistory(UserAgentModel userAgent, string userName, User user, Exception exception = null)
+        {
+            var history = new UserLoginHistory
+            {
+                UserId = user?.Id,
+                EmailAddress = userName,
+                Browser = userAgent.Browser,
+                DeviceBrand = userAgent.DeviceBrand,
+                DeviceFamily = userAgent.DeviceFamily,
+                DeviceModel = userAgent.DeviceModel,
+                IpAddress = userAgent.IpAddress,
+                OperatingSystem = userAgent.OperatingSystem,
+                UserAgent = userAgent.UserAgent,
+                IsSuccessful = exception == null,
+                FailureMessage = exception?.Message
+            };
+
+            await _dataContext.UserLoginHistories.AddAsync(history).ConfigureAwait(false);
+            await _dataContext.SaveChangesAsync().ConfigureAwait(false);
         }
 
         private async Task ValidateUser(User user, string password, bool verifyPassword)

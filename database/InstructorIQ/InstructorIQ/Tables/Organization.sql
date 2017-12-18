@@ -1,15 +1,15 @@
 ﻿CREATE TABLE [dbo].[Organization]
 (
-    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Organization_Id] DEFAULT (newsequentialid()),
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Organization_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
     [Abbreviation] NVARCHAR(50) NOT NULL,
     [Description] NVARCHAR(MAX) NULL,
 
-    [IsDeleted] [BIT] NOT NULL CONSTRAINT [DF_Organization_IsDeleted] DEFAULT (0),
+    [IsDeleted] BIT NOT NULL CONSTRAINT [DF_Organization_IsDeleted] DEFAULT (0),
 
-    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Organization_Created] DEFAULT (sysutcdatetime()),
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Organization_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
-    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Organization_Updated] DEFAULT (sysutcdatetime()),
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Organization_Updated] DEFAULT (SYSUTCDATETIME()),
     [UpdatedBy] NVARCHAR(100) NULL,
     [RowVersion] ROWVERSION NOT NULL,
 
