@@ -38,7 +38,7 @@ namespace InstructorIQ.Core.Mediator.Validation
             RuleFor(p => p.EmailAddress).EmailAddress();
             RuleFor(p => p.EmailAddress).MaximumLength(256);
 
-            RuleFor(p => p.SecurityToken).NotEmpty();
+            RuleFor(p => p.ResetToken).NotEmpty();
 
             RuleFor(p => p.UpdatedPassword).NotEmpty();
             RuleFor(p => p.UpdatedPassword).MinimumLength(8);

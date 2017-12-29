@@ -14,5 +14,12 @@ namespace InstructorIQ.Core.Mediator.Commands
         public UserManagementCommand(TUserModel model, IPrincipal principal) : base(model, principal)
         {
         }
+
+        public UserManagementCommand(TUserModel model, IPrincipal principal, UserAgentModel userAgent) : base(model, principal)
+        {
+            UserAgent = userAgent;
+        }
+
+        public UserAgentModel UserAgent { get; set; }
     }
 }

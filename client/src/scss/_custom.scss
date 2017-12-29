@@ -1,2 +1,18 @@
-$enable-shadows:            true;
-$enable-gradients:          true;
+$enable-shadows: true;
+$enable-gradients: true;
+
+// Changing the theme colors
+$primary: #337ab7;
+//$secondary: #436296;
+$success: #5cb85c;
+$info: #5bc0de;
+$warning: #f0ad4e;
+$danger: #d9534f;
+$light: #f8f8f8;
+//$dark: #0f1319;
+
+
+// Adding (!) an additional theme color (ex. classes btn-cool, bg-cool)
+//$theme-colors: (
+//  "cool": #4d3fa3
+//);

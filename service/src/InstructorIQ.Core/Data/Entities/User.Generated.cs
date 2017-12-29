@@ -14,7 +14,6 @@ namespace InstructorIQ.Core.Data.Entities
             Instructors = new HashSet<Instructor>();
             RefreshTokens = new HashSet<RefreshToken>();
             UserLogins = new HashSet<UserLogin>();
-            UserLoginHistories = new HashSet<UserLoginHistory>();
             UserRoles = new HashSet<UserRole>();
         }
 
@@ -23,7 +22,8 @@ namespace InstructorIQ.Core.Data.Entities
         public bool IsEmailAddressConfirmed { get; set; }
         public string DisplayName { get; set; }
         public string PasswordHash { get; set; }
-        public string SecurityStamp { get; set; }
+        public string ResetHash { get; set; }
+        public string InviteHash { get; set; }
         public int AccessFailedCount { get; set; }
         public bool LockoutEnabled { get; set; }
         public DateTimeOffset? LockoutEnd { get; set; }
@@ -40,7 +40,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
         public virtual Organization LastOrganization { get; set; }
         public virtual ICollection<UserLogin> UserLogins { get; set; }
-        public virtual ICollection<UserLoginHistory> UserLoginHistories { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

@@ -136,10 +136,10 @@ namespace InstructorIQ.Core.Mediator.Handlers
 
             await CreateHistory(userAgent, userName, user).ConfigureAwait(false);
 
-            organizationId = await GetOrganizationId(organizationId, user).ConfigureAwait(false);
+            var organization = await GetOrganization(organizationId, user).ConfigureAwait(false);
 
             // create identity
-            var claimsIdentity = await CreateIdentity(user, organizationId).ConfigureAwait(false);
+            var claimsIdentity = await CreateIdentity(user, organization).ConfigureAwait(false);
             var accessToken = CreateAccessToken(claimsIdentity);
 
             // create refresh token
@@ -147,8 +147,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
 
             // update user
             user.LastLogin = DateTime.UtcNow;
-            if (organizationId.HasValue)
-                user.LastOrganizationId = organizationId;
+            user.LastOrganizationId = organization?.Id;
 
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
 
@@ -164,7 +163,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
 
         private async Task CreateHistory(UserAgentModel userAgent, string userName, User user, Exception exception = null)
         {
-            var history = new UserLoginHistory
+            var history = new UserLogin
             {
                 UserId = user?.Id,
                 EmailAddress = userName,
@@ -179,7 +178,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
                 FailureMessage = exception?.Message
             };
 
-            await _dataContext.UserLoginHistories.AddAsync(history).ConfigureAwait(false);
+            await _dataContext.UserLogins.AddAsync(history).ConfigureAwait(false);
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
         }
 
@@ -234,7 +233,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        private async Task<Guid?> GetOrganizationId(Guid? id, User user)
+        private async Task<Organization> GetOrganization(Guid? id, User user)
         {
             // first try by id
             Organization organization = null;
@@ -246,7 +245,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
                     .ConfigureAwait(false);
 
                 if (organization != null && !organization.IsDeleted)
-                    return organization.Id;
+                    return organization;
             }
 
             // next try last organization
@@ -257,20 +256,21 @@ namespace InstructorIQ.Core.Mediator.Handlers
                     .ConfigureAwait(false);
 
                 if (organization != null && !organization.IsDeleted)
-                    return organization.Id;
+                    return organization;
             }
 
             // finally try first membership
-            var role = await _dataContext.UserRoles
+            organization = await _dataContext.UserRoles
                 .ByUserId(user.Id)
                 .AsNoTracking()
+                .Select(o => o.Organization)
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 
-            return role?.OrganizationId;
+            return organization;
         }
 
-        private async Task<ClaimsIdentity> CreateIdentity(User user, Guid? organizationId)
+        private async Task<ClaimsIdentity> CreateIdentity(User user, Organization organization)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
@@ -278,19 +278,21 @@ namespace InstructorIQ.Core.Mediator.Handlers
             //NOTE: keep token as small as possible, only add required claims
             var claimsIdentity = new ClaimsIdentity(JwtConstants.TokenType, TokenConstants.Claims.Name, TokenConstants.Claims.Role);
             claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Subject, user.EmailAddress));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Name, user.EmailAddress));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Name, user.DisplayName));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Email, user.EmailAddress));
             claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.UserId, user.Id.ToString()));
 
             //if (user.IsGlobalAdmin)
             //    claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, UserRoles.GlobalAdministrator));
 
-            if (organizationId == null)
+            if (organization == null)
                 return claimsIdentity;
 
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationId, organizationId.Value.ToString()));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationId, organization.Id.ToString()));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationName, organization.Name));
 
             var roles = await _dataContext.UserRoles
-                .Where(p => p.UserId == user.Id && p.OrganizationId == organizationId.Value)
+                .Where(p => p.UserId == user.Id && p.OrganizationId == organization.Id)
                 .Select(p => p.Role.Name)
                 .AsNoTracking()
                 .ToListAsync()

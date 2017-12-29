@@ -40,6 +40,24 @@ namespace InstructorIQ.Core.Tests.Mediator
         }
 
         [Fact]
+        public async Task ForgotPassword()
+        {
+            var mediator = ServiceProvider.GetService<IMediator>();
+            mediator.Should().NotBeNull();
+
+            var registerModel = new UserForgotPasswordModel
+            {
+                EmailAddress = "test@mailinator.com",
+            };
+
+            var command = new UserManagementCommand<UserForgotPasswordModel>(registerModel);
+
+            var result = await mediator.Send(command).ConfigureAwait(false);
+            result.Should().NotBeNull();
+            result.EmailAddress.Should().Be(registerModel.EmailAddress);
+        }
+
+        [Fact]
         public async Task LoginUser()
         {
             var mediator = ServiceProvider.GetService<IMediator>();
@@ -59,6 +77,7 @@ namespace InstructorIQ.Core.Tests.Mediator
             var request = new TokenRequest
             {
                 GrantType = "password",
+                ClientId = "UnitTest",
                 UserName = $"test@mailinator.com",
                 Password = "Th!s My Passw@ord"
             };

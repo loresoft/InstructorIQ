@@ -36,8 +36,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasMaxLength(256);
             builder.Property(t => t.PasswordHash)
                 .HasColumnName("PasswordHash");
-            builder.Property(t => t.SecurityStamp)
-                .HasColumnName("SecurityStamp");
+            builder.Property(t => t.ResetHash)
+                .HasColumnName("ResetHash");
+            builder.Property(t => t.InviteHash)
+                .HasColumnName("InviteHash");
             builder.Property(t => t.AccessFailedCount)
                 .IsRequired()
                 .HasColumnName("AccessFailedCount")

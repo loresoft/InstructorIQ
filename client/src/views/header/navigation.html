@@ -1,0 +1,115 @@
+<template>
+  <nav id="navbar-main"
+       class="navbar navbar-expand-lg navbar-light fixed-top navbar-default">
+    <div class="container">
+      <a class="navbar-brand"
+         href="/"
+         style="padding: 0">
+        <img src="/static/logo-full.svg"
+             alt="InstructorIQ"
+             height="30">
+      </a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarCollapse"
+              aria-controls="navbarCollapse"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"
+           id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link"
+               href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="navbarDropdownTopic"
+               href="#"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              Topics
+            </a>
+            <div class="dropdown-menu"
+                 aria-labelledby="navbarDropdownTopic">
+              <a class="dropdown-item"
+                 href="/topics">View Topics</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item"
+                 href="/topic/create">Create Topic</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="navbarDropdownCalendar"
+               href="#"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              Calendar
+            </a>
+            <div class="dropdown-menu"
+                 aria-labelledby="navbarDropdownCalendar">
+              <a class="dropdown-item"
+                 href="/calendar">View Calendar</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2"
+                 type="text"
+                 placeholder="Search"
+                 aria-label="Search"
+                 style="background: transparent;">
+        </form>
+
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown"
+              if.bind="authentication.authenticated & signal:'authentication-change'">
+            <a id="navbarDropdownUser"
+               href="#"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              <gravatar email.bind="authentication.email"
+                        size.bind="24"></gravatar>
+              <span>${authentication.name}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right"
+                 aria-labelledby="navbarDropdownUser">
+              <a id="navbar-main-identity-profile"
+                 class="dropdown-item"
+                 href="/user/profile">
+                <i class="fa fa-user fa-fw"></i> Edit Profile</a>
+              <a id="navbar-main-identity-organization"
+                 class="dropdown-item"
+                 href="#">
+                <i class="fa fa-group fa-fw"></i> Organizations</a>
+              <div class="dropdown-divider"></div>
+              <a id="navbar-main-identity-logout"
+                 class="dropdown-item"
+                 href=""
+                 click.delegate="logout()">
+                <i class="fa fa-power-off fa-fw"></i> Logout</a>
+            </div>
+          </li>
+          <li class="nav-item"
+              if.bind="!authentication.authenticated & signal:'authentication-change'">
+            <a class="nav-link"
+               href="/login">
+              Login
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</template>

@@ -33,6 +33,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .IsRequired()
                 .HasColumnName("FamilyName")
                 .HasMaxLength(256);
+            builder.Property(t => t.DisplayName)
+                .IsRequired()
+                .HasColumnName("DisplayName")
+                .HasMaxLength(256);
             builder.Property(t => t.JobTitle)
                 .HasColumnName("JobTitle")
                 .HasMaxLength(256);
@@ -49,6 +53,9 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasMaxLength(50);
             builder.Property(t => t.UserId)
                 .HasColumnName("UserId");
+            builder.Property(t => t.OrganizationId)
+                .IsRequired()
+                .HasColumnName("OrganizationId");
             builder.Property(t => t.Created)
                 .IsRequired()
                 .HasColumnName("Created")
@@ -71,6 +78,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
 
             // Relationships
+            builder.HasOne(t => t.Organization)
+                .WithMany(t => t.Instructors)
+                .HasForeignKey(d => d.OrganizationId)
+                .HasConstraintName("FK_Instructor_Organization_OrganizationId");
             builder.HasOne(t => t.User)
                 .WithMany(t => t.Instructors)
                 .HasForeignKey(d => d.UserId)

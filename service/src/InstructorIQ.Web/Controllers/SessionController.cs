@@ -18,7 +18,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class SessionController : MediatorController<Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>
+    public class SessionController : MediatorControllerBase<Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>
     {
         public SessionController(IMediator mediator) : base(mediator)
         {

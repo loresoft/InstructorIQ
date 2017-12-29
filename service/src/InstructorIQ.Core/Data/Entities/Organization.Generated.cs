@@ -13,7 +13,7 @@ namespace InstructorIQ.Core.Data.Entities
             EmailDeliveries = new HashSet<EmailDelivery>();
             EmailTemplates = new HashSet<EmailTemplate>();
             Groups = new HashSet<Group>();
-            InstructorOrganizations = new HashSet<InstructorOrganization>();
+            Instructors = new HashSet<Instructor>();
             Locations = new HashSet<Location>();
             Sessions = new HashSet<Session>();
             Topics = new HashSet<Topic>();
@@ -35,7 +35,7 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<EmailDelivery> EmailDeliveries { get; set; }
         public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
-        public virtual ICollection<InstructorOrganization> InstructorOrganizations { get; set; }
+        public virtual ICollection<Instructor> Instructors { get; set; }
         public virtual ICollection<Location> Locations { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
         public virtual ICollection<Topic> Topics { get; set; }

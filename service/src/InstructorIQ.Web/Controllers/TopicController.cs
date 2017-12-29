@@ -18,7 +18,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class TopicController : MediatorController<Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>
+    public class TopicController : MediatorControllerBase<Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>
     {
         public TopicController(IMediator mediator) : base(mediator)
         {

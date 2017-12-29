@@ -56,6 +56,16 @@ namespace InstructorIQ.Core.Data.Queries
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1"></see> to filter.</param>
         /// <returns>An <see cref="T:System.Linq.IQueryable`1"></see> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Instructor> ByOrganizationId(this IQueryable<InstructorIQ.Core.Data.Entities.Instructor> queryable, Guid organizationId)
+        {
+            return queryable.Where(i => i.OrganizationId == organizationId);
+        }
+
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1"></see> to filter.</param>
+        /// <returns>An <see cref="T:System.Linq.IQueryable`1"></see> that contains elements from the input sequence that satisfy the condition specified.</returns>
         public static IQueryable<InstructorIQ.Core.Data.Entities.Instructor> ByUserId(this IQueryable<InstructorIQ.Core.Data.Entities.Instructor> queryable, Guid? userId)
         {
             return queryable.Where(i => (i.UserId == userId || (userId == null && i.UserId == null)));

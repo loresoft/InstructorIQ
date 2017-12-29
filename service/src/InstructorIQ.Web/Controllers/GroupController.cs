@@ -18,7 +18,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class GroupController : MediatorController<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>
+    public class GroupController : MediatorControllerBase<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>
     {
         public GroupController(IMediator mediator) : base(mediator)
         {

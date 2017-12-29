@@ -46,31 +46,19 @@ namespace InstructorIQ.Core.Data.Queries
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1"></see> to filter.</param>
         /// <returns>An <see cref="T:System.Linq.IQueryable`1"></see> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> ByUserId(this IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> queryable, Guid userId)
+        public static IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> ByEmailAddress(this IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> queryable, string emailAddress)
         {
-            return queryable.Where(u => u.UserId == userId);
+            return queryable.Where(u => u.EmailAddress == emailAddress);
         }
 
         /// <summary>
-        /// Gets an instance of <see cref="T:InstructorIQ.Core.Data.Entities.UserLogin"/> by using a unique index.
+        /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1"></see> to filter.</param>
-        /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.UserLogin"/> or null if not found.</returns>
-        public static InstructorIQ.Core.Data.Entities.UserLogin GetByLoginProviderProviderKey(this IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> queryable, string loginProvider, string providerKey)
+        /// <returns>An <see cref="T:System.Linq.IQueryable`1"></see> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> ByUserId(this IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> queryable, Guid? userId)
         {
-            return queryable.FirstOrDefault(u => u.LoginProvider == loginProvider
-                && u.ProviderKey == providerKey);
-        }
-
-        /// <summary>
-        /// Gets an instance of <see cref="T:InstructorIQ.Core.Data.Entities.UserLogin"/> by using a unique index asynchronously.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1"></see> to filter.</param>
-        /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.UserLogin"/> or null if not found.</returns>
-        public static Task<InstructorIQ.Core.Data.Entities.UserLogin> GetByLoginProviderProviderKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.UserLogin> queryable, string loginProvider, string providerKey)
-        {
-            return queryable.FirstOrDefaultAsync(u => u.LoginProvider == loginProvider
-                && u.ProviderKey == providerKey);
+            return queryable.Where(u => (u.UserId == userId || (userId == null && u.UserId == null)));
         }
     }
 }

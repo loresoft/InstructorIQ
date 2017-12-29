@@ -72,8 +72,7 @@ namespace InstructorIQ.Core.Security
 
             public const string UserId = "uid";
             public const string OrganizationId = "oid";
-            public const string Organization = "org";
-            public const string DisplayName = "display_name";
+            public const string OrganizationName = "org";
         }
 
         public static class CodeChallengeMethods

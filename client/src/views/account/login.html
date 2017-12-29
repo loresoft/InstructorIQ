@@ -1,0 +1,58 @@
+<template>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto py-5">
+        <div class="card">
+          <h4 class="card-header">
+            <i class="fa fa-user"></i> User Login
+          </h4>
+          <div class="card-body">
+            <h5 class="text-danger"
+                if.bind="message">
+              ${message}
+            </h5>
+            <form id="login-form"
+                  name="login-form"
+                  role="form"
+                  submit.delegate="processForm()"
+                  novalidate="novalidate">
+              <div class="form-group">
+                <label for="email-input">Email Address</label>
+                <input id="email-input"
+                       type="email"
+                       class="form-control"
+                       placeholder="Email Address"
+                       value.bind="emailAddress & validate">
+              </div>
+              <div class="form-group">
+                <label for="password-input">Password</label>
+                <input id="password-input"
+                       type="password"
+                       class="form-control"
+                       placeholder="Password"
+                       value.bind="password & validate">
+              </div>
+
+              <button id="login-button"
+                      type="submit"
+                      loading-state.bind="loading"
+                      class="btn btn-primary">Login</button>
+
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              <div class="col text-center">
+                <a href="/register">Register as a new user</a>
+              </div>
+              <div class="col text-center">
+                <a href="/forgot-password">Forgot your password</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

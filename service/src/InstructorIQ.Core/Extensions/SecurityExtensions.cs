@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
+using InstructorIQ.Core.Data.Constants;
 using InstructorIQ.Core.Security;
 
 namespace InstructorIQ.Core.Extensions
@@ -13,13 +14,13 @@ namespace InstructorIQ.Core.Extensions
         public static bool IsGlobalAdministrator(this IPrincipal principal)
         {
             return principal is ClaimsPrincipal cp
-                && cp.IsInRole(UserRoles.GlobalAdministrator);
+                && cp.IsInRole(Role.GlobalAdministrator);
         }
 
         public static bool IsOrganizationAdministrator(this IPrincipal principal)
         {
             return principal is ClaimsPrincipal cp
-                && cp.IsInRole(UserRoles.OrganizationAdministrator);
+                && cp.IsInRole(Role.AdministratorName);
         }
 
 
@@ -41,16 +42,18 @@ namespace InstructorIQ.Core.Extensions
             return ci?.FindFirstValue(TokenConstants.Claims.OrganizationId);
         }
 
+        public static string GetOrganizationName(this IIdentity identity)
+        {
+            var ci = identity as ClaimsIdentity;
+            return ci?.FindFirstValue(TokenConstants.Claims.OrganizationName);
+        }
+
 
         public static IEnumerable<string> GetRoles(this IIdentity identity)
         {
             return FindValues(identity as ClaimsIdentity, TokenConstants.Claims.Role);
         }
 
-        public static IEnumerable<string> GetOrganizations(this IIdentity identity)
-        {
-            return FindValues(identity as ClaimsIdentity, TokenConstants.Claims.Organization);
-        }
 
 
         public static string FindFirstValue(this ClaimsIdentity identity, string claimType)

@@ -22,9 +22,9 @@ namespace InstructorIQ.Core.Mediator
             RegisterEntity<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>(services);
             RegisterEntity<EmailTemplate, EmailTemplateReadModel, EmailTemplateCreateModel, EmailTemplateUpdateModel>(services);
             RegisterEntity<Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
+            RegisterEntity<HistoryRecord, HistoryRecordReadModel, HistoryRecordCreateModel, HistoryRecordUpdateModel>(services);
             RegisterEntity<Instructor, InstructorReadModel, InstructorCreateModel, InstructorUpdateModel>(services);
             RegisterEntity<User, UserReadModel, UserCreateModel, UserUpdateModel>(services);
-            RegisterEntity<InstructorOrganization, InstructorOrganizationReadModel, InstructorOrganizationCreateModel, InstructorOrganizationUpdateModel>(services);
             RegisterEntity<Location, LocationReadModel, LocationCreateModel, LocationUpdateModel>(services);
             RegisterEntity<Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
             RegisterEntity<Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
@@ -35,7 +35,7 @@ namespace InstructorIQ.Core.Mediator
 
             // read only models
             RegisterEntityRead<EmailDelivery, EmailDeliveryReadModel>(services);
-            RegisterEntityRead<UserLoginHistory, UserLoginHistoryReadModel>(services);
+            RegisterEntityRead<UserLogin, UserLoginReadModel>(services);
 
             RegisterUserManagement(services);
 

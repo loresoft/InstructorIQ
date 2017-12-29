@@ -6,7 +6,9 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using InstructorIQ.Core.Mediator;
 using InstructorIQ.Core.Mediator.Models;
+using InstructorIQ.Core.Security;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -84,7 +86,11 @@ namespace InstructorIQ.Web.Middleware
         {
             context.Response.ContentType = "application/json";
 
-            var result = new ErrorModel { Message = exception.Message };
+            var result = new ErrorModel
+            {
+                Message = exception.Message,
+                Detail = exception.ToString()
+            };
 
             switch (exception)
             {
@@ -96,10 +102,18 @@ namespace InstructorIQ.Web.Middleware
                     context.Response.StatusCode = 422; // Unprocessable Entity
                     result.Errors = errors;
                     break;
+
+                case AuthenticationException authenticationException:
+                    context.Response.StatusCode = 400; // Bad Request
+                    result.Detail = authenticationException.ErrorType;
+                    break;
+
+                case MediatorException mediatorException:
+                    context.Response.StatusCode = mediatorException.StatusCode;
+                    break;
             }
 
             result.Code = $"{context.Response.StatusCode}";
-            result.Detail = exception.ToString();
 
             using (var writer = new StreamWriter(context.Response.Body))
             {

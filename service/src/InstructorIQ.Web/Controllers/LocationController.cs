@@ -18,7 +18,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class LocationController : MediatorController<Location, LocationReadModel, LocationCreateModel, LocationUpdateModel>
+    public class LocationController : MediatorControllerBase<Location, LocationReadModel, LocationCreateModel, LocationUpdateModel>
     {
         public LocationController(IMediator mediator) : base(mediator)
         {

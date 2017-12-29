@@ -25,7 +25,7 @@ namespace InstructorIQ.Core.Data.Entities
         public string From { get; set; }
         public string To { get; set; }
         public string Subject { get; set; }
-        public string MimeMessage { get; set; }
+        public Byte[] MimeMessage { get; set; }
         public Guid? OrganizationId { get; set; }
         public DateTimeOffset Created { get; set; }
         public string CreatedBy { get; set; }

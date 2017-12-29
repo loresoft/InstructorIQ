@@ -22,19 +22,59 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Id")
                 .HasDefaultValueSql("(newsequentialid())")
                 .ValueGeneratedOnAdd();
-            builder.Property(t => t.LoginProvider)
+            builder.Property(t => t.EmailAddress)
                 .IsRequired()
-                .HasColumnName("LoginProvider")
-                .HasMaxLength(450);
-            builder.Property(t => t.ProviderKey)
-                .IsRequired()
-                .HasColumnName("ProviderKey")
-                .HasMaxLength(450);
-            builder.Property(t => t.ProviderDisplayName)
-                .HasColumnName("ProviderDisplayName");
+                .HasColumnName("EmailAddress")
+                .HasMaxLength(256);
             builder.Property(t => t.UserId)
-                .IsRequired()
                 .HasColumnName("UserId");
+            builder.Property(t => t.UserAgent)
+                .HasColumnName("UserAgent");
+            builder.Property(t => t.Browser)
+                .HasColumnName("Browser")
+                .HasMaxLength(256);
+            builder.Property(t => t.OperatingSystem)
+                .HasColumnName("OperatingSystem")
+                .HasMaxLength(256);
+            builder.Property(t => t.DeviceFamily)
+                .HasColumnName("DeviceFamily")
+                .HasMaxLength(256);
+            builder.Property(t => t.DeviceBrand)
+                .HasColumnName("DeviceBrand")
+                .HasMaxLength(256);
+            builder.Property(t => t.DeviceModel)
+                .HasColumnName("DeviceModel")
+                .HasMaxLength(256);
+            builder.Property(t => t.IpAddress)
+                .HasColumnName("IpAddress")
+                .HasMaxLength(50);
+            builder.Property(t => t.IsSuccessful)
+                .IsRequired()
+                .HasColumnName("IsSuccessful")
+                .HasDefaultValueSql("((0))");
+            builder.Property(t => t.FailureMessage)
+                .HasColumnName("FailureMessage")
+                .HasMaxLength(256);
+            builder.Property(t => t.Created)
+                .IsRequired()
+                .HasColumnName("Created")
+                .HasDefaultValueSql("(sysutcdatetime())");
+            builder.Property(t => t.CreatedBy)
+                .HasColumnName("CreatedBy")
+                .HasMaxLength(100);
+            builder.Property(t => t.Updated)
+                .IsRequired()
+                .HasColumnName("Updated")
+                .HasDefaultValueSql("(sysutcdatetime())");
+            builder.Property(t => t.UpdatedBy)
+                .HasColumnName("UpdatedBy")
+                .HasMaxLength(100);
+            builder.Property(t => t.RowVersion)
+                .IsRequired()
+                .IsRowVersion()
+                .HasColumnName("RowVersion")
+                .HasMaxLength(8)
+                .ValueGeneratedOnAddOrUpdate();
 
             // Relationships
             builder.HasOne(t => t.User)

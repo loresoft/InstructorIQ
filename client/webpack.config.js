@@ -23,7 +23,7 @@ const cssRules = [
   { loader: 'css-loader' },
 ];
 
-module.exports = ({production, server, extractCss, coverage} = {}) => ({
+module.exports = ({ production, server, extractCss, coverage } = {}) => ({
   resolve: {
     extensions: ['.ts', '.js'],
     modules: [srcDir, 'node_modules'],
@@ -44,7 +44,7 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
     // serve index.html for all 404 (required for push-state)
     historyApiFallback: true
   },
-  devtool: production ? 'nosources-source-map' : 'cheap-module-eval-source-map',
+  devtool: production ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
       // CSS required in JS/TS files should use the style-loader that auto-injects it into the website
@@ -104,11 +104,12 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
       'Popper': ['popper.js', 'default'],
     }),
     new ModuleDependenciesPlugin({
-      'aurelia-testing': [ './compile-spy', './view-spy' ]
+      'aurelia-testing': ['./compile-spy', './view-spy']
     }),
     new TsConfigPathsPlugin(),
     new CheckerPlugin(),
     new HtmlWebpackPlugin({
+      favicon: './favicon.ico',
       template: 'index.ejs',
       minify: production ? {
         removeComments: true,
@@ -119,6 +120,10 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
         title, server, baseUrl
       }
     }),
+    new CopyWebpackPlugin([
+      { from: 'static', to: 'static' },
+      { from: 'application.json', to: 'application.json' }
+    ]),
     ...when(extractCss, new ExtractTextPlugin({
       filename: production ? '[contenthash].css' : '[id].css',
       allChunks: true
@@ -126,9 +131,6 @@ module.exports = ({production, server, extractCss, coverage} = {}) => ({
     ...when(production, new CommonsChunkPlugin({
       name: ['common']
     })),
-    ...when(production, new CopyWebpackPlugin([
-      { from: 'static/favicon.ico', to: 'favicon.ico' }
-    ])),
     ...when(production, new UglifyJsPlugin({
       sourceMap: true
     }))

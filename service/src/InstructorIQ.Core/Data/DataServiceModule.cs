@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using InstructorIQ.Core.Options;
 using KickStart.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +13,12 @@ namespace InstructorIQ.Core.Data
     {
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
-            var provider = services.BuildServiceProvider();
-            var configuration = provider.GetService<IConfigurationRoot>();
+            data.TryGetValue(ConfigurationServiceModule.ConfigurationKey, out var configurationData);
+
+            var configuration = configurationData as IConfiguration;
+            if (configuration == null)
+                return;
+
             var connectionString = configuration.GetConnectionString("InstructorIQ");
 
             services.AddDbContext<InstructorIQContext>(options => options.UseSqlServer(connectionString));
