@@ -9,7 +9,8 @@ namespace InstructorIQ.Core.Mediator.Profiles
     {
         public UserLoginProfile()
         {
-            CreateMap<UserLogin, UserLoginReadModel>();
+            CreateMap<UserLogin, UserLoginReadModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using FluentAssertions;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Extensions;
@@ -248,13 +249,26 @@ namespace InstructorIQ.Core.Tests.Extensions
 
             var list = fruits
                 .AsQueryable()
-                .Filter(new EntityFilter { Name = "Name", Operator = "Contains",  Value = "Berry" })
+                .Filter(new EntityFilter { Name = "Name", Operator = "Contains",  Value = "berry" })
                 .ToList();
 
-            // TODO make work for linq to entity
-            //list.Should().NotBeEmpty();
-            //list.Count.Should().Be(3);
+            list.Should().NotBeEmpty();
+            list.Count.Should().Be(3);
         }
 
+        [Fact]
+        public void FilterNotContains()
+        {
+            var fruits = Fruit.Data();
+            fruits.Should().NotBeEmpty();
+
+            var list = fruits
+                .AsQueryable()
+                .Filter(new EntityFilter { Name = "Name", Operator = "!Contains", Value = "berry" })
+                .ToList();
+
+            list.Should().NotBeEmpty();
+            list.Count.Should().Be(7);
+        }
     }
 }

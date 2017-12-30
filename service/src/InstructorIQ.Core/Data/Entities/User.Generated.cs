@@ -30,6 +30,7 @@ namespace InstructorIQ.Core.Data.Entities
         public DateTimeOffset? LastLogin { get; set; }
         public Guid? LastOrganizationId { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsGlobalAdministrator { get; set; }
         public DateTimeOffset Created { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset Updated { get; set; }

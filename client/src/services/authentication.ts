@@ -136,7 +136,7 @@ export class Authentication {
       let o = await response.json();
 
       if (response.ok) {
-        logger.info("token successful: ", o);
+        logger.info("fetch token successful: ", o);
 
         this.setToken(o);
         return {
@@ -144,7 +144,7 @@ export class Authentication {
         };
       }
 
-      logger.error("token failed: ", o);
+      logger.error("fetch token failed: ", o);
 
       let m = o.error_description
         ? o.error_description

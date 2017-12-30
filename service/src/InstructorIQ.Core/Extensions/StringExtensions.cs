@@ -251,6 +251,20 @@ namespace InstructorIQ.Core.Extensions
         }
 
         /// <summary>
+        /// Appends a copy of the specified string if <paramref name="condition"/> is met.
+        /// </summary>
+        /// <param name="sb">The StringBuilder instance to append to.</param>
+        /// <param name="text">The string to append.</param>
+        /// <param name="condition">The condition.</param>
+        public static StringBuilder AppendIf(this StringBuilder sb, string text, bool condition)
+        {
+            if (condition)
+                sb.Append(text);
+
+            return sb;
+        }
+
+        /// <summary>
         /// Appends a copy of the specified string followed by the default line terminator if <paramref name="condition"/> is met.
         /// </summary>
         /// <param name="sb">The StringBuilder instance to append to.</param>

@@ -137,46 +137,4 @@ namespace InstructorIQ.Web.Controllers
             return Ok(readModel);
         }
     }
-
-    [Authorize]
-    [ValidateModelState]
-    [Route("api/UserLogin")]
-    [Produces("application/json")]
-    [ProducesResponseType(typeof(ErrorModel), 422)]
-    [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class UserLoginController : MediatorQueryControllerBase<UserLogin, UserLoginReadModel>
-    {
-        public UserLoginController(IMediator mediator) : base(mediator)
-        {
-        }
-
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(UserLoginReadModel), 200)]
-        public async Task<IActionResult> Get(CancellationToken cancellationToken, Guid id)
-        {
-            var readModel = await GetQuery(id, cancellationToken).ConfigureAwait(false);
-
-            return Ok(readModel);
-        }
-
-        [HttpPost("query")]
-        [ProducesResponseType(typeof(EntityListResult<UserLoginReadModel>), 200)]
-        public async Task<IActionResult> Query(CancellationToken cancellationToken, [FromBody]EntityQuery query)
-        {
-            var listResult = await ListQuery(query, cancellationToken).ConfigureAwait(false);
-
-            return Ok(listResult);
-        }
-
-        [HttpGet("")]
-        [ProducesResponseType(typeof(EntityListResult<UserLoginReadModel>), 200)]
-        public async Task<IActionResult> List(CancellationToken cancellationToken, string q = null, string sort = null, int page = 1, int size = 20)
-        {
-            var query = new EntityQuery(q, page, size, sort);
-            var listResult = await ListQuery(query, cancellationToken).ConfigureAwait(false);
-
-            return Ok(listResult);
-        }
-
-    }
 }

@@ -17,7 +17,7 @@ namespace InstructorIQ.Web.Controllers
         protected MediatorControllerBase(IMediator mediator) : base(mediator)
         {
         }
-        
+
         protected virtual async Task<TReadModel> CreateCommand(TCreateModel createModel, CancellationToken cancellationToken = default(CancellationToken))
         {
             var command = new EntityCreateCommand<TEntity, TCreateModel, TReadModel>(createModel, User);

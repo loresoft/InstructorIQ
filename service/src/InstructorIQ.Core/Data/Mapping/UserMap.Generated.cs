@@ -58,6 +58,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .IsRequired()
                 .HasColumnName("IsDeleted")
                 .HasDefaultValueSql("((0))");
+            builder.Property(t => t.IsGlobalAdministrator)
+                .IsRequired()
+                .HasColumnName("IsGlobalAdministrator")
+                .HasDefaultValueSql("((0))");
             builder.Property(t => t.Created)
                 .IsRequired()
                 .HasColumnName("Created")

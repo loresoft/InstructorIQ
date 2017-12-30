@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DataGenerator" Version="4.0.0.18" />
+    <PackageReference Include="DataGenerator" Version="4.0.0.19" />
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
     <PackageReference Include="KickStart.AutoMapper" Version="6.0.0.113" />
     <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.113" />

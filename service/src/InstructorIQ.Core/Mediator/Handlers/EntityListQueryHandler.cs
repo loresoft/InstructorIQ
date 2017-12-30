@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -37,6 +38,10 @@ namespace InstructorIQ.Core.Mediator.Handlers
                 .Set<TEntity>()
                 .AsNoTracking()
                 .Filter(entityQuery.Filter);
+
+            // add raw query
+            if (entityQuery.Query.HasValue())
+                query = query.Where(entityQuery.Query);
 
             // get total for query
             var total = await query

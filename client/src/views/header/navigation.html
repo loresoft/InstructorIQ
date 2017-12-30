@@ -1,7 +1,7 @@
 <template>
   <nav id="navbar-main"
        class="navbar navbar-expand-lg navbar-light fixed-top navbar-default">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand"
          href="/"
          style="padding: 0">
@@ -18,33 +18,11 @@
               aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse"
            id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link"
-               href="/">Home
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a id="navbarDropdownTopic"
-               href="#"
-               class="nav-link dropdown-toggle"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-              Topics
-            </a>
-            <div class="dropdown-menu"
-                 aria-labelledby="navbarDropdownTopic">
-              <a class="dropdown-item"
-                 href="/topics">View Topics</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item"
-                 href="/topic/create">Create Topic</a>
-            </div>
-          </li>
+          <!-- Calendar Menu -->
           <li class="nav-item dropdown">
             <a id="navbarDropdownCalendar"
                href="#"
@@ -56,20 +34,92 @@
             </a>
             <div class="dropdown-menu"
                  aria-labelledby="navbarDropdownCalendar">
-              <a class="dropdown-item"
+              <a id="navbarViewCalendarLink"
+                 class="dropdown-item"
                  href="/calendar">View Calendar</a>
             </div>
           </li>
+          <!-- Topic Menu -->
+          <li class="nav-item dropdown">
+            <a id="navbarDropdownTopic"
+               href="#"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              Topics
+            </a>
+            <div class="dropdown-menu"
+                 aria-labelledby="navbarDropdownTopic">
+              <a id="navbarViewTopicLink"
+                 class="dropdown-item"
+                 href="/topics">View Topics</a>
+              <div class="dropdown-divider"></div>
+              <a id="navbarCreateTopicLink"
+                 class="dropdown-item"
+                 href="/topic/create">Create Topic</a>
+            </div>
+          </li>
+          <!-- Instructor Menu -->
+          <li class="nav-item dropdown">
+            <a id="navbarDropdownInstructors"
+               href="#"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              Instructors
+            </a>
+            <div class="dropdown-menu"
+                 aria-labelledby="navbarDropdownInstructors">
+              <a id="navbarViewInstructorsLink"
+                 class="dropdown-item"
+                 href="/instructors">View Instructors</a>
+              <div class="dropdown-divider"></div>
+              <a id="navbarCreateInstructorLink"
+                 class="dropdown-item"
+                 href="/instructor/create">Create Instructor</a>
+            </div>
+          </li>
+          <!-- Administrative  Menu -->
+          <li class="nav-item dropdown">
+            <a id="navbarDropdownAdministrative"
+               href="#"
+               class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+              Administrative
+            </a>
+            <div class="dropdown-menu"
+                 aria-labelledby="navbarDropdownAdministrative">
+              <a id="navbarAdministrativeLocationsLink"
+                 class="dropdown-item"
+                 href="/locations">Locations</a>
+              <a id="navbarAdministrativeGroupsLink"
+                 class="dropdown-item"
+                 href="/groups">Groups</a>
+              <div class="dropdown-divider"></div>
+              <a id="navbarAdministrativeUsersLink"
+                 class="dropdown-item"
+                 href="/organization/membership">Manage Users</a>
+              <a id="navbarAdministrativeSettingsLink"
+                 class="dropdown-item"
+                 href="/organization/settings">Organization Settings </a>
+            </div>
+          </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-          <input class="form-control mr-sm-2"
+        <form class="form-inline mt-2 mt-md-0 d-none d-xl-block">
+          <input id="navbarSearchInput"
+                 class="form-control mr-sm-2"
                  type="text"
                  placeholder="Search"
                  aria-label="Search"
                  style="background: transparent;">
         </form>
 
-        <ul class="navbar-nav">
+        <ul class="navbar-nav"
+            style="margin-right: 15px;">
           <li class="nav-item dropdown"
               if.bind="authentication.authenticated & signal:'authentication-change'">
             <a id="navbarDropdownUser"
@@ -80,20 +130,16 @@
                aria-expanded="false">
               <gravatar email.bind="authentication.email"
                         size.bind="24"></gravatar>
-              <span>${authentication.name}</span>
+              <span id="navbarIdentityUsername">${authentication.name}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right"
                  aria-labelledby="navbarDropdownUser">
-              <a id="navbar-main-identity-profile"
+              <a id="navbarIdentityProfile"
                  class="dropdown-item"
                  href="/user/profile">
                 <i class="fa fa-user fa-fw"></i> Edit Profile</a>
-              <a id="navbar-main-identity-organization"
-                 class="dropdown-item"
-                 href="#">
-                <i class="fa fa-group fa-fw"></i> Organizations</a>
               <div class="dropdown-divider"></div>
-              <a id="navbar-main-identity-logout"
+              <a id="navbarIdentityLogout"
                  class="dropdown-item"
                  href=""
                  click.delegate="logout()">

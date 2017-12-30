@@ -17,6 +17,7 @@ namespace InstructorIQ.Core.Mediator.Models
         public DateTimeOffset? LockoutEnd { get; set; }
         public DateTimeOffset? LastLogin { get; set; }
         public Guid? LastOrganizationId { get; set; }
+        public bool IsGlobalAdministrator { get; set; }
 
         #endregion
     }

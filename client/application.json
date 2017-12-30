@@ -1,8 +1,10 @@
 {
+  "name": "InstructorIQ",
+  "version": "1.0.0.1",
   "hosting": {
-    "applicationDomain": "http://localhost:8080/",
-    "interfaceDomain": "http://localhost:44301/",
-    "interfaceEndpoint": "http://localhost:44301/api/"
+    "clientDomain": "http://localhost:8080/",
+    "serviceDomain": "http://localhost:44301/",
+    "serviceEndpoint": "http://localhost:44301/api/"    
   },
   "authentication":{
     "tokenEndpoint": "http://localhost:44301/api/token",

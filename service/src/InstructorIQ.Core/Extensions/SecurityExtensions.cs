@@ -27,13 +27,19 @@ namespace InstructorIQ.Core.Extensions
         public static string GetUserName(this IIdentity identity)
         {
             var ci = identity as ClaimsIdentity;
-            return ci?.FindFirstValue(ClaimsIdentity.DefaultNameClaimType);
+            return ci?.FindFirstValue(TokenConstants.Claims.Subject);
         }
 
         public static string GetUserId(this IIdentity identity)
         {
             var ci = identity as ClaimsIdentity;
             return ci?.FindFirstValue(TokenConstants.Claims.UserId);
+        }
+
+        public static string GetEmail(this IIdentity identity)
+        {
+            var ci = identity as ClaimsIdentity;
+            return ci?.FindFirstValue(TokenConstants.Claims.Email);
         }
 
         public static string GetOrganizationId(this IIdentity identity)

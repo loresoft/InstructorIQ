@@ -10,11 +10,11 @@ export class App {
   public configureRouter(config: RouterConfiguration, router: Router) {
 
     this.router = router;
-    
+
     config.title = 'InstructorIQ';
     config.options.pushState = true;
-    config.addAuthorizeStep(AuthenticateStep); 
-    
+    config.addAuthorizeStep(AuthenticateStep);
+
     config.map([
       {
         route: ['', 'Home'],
@@ -75,11 +75,86 @@ export class App {
         }
       },
       {
+        route: 'groups',
+        name: 'groups',
+        moduleId: PLATFORM.moduleName('views/group/group-list'),
+        nav: true,
+        title: 'Groups',
+        settings: {
+          authorize: true
+        }
+      },
+      {
+        route: 'group/:id',
+        name: 'groupEdit',
+        moduleId: PLATFORM.moduleName('views/group/group-edit'),
+        nav: false,
+        title: 'Group Edit',
+        settings: {
+          authorize: true
+        }
+      },
+      {
+        route: 'locations',
+        name: 'locations',
+        moduleId: PLATFORM.moduleName('views/location/location-list'),
+        nav: true,
+        title: 'Locations',
+        settings: {
+          authorize: true
+        }
+      },
+      {
+        route: 'location/:id',
+        name: 'locationEdit',
+        moduleId: PLATFORM.moduleName('views/location/location-edit'),
+        nav: false,
+        title: 'Location Edit',
+        settings: {
+          authorize: true
+        }
+      },
+      {
+        route: 'instructors',
+        name: 'instructors',
+        moduleId: PLATFORM.moduleName('views/instructor/instructor-list'),
+        nav: true,
+        title: 'Instructors',
+        settings: {
+          authorize: true
+        }
+      },
+      {
+        route: 'instructor/:id',
+        name: 'instructorEdit',
+        moduleId: PLATFORM.moduleName('views/instructor/instructor-edit'),
+        nav: false,
+        title: 'Instructor Edit',
+        settings: {
+          authorize: true
+        }
+      },
+      {
         route: 'calendar',
         name: 'calendar',
         moduleId: PLATFORM.moduleName('views/calendar/calendar'),
         nav: true,
         title: 'Calendar'
+      },
+
+      {
+        route: 'organization/settings',
+        name: 'organizationSettings',
+        moduleId: PLATFORM.moduleName('views/organization/settings'),
+        nav: true,
+        title: 'Settings'
+      },
+      {
+        route: 'organization/membership',
+        name: 'organizationMembership',
+        moduleId: PLATFORM.moduleName('views/organization/membership'),
+        nav: true,
+        title: 'Membership'
       },
 
       // user menu

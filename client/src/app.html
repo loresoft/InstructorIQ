@@ -1,5 +1,6 @@
 <template>
   <require from="./views/header/navigation"></require>
+  <require from="./views/header/footer"></require>
 
   <header>
     <navigation router.bind="router"></navigation>
@@ -12,19 +13,5 @@
     <router-view></router-view>
   </main>
 
-  <footer class="footer text-muted">
-    <div class="container">
-        <div class="row">
-            <div class="col-md text-center">
-                <a href="https://github.com/loresoft/Estimatorx/" title="GitHub Soure Code"><i class="fa fa-github"></i> Source Code</a>
-              </div>
-              <div class="col-md-6 text-center">
-                Copyright © 2017 LoreSoft. All Rights Reserved.
-              </div>
-              <div class="col-md text-center">
-                Version 1.0.0.48
-              </div>
-        </div>
-    </div>
-  </footer>
+  <footer></footer>
 </template>

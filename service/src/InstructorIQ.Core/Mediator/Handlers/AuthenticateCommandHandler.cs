@@ -282,8 +282,8 @@ namespace InstructorIQ.Core.Mediator.Handlers
             claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Email, user.EmailAddress));
             claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.UserId, user.Id.ToString()));
 
-            //if (user.IsGlobalAdmin)
-            //    claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, UserRoles.GlobalAdministrator));
+            if (user.IsGlobalAdministrator)
+                claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, Data.Constants.Role.GlobalAdministrator));
 
             if (organization == null)
                 return claimsIdentity;

@@ -9,20 +9,6 @@ namespace InstructorIQ.Core.Extensions
 {
     public static class QueryExtensions
     {
-        public static IQueryable<T> Page<T>(this IQueryable<T> query, int page, int pageSize)
-        {
-            if (query == null)
-                throw new ArgumentNullException(nameof(query));
-
-            if (pageSize <= 0)
-                pageSize = 10;
-
-            page = Math.Max(1, page);
-            var skip = Math.Max(pageSize * (page - 1), 0);
-
-            return query.Skip(skip).Take(pageSize);
-        }
-
         public static IQueryable<T> Sort<T>(this IQueryable<T> query, IEnumerable<EntitySort> sorts)
         {
             if (sorts == null || !sorts.Any())
@@ -51,11 +37,13 @@ namespace InstructorIQ.Core.Extensions
             if (filter == null)
                 return query;
 
-            var filters = filter.Flatten();
-            var values = filters.Select(f => f.Value).ToArray();
+            var builder = new EntityFilterBuilder();
+            builder.Build(filter);
 
-            string predicate = filter.ToExpression(filters);
-            return query.Where(predicate, values);
+            var predicate = builder.Expression;
+            var parameters = builder.Parameters.ToArray();
+
+            return query.Where(predicate, parameters);
         }
     }
 }
