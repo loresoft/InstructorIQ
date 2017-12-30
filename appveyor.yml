@@ -32,5 +32,7 @@ deploy:
   - provider: SqlDatabase
     artifact: Database
     connection_string: 'Server=(local)\SQL2017;Database=InstructorIQ;User ID=sa;Password=Password12!'
+    create_new_database: true
+    block_on_possible_data_loss: false
 
 
