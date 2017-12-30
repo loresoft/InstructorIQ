@@ -31,7 +31,7 @@ artifacts:
 deploy:
   - provider: SqlDatabase
     artifact: Database
-    connection_string: 'Server=(local)\SQL2016;Database=InstructorIQ;Integrated security=SSPI;
+    connection_string: 'Server=(local)\SQL2016;Database=InstructorIQ;Integrated security=SSPI;'
     block_on_possible_data_loss: false
 
 
