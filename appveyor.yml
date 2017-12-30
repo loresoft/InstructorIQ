@@ -7,7 +7,7 @@ environment:
 configuration: Release
 
 services:
-  - mssql2017
+  - mssql2016
 
 init:
   - git config --global core.autocrlf true
@@ -31,8 +31,7 @@ artifacts:
 deploy:
   - provider: SqlDatabase
     artifact: Database
-    connection_string: 'Server=(local)\SQL2017;Database=InstructorIQ;User ID=sa;Password=Password12!'
-    create_new_database: true
+    connection_string: 'Server=(local)\SQL2016;Database=InstructorIQ;Integrated security=SSPI;
     block_on_possible_data_loss: false
 
 
