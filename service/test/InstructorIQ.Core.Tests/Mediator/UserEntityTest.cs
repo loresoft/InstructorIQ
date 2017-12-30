@@ -11,9 +11,11 @@ using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Mediator
 {
+    [Collection("DependencyInjectionCollection")]
     public class UserEntityTest : DependencyInjectionBase
     {
-        public UserEntityTest(ITestOutputHelper outputHelper) : base(outputHelper)
+        public UserEntityTest(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
+            : base(outputHelper, dependencyInjection)
         {
         }
 
@@ -88,5 +90,6 @@ namespace InstructorIQ.Core.Tests.Mediator
             result.Should().NotBeNull();
 
         }
+
     }
 }

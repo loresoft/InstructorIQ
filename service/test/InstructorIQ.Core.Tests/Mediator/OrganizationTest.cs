@@ -15,11 +15,12 @@ using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Mediator
 {
+    [Collection("DependencyInjectionCollection")]
     public class OrganizationTest : DependencyInjectionBase
     {
-        public OrganizationTest(ITestOutputHelper outputHelper) : base(outputHelper)
+        public OrganizationTest(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
+            : base(outputHelper, dependencyInjection)
         {
-
         }
 
         [Fact]

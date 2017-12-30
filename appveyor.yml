@@ -3,6 +3,7 @@ os: Visual Studio 2017
 
 environment:
   nodejs_version: "9.3.0"
+  ASPNETCORE_ENVIRONMENT: appveyor
 
 configuration: Release
 
@@ -34,4 +35,5 @@ deploy:
     connection_string: 'Server=(local)\SQL2016;Database=InstructorIQ;Integrated security=SSPI;'
     block_on_possible_data_loss: false
 
-
+after_deploy:
+  - cmd: dotnet test service\test\InstructorIQ.Core.Tests\InstructorIQ.Core.Tests.csproj

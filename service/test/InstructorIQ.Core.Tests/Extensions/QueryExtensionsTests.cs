@@ -65,13 +65,12 @@ namespace InstructorIQ.Core.Tests.Extensions
             var groups = DataGenerator.Generator.Default.List<Group>(20);
             groups.Should().NotBeEmpty();
 
-            var list = groups
+            Action act = () => groups
                 .AsQueryable()
                 .Page(0, 0)
                 .ToList();
 
-            list.Should().NotBeEmpty();
-            list.Count.Should().Be(10);
+            act.ShouldThrow<ArgumentOutOfRangeException>();
         }
 
 
@@ -249,7 +248,7 @@ namespace InstructorIQ.Core.Tests.Extensions
 
             var list = fruits
                 .AsQueryable()
-                .Filter(new EntityFilter { Name = "Name", Operator = "Contains",  Value = "berry" })
+                .Filter(new EntityFilter { Name = "Name", Operator = "Contains", Value = "berry" })
                 .ToList();
 
             list.Should().NotBeEmpty();
