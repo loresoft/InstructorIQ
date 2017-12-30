@@ -31,6 +31,6 @@ artifacts:
 deploy:
   - provider: SqlDatabase
     artifact: Database
-    connection_string: 'Server=(local)\SQL2017;Database=InstructorIQ;Integrated Security=SSPI'
+    connection_string: 'Server=(local)\SQL2017;Database=InstructorIQ;User ID=sa;Password=Password12!'
 
 
