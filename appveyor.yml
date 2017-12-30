@@ -6,6 +6,9 @@ environment:
 
 configuration: Release
 
+services:
+  - mssql2017
+
 init:
   - git config --global core.autocrlf true
 
@@ -14,10 +17,20 @@ install:
 
 build_script:
   - cmd: build.bat
-  
+
 test: off
 
 artifacts:
-  - path: '*.zip'
+  - path: '*Client*.zip'
+    name: Client
+  - path: '*Service*.zip'
+    name: Service
+  - path: '*.dacpac'
+    name: Database
+
+deploy:
+  - provider: SqlDatabase
+    artifact: Database
+    connection_string: 'Server=(local)\SQL2017;Database=InstructorIQ;Integrated Security=SSPI'
 
 
