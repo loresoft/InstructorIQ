@@ -58,7 +58,7 @@ namespace InstructorIQ.Web
                 NameClaimType = TokenConstants.Claims.Name,
                 RoleClaimType = TokenConstants.Claims.Role,
 
-                ValidIssuer = hostingOptions.Value.ApplicationDomain,
+                ValidIssuer = hostingOptions.Value.ClientDomain,
                 ValidAudience = principalOptions.Value.AudienceId,
 
                 ValidateIssuerSigningKey = true,

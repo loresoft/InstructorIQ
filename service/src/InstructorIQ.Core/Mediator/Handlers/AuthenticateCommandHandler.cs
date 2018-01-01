@@ -314,7 +314,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
             var expires = issued.Add(_principalOptions.Value.TokenExpire);
 
             var token = new JwtSecurityToken(
-                _hostingOptions.Value.ApplicationDomain,
+                _hostingOptions.Value.ClientDomain,
                 _principalOptions.Value.AudienceId,
                 identity.Claims,
                 issued,

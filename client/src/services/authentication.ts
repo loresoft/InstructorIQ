@@ -55,8 +55,8 @@ export class Authentication {
         .withInterceptor(this.loadingInterceptor)
     });
 
-    this.clientId = configuration.get("authentication.clientId", "InstructorIQ");
-    this.tokenEndpoint = configuration.get("authentication.tokenEndpoint", "/api/token");
+    this.clientId = configuration.get("Authentication.ClientId", "InstructorIQ");
+    this.tokenEndpoint = configuration.get("Authentication.TokenEndpoint", "/api/token");
 
     this.loadToken();
   }

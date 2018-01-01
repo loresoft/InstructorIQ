@@ -7,6 +7,6 @@ export class FooterCustomElement{
   @bindable version: string = "1.0.0.0";
 
   constructor(private configuration: AureliaConfiguration){
-    this.version = configuration.get("version", "1.0.0.0");
+    this.version = configuration.get("Version", "1.0.0.0");
   }
 }

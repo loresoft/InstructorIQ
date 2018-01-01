@@ -6,7 +6,8 @@ namespace InstructorIQ.Core.Options
 {
     public class HostingConfiguration
     {
-        public string ApplicationDomain { get; set; }
-        public string InterfaceDomain { get; set; }
+        public string ClientDomain { get; set; }
+        public string ServiceDomain { get; set; }
+        public string ServiceEndpoint { get; set; }
     }
 }

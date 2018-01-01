@@ -62,7 +62,7 @@ namespace InstructorIQ.Core.Mediator.Handlers
                 DisplayName = user.DisplayName,
                 ResetToken = resetToken,
                 UserAgent = message.UserAgent,
-                ResetLink = $"{_hostingOptions.Value.ApplicationDomain}#/reset-password/{resetToken}"
+                ResetLink = $"{_hostingOptions.Value.ClientDomain}#/reset-password/{resetToken}"
             };
 
             await _emailTemplateService.SendResetPasswordEmail(emailModel).ConfigureAwait(false);
