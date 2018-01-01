@@ -1,7 +1,7 @@
 $workingDirectory = Resolve-Path -Path .\
-$buildDirectory = Resolve-Path -Path $workingDirectory\build
+$buildDirectory = Join-Path -Path $workingDirectory -ChildPath "build"
 
-If((Test-Path $buildDirectory)) {
+If((Test-Path -Path $buildDirectory)) {
     Remove-Item $buildDirectory -Recurse -Force
 } Else{
     New-Item -ItemType Directory -Force -Path $buildDirectory
