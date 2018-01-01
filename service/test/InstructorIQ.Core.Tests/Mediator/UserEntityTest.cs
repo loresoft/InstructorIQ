@@ -88,6 +88,8 @@ namespace InstructorIQ.Core.Tests.Mediator
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();
+            result.AccessToken.Should().NotBeNull();
+            result.RefreshToken.Should().NotBeNull();
 
         }
 

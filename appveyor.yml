@@ -17,16 +17,14 @@ install:
   - ps: Install-Product node $env:nodejs_version
 
 build_script:
-  - cmd: build.bat
+  - ps: build.ps1
 
 test: off
 
 artifacts:
-  - path: '*Client*.zip'
-    name: Client
-  - path: '*Service*.zip'
-    name: Service
-  - path: '*.dacpac'
+  - path: 'build\*.zip'
+    name: Website
+  - path: 'build\database\*.dacpac'
     name: Database
 
 deploy:

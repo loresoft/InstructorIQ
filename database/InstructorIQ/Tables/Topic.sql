@@ -9,7 +9,7 @@
     [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
 
-    [CalendarYear] SMALLINT NOT NULL DEFAULT year(getdate()),
+    [CalendarYear] SMALLINT NOT NULL CONSTRAINT [DF_Topic_CalendarYear] DEFAULT year(getdate()),
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Topic_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,

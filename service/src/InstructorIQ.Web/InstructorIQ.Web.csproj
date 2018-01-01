@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="*.txt" />
   </ItemGroup>
 
@@ -32,6 +28,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InstructorIQ.Core\InstructorIQ.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

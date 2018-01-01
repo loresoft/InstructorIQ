@@ -22,7 +22,7 @@ namespace InstructorIQ.Core.Tests
 
             var services = new ServiceCollection();
             services.AddSingleton(p => configuration);
-            //services.AddLogging(log => log.AddXunit(OutputHelper, Microsoft.Extensions.Logging.LogLevel.Trace));
+            services.AddLogging();
             services.AddOptions();
 
             services.KickStart(config => config
