@@ -17,7 +17,7 @@ install:
   - ps: Install-Product node $env:nodejs_version
 
 build_script:
-  - ps: ./build.ps1
+  - ps: ./build.ps1 -version {version}
 
 test: off
 

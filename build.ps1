@@ -1,3 +1,7 @@
+Param(
+  [string]$version
+)
+
 $workingDirectory = Resolve-Path -Path .\
 $buildDirectory = Join-Path -Path $workingDirectory -ChildPath "build"
 
@@ -32,4 +36,5 @@ Copy-Item -Path $workingDirectory\client\dist -Destination $buildDirectory\servi
 
 # zip package
 Write-Host "*** Zip Packages ***"
-Compress-Archive -Path $buildDirectory\service\* -DestinationPath $buildDirectory\InstructorIQ.Website.zip
+Compress-Archive -Path $buildDirectory\service\* -DestinationPath $buildDirectory\InstructorIQ.Website.$version.zip
+Compress-Archive -Path $buildDirectory\database\* -DestinationPath $buildDirectory\InstructorIQ.Database.$version.zip
