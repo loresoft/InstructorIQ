@@ -1,5 +1,5 @@
 Param(
-  [string]$version
+  [string]$version = $env:APPVEYOR_BUILD_VERSION
 )
 
 $workingDirectory = Resolve-Path -Path .\
