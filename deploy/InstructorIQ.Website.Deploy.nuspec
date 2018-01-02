@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>InstructorIQ.Website.Deploy</id>
+    <version>1.0.0</version>
+    <title>InstructorIQ.Database.Deploy</title>
+    <authors>LoreSoft</authors>
+    <owners>LoreSoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>InstructorIQ Website Deployment</description>
+    <copyright>Copyright (c) 2018, LoreSoft</copyright>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="build\website\**\*.*" target="" />
+  </files>
+</package>

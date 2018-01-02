@@ -1,14 +1,19 @@
 Param(
-  [string]$version = $env:APPVEYOR_BUILD_VERSION
+    [string]$version = $env:APPVEYOR_BUILD_VERSION
 )
 
 $workingDirectory = Resolve-Path -Path .\
 $buildDirectory = Join-Path -Path $workingDirectory -ChildPath "build"
 
-If((Test-Path -Path $buildDirectory)) {
+If ((Test-Path -Path $buildDirectory)) {
     Remove-Item $buildDirectory -Recurse -Force
-} Else{
+}
+Else {
     New-Item -ItemType Directory -Force -Path $buildDirectory
+}
+
+If (!$version) {
+    $version = "1.0.0.0"
 }
 
 # build client
@@ -28,13 +33,18 @@ Write-Host "*** Build Database ***"
 
 # build service
 Write-Host "*** Build Service ***"
-& dotnet publish $workingDirectory\service\src\InstructorIQ.Web\InstructorIQ.Web.csproj -c Release -o $buildDirectory\service
+& dotnet publish $workingDirectory\service\src\InstructorIQ.Web\InstructorIQ.Web.csproj -c Release -o $buildDirectory\website
 
 # create package
 Write-Host "*** Create Packages ***"
-Copy-Item -Path $workingDirectory\client\dist -Destination $buildDirectory\service\wwwroot -recurse -Force
+Copy-Item -Path $workingDirectory\client\dist -Destination $buildDirectory\website\wwwroot -recurse -Force
 
 # zip package
 Write-Host "*** Zip Packages ***"
-Compress-Archive -Path $buildDirectory\service\* -DestinationPath $buildDirectory\InstructorIQ.Website.$version.zip
+Compress-Archive -Path $buildDirectory\website\* -DestinationPath $buildDirectory\InstructorIQ.Website.$version.zip
 Compress-Archive -Path $buildDirectory\database\* -DestinationPath $buildDirectory\InstructorIQ.Database.$version.zip
+
+# deployment package
+Write-Host "*** Deployment Packages ***"
+& nuget pack $workingDirectory\deploy\InstructorIQ.Website.Deploy.nuspec -BasePath $workingDirectory -Version $version -OutputDirectory $buildDirectory -NoPackageAnalysis
+& nuget pack $workingDirectory\deploy\InstructorIQ.Database.Deploy.nuspec -BasePath $workingDirectory -Version $version -OutputDirectory $buildDirectory -NoPackageAnalysis

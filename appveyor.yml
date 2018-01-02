@@ -23,6 +23,8 @@ test: off
 
 artifacts:
   - path: 'build\*.zip'
+    name: Archive
+  - path: 'build\*.nupkg'
     name: Deploy
   - path: 'build\database\*.dacpac'
     name: Database
