@@ -23,7 +23,7 @@ test: off
 
 artifacts:
   - path: 'build\*.zip'
-    name: Website
+    name: Deploy
   - path: 'build\database\*.dacpac'
     name: Database
 
