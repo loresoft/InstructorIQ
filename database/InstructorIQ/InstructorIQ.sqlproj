@@ -94,6 +94,9 @@
     <None Include="Deployments\User.sql" />
     <None Include="Deployments\Role.sql" />
     <None Include="Deployments\UserRole.sql" />
+    <None Include="publish.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

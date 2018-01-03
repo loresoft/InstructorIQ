@@ -4,7 +4,7 @@ try
     $publishFile = Resolve-Path publish.config
 
     #Register DLL, SQL Server 2017
-    Add-Type -Path "${env:ProgramFiles(x86)}\Microsoft SQL Server\140\DAC\bin\Microsoft.SqlServer.Dac.dll" 
+    Add-Type -Path "${env:ProgramFiles(x86)}\Microsoft SQL Server\130\DAC\bin\Microsoft.SqlServer.Dac.dll" 
 
     Write-Host "Profile: $publishFile" 
     #Read publish profile XML to get the deployment options
