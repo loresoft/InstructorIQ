@@ -30,6 +30,8 @@ artifacts:
     name: Database
 
 deploy:
+  - provider: Environment
+    name: Octopus
   - provider: SqlDatabase
     artifact: Database
     connection_string: 'Server=(local)\SQL2016;Database=InstructorIQ;Integrated security=SSPI;'
