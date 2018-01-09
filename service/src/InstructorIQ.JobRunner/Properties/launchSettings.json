@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "InstructorIQ.JobRunner": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "WEBJOBS_SHUTDOWN_FILE": "d:\\shutdown.txt"
+      }
+    }
+  }
+}

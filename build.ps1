@@ -34,10 +34,12 @@ Write-Host "*** Build Database ***"
 # build service
 Write-Host "*** Build Service ***"
 & dotnet publish $workingDirectory\service\src\InstructorIQ.Web\InstructorIQ.Web.csproj -c Release -o $buildDirectory\website
+& dotnet publish $workingDirectory\service\src\InstructorIQ.JobRunner\InstructorIQ.JobRunner.csproj -c Release -o $buildDirectory\runner
 
 # create package
 Write-Host "*** Create Packages ***"
 Copy-Item -Path $workingDirectory\client\dist -Destination $buildDirectory\website\wwwroot -recurse -Force
+Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\wwwroot\App_Data\jobs\continuous\runner -recurse -Force
 
 # zip package
 Write-Host "*** Zip Packages ***"

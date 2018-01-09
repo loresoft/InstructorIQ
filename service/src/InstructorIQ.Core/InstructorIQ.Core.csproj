@@ -6,16 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
-    <PackageReference Include="FluentValidation" Version="7.3.3" />
+    <PackageReference Include="FluentValidation" Version="7.3.4" />
     <PackageReference Include="Handlebars.Net" Version="1.9.0" />
     <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.113" />
-    <PackageReference Include="MailKit" Version="2.0.0" />
+    <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="MediatR" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="2.0.0" />
     <PackageReference Include="microsoft.aspnetcore.mvc.core" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.8.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.1.5" />

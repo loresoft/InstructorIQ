@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstructorIQ.Web", "src\InstructorIQ.Web\InstructorIQ.Web.csproj", "{7AF646A4-B4B2-4226-9C8E-6A9B218C161A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstructorIQ.Core", "src\InstructorIQ.Core\InstructorIQ.Core.csproj", "{44BD55A6-EBCC-45CC-AB74-C635143F8FD1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstructorIQ.Core.Tests", "test\InstructorIQ.Core.Tests\InstructorIQ.Core.Tests.csproj", "{3DE7843A-C27E-4C4E-B900-A3660DBDB648}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstructorIQ.JobRunner", "src\InstructorIQ.JobRunner\InstructorIQ.JobRunner.csproj", "{72478988-2745-4EE6-841C-64F7C87FBF74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{3DE7843A-C27E-4C4E-B900-A3660DBDB648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DE7843A-C27E-4C4E-B900-A3660DBDB648}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DE7843A-C27E-4C4E-B900-A3660DBDB648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72478988-2745-4EE6-841C-64F7C87FBF74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72478988-2745-4EE6-841C-64F7C87FBF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72478988-2745-4EE6-841C-64F7C87FBF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72478988-2745-4EE6-841C-64F7C87FBF74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
