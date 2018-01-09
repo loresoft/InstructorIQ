@@ -9,7 +9,8 @@ namespace InstructorIQ.Core.Mediator.Profiles
     {
         public EmailDeliveryProfile()
         {
-            CreateMap<EmailDelivery, EmailDeliveryReadModel>();
+            CreateMap<EmailDelivery, EmailDeliveryReadModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
         }
     }
 }

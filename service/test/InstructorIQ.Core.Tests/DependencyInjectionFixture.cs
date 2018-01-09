@@ -15,8 +15,7 @@ namespace InstructorIQ.Core.Tests
             var enviromentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Test";
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{enviromentName}.json", optional: true)
-                .AddEnvironmentVariables();
+                .AddJsonFile($"appsettings.{enviromentName}.json", true);
 
             var configuration = builder.Build();
 

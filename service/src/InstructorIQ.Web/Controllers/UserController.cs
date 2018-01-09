@@ -21,7 +21,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class UserController : MediatorControllerBase<User, UserReadModel, UserCreateModel, UserUpdateModel>
+    public class UserController : MediatorCommandControllerBase<User, UserReadModel, UserCreateModel, UserUpdateModel>
     {
         public UserController(IMediator mediator) : base(mediator)
         {

@@ -6,20 +6,14 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace InstructorIQ.Core.Mediator.Commands
 {
-    public class EntityPatchCommand<TEntity, TReadModel> : IRequest<TReadModel>
+    public class EntityPatchCommand<TEntity, TReadModel> : EntityIdentifierCommand<TReadModel>
         where TEntity : class, new()
         where TReadModel : EntityReadModel
     {
-        public EntityPatchCommand(Guid id, JsonPatchDocument<TEntity> patch, IPrincipal principal)
+        public EntityPatchCommand(Guid id, JsonPatchDocument<TEntity> patch, IPrincipal principal) : base(id, principal)
         {
-            Principal = principal;
-            Id = id;
-            Patch = patch;
+            Patch = patch ?? throw new ArgumentNullException(nameof(patch));
         }
-
-        public IPrincipal Principal { get; set; }
-
-        public Guid Id { get; set; }
 
         public JsonPatchDocument<TEntity> Patch { get; set; }
 

@@ -11,9 +11,11 @@ namespace InstructorIQ.Core.Mediator.Profiles
         {
             CreateMap<SessionCreateModel, Session>();
 
-            CreateMap<SessionUpdateModel, Session>();
+            CreateMap<SessionUpdateModel, Session>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
 
-            CreateMap<Session, SessionReadModel>();
+            CreateMap<Session, SessionReadModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
         }
     }
 }

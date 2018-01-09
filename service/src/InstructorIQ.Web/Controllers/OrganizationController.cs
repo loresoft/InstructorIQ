@@ -18,7 +18,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class OrganizationController : MediatorControllerBase<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>
+    public class OrganizationController : MediatorCommandControllerBase<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>
     {
         public OrganizationController(IMediator mediator) : base(mediator)
         {

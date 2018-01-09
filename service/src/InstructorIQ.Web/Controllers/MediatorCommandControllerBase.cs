@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.JsonPatch;
 
 namespace InstructorIQ.Web.Controllers
 {
-    public abstract class MediatorControllerBase<TEntity, TReadModel, TCreateModel, TUpdateModel> : MediatorQueryControllerBase<TEntity, TReadModel>
+    public abstract class MediatorCommandControllerBase<TEntity, TReadModel, TCreateModel, TUpdateModel> : MediatorQueryControllerBase<TEntity, TReadModel>
         where TEntity : class, new()
         where TReadModel : EntityReadModel
         where TCreateModel : EntityCreateModel
         where TUpdateModel : EntityUpdateModel
     {
-        protected MediatorControllerBase(IMediator mediator) : base(mediator)
+        protected MediatorCommandControllerBase(IMediator mediator) : base(mediator)
         {
         }
 

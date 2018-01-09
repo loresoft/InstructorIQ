@@ -75,10 +75,10 @@ namespace InstructorIQ.Core.Mediator
             services.TryAddTransient<IRequestHandler<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, EntityDeleteCommandHandler<TEntity, TReadModel>>();
 
             // pipeline registration,  run in order registered
-            services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, AuthenticateEntityCreateCommandBehavior<TEntity, TCreateModel, TReadModel>>();
-            services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, AuthenticateEntityUpdateCommandBehavior<TEntity, TUpdateModel, TReadModel>>();
-            services.AddTransient<IPipelineBehavior<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, AuthenticateEntityPatchCommandBehavior<TEntity, TReadModel>>();
-            services.AddTransient<IPipelineBehavior<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, AuthenticateEntityDeleteCommandBehavior<TEntity, TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, AuthenticateEntityModelCommandBehavior<TCreateModel, TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, AuthenticateEntityModelCommandBehavior<TUpdateModel, TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityPatchCommand<TEntity, TReadModel>, TReadModel>, AuthenticateEntityIdentifierCommandBehavior<TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityDeleteCommand<TEntity, TReadModel>, TReadModel>, AuthenticateEntityIdentifierCommandBehavior<TReadModel>>();
 
             services.AddTransient<IPipelineBehavior<EntityCreateCommand<TEntity, TCreateModel, TReadModel>, TReadModel>, ValidateEntityModelCommandBehavior<TCreateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TEntity, TUpdateModel, TReadModel>, TReadModel>, ValidateEntityModelCommandBehavior<TUpdateModel, TReadModel>>();
