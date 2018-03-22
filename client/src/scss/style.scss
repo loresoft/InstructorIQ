@@ -1,0 +1,18 @@
+// Override Boostrap variables
+@import "bootstrap-variables";
+
+// Import Bootstrap source files
+@import "~bootstrap/scss/bootstrap";
+
+// Override core variables
+@import "core-variables";
+
+// Import core styles
+@import "core/core";
+
+@import "nprogress";
+
+@import "~toastr/toastr";
+
+// Custom styles
+@import "custom";

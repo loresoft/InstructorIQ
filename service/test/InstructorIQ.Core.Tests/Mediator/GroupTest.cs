@@ -43,7 +43,7 @@ namespace InstructorIQ.Core.Tests.Mediator
         }
 
         [Fact]
-        public async Task QueryList()
+        public async Task QueryStartsWithList()
         {
             var mediator = ServiceProvider.GetService<IMediator>();
             mediator.Should().NotBeNull();

@@ -1,0 +1,20 @@
+<template>
+  <require from="views/layout/sidebar/app-sidebar-nav-divider"></require>
+  <require from="views/layout/sidebar/app-sidebar-nav-item"></require>
+
+  <li class="nav-item nav-dropdown  ${isOpen ? 'open' : ''}"
+      ref="dropdown">
+    <a class="nav-link nav-dropdown-toggle"
+       click.trigger="toggle($event)">
+      <i if.bind="navigation.icon"
+         class="${navigation.icon}"
+         aria-hidden="true"></i> ${navigation.name}
+    </a>
+    <ul class="nav-dropdown-items">
+      <template repeat.for="n of navigation.children">
+        <compose view-model="views/layout/sidebar/app-sidebar-nav-${n.type}"
+                 model.bind="n"></compose>
+      </template>
+    </ul>
+  </li>
+</template>

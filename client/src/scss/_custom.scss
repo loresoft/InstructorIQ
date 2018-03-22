@@ -1,18 +1,52 @@
-$enable-shadows: true;
-$enable-gradients: true;
+// Custom styles for this template
 
-// Changing the theme colors
-$primary: #337ab7;
-//$secondary: #436296;
-$success: #5cb85c;
-$info: #5bc0de;
-$warning: #f0ad4e;
-$danger: #d9534f;
-$light: #f8f8f8;
-//$dark: #0f1319;
+.card, .social-box {
+  border-top-width: 0;
+  border-bottom-width: 2 * $card-border-width;
+}
 
+[class*="card-outline-"] {
+  border-top-width: 1px !important;
+}
 
-// Adding (!) an additional theme color (ex. classes btn-cool, bg-cool)
-//$theme-colors: (
-//  "cool": #4d3fa3
-//);
+[class*="card-accent-"] {
+  border-top-width: 2px !important;
+}
+
+.aside-menu {
+  .nav-tabs .nav-link,
+  .callout {
+    border-radius: 0;
+  }
+}
+
+// Here you can add other styles
+.navbar {
+  .form-inline {
+    i {
+      color: #fff;
+    }
+    
+    .form-control {
+      min-width: 250px;
+      color: #fff;
+      border: 0;
+      background-color: transparent;    
+    }    
+
+    .search-control::placeholder { 
+      color: rgba(255, 255, 255, 0.7);
+      opacity: 1; 
+    }
+  
+    .search-control:-ms-input-placeholder { 
+      color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .search-control::-ms-input-placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  
+}

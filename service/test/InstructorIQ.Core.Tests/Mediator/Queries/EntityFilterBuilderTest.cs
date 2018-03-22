@@ -17,7 +17,7 @@ namespace InstructorIQ.Core.Tests.Mediator.Queries
         {
             var entityFilter = new EntityFilter { Name = "Rank", Value = 7 };
 
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(entityFilter);
 
             builder.Expression.Should().NotBeEmpty();
@@ -40,7 +40,7 @@ namespace InstructorIQ.Core.Tests.Mediator.Queries
                 }
             };
 
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(entityFilter);
 
             builder.Expression.Should().NotBeEmpty();
@@ -64,7 +64,7 @@ namespace InstructorIQ.Core.Tests.Mediator.Queries
 
             };
 
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(entityFilter);
 
             builder.Expression.Should().NotBeEmpty();
@@ -95,7 +95,7 @@ namespace InstructorIQ.Core.Tests.Mediator.Queries
                 }
             };
 
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(entityFilter);
 
             builder.Expression.Should().NotBeEmpty();
@@ -116,7 +116,7 @@ namespace InstructorIQ.Core.Tests.Mediator.Queries
                 Operator = "Contains",
                 Value = "Berry"
             };
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(entityFilter);
 
             builder.Expression.Should().NotBeEmpty();
@@ -135,7 +135,7 @@ namespace InstructorIQ.Core.Tests.Mediator.Queries
                 Operator = "!Contains",
                 Value = "Berry"
             };
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(entityFilter);
 
             builder.Expression.Should().NotBeEmpty();

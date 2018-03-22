@@ -6,7 +6,7 @@ using InstructorIQ.Core.Extensions;
 
 namespace InstructorIQ.Core.Mediator.Queries
 {
-    public class EntityFilterBuilder
+    public class LinqExpressionBuilder
     {
         private static readonly IDictionary<string, string> _operatorMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {

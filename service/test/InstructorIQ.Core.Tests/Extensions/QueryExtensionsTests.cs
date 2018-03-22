@@ -70,7 +70,7 @@ namespace InstructorIQ.Core.Tests.Extensions
                 .Page(0, 0)
                 .ToList();
 
-            act.ShouldThrow<ArgumentOutOfRangeException>();
+            act.Should().Throw<ArgumentOutOfRangeException>();
         }
 
 

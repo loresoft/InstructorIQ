@@ -1,0 +1,8 @@
+<template>
+  <a class="nav-link ${isActive ? 'active' : ''}"
+     href.bind="navigation.url">
+    <i if.bind="navigation.icon"
+       class="${navigation.icon}"
+       aria-hidden="true"></i> ${navigation.name}
+  </a>
+</template>

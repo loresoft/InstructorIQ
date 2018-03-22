@@ -2,7 +2,7 @@
   "Name": "InstructorIQ",
   "Version": "1.0.0.1",
   "Hosting": {
-    "ClientDomain": "http://localhost:8080/",
+    "ClientDomain": "http://localhost:8400/",
     "ServiceDomain": "http://localhost:44301/",
     "ServiceEndpoint": "http://localhost:44301/api/"    
   },

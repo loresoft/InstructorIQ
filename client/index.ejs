@@ -3,9 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>
-    <%- htmlWebpackPlugin.options.metadata.title %>
-  </title>
+  <title><%- htmlWebpackPlugin.options.metadata.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="<%- htmlWebpackPlugin.options.metadata.baseUrl %>">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -16,7 +14,7 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 
-<body>
+<body class="app header-fixed sidebar-fixed footer-fixed">
   <div aurelia-app="main">
     <style type="text/css">
       .splash {
@@ -97,9 +95,10 @@
       <div class="loader">Loading...</div>
     </div>
   </div>
+
   <% if (htmlWebpackPlugin.options.metadata.server) { %>
-    <script src="/webpack-dev-server.js"></script>
-    <% } %>
+  <script src="/webpack-dev-server.js"></script>
+  <% } %>
 </body>
 
 </html>

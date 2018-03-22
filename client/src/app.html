@@ -1,17 +1,24 @@
 <template>
-  <require from="./views/header/navigation"></require>
-  <require from="./views/header/footer"></require>
+  <require from="./views/layout/app-header"></require>
+  <require from="./views/layout/app-sidebar"></require>
+  <require from="./views/layout/app-breadcrumbs"></require>
+  <require from="./views/layout/app-footer"></require>
 
-  <header>
-    <navigation router.bind="router"></navigation>
-  </header>
+  <app-header></app-header>
+  <div class="app-body">
+    <app-sidebar></app-sidebar>
+    <main role="main"
+          class="main">
+      <ol class="breadcrumb">
+        <app-breadcrumbs></app-breadcrumbs>
+      </ol>
+      <div class="container-fluid">
+        <router-view></router-view>
+      </div>
+    </main>
+  </div>
+  <app-footer></app-footer>
 
   <loading-indicator loading.bind="router.isNavigating"></loading-indicator>
 
-  <main role="main"
-        class="container">
-    <router-view></router-view>
-  </main>
-
-  <footer></footer>
 </template>

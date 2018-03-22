@@ -1,0 +1,8 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "html.suggest.angular1": false,
+  "html.suggest.ionic": false,
+  "html.format.wrapLineLength": 0,
+  "html.format.wrapAttributes": "force-aligned"
+}

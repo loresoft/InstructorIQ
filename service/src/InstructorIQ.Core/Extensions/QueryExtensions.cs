@@ -37,7 +37,7 @@ namespace InstructorIQ.Core.Extensions
             if (filter == null)
                 return query;
 
-            var builder = new EntityFilterBuilder();
+            var builder = new LinqExpressionBuilder();
             builder.Build(filter);
 
             var predicate = builder.Expression;

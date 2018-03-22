@@ -6,21 +6,21 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
-    <PackageReference Include="FluentValidation" Version="7.3.4" />
+    <PackageReference Include="FluentValidation" Version="7.5.0" />
     <PackageReference Include="Handlebars.Net" Version="1.9.0" />
     <PackageReference Include="HangFire.Core" Version="1.6.17" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.113" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="6.0.0.116" />
     <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="MediatR" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="2.0.0" />
-    <PackageReference Include="microsoft.aspnetcore.mvc.core" Version="2.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.8.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.8.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.1.5" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.1.5" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.2.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.2.1" />
     <PackageReference Include="UAParser" Version="3.0.0" />
   </ItemGroup>
 
