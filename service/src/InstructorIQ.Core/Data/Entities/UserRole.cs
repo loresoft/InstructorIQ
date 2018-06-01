@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using EntityFrameworkCore.CommandQuery.Definitions;
+using InstructorIQ.Core.Data.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class UserRole
+    public partial class UserRole : IHaveIdentifier<Guid>, IHaveOrganization
     {
 
     }

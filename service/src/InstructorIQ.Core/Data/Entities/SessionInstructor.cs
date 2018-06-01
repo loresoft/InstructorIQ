@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InstructorIQ.Core.Data.Definitions;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class SessionInstructor : IEntityIdentifier
-    { 
+    public partial class SessionInstructor : IHaveIdentifier<Guid>
+    {
 
     }
 }

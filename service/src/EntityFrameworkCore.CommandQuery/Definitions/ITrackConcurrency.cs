@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EntityFrameworkCore.CommandQuery.Models
+namespace EntityFrameworkCore.CommandQuery.Definitions
 {
     public interface ITrackConcurrency
     {

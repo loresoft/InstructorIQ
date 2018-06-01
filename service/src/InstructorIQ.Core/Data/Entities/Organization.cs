@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InstructorIQ.Core.Data.Definitions;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class Organization : IEntityIdentifier, IEntityChangeTracking
+    public partial class Organization : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
     {
 
     }

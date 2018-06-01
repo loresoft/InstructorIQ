@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class EmailDelivery
+    public partial class EmailDelivery : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
     {
 
     }

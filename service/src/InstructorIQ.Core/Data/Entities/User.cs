@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InstructorIQ.Core.Data.Definitions;
-using Microsoft.AspNetCore.Identity;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class User :  IEntityIdentifier
+    public partial class User : IHaveIdentifier<Guid>
     {
 
     }

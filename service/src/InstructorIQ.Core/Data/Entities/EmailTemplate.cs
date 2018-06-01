@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InstructorIQ.Core.Data.Definitions;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class EmailTemplate : IEntityIdentifier, IEntityChangeTracking, IEntityVersion
+    public partial class EmailTemplate : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
     {
 
     }
