@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Data.Entities;
+using InstructorIQ.Core.Domain.Authentication.Commands;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.User.Commands;
+using InstructorIQ.Core.Domain.User.Models;
 using InstructorIQ.Core.Extensions;
-using InstructorIQ.Core.Mediator.Commands;
-using InstructorIQ.Core.Mediator.Models;
-using InstructorIQ.Core.Mediator.Queries;
+using InstructorIQ.Core.Infrastructure.Models;
 using InstructorIQ.Core.Security;
 using InstructorIQ.Web.Filters;
 using MediatR;
@@ -21,7 +24,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class UserController : MediatorCommandControllerBase<User, UserReadModel, UserCreateModel, UserUpdateModel>
+    public class UserController : MediatorCommandControllerBase<Guid, User, UserReadModel, UserCreateModel, UserUpdateModel>
     {
         public UserController(IMediator mediator) : base(mediator)
         {

@@ -6,9 +6,10 @@ using HandlebarsDotNet;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
+using InstructorIQ.Core.Domain;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.User.Models;
 using InstructorIQ.Core.Extensions;
-using InstructorIQ.Core.Mediator;
-using InstructorIQ.Core.Mediator.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using MimeKit;
@@ -97,7 +98,7 @@ namespace InstructorIQ.Core.Services
             }).ConfigureAwait(false);
 
             if (emailTemplate == null)
-                throw new MediatorException(500, $"Could not find email template for key '{templateKey}'.");
+                throw new DomainException(500, $"Could not find email template for key '{templateKey}'.");
 
             return emailTemplate;
         }

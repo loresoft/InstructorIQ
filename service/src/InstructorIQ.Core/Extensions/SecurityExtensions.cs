@@ -13,8 +13,8 @@ namespace InstructorIQ.Core.Extensions
     {
         public static bool IsGlobalAdministrator(this IPrincipal principal)
         {
-            return principal is ClaimsPrincipal cp
-                && cp.IsInRole(Role.GlobalAdministrator);
+            return principal is ClaimsPrincipal claimsPrincipal
+                && claimsPrincipal.IsInRole(Role.GlobalAdministrator);
         }
 
         public static bool IsOrganizationAdministrator(this IPrincipal principal)

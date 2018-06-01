@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using InstructorIQ.Core.Domain.Authentication.Commands;
 using InstructorIQ.Core.Extensions;
-using InstructorIQ.Core.Mediator.Commands;
-using InstructorIQ.Core.Mediator.Models;
+using InstructorIQ.Core.Infrastructure.Models;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

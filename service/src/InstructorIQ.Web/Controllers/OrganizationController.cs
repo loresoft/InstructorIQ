@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Data.Entities;
-using InstructorIQ.Core.Mediator.Models;
-using InstructorIQ.Core.Mediator.Queries;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Infrastructure.Models;
 using InstructorIQ.Web.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,7 @@ namespace InstructorIQ.Web.Controllers
     [Produces("application/json")]
     [ProducesResponseType(typeof(ErrorModel), 422)]
     [ProducesResponseType(typeof(ErrorModel), 500)]
-    public class OrganizationController : MediatorCommandControllerBase<Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>
+    public class OrganizationController : MediatorCommandControllerBase<Guid, Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>
     {
         public OrganizationController(IMediator mediator) : base(mediator)
         {

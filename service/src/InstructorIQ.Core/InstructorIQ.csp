@@ -24,27 +24,33 @@
       <property name="MethodPrefix">By</property>
       <property name="UniqueMethodPrefix">GetBy</property>
       <property name="MethodKeySuffix">Key</property>
-      <property name="IncludeViewModels">True</property>
-      <property name="ViewModelDirectory">.\Mediator\Models</property>
-      <property name="ValidationDirectory">.\Mediator\Validation</property>
-      <property name="ProfileDirectory">.\Mediator\Profiles</property>
+      <property name="IncludeDomain">True</property>
+      <property name="DomainDirectory">.\Domain</property>
       <property name="SourceDatabase">
         <connectionString>$(ConnectionString1)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
         <mode>Exclude</mode>
         <tables>
       <table>dbo.__RefactorLog</table>
+      <table>HangFire.AggregatedCounter</table>
+      <table>HangFire.Counter</table>
       <table>dbo.Datasweep</table>
+      <table>HangFire.Hash</table>
+      <table>HangFire.Job</table>
+      <table>HangFire.JobParameter</table>
+      <table>HangFire.JobQueue</table>
+      <table>HangFire.List</table>
+      <table>HangFire.Schema</table>
+      <table>HangFire.Server</table>
+      <table>HangFire.Set</table>
+      <table>HangFire.State</table>
     </tables>
       </property>
       <property name="ContextNamespace">InstructorIQ.Core.Data</property>
       <property name="EntityNamespace">InstructorIQ.Core.Data.Entities</property>
       <property name="MappingNamespace">InstructorIQ.Core.Data.Mapping</property>
       <property name="QueryNamespace">InstructorIQ.Core.Data.Queries</property>
-      <property name="ViewModelNamespace">InstructorIQ.Core.Mediator.Models</property>
-      <property name="ValidationNamespace">InstructorIQ.Core.Mediator.Validation</property>
-      <property name="ProfileNamespace">InstructorIQ.Core.Mediator.Models</property>
-      <property name="RegistrationFile">.\Mediator\MediatorServiceModule.cs</property>
+      <property name="DomainNamespace">InstructorIQ.Core.Domain</property>
       <property name="IgnoredProperties">
         <stringList>
       <string>\.Id$</string>
@@ -60,11 +66,15 @@
       </property>
       <property name="IgnoredEntities">
         <stringList>
-      <string>EmailDelivery</string>
       <string>RefreshToken</string>
       <string>Role</string>
-      <string>UserLogin</string>
       <string>UserRole</string>
+    </stringList>
+      </property>
+      <property name="ReadOnlyEntities">
+        <stringList>
+      <string>EmailDelivery</string>
+      <string>UserLogin</string>
     </stringList>
       </property>
     </propertySet>

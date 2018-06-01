@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using InstructorIQ.Core.Mediator.Models;
+using InstructorIQ.Core.Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using UAParser;
 

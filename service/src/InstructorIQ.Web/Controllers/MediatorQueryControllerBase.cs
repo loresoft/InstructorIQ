@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using InstructorIQ.Core.Mediator.Models;
-using InstructorIQ.Core.Mediator.Queries;
+using EntityFrameworkCore.CommandQuery.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InstructorIQ.Web.Controllers
 {
-    public abstract class MediatorQueryControllerBase<TEntity, TReadModel> : Controller
+    public abstract class MediatorQueryControllerBase<TKey, TEntity, TReadModel> : Controller
         where TEntity : class, new()
-        where TReadModel : EntityReadModel
     {
         protected MediatorQueryControllerBase(IMediator mediator)
         {
@@ -19,9 +17,9 @@ namespace InstructorIQ.Web.Controllers
 
         public IMediator Mediator { get; }
 
-        protected virtual async Task<TReadModel> GetQuery(Guid id, CancellationToken cancellationToken = default(CancellationToken))
+        protected virtual async Task<TReadModel> GetQuery(TKey id, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var command = new EntityIdentifierQuery<TEntity, TReadModel>(id, User);
+            var command = new EntityIdentifierQuery<TKey, TEntity, TReadModel>(id, User);
             var result = await Mediator.Send(command, cancellationToken).ConfigureAwait(false);
 
             return result;

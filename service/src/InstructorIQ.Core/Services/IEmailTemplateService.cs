@@ -1,6 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using InstructorIQ.Core.Mediator.Models;
+﻿using System.Threading.Tasks;
+using InstructorIQ.Core.Domain.Models;
 
 namespace InstructorIQ.Core.Services
 {

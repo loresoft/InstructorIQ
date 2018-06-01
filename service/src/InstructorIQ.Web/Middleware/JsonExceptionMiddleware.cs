@@ -6,8 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
-using InstructorIQ.Core.Mediator;
-using InstructorIQ.Core.Mediator.Models;
+using InstructorIQ.Core.Domain;
+using InstructorIQ.Core.Infrastructure.Models;
 using InstructorIQ.Core.Security;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -108,7 +108,7 @@ namespace InstructorIQ.Web.Middleware
                     result.Detail = authenticationException.ErrorType;
                     break;
 
-                case MediatorException mediatorException:
+                case DomainException mediatorException:
                     context.Response.StatusCode = mediatorException.StatusCode;
                     break;
             }

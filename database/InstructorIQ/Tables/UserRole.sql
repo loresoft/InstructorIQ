@@ -13,5 +13,8 @@
 )
 
 GO
+
 CREATE UNIQUE CLUSTERED INDEX [UX_UserRole_UserId_RoleId]
 ON [dbo].[UserRole] ([UserId] ASC, [OrganizationId] ASC, [RoleId] ASC)
+
+GO

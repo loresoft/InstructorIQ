@@ -1,7 +1,6 @@
 ﻿using System;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Options;
-using InstructorIQ.Core.Tests.Samples;
 using KickStart;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +25,7 @@ namespace InstructorIQ.Core.Tests
 
             services.KickStart(config => config
                 .IncludeAssemblyFor<InstructorIQContext>()
-                .IncludeAssemblyFor<Fruit>()
+                .IncludeAssemblyFor<DependencyInjectionFixture>()
                 .Data(ConfigurationServiceModule.ConfigurationKey, configuration)
                 .Data("hostProcess", "test")
                 .UseAutoMapper()

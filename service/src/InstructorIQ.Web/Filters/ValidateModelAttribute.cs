@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using InstructorIQ.Core.Mediator.Models;
+using InstructorIQ.Core.Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

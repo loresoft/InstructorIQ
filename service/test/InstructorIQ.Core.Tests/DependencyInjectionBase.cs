@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using InstructorIQ.Core.Tests.Logger;
 using KickStart;
 using Xunit;
 using Xunit.Abstractions;

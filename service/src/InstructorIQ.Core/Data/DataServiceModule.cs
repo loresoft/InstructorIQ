@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using InstructorIQ.Core.Options;
 using KickStart.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace InstructorIQ.Core.Data
 {
@@ -15,13 +14,14 @@ namespace InstructorIQ.Core.Data
         {
             data.TryGetValue(ConfigurationServiceModule.ConfigurationKey, out var configurationData);
 
-            var configuration = configurationData as IConfiguration;
-            if (configuration == null)
+            if (!(configurationData is IConfiguration configuration))
                 return;
 
             var connectionString = configuration.GetConnectionString("InstructorIQ");
 
             services.AddDbContext<InstructorIQContext>(options => options.UseSqlServer(connectionString));
+
+            services.TryAddScoped<DbContext>(s => s.GetRequiredService<InstructorIQContext>());
         }
     }
 }

@@ -15,8 +15,7 @@ namespace InstructorIQ.Core.Options
         {
             data.TryGetValue(ConfigurationKey, out var configurationData);
 
-            var configuration = configurationData as IConfiguration;
-            if (configuration == null)
+            if (!(configurationData is IConfiguration configuration))
                 return;
 
             services.Configure<HostingConfiguration>(configuration.GetSection("Hosting"));
