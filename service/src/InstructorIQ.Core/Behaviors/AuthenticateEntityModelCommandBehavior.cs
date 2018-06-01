@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Commands;
-using InstructorIQ.Core.Data.Definitions;
+using InstructorIQ.Core.Definitions;
 using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Extensions;
 using MediatR;

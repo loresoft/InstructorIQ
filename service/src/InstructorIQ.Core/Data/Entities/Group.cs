@@ -1,6 +1,6 @@
 ﻿using System;
 using EntityFrameworkCore.CommandQuery.Definitions;
-using InstructorIQ.Core.Data.Definitions;
+using InstructorIQ.Core.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InstructorIQ.Core.Data.Definitions
+namespace InstructorIQ.Core.Definitions
 {
     public interface IHaveOrganization
     {

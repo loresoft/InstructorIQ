@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using EntityFrameworkCore.CommandQuery.Definitions;
-using InstructorIQ.Core.Data.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {

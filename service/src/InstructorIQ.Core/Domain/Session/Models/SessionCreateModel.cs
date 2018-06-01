@@ -1,10 +1,11 @@
 ﻿using System;
 using EntityFrameworkCore.CommandQuery.Models;
+using InstructorIQ.Core.Definitions;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
-    public class SessionCreateModel : EntityCreateModel<Guid>
+    public class SessionCreateModel : EntityCreateModel<Guid>, IHaveOrganization
     {
         #region Generated Properties
         public string Name { get; set; }
