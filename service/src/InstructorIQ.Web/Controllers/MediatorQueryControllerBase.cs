@@ -3,19 +3,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace InstructorIQ.Web.Controllers
 {
-    public abstract class MediatorQueryControllerBase<TKey, TEntity, TReadModel> : Controller
+    public abstract class MediatorQueryControllerBase<TKey, TEntity, TReadModel> : MediatorControllerBase
         where TEntity : class, new()
     {
-        protected MediatorQueryControllerBase(IMediator mediator)
+        protected MediatorQueryControllerBase(IMediator mediator) : base(mediator)
         {
-            Mediator = mediator;
         }
-
-        public IMediator Mediator { get; }
 
         protected virtual async Task<TReadModel> GetQuery(TKey id, CancellationToken cancellationToken = default(CancellationToken))
         {

@@ -6,6 +6,8 @@ const project = require('./aurelia_project/aurelia.json');
 const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { ProvidePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CompressionPlugin = require("compression-webpack-plugin")
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 // config helpers:
 const ensureArray = (config) => config && (Array.isArray(config) ? config : [config]) || [];
@@ -116,7 +118,6 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
         collapseWhitespace: true
       } : undefined,
       metadata: {
-        // available in index.ejs //
         title, server, baseUrl
       }
     }),
@@ -124,6 +125,18 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
       { from: 'static', to: 'static' },
       { from: 'application.json', to: 'application.json' }
     ]),
+    new CompressionPlugin({
+      asset: "[path].gz[query]",
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.(js|css|html|svg)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
     ...when(extractCss, new ExtractTextPlugin({
       filename: production ? '[contenthash].css' : '[id].css',
       allChunks: true
