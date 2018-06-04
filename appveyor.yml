@@ -2,7 +2,7 @@ version: 1.0.0.{build}
 os: Visual Studio 2017
 
 environment:
-  nodejs_version: "9.3.0"
+  nodejs_version: "10.3.0"
   ASPNETCORE_ENVIRONMENT: appveyor
 
 configuration: Release

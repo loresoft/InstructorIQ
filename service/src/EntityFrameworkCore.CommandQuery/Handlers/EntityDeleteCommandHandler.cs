@@ -27,7 +27,7 @@ namespace EntityFrameworkCore.CommandQuery.Handlers
             var dbSet = _context
                 .Set<TEntity>();
 
-            var keyValue = new[] { message.Id };
+            var keyValue = new object[] { message.Id };
 
             var entity = await dbSet
                 .FindAsync(keyValue, cancellationToken)

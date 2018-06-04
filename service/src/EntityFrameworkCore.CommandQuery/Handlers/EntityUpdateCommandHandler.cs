@@ -25,7 +25,7 @@ namespace EntityFrameworkCore.CommandQuery.Handlers
             var dbSet = _context
                 .Set<TEntity>();
 
-            var keyValue = new[] { message.Id };
+            var keyValue = new object[] { message.Id };
 
             // find entity to update by message id, not model id
             var entity = await dbSet
