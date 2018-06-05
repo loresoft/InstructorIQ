@@ -17,9 +17,9 @@ using Xunit.Abstractions;
 namespace InstructorIQ.Core.Tests.Domain
 {
     [Collection("DependencyInjectionCollection")]
-    public class TopicTest : DependencyInjectionBase
+    public class InstructorTest : DependencyInjectionBase
     {
-        public TopicTest(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
+        public InstructorTest(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
             : base(outputHelper, dependencyInjection)
         {
         }
@@ -34,56 +34,57 @@ namespace InstructorIQ.Core.Tests.Domain
             mapper.Should().NotBeNull();
 
             // Create Entity
-            var createModel = Generator.Default.Single<TopicCreateModel>();
+            var createModel = Generator.Default.Single<InstructorCreateModel>();
             createModel.OrganizationId = Data.Constants.Organization.Test;
-            createModel.Title = "TEST";
+            createModel.DisplayName = $"{createModel.GivenName} {createModel.FamilyName}";
+            createModel.JobTitle = "TEST";
 
-            var createCommand = new EntityCreateCommand<Topic, TopicCreateModel, TopicReadModel>(createModel, MockPrincipal.Default);
+            var createCommand = new EntityCreateCommand<Instructor, InstructorCreateModel, InstructorReadModel>(createModel, MockPrincipal.Default);
             var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
             createResult.Should().NotBeNull();
 
             // Get Entity by Key
-            var identifierQuery = new EntityIdentifierQuery<Guid, Topic, TopicReadModel>(createResult.Id, MockPrincipal.Default);
+            var identifierQuery = new EntityIdentifierQuery<Guid, Instructor, InstructorReadModel>(createResult.Id, MockPrincipal.Default);
             var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
             identifierResult.Should().NotBeNull();
-            identifierResult.Title.Should().Be(createModel.Title);
+            identifierResult.DisplayName.Should().Be(createModel.DisplayName);
 
             // Query Entity
             var entityQuery = new EntityQuery
             {
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
-                Filter = new EntityFilter { Name = "Title", Value = "TEST" }
+                Filter = new EntityFilter { Name = "JobTitle", Value = "TEST" }
             };
-            var listQuery = new EntityListQuery<Topic, TopicReadModel>(entityQuery, MockPrincipal.Default);
+            var listQuery = new EntityListQuery<Instructor, InstructorReadModel>(entityQuery, MockPrincipal.Default);
 
             var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
             listResult.Should().NotBeNull();
 
             // Patch Entity
-            var patchModel = new JsonPatchDocument<Topic>();
-            patchModel.Operations.Add(new Operation<Topic>
+            var patchModel = new JsonPatchDocument<Instructor>();
+            patchModel.Operations.Add(new Operation<Instructor>
             {
                 op = "replace",
-                path = "/Description",
+                path = "/DisplayName",
                 value = "Patch Update"
             });
 
-            var patchCommand = new EntityPatchCommand<Guid, Topic, TopicReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
+            var patchCommand = new EntityPatchCommand<Guid, Instructor, InstructorReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
             var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
             patchResult.Should().NotBeNull();
-            patchResult.Description.Should().Be("Patch Update");
+            patchResult.DisplayName.Should().Be("Patch Update");
 
             // Update Entity
-            var updateModel = mapper.Map<TopicUpdateModel>(patchResult);
-            updateModel.Description = "Update Command";
+            var updateModel = mapper.Map<InstructorUpdateModel>(patchResult);
+            updateModel.DisplayName = "Update Command";
 
-            var updateCommand = new EntityUpdateCommand<Guid, Topic, TopicUpdateModel, TopicReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
+            var updateCommand = new EntityUpdateCommand<Guid, Instructor, InstructorUpdateModel, InstructorReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
             var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
             updateResult.Should().NotBeNull();
-            updateResult.Description.Should().Be("Update Command");
+            updateResult.DisplayName.Should().Be("Update Command");
 
             // Delete Entity
-            var deleteCommand = new EntityDeleteCommand<Guid, Topic, TopicReadModel>(createResult.Id, MockPrincipal.Default);
+            var deleteCommand = new EntityDeleteCommand<Guid, Instructor, InstructorReadModel>(createResult.Id, MockPrincipal.Default);
             var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
             deleteResult.Should().NotBeNull();
             deleteResult.Id.Should().Be(createResult.Id);

@@ -9,8 +9,7 @@ namespace InstructorIQ.Core.Domain
     {
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
-            services.AddScoped<SingleInstanceFactory>(p => p.GetService);
-            services.AddScoped<MultiInstanceFactory>(p => p.GetServices);
+            services.AddScoped<MediatR.ServiceFactory>(p => p.GetService);
             services.AddScoped<IMediator, MediatR.Mediator>();
         }
     }
