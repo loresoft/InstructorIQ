@@ -18,12 +18,12 @@ namespace EntityFrameworkCore.CommandQuery.Handlers
         private static readonly Lazy<IReadOnlyCollection<TReadModel>> _emptyList = new Lazy<IReadOnlyCollection<TReadModel>>(() => new List<TReadModel>().AsReadOnly());
 
         private readonly DbContext _context;
-        private readonly IMapper _mapper;
+        private readonly IConfigurationProvider _configurationProvider;
 
-        public EntityListQueryHandler(ILoggerFactory loggerFactory, DbContext context, IMapper mapper) : base(loggerFactory)
+        public EntityListQueryHandler(ILoggerFactory loggerFactory, DbContext context, IConfigurationProvider configurationProvider) : base(loggerFactory)
         {
             _context = context;
-            _mapper = mapper;
+            _configurationProvider = configurationProvider;
         }
 
         protected override async Task<EntityListResult<TReadModel>> Process(EntityListQuery<TEntity, TReadModel> message, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ namespace EntityFrameworkCore.CommandQuery.Handlers
             var result = await query
                 .Sort(entityQuery.Sort)
                 .Page(entityQuery.Page, entityQuery.PageSize)
-                .ProjectTo<TReadModel>()
+                .ProjectTo<TReadModel>(_configurationProvider)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 

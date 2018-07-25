@@ -18,11 +18,11 @@
   <ItemGroup>
     <PackageReference Include="HangFire.Core" Version="1.6.19" />
     <PackageReference Include="HangFire.SqlServer" Version="1.6.19" />
-    <PackageReference Include="KickStart.AutoMapper" Version="6.1.0.120" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="6.1.0.120" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.0" />
+    <PackageReference Include="KickStart.AutoMapper" Version="6.2.0.122" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="6.2.0.122" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
