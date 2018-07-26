@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InstructorIQ.Core.Infrastructure.Models
+namespace InstructorIQ.Core.Models
 {
     public class ValidationErrorModel
     {

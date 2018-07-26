@@ -5,7 +5,7 @@ using InstructorIQ.Core.Domain.Authentication.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.User.Commands;
 using InstructorIQ.Core.Domain.User.Models;
-using InstructorIQ.Core.Infrastructure.Models;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

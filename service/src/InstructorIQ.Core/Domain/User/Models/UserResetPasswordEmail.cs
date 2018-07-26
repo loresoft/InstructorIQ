@@ -1,5 +1,5 @@
 ﻿using System;
-using InstructorIQ.Core.Infrastructure.Models;
+using InstructorIQ.Core.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models

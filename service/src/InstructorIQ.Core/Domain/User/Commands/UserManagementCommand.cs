@@ -2,7 +2,7 @@
 using System.Security.Principal;
 using EntityFrameworkCore.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Infrastructure.Models;
+using InstructorIQ.Core.Models;
 
 namespace InstructorIQ.Core.Domain.User.Commands
 {

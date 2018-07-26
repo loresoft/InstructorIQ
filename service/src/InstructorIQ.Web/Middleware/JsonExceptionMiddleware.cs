@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 using InstructorIQ.Core.Domain;
-using InstructorIQ.Core.Infrastructure.Models;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -124,7 +124,9 @@ namespace InstructorIQ.Web.Middleware
 
         private Task ClearCacheHeaders(object state)
         {
-            var response = (HttpResponse)state;
+            if (!(state is HttpResponse response))
+                return Task.CompletedTask;
+
             response.Headers[HeaderNames.CacheControl] = "no-cache";
             response.Headers[HeaderNames.Pragma] = "no-cache";
             response.Headers[HeaderNames.Expires] = "-1";

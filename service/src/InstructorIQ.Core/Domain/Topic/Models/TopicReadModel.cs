@@ -16,5 +16,7 @@ namespace InstructorIQ.Core.Domain.Models
         public short CalendarYear { get; set; }
 
         #endregion
+
+        public string OrganizationName { get; set; }
     }
 }

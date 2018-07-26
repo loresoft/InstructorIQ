@@ -18,5 +18,7 @@ namespace InstructorIQ.Core.Domain.Models
         public Guid? LeadInstructorId { get; set; }
 
         #endregion
+
+        public string OrganizationName { get; set; }
     }
 }

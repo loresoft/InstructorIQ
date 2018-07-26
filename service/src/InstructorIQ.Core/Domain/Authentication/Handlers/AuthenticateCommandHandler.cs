@@ -11,7 +11,7 @@ using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Domain.Authentication.Commands;
-using InstructorIQ.Core.Infrastructure.Models;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using Microsoft.AspNetCore.Authentication;

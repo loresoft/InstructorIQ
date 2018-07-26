@@ -8,9 +8,7 @@ using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.User.Commands;
 using InstructorIQ.Core.Domain.User.Models;
 using InstructorIQ.Core.Extensions;
-using InstructorIQ.Core.Infrastructure.Models;
 using InstructorIQ.Core.Security;
-using InstructorIQ.Web.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
@@ -19,11 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
-    [ValidateModelState]
     [Route("api/User")]
-    [Produces("application/json")]
-    [ProducesResponseType(typeof(ErrorModel), 422)]
-    [ProducesResponseType(typeof(ErrorModel), 500)]
     public class UserController : MediatorCommandControllerBase<Guid, User, UserReadModel, UserCreateModel, UserUpdateModel>
     {
         public UserController(IMediator mediator) : base(mediator)
@@ -34,7 +28,7 @@ namespace InstructorIQ.Web.Controllers
         [AllowAnonymous]
         [HttpPost("login")]
         [ProducesResponseType(typeof(TokenResponse), 200)]
-        public async Task<IActionResult> Login(CancellationToken cancellationToken, [FromBody]TokenRequest tokenRequest)
+        public async Task<IActionResult> Login(CancellationToken cancellationToken, TokenRequest tokenRequest)
         {
             var userAgent = Request.UserAgent();
             var command = new AuthenticateCommand(userAgent, tokenRequest);
@@ -48,7 +42,7 @@ namespace InstructorIQ.Web.Controllers
         [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType(typeof(UserReadModel), 200)]
-        public async Task<IActionResult> Register(CancellationToken cancellationToken, [FromBody]UserRegisterModel model)
+        public async Task<IActionResult> Register(CancellationToken cancellationToken, UserRegisterModel model)
         {
             var userAgent = Request.UserAgent();
             var command = new UserManagementCommand<UserRegisterModel>(model, User, userAgent);
@@ -61,7 +55,7 @@ namespace InstructorIQ.Web.Controllers
         [AllowAnonymous]
         [HttpPost("forgetPassword")]
         [ProducesResponseType(typeof(UserReadModel), 200)]
-        public async Task<IActionResult> ForgotPassword(CancellationToken cancellationToken, [FromBody]UserForgotPasswordModel model)
+        public async Task<IActionResult> ForgotPassword(CancellationToken cancellationToken, UserForgotPasswordModel model)
         {
             var userAgent = Request.UserAgent();
             var command = new UserManagementCommand<UserForgotPasswordModel>(model, User, userAgent);
@@ -74,7 +68,7 @@ namespace InstructorIQ.Web.Controllers
         [AllowAnonymous]
         [HttpPost("resetPassword")]
         [ProducesResponseType(typeof(UserReadModel), 200)]
-        public async Task<IActionResult> ResetPassword(CancellationToken cancellationToken, [FromBody]UserResetPasswordModel model)
+        public async Task<IActionResult> ResetPassword(CancellationToken cancellationToken, UserResetPasswordModel model)
         {
             var userAgent = Request.UserAgent();
             var command = new UserManagementCommand<UserResetPasswordModel>(model, User, userAgent);
@@ -96,7 +90,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPost("query")]
         [ProducesResponseType(typeof(EntityListResult<UserReadModel>), 200)]
-        public async Task<IActionResult> Query(CancellationToken cancellationToken, [FromBody]EntityQuery query)
+        public async Task<IActionResult> Query(CancellationToken cancellationToken, EntityQuery query)
         {
             var listResult = await ListQuery(query, cancellationToken).ConfigureAwait(false);
 
@@ -115,7 +109,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(UserReadModel), 200)]
-        public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, [FromBody]UserUpdateModel updateModel)
+        public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, UserUpdateModel updateModel)
         {
             var readModel = await UpdateCommand(id, updateModel, cancellationToken).ConfigureAwait(false);
 
@@ -124,7 +118,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPatch("{id}")]
         [ProducesResponseType(typeof(UserReadModel), 200)]
-        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, [FromBody]JsonPatchDocument<User> jsonPatch)
+        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, JsonPatchDocument<User> jsonPatch)
         {
             var readModel = await PatchCommand(id, jsonPatch, cancellationToken).ConfigureAwait(false);
 

@@ -15,7 +15,8 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion))); ;
 
             CreateMap<Group, GroupReadModel>()
-                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
+                .ForMember(d => d.OrganizationName, opt => opt.MapFrom(s => s.Organization.Name));
         }
     }
 }

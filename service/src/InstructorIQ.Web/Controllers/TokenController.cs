@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Authentication.Commands;
 using InstructorIQ.Core.Extensions;
-using InstructorIQ.Core.Infrastructure.Models;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace InstructorIQ.Web.Controllers
 {
     [Route("api/Token")]
-    [Produces("application/json")]
-    [ProducesResponseType(typeof(TokenError), 400)]
-    [ProducesResponseType(typeof(ErrorModel), 500)]
     public class TokenController : Controller
     {
         private readonly IMediator _mediator;

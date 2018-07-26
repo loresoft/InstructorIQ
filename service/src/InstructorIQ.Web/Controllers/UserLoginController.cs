@@ -5,8 +5,6 @@ using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
-using InstructorIQ.Core.Infrastructure.Models;
-using InstructorIQ.Web.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
-    [ValidateModelState]
     [Route("api/UserLogin")]
-    [Produces("application/json")]
-    [ProducesResponseType(typeof(ErrorModel), 422)]
-    [ProducesResponseType(typeof(ErrorModel), 500)]
     public class UserLoginController : MediatorQueryControllerBase<Guid, UserLogin, UserLoginReadModel>
     {
         public UserLoginController(IMediator mediator) : base(mediator)
@@ -38,7 +32,7 @@ namespace InstructorIQ.Web.Controllers
         [HttpPost("query")]
         [ProducesResponseType(typeof(EntityListResult<UserLoginReadModel>), 200)]
         [Authorize(Roles = Core.Data.Constants.Role.GlobalAdministrator)]
-        public async Task<IActionResult> Query(CancellationToken cancellationToken, [FromBody]EntityQuery query)
+        public async Task<IActionResult> Query(CancellationToken cancellationToken, EntityQuery query)
         {
             var listResult = await ListQuery(query, cancellationToken).ConfigureAwait(false);
 

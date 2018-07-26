@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Infrastructure.Models;
-using InstructorIQ.Web.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
@@ -14,11 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
-    [ValidateModelState]
     [Route("api/Topic")]
-    [Produces("application/json")]
-    [ProducesResponseType(typeof(ErrorModel), 422)]
-    [ProducesResponseType(typeof(ErrorModel), 500)]
     public class TopicController : MediatorCommandControllerBase<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>
     {
         public TopicController(IMediator mediator) : base(mediator)
@@ -37,7 +31,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPost("query")]
         [ProducesResponseType(typeof(EntityListResult<TopicReadModel>), 200)]
-        public async Task<IActionResult> Query(CancellationToken cancellationToken, [FromBody]EntityQuery query)
+        public async Task<IActionResult> Query(CancellationToken cancellationToken, EntityQuery query)
         {
             var listResult = await ListQuery(query, cancellationToken).ConfigureAwait(false);
 
@@ -56,7 +50,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPost("")]
         [ProducesResponseType(typeof(TopicReadModel), 200)]
-        public async Task<IActionResult> Create(CancellationToken cancellationToken, [FromBody]TopicCreateModel createModel)
+        public async Task<IActionResult> Create(CancellationToken cancellationToken, TopicCreateModel createModel)
         {
             var readModel = await CreateCommand(createModel, cancellationToken).ConfigureAwait(false);
 
@@ -65,7 +59,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(TopicReadModel), 200)]
-        public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, [FromBody]TopicUpdateModel updateModel)
+        public async Task<IActionResult> Update(CancellationToken cancellationToken, Guid id, TopicUpdateModel updateModel)
         {
             var readModel = await UpdateCommand(id, updateModel, cancellationToken).ConfigureAwait(false);
 
@@ -74,7 +68,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPatch("{id}")]
         [ProducesResponseType(typeof(TopicReadModel), 200)]
-        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, [FromBody]JsonPatchDocument<Topic> jsonPatch)
+        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, JsonPatchDocument<Topic> jsonPatch)
         {
             var readModel = await PatchCommand(id, jsonPatch, cancellationToken).ConfigureAwait(false);
 

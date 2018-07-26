@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IdentityModel.Tokens.Jwt;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using InstructorIQ.Web.Middleware;
@@ -7,6 +8,7 @@ using KickStart;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -98,11 +100,18 @@ namespace InstructorIQ.Web
 
             services
                 .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(o =>
                 {
                     o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
+
+
+            services.Configure<ApiBehaviorOptions>(o =>
+                o.InvalidModelStateResponseFactory = a => new UnprocessableEntityObjectResult(new ErrorModel(a.ModelState))
+            );
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

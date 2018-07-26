@@ -20,5 +20,7 @@ namespace InstructorIQ.Core.Domain.Models
         public Guid OrganizationId { get; set; }
 
         #endregion
+
+        public string OrganizationName { get; set; }
     }
 }

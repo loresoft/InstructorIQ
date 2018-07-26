@@ -1,5 +1,5 @@
 ﻿using System;
-using InstructorIQ.Core.Infrastructure.Models;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
 using MediatR;
 
