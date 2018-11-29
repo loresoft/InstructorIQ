@@ -1,15 +1,33 @@
-﻿using System;
+using System;
 using EntityFrameworkCore.CommandQuery.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
-    public class SessionGroupCreateModel : EntityCreateModel<Guid>
+    /// <summary>
+    /// View Model class
+    /// </summary>
+    public class SessionGroupCreateModel
+        : EntityCreateModel<Guid>
     {
         #region Generated Properties
+        /// <summary>
+        /// Gets or sets the property value for 'SessionId'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'SessionId'.
+        /// </value>
         public Guid SessionId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'GroupId'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'GroupId'.
+        /// </value>
         public Guid GroupId { get; set; }
 
         #endregion
+
     }
 }

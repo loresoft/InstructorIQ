@@ -1,11 +1,194 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using EntityFrameworkCore.CommandQuery.Definitions;
-using InstructorIQ.Core.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
-    public partial class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveOrganization
+    /// <summary>
+    /// Entity class representing data for table 'Session'.
+    /// </summary>
+    public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveTenant<Guid>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Session"/> class.
+        /// </summary>
+        public Session()
+        {
+            #region Generated Constructor
+            SessionGroups = new HashSet<SessionGroup>();
+            SessionInstructors = new HashSet<SessionInstructor>();
+            #endregion
+        }
+
+        #region Generated Properties
+        /// <summary>
+        /// Gets or sets the property value representing column 'Id'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Id'.
+        /// </value>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Name'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Name'.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Note'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Note'.
+        /// </value>
+        public string Note { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'StartTime'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'StartTime'.
+        /// </value>
+        public DateTimeOffset? StartTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'EndTime'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'EndTime'.
+        /// </value>
+        public DateTimeOffset? EndTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'TenantId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'TenantId'.
+        /// </value>
+        public Guid TenantId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'TopicId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'TopicId'.
+        /// </value>
+        public Guid TopicId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'LocationId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'LocationId'.
+        /// </value>
+        public Guid? LocationId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'LeadInstructorId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'LeadInstructorId'.
+        /// </value>
+        public Guid? LeadInstructorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Created'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Created'.
+        /// </value>
+        public DateTimeOffset Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'CreatedBy'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'CreatedBy'.
+        /// </value>
+        public string CreatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Updated'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Updated'.
+        /// </value>
+        public DateTimeOffset Updated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'UpdatedBy'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'UpdatedBy'.
+        /// </value>
+        public string UpdatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'RowVersion'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'RowVersion'.
+        /// </value>
+        public Byte[] RowVersion { get; set; }
+
+        #endregion
+
+        #region Generated Relationships
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Instructor" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Instructor" />.
+        /// </value>
+        /// <seealso cref="LeadInstructorId" />
+        public virtual Instructor LeadInstructor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Location" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Location" />.
+        /// </value>
+        /// <seealso cref="LocationId" />
+        public virtual Location Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Tenant" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Tenant" />.
+        /// </value>
+        /// <seealso cref="TenantId" />
+        public virtual Tenant Tenant { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Topic" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Topic" />.
+        /// </value>
+        /// <seealso cref="TopicId" />
+        public virtual Topic Topic { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="SessionGroup" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="SessionGroup" />.
+        /// </value>
+        public virtual ICollection<SessionGroup> SessionGroups { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="SessionInstructor" />.
+        /// </value>
+        public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
+
+        #endregion
 
     }
 }

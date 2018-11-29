@@ -3,6 +3,25 @@ project:
   directory: .\
 database:
   connectionString: 'Data Source=(local);Initial Catalog=InstructorIQ;Integrated Security=True'
+  tables:
+    - EmailDelivery
+    - EmailTemplate
+    - Group
+    - HistoryRecord
+    - Instructor
+    - Location
+    - Organization
+    - RefreshToken
+    - Role
+    - Session
+    - SessionGroup
+    - SessionInstructor
+    - Topic
+    - User
+    - UserLogin
+    - UserRole
+  schemas:
+    - dbo
 data:
   context:
     name: 'InstructorIQContext'
@@ -30,6 +49,10 @@ model:
     namespace: '{Project.Namespace}.Domain.Models'
     directory: '{Project.Directory}\Domain\{Entity.Name}\Models'
     exclude:
+      entities:
+        - 'RefreshToken'
+        - 'Role'
+        - 'UserRole'
       properties:
         - '\.Id$'
         - '\.Created$'
@@ -43,16 +66,17 @@ model:
   read:
     generate: true
     name: '{Entity.Name}ReadModel'
-    baseClass: EntityReadModel
+    baseClass: 'EntityReadModel<Guid>'
     document: true
   create:
     generate: true
     name: '{Entity.Name}CreateModel'
-    baseClass: EntityCreateModel
+    baseClass: 'EntityCreateModel<Guid>'
     document: true
     exclude:
       entities:
         - 'EmailDelivery'
+        - 'HistoryRecord'
         - 'UserLogin'
   update:
     generate: true
@@ -62,6 +86,7 @@ model:
     exclude:
       entities:
         - 'EmailDelivery'
+        - 'HistoryRecord'
         - 'UserLogin'
   mapper:
     generate: true

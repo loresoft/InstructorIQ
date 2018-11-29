@@ -17,7 +17,7 @@ namespace InstructorIQ.Core.Extensions
                 && claimsPrincipal.IsInRole(Role.GlobalAdministrator);
         }
 
-        public static bool IsOrganizationAdministrator(this IPrincipal principal)
+        public static bool IsTenantAdministrator(this IPrincipal principal)
         {
             return principal is ClaimsPrincipal cp
                 && cp.IsInRole(Role.AdministratorName);
@@ -42,16 +42,16 @@ namespace InstructorIQ.Core.Extensions
             return ci?.FindFirstValue(TokenConstants.Claims.Email);
         }
 
-        public static string GetOrganizationId(this IIdentity identity)
+        public static string GetTenantId(this IIdentity identity)
         {
             var ci = identity as ClaimsIdentity;
-            return ci?.FindFirstValue(TokenConstants.Claims.OrganizationId);
+            return ci?.FindFirstValue(TokenConstants.Claims.TenantId);
         }
 
-        public static string GetOrganizationName(this IIdentity identity)
+        public static string GetTenantName(this IIdentity identity)
         {
             var ci = identity as ClaimsIdentity;
-            return ci?.FindFirstValue(TokenConstants.Claims.OrganizationName);
+            return ci?.FindFirstValue(TokenConstants.Claims.TenantName);
         }
 
 

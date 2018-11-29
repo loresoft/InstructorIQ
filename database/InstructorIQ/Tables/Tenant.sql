@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Tenant]
+(
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Tenant_Id] DEFAULT (NEWSEQUENTIALID()),
+    [Name] NVARCHAR(256) NOT NULL,
+    [Abbreviation] NVARCHAR(50) NOT NULL,
+    [Description] NVARCHAR(MAX) NULL,
+
+    [IsDeleted] BIT NOT NULL CONSTRAINT [DF_Tenant_IsDeleted] DEFAULT (0),
+
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Tenant_Created] DEFAULT (SYSUTCDATETIME()),
+    [CreatedBy] NVARCHAR(100) NULL,
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Tenant_Updated] DEFAULT (SYSUTCDATETIME()),
+    [UpdatedBy] NVARCHAR(100) NULL,
+    [RowVersion] ROWVERSION NOT NULL,
+
+    CONSTRAINT [PK_Tenant] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+)
+
+GO
+CREATE INDEX [IX_Tenant_Name]
+ON [dbo].[Tenant] ([Name])
+
+GO
+CREATE INDEX [IX_Tenant_IsDeleted]
+ON [dbo].[Tenant] ([IsDeleted])

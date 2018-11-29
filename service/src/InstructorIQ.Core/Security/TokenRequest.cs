@@ -29,8 +29,8 @@ namespace InstructorIQ.Core.Security
         public string RefreshToken { get; set; }
 
 
-        [ModelBinder(Name = "organization_id")]
-        [JsonProperty("organization_id", NullValueHandling = NullValueHandling.Ignore)]
-        public Guid? OrganizationId { get; set; }
+        [ModelBinder(Name = "tenant")]
+        [JsonProperty("tenant", NullValueHandling = NullValueHandling.Ignore)]
+        public Guid? TenantId { get; set; }
     }
 }

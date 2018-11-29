@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Topic.sql" />
-    <Build Include="Tables\Organization.sql" />
+    <Build Include="Tables\Tenant.sql" />
     <Build Include="Tables\Session.sql" />
     <Build Include="Tables\User.sql" />
     <Build Include="Tables\SessionInstructor.sql" />
@@ -90,7 +90,7 @@
   <ItemGroup>
     <None Include="local.publish.xml" />
     <None Include="Datasweeps.sql" />
-    <None Include="Deployments\Organization.sql" />
+    <None Include="Deployments\Tenant.sql" />
     <None Include="Deployments\User.sql" />
     <None Include="Deployments\Role.sql" />
     <None Include="Deployments\UserRole.sql" />

@@ -6,7 +6,8 @@
     [Description] NVARCHAR(MAX) NULL,
     [Objectives] NVARCHAR(MAX) NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
+    [TenantId] UNIQUEIDENTIFIER NOT NULL,
+
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
 
     [CalendarYear] SMALLINT NOT NULL CONSTRAINT [DF_Topic_CalendarYear] DEFAULT year(getdate()),
@@ -18,7 +19,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Topic] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Topic_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_Topic_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
     CONSTRAINT [FK_Topic_Instructor_LeadInstructorId] FOREIGN KEY ([LeadInstructorId]) REFERENCES [Instructor]([Id]),
 )
 
@@ -27,8 +28,8 @@ CREATE INDEX [IX_Topic_Title]
 ON [dbo].[Topic] ([Title])
 
 GO
-CREATE INDEX [IX_Topic_OrganizationId]
-ON [dbo].[Topic] ([OrganizationId])
+CREATE INDEX [IX_Topic_TenantId]
+ON [dbo].[Topic] ([TenantId])
 
 GO
 CREATE INDEX [IX_Topic_CalendarYear]

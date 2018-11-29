@@ -35,7 +35,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             // Create Entity
             var createModel = Generator.Default.Single<InstructorCreateModel>();
-            createModel.OrganizationId = Data.Constants.Organization.Test;
+            createModel.TenantId = Data.Constants.Tenant.Test;
             createModel.DisplayName = $"{createModel.GivenName} {createModel.FamilyName}";
             createModel.JobTitle = "TEST";
 

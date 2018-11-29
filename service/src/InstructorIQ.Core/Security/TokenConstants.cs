@@ -71,8 +71,8 @@ namespace InstructorIQ.Core.Security
             public const string Zoneinfo = "zoneinfo";
 
             public const string UserId = "uid";
-            public const string OrganizationId = "oid";
-            public const string OrganizationName = "org";
+            public const string TenantId = "oid";
+            public const string TenantName = "org";
         }
 
         public static class CodeChallengeMethods

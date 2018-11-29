@@ -91,7 +91,7 @@ namespace InstructorIQ.Core.Services
 
                 var template = await _dataContext.EmailTemplates
                     .AsNoTracking()
-                    .GetByKeyMemberAsync(templateKey)
+                    .GetByKeyAsync(templateKey)
                     .ConfigureAwait(false);
 
                 return template;

@@ -8,7 +8,7 @@
     [StartTime] DATETIMEOFFSET NULL,
     [EndTime] DATETIMEOFFSET NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
+    [TenantId] UNIQUEIDENTIFIER NOT NULL,
     [TopicId] UNIQUEIDENTIFIER NOT NULL,
     [LocationId] UNIQUEIDENTIFIER NULL,
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
@@ -20,7 +20,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Session] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Session_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_Session_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
     CONSTRAINT [FK_Session_Topic_TopicId] FOREIGN KEY ([TopicId]) REFERENCES [Topic]([Id]),
     CONSTRAINT [FK_Session_Location_LocationId] FOREIGN KEY ([LocationId]) REFERENCES [Location]([Id]),
     CONSTRAINT [FK_Session_Instructor_LeadInstructorId] FOREIGN KEY ([LeadInstructorId]) REFERENCES [Instructor]([Id]),
@@ -31,8 +31,8 @@ CREATE INDEX [IX_Session_Name]
 ON [dbo].[Session] ([Name])
 
 GO
-CREATE INDEX [IX_Session_OrganizationId]
-ON [dbo].[Session] ([OrganizationId])
+CREATE INDEX [IX_Session_TenantId]
+ON [dbo].[Session] ([TenantId])
 
 GO
 CREATE INDEX [IX_Session_TopicId]

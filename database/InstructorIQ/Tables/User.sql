@@ -16,7 +16,7 @@
     [LockoutEnd] [DATETIMEOFFSET](7) NULL,
 
     [LastLogin] DATETIMEOFFSET NULL,
-    [LastOrganizationId] UNIQUEIDENTIFIER NULL,
+    [LastTenantId] UNIQUEIDENTIFIER NULL,
 
     [IsDeleted] [BIT] NOT NULL CONSTRAINT [DF_User_IsDeleted] DEFAULT (0),
     [IsGlobalAdministrator] [BIT] NOT NULL CONSTRAINT [DF_User_IsGlobalAdministrator] DEFAULT (0),
@@ -28,7 +28,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_User] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_User_Organization_LastOrganizationId] FOREIGN KEY ([LastOrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_User_Tenant_LastTenantId] FOREIGN KEY ([LastTenantId]) REFERENCES [Tenant]([Id]),
 )
 GO
 

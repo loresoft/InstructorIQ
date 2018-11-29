@@ -45,7 +45,7 @@ AS s
 (
     [Id],
     [UserId],
-    [OrganizationId],
+    [TenantId],
     [RoleId]
 )
 ON
@@ -57,14 +57,14 @@ WHEN NOT MATCHED BY TARGET THEN
     (
         [Id],
         [UserId],
-        [OrganizationId],
+        [TenantId],
         [RoleId]
     )
     VALUES
     (
         s.[Id],
         s.[UserId],
-        s.[OrganizationId],
+        s.[TenantId],
         s.[RoleId]
     )
 OUTPUT $action as [Action];

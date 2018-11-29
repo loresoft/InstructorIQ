@@ -32,7 +32,7 @@ namespace InstructorIQ.Core.Tests.Domain
             {
                 Name = "Group " + DateTime.Now.Ticks,
                 Description = "Created from Unit Test",
-                OrganizationId = Data.Constants.Organization.Test
+                TenantId = Data.Constants.Tenant.Test
             };
 
             var createCommand = new EntityCreateCommand<GroupCreateModel, GroupReadModel>(createModel, MockPrincipal.Default);
@@ -72,7 +72,7 @@ namespace InstructorIQ.Core.Tests.Domain
             {
                 Name = patchResult.Name,
                 Description = "Update Command",
-                OrganizationId = patchResult.OrganizationId,
+                TenantId = patchResult.TenantId,
                 RowVersion = patchResult.RowVersion
             };
 

@@ -14,7 +14,7 @@
     [Latitude] decimal(20,10) NULL,
     [Longitude] decimal(20,10) NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
+    [TenantId] UNIQUEIDENTIFIER NOT NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Location_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
@@ -23,7 +23,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Location] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Location_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_Location_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
 )
 
 GO
@@ -31,5 +31,5 @@ CREATE INDEX [IX_Location_Name]
 ON [dbo].[Location] ([Name])
 
 GO
-CREATE INDEX [IX_Location_OrganizationId]
-ON [dbo].[Location] ([OrganizationId])
+CREATE INDEX [IX_Location_TenantId]
+ON [dbo].[Location] ([TenantId])

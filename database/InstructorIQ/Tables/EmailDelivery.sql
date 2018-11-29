@@ -20,7 +20,7 @@
 
     [MimeMessage] VARBINARY(MAX) NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NULL,
+    [TenantId] UNIQUEIDENTIFIER NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_EmailDelivery_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
@@ -29,7 +29,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_EmailDelivery] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_EmailDelivery_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_EmailDelivery_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
 )
 
 GO
@@ -37,6 +37,6 @@ CREATE INDEX [IX_EmailDelivery_Next]
 ON [dbo].[EmailDelivery] ([IsProcessing], [IsDelivered], [NextAttempt])
 
 GO
-CREATE INDEX [IX_EmailDelivery_OrganizationId]
-ON [dbo].[EmailDelivery] ([OrganizationId])
+CREATE INDEX [IX_EmailDelivery_TenantId]
+ON [dbo].[EmailDelivery] ([TenantId])
 

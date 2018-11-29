@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 :r .\Deployments\EmailTemplate.sql
-:r .\Deployments\Organization.sql
+:r .\Deployments\Tenant.sql
 :r .\Deployments\User.sql
 :r .\Deployments\Role.sql
 :r .\Deployments\UserRole.sql

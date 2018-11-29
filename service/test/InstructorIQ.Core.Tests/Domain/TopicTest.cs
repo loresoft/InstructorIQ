@@ -35,7 +35,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             // Create Entity
             var createModel = Generator.Default.Single<TopicCreateModel>();
-            createModel.OrganizationId = Data.Constants.Organization.Test;
+            createModel.TenantId = Data.Constants.Tenant.Test;
             createModel.Title = "TEST";
 
             var createCommand = new EntityCreateCommand<TopicCreateModel, TopicReadModel>(createModel, MockPrincipal.Default);

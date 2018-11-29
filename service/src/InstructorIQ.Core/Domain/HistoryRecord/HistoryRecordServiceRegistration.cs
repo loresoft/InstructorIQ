@@ -12,7 +12,6 @@ namespace InstructorIQ.Core.Domain
         public override void Register(IServiceCollection services, IDictionary<string, object> data)
         {
             RegisterEntityQuery<Guid, HistoryRecord, HistoryRecordReadModel>(services);
-            RegisterEntityCommand<Guid, HistoryRecord, HistoryRecordReadModel, HistoryRecordCreateModel, HistoryRecordUpdateModel>(services);
         }
     }
 }

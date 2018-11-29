@@ -4,7 +4,7 @@
     [Name] NVARCHAR(256) NOT NULL,
     [Description] NVARCHAR(MAX) NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
+    [TenantId] UNIQUEIDENTIFIER NOT NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Group_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
@@ -13,7 +13,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Group] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Group_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_Group_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
 
 )
 
@@ -22,5 +22,5 @@ CREATE INDEX [IX_Group_Name]
 ON [dbo].[Group] ([Name])
 
 GO
-CREATE INDEX [IX_Group_OrganizationId]
-ON [dbo].[Group] ([OrganizationId])
+CREATE INDEX [IX_Group_TenantId]
+ON [dbo].[Group] ([TenantId])

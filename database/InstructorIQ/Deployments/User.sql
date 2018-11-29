@@ -28,7 +28,7 @@ AS s
     [IsEmailAddressConfirmed],
     [DisplayName],
     [PasswordHash],
-    [LastOrganizationId]
+    [LastTenantId]
 )
 ON
 (
@@ -42,7 +42,7 @@ WHEN NOT MATCHED BY TARGET THEN
         [IsEmailAddressConfirmed],
         [DisplayName],
         [PasswordHash],
-        [LastOrganizationId]
+        [LastTenantId]
     )
     VALUES
     (
@@ -51,7 +51,7 @@ WHEN NOT MATCHED BY TARGET THEN
         s.[IsEmailAddressConfirmed],
         s.[DisplayName],
         s.[PasswordHash],
-        s.[LastOrganizationId]
+        s.[LastTenantId]
     )
 WHEN MATCHED THEN
     UPDATE SET
@@ -59,6 +59,6 @@ WHEN MATCHED THEN
         t.[IsEmailAddressConfirmed] = s.[IsEmailAddressConfirmed],
         t.[DisplayName] = s.[DisplayName],
         t.[PasswordHash] = s.[PasswordHash],
-        t.[LastOrganizationId] = s.[LastOrganizationId]
+        t.[LastTenantId] = s.[LastTenantId]
 OUTPUT $action as [Action];
 

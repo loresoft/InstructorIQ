@@ -13,8 +13,8 @@ namespace InstructorIQ.Core.Tests
     {
         static MockPrincipal()
         {
-            Default = CreatePrincipal("test@mailinator.com", "Test User", Data.Constants.User.Test, Data.Constants.Organization.Test, "Test Organization");
-            GlobalAdmin = CreatePrincipal("support@InstructorIQ.com", "InstructorIQ Support", Data.Constants.User.Support, Data.Constants.Organization.Demo, "Demo Organization", true);
+            Default = CreatePrincipal("test@mailinator.com", "Test User", Data.Constants.User.Test, Data.Constants.Tenant.Test, "Test Organization");
+            GlobalAdmin = CreatePrincipal("support@InstructorIQ.com", "InstructorIQ Support", Data.Constants.User.Support, Data.Constants.Tenant.Demo, "Demo Organization", true);
         }
 
 
@@ -31,8 +31,8 @@ namespace InstructorIQ.Core.Tests
             claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Email, email));
             claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.UserId, userId.ToString()));
 
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationId, organizationId.ToString()));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationName, organizationName));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.TenantId, organizationId.ToString()));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.TenantName, organizationName));
 
             if (isGlobalAdmin)
                 claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, Data.Constants.Role.GlobalAdministrator));

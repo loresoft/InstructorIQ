@@ -80,7 +80,7 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
                 throw new AuthenticationException(TokenConstants.Errors.InvalidRequest, "Refresh token expired");
             }
 
-            var organizationId = tokenRequest.OrganizationId;
+            var organizationId = tokenRequest.TenantId;
             var clientId = refreshToken.ClientId;
             var userName = refreshToken.UserName;
 
@@ -100,7 +100,7 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
             var clientId = tokenRequest.ClientId;
             var userName = tokenRequest.UserName;
             var password = tokenRequest.Password;
-            var organizationId = tokenRequest.OrganizationId;
+            var organizationId = tokenRequest.TenantId;
 
             if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrEmpty(password))
                 return await CreateToken(authenticateCommand.UserAgent, organizationId, clientId, userName, password, true).ConfigureAwait(false);
@@ -136,7 +136,7 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
 
             await CreateHistory(userAgent, userName, user).ConfigureAwait(false);
 
-            var organization = await GetOrganization(organizationId, user).ConfigureAwait(false);
+            var organization = await GetTenant(organizationId, user).ConfigureAwait(false);
 
             // create identity
             var claimsIdentity = await CreateIdentity(user, organization).ConfigureAwait(false);
@@ -147,7 +147,7 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
 
             // update user
             user.LastLogin = DateTime.UtcNow;
-            user.LastOrganizationId = organization?.Id;
+            user.LastTenantId = organization?.Id;
 
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
 
@@ -233,14 +233,14 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        private async Task<Organization> GetOrganization(Guid? id, Data.Entities.User user)
+        private async Task<Tenant> GetTenant(Guid? id, Data.Entities.User user)
         {
             // first try by id
-            Data.Entities.Organization organization = null;
+            Data.Entities.Tenant organization = null;
 
             if (id.HasValue)
             {
-                organization = await _dataContext.Organizations
+                organization = await _dataContext.Tenants
                     .GetByKeyAsync(id.Value)
                     .ConfigureAwait(false);
 
@@ -248,11 +248,11 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
                     return organization;
             }
 
-            // next try last organization
-            if (user.LastOrganizationId.HasValue)
+            // next try last tenant
+            if (user.LastTenantId.HasValue)
             {
-                organization = await _dataContext.Organizations
-                    .GetByKeyAsync(user.LastOrganizationId.Value)
+                organization = await _dataContext.Tenants
+                    .GetByKeyAsync(user.LastTenantId.Value)
                     .ConfigureAwait(false);
 
                 if (organization != null && !organization.IsDeleted)
@@ -263,14 +263,14 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
             organization = await _dataContext.UserRoles
                 .ByUserId(user.Id)
                 .AsNoTracking()
-                .Select(o => o.Organization)
+                .Select(o => o.Tenant)
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 
             return organization;
         }
 
-        private async Task<ClaimsIdentity> CreateIdentity(Data.Entities.User user, Organization organization)
+        private async Task<ClaimsIdentity> CreateIdentity(Data.Entities.User user, Tenant tenant)
         {
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
@@ -285,14 +285,14 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
             if (user.IsGlobalAdministrator)
                 claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, Data.Constants.Role.GlobalAdministrator));
 
-            if (organization == null)
+            if (tenant == null)
                 return claimsIdentity;
 
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationId, organization.Id.ToString()));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.OrganizationName, organization.Name));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.TenantId, tenant.Id.ToString()));
+            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.TenantName, tenant.Name));
 
             var roles = await _dataContext.UserRoles
-                .Where(p => p.UserId == user.Id && p.OrganizationId == organization.Id)
+                .Where(p => p.UserId == user.Id && p.TenantId == tenant.Id)
                 .Select(p => p.Role.Name)
                 .AsNoTracking()
                 .ToListAsync()

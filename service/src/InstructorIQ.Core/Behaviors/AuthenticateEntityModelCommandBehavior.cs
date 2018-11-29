@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Commands;
-using InstructorIQ.Core.Definitions;
+using EntityFrameworkCore.CommandQuery.Definitions;
 using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Extensions;
 using MediatR;
@@ -38,13 +38,13 @@ namespace InstructorIQ.Core.Behaviors
                 return;
 
             // check principal organization is same of model organization
-            if (!(request.Model is IHaveOrganization organizationModel))
+            if (!(request.Model is IHaveTenant<Guid> tenantModel))
                 return;
 
-            var organizationString = principal.Identity?.GetOrganizationId();
+            var organizationString = principal.Identity?.GetTenantId();
             Guid.TryParse(organizationString, out var organizationId);
 
-            if (organizationId == organizationModel.OrganizationId)
+            if (organizationId == tenantModel.TenantId)
                 return;
 
             throw new DomainException(HttpStatusCode.Forbidden, "User does not have access to specified organization.");

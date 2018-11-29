@@ -13,7 +13,7 @@
     [TextBody] NVARCHAR(MAX) NULL,
     [HtmlBody] NVARCHAR(MAX) NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NULL,
+    [TenantId] UNIQUEIDENTIFIER NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_EmailTemplate_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
@@ -22,7 +22,7 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_EmailTemplate] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_EmailTemplate_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_EmailTemplate_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
 )
 
 GO
@@ -30,5 +30,5 @@ CREATE UNIQUE INDEX [UX_EmailTemplate_Key]
 ON [dbo].[EmailTemplate] ([Key])
 
 GO
-CREATE INDEX [IX_EmailTemplate_OrganizationId]
-ON [dbo].[EmailTemplate] ([OrganizationId])
+CREATE INDEX [IX_EmailTemplate_TenantId]
+ON [dbo].[EmailTemplate] ([TenantId])

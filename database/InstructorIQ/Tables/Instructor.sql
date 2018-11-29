@@ -16,7 +16,7 @@
 
     [UserId] UNIQUEIDENTIFIER NULL,
 
-    [OrganizationId] UNIQUEIDENTIFIER NOT NULL,
+    [TenantId] UNIQUEIDENTIFIER NOT NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Instructor_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
@@ -26,7 +26,7 @@
 
     CONSTRAINT [PK_Instructor] PRIMARY KEY NONCLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Instructor_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([Id]),
-    CONSTRAINT [FK_Instructor_Organization_OrganizationId] FOREIGN KEY ([OrganizationId]) REFERENCES [Organization]([Id]),
+    CONSTRAINT [FK_Instructor_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
 )
 
 GO
@@ -38,5 +38,5 @@ CREATE INDEX [IX_Instructor_UserId]
 ON [dbo].[Instructor] ([UserId])
 
 GO
-CREATE INDEX [IX_Instructor_OrganizationId]
-ON [dbo].[Instructor] ([OrganizationId])
+CREATE INDEX [IX_Instructor_TenantId]
+ON [dbo].[Instructor] ([TenantId])
