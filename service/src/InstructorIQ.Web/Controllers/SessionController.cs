@@ -13,7 +13,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/Session")]
-    public class SessionController : MediatorCommandControllerBase<Guid, Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>
+    public class SessionController : MediatorCommandControllerBase<Guid, SessionReadModel, SessionCreateModel, SessionUpdateModel>
     {
         public SessionController(IMediator mediator) : base(mediator)
         {

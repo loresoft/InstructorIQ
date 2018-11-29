@@ -8,14 +8,13 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Behaviors
 {
-    public class TrackChangeEntityPatchCommandBehavior<TKey, TEntity, TReadModel> : PipelineBehaviorBase<EntityPatchCommand<TKey, TEntity, TReadModel>, TReadModel>
-        where TEntity : class, new()
+    public class TrackChangeEntityPatchCommandBehavior<TKey, TReadModel> : PipelineBehaviorBase<EntityPatchCommand<TKey, TReadModel>, TReadModel>
     {
         public TrackChangeEntityPatchCommandBehavior(ILoggerFactory loggerFactory) : base(loggerFactory)
         {
         }
 
-        protected override async Task<TReadModel> Process(EntityPatchCommand<TKey, TEntity, TReadModel> request, CancellationToken cancellationToken, RequestHandlerDelegate<TReadModel> next)
+        protected override async Task<TReadModel> Process(EntityPatchCommand<TKey, TReadModel> request, CancellationToken cancellationToken, RequestHandlerDelegate<TReadModel> next)
         {
             // continue pipeline
             return await next().ConfigureAwait(false);

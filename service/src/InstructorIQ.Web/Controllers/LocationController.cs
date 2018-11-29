@@ -13,7 +13,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/Location")]
-    public class LocationController : MediatorCommandControllerBase<Guid, Location, LocationReadModel, LocationCreateModel, LocationUpdateModel>
+    public class LocationController : MediatorCommandControllerBase<Guid, LocationReadModel, LocationCreateModel, LocationUpdateModel>
     {
         public LocationController(IMediator mediator) : base(mediator)
         {

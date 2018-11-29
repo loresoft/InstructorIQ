@@ -13,7 +13,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/Group")]
-    public class GroupController : MediatorCommandControllerBase<Guid, Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>
+    public class GroupController : MediatorCommandControllerBase<Guid, GroupReadModel, GroupCreateModel, GroupUpdateModel>
     {
         public GroupController(IMediator mediator) : base(mediator)
         {

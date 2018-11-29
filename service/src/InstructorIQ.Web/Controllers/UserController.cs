@@ -18,7 +18,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/User")]
-    public class UserController : MediatorCommandControllerBase<Guid, User, UserReadModel, UserCreateModel, UserUpdateModel>
+    public class UserController : MediatorCommandControllerBase<Guid, UserReadModel, UserCreateModel, UserUpdateModel>
     {
         public UserController(IMediator mediator) : base(mediator)
         {

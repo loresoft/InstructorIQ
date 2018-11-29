@@ -11,6 +11,7 @@ namespace InstructorIQ.Core.Data
         {
         }
 
+        #region Generated Properties
         public DbSet<InstructorIQ.Core.Data.Entities.EmailDelivery> EmailDeliveries { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.Organization> Organizations { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> EmailTemplates { get; set; }
@@ -27,9 +28,11 @@ namespace InstructorIQ.Core.Data
         public DbSet<InstructorIQ.Core.Data.Entities.SessionInstructor> SessionInstructors { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.UserLogin> UserLogins { get; set; }
         public DbSet<InstructorIQ.Core.Data.Entities.UserRole> UserRoles { get; set; }
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Generated Configuration
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailDeliveryMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.OrganizationMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailTemplateMap());
@@ -46,8 +49,7 @@ namespace InstructorIQ.Core.Data
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionInstructorMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.UserLoginMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.UserRoleMap());
-
-            InitializeMapping(modelBuilder);
+            #endregion
         }
 
         partial void InitializeMapping(ModelBuilder modelBuilder);

@@ -12,21 +12,23 @@ using Microsoft.Extensions.Logging;
 
 namespace EntityFrameworkCore.CommandQuery.Handlers
 {
-    public class EntityListQueryHandler<TEntity, TReadModel> : RequestHandlerBase<EntityListQuery<TEntity, TReadModel>, EntityListResult<TReadModel>>
+    public class EntityListQueryHandler<TContext, TEntity, TReadModel>
+        : RequestHandlerBase<EntityListQuery<TReadModel>, EntityListResult<TReadModel>>
         where TEntity : class
+        where TContext : DbContext
     {
         private static readonly Lazy<IReadOnlyCollection<TReadModel>> _emptyList = new Lazy<IReadOnlyCollection<TReadModel>>(() => new List<TReadModel>().AsReadOnly());
 
-        private readonly DbContext _context;
+        private readonly TContext _context;
         private readonly IConfigurationProvider _configurationProvider;
 
-        public EntityListQueryHandler(ILoggerFactory loggerFactory, DbContext context, IConfigurationProvider configurationProvider) : base(loggerFactory)
+        public EntityListQueryHandler(ILoggerFactory loggerFactory, TContext context, IConfigurationProvider configurationProvider) : base(loggerFactory)
         {
             _context = context;
             _configurationProvider = configurationProvider;
         }
 
-        protected override async Task<EntityListResult<TReadModel>> Process(EntityListQuery<TEntity, TReadModel> message, CancellationToken cancellationToken)
+        protected override async Task<EntityListResult<TReadModel>> Process(EntityListQuery<TReadModel> message, CancellationToken cancellationToken)
         {
             var entityQuery = message.Query;
 

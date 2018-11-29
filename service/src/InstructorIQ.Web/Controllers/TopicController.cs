@@ -13,7 +13,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/Topic")]
-    public class TopicController : MediatorCommandControllerBase<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>
+    public class TopicController : MediatorCommandControllerBase<Guid, TopicReadModel, TopicCreateModel, TopicUpdateModel>
     {
         public TopicController(IMediator mediator) : base(mediator)
         {

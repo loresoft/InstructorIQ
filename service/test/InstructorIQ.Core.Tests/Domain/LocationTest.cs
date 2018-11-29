@@ -36,11 +36,11 @@ namespace InstructorIQ.Core.Tests.Domain
                 OrganizationId = Data.Constants.Organization.Test
             };
 
-            var createCommand = new EntityCreateCommand<Location, LocationCreateModel, LocationReadModel>(createModel, MockPrincipal.Default);
+            var createCommand = new EntityCreateCommand<LocationCreateModel, LocationReadModel>(createModel, MockPrincipal.Default);
             var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
             createResult.Should().NotBeNull();
 
-            var identifierQuery = new EntityIdentifierQuery<Guid, Location, LocationReadModel>(createResult.Id, MockPrincipal.Default);
+            var identifierQuery = new EntityIdentifierQuery<Guid, LocationReadModel>(createResult.Id, MockPrincipal.Default);
             var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
             identifierResult.Should().NotBeNull();
             identifierResult.Name.Should().Be(createModel.Name);
@@ -51,7 +51,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Name", Value = "Location", Operator = "StartsWith" }
             };
-            var listQuery = new EntityListQuery<Location, LocationReadModel>(entityQuery, MockPrincipal.Default);
+            var listQuery = new EntityListQuery<LocationReadModel>(entityQuery, MockPrincipal.Default);
 
             var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
             listResult.Should().NotBeNull();
@@ -64,7 +64,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 value = "Patch Update"
             });
 
-            var patchCommand = new EntityPatchCommand<Guid, Location, LocationReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
+            var patchCommand = new EntityPatchCommand<Guid, LocationReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
             var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
             patchResult.Should().NotBeNull();
             patchResult.Description.Should().Be("Patch Update");
@@ -77,12 +77,12 @@ namespace InstructorIQ.Core.Tests.Domain
                 RowVersion = patchResult.RowVersion
             };
 
-            var updateCommand = new EntityUpdateCommand<Guid, Location, LocationUpdateModel, LocationReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
+            var updateCommand = new EntityUpdateCommand<Guid, LocationUpdateModel, LocationReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
             var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
             updateResult.Should().NotBeNull();
             updateResult.Description.Should().Be("Update Command");
 
-            var deleteCommand = new EntityDeleteCommand<Guid, Location, LocationReadModel>(createResult.Id, MockPrincipal.Default);
+            var deleteCommand = new EntityDeleteCommand<Guid, LocationReadModel>(createResult.Id, MockPrincipal.Default);
             var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
             deleteResult.Should().NotBeNull();
             deleteResult.Id.Should().Be(createResult.Id);
@@ -99,7 +99,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Name", Value = "Location", Operator = "StartsWith" }
             };
-            var command = new EntityListQuery<Location, LocationReadModel>(query, MockPrincipal.Default);
+            var command = new EntityListQuery<LocationReadModel>(query, MockPrincipal.Default);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();

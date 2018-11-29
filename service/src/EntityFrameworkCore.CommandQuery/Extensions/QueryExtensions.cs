@@ -43,6 +43,10 @@ namespace EntityFrameworkCore.CommandQuery.Extensions
             var predicate = builder.Expression;
             var parameters = builder.Parameters.ToArray();
 
+            // nothing to filter
+            if (string.IsNullOrWhiteSpace(predicate))
+                return query;
+
             return query.Where(predicate, parameters);
         }
     }

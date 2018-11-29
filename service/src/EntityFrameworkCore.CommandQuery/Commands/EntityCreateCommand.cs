@@ -4,8 +4,8 @@ using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace EntityFrameworkCore.CommandQuery.Commands
 {
-    public class EntityCreateCommand<TEntity, TCreateModel, TReadModel> : EntityModelCommand<TCreateModel, TReadModel>
-        where TEntity : class, new()
+    public class EntityCreateCommand<TCreateModel, TReadModel>
+        : EntityModelCommand<TCreateModel, TReadModel>
     {
         public EntityCreateCommand(TCreateModel model, IPrincipal principal) : base(model, principal)
         {

@@ -8,7 +8,8 @@ using Microsoft.Extensions.Logging;
 
 namespace EntityFrameworkCore.CommandQuery.Behaviors
 {
-    public class ValidateEntityModelCommandBehavior<TEntityModel, TResponse> : PipelineBehaviorBase<EntityModelCommand<TEntityModel, TResponse>, TResponse>
+    public class ValidateEntityModelCommandBehavior<TEntityModel, TResponse>
+        : PipelineBehaviorBase<EntityModelCommand<TEntityModel, TResponse>, TResponse>
         where TEntityModel : class
     {
         private readonly IValidator<TEntityModel> _validator;

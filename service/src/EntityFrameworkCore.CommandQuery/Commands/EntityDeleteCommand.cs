@@ -1,11 +1,9 @@
-﻿using System;
-using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Models;
+﻿using System.Security.Principal;
 
 namespace EntityFrameworkCore.CommandQuery.Commands
 {
-    public class EntityDeleteCommand<TKey, TEntity, TReadModel> : EntityIdentifierCommand<TKey, TReadModel>
-        where TEntity : class, new()
+    public class EntityDeleteCommand<TKey, TReadModel>
+        : EntityIdentifierCommand<TKey, TReadModel>
     {
         public EntityDeleteCommand(TKey id, IPrincipal principal) : base(id, principal)
         {

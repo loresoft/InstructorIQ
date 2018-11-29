@@ -1,12 +1,9 @@
-﻿using System;
-using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Models;
+﻿using System.Security.Principal;
 using MediatR;
 
 namespace EntityFrameworkCore.CommandQuery.Queries
 {
-    public class EntityListQuery<TEntity, TReadModel> : IRequest<EntityListResult<TReadModel>>
-        where TEntity : class
+    public class EntityListQuery<TReadModel> : IRequest<EntityListResult<TReadModel>>
     {
         public EntityListQuery(EntityQuery query, IPrincipal principal)
         {

@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
-using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using MediatR;
@@ -13,7 +12,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/UserLogin")]
-    public class UserLoginController : MediatorQueryControllerBase<Guid, UserLogin, UserLoginReadModel>
+    public class UserLoginController : MediatorQueryControllerBase<Guid, UserLoginReadModel>
     {
         public UserLoginController(IMediator mediator) : base(mediator)
         {

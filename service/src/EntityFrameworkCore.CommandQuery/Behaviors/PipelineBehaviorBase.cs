@@ -7,7 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace EntityFrameworkCore.CommandQuery.Behaviors
 {
-    public abstract class PipelineBehaviorBase<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public abstract class PipelineBehaviorBase<TRequest, TResponse>
+        : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
     {
         private static readonly Lazy<string> _requestName = new Lazy<string>(() => typeof(TRequest).Name);

@@ -13,7 +13,7 @@ namespace InstructorIQ.Web.Controllers
 {
     [Authorize]
     [Route("api/Organization")]
-    public class OrganizationController : MediatorCommandControllerBase<Guid, Organization, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>
+    public class OrganizationController : MediatorCommandControllerBase<Guid, OrganizationReadModel, OrganizationCreateModel, OrganizationUpdateModel>
     {
         public OrganizationController(IMediator mediator) : base(mediator)
         {
