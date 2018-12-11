@@ -28,10 +28,10 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<EntityPatchCommand<TKey, TReadModel>, TReadModel>, EntityPatchCommandHandler<InstructorIQContext, TEntity, TKey, TReadModel>>();
             services.TryAddTransient<IRequestHandler<EntityDeleteCommand<TKey, TReadModel>, TReadModel>, EntityDeleteCommandHandler<InstructorIQContext, TEntity, TKey, TReadModel>>();
 
-            // pipeline registration,  run in order registered
+            // pipeline registration, run in order registered
             services.AddTransient<IPipelineBehavior<EntityCreateCommand<TCreateModel, TReadModel>, TReadModel>, TrackCreateCommandBehavior<TCreateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TKey, TUpdateModel, TReadModel>, TReadModel>, TrackUpdateCommandBehavior<TKey, TUpdateModel, TReadModel>>();
-            
+
             services.AddTransient<IPipelineBehavior<EntityCreateCommand<TCreateModel, TReadModel>, TReadModel>, AuthenticateEntityModelCommandBehavior<TCreateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TKey, TUpdateModel, TReadModel>, TReadModel>, AuthenticateEntityModelCommandBehavior<TUpdateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityPatchCommand<TKey, TReadModel>, TReadModel>, AuthenticateEntityIdentifierCommandBehavior<TKey, TReadModel>>();

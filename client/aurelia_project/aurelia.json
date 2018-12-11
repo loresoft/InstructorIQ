@@ -39,19 +39,24 @@
     "displayName": "Sass",
     "fileExtension": ".scss"
   },
+  "jsonProcessor": {
+    "id": "none",
+    "displayName": "None",
+    "fileExtension": ".json"
+  },
   "editor": {
     "id": "vscode",
     "displayName": "Visual Studio Code"
   },
-  "unitTestRunner": [
+  "unitTestRunners": [
     {
-      "id": "none",
-      "displayName": "None"
+      "id": "jest",
+      "displayName": "Jest"
     }
   ],
   "integrationTestRunner": {
-    "id": "none",
-    "displayName": "None"
+    "id": "protractor",
+    "displayName": "Protractor"
   },
   "paths": {
     "root": "src",
@@ -60,5 +65,10 @@
     "attributes": "resources/attributes",
     "valueConverters": "resources/value-converters",
     "bindingBehaviors": "resources/binding-behaviors"
-  }
+  },
+  "testFramework": {
+    "id": "jasmine",
+    "displayName": "Jasmine"
+  },
+  "packageManager": "npm"
 }

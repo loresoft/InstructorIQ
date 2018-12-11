@@ -21,13 +21,13 @@ namespace InstructorIQ.Core.Behaviors
 
         protected override async Task<TResponse> Process(EntityModelCommand<TEntityModel, TResponse> request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            AuthorizeOrganization(request);
+            Authorize(request);
 
             // continue pipeline
             return await next().ConfigureAwait(false);
         }
 
-        private void AuthorizeOrganization(EntityModelCommand<TEntityModel, TResponse> request)
+        private void Authorize(EntityModelCommand<TEntityModel, TResponse> request)
         {
             var principal = request.Principal;
             if (principal == null)
@@ -42,12 +42,12 @@ namespace InstructorIQ.Core.Behaviors
                 return;
 
             var organizationString = principal.Identity?.GetTenantId();
-            Guid.TryParse(organizationString, out var organizationId);
+            Guid.TryParse(organizationString, out var tenantId);
 
-            if (organizationId == tenantModel.TenantId)
+            if (tenantId == tenantModel.TenantId)
                 return;
 
-            throw new DomainException(HttpStatusCode.Forbidden, "User does not have access to specified organization.");
+            throw new DomainException(HttpStatusCode.Forbidden, "User does not have access to specified tenant.");
         }
     }
 }

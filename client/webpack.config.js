@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const project = require('./aurelia_project/aurelia.json');
 const { AureliaPlugin, ModuleDependenciesPlugin } = require('aurelia-webpack-plugin');
 const { ProvidePlugin } = require('webpack');
@@ -25,10 +26,13 @@ const cssRules = [
   { loader: 'css-loader' },
 ];
 
-module.exports = ({production, server, extractCss, coverage, analyze} = {}) => ({
+module.exports = ({ production, server, extractCss, coverage, analyze, karma } = {}) => ({
   resolve: {
     extensions: ['.ts', '.js'],
-    modules: [srcDir, 'node_modules'],
+    modules: [srcDir, nodeModulesDir],
+    // Enforce single aurelia-binding, to avoid v1/v2 duplication due to
+    // out-of-date dependencies on 3rd party aurelia plugins
+    alias: { 'aurelia-binding': path.resolve(__dirname, 'node_modules/aurelia-binding') }
   },
   entry: {
     app: ['aurelia-bootstrapper'],
@@ -56,10 +60,11 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
       {
         test: /\.css$/i,
         issuer: [{ not: [{ test: /\.html$/i }] }],
-        use: extractCss ? ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: cssRules
-        }) : ['style-loader', ...cssRules],
+        use: extractCss ? [{
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader'
+        ] : ['style-loader', ...cssRules]
       },
       {
         test: /\.css$/i,
@@ -79,7 +84,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
         issuer: /\.html?$/i
       },
       { test: /\.html$/i, loader: 'html-loader' },
-      { test: /\.tsx?$/, loader: "ts-loader" },
+      { test: /\.ts$/, loader: "ts-loader" },
       { test: /\.json$/i, loader: 'json-loader' },
       // use Bluebird as the global Promise implementation:
       { test: /[\/\\]node_modules[\/\\]bluebird[\/\\].+\.js$/, loader: 'expose-loader?Promise' },
@@ -99,6 +104,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
     ]
   },
   plugins: [
+    ...when(!karma, new DuplicatePackageCheckerPlugin()),
     new AureliaPlugin(),
     new ProvidePlugin({
       'Promise': 'bluebird',
@@ -126,7 +132,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
       { from: 'application.json', to: 'application.json' }
     ]),
     new CompressionPlugin({
-      asset: "[path].gz[query]",
+      filename: "[path].gz[query]",
       test: /\.(js|css|html|svg)$/,
       threshold: 10240,
       minRatio: 0.8
@@ -137,7 +143,7 @@ module.exports = ({production, server, extractCss, coverage, analyze} = {}) => (
       threshold: 10240,
       minRatio: 0.8
     }),
-    ...when(extractCss, new ExtractTextPlugin({
+    ...when(extractCss, new MiniCssExtractPlugin({
       filename: production ? '[contenthash].css' : '[id].css',
       allChunks: true
     })),
