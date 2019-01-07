@@ -109,7 +109,7 @@
             </div>
           </li>
         </ul>
-        
+
         <form class="form-inline mt-2 mt-md-0 d-none d-xl-block">
           <input id="navbarSearchInput"
                  class="form-control mr-sm-2"
@@ -130,6 +130,7 @@
                aria-haspopup="true"
                aria-expanded="false">
               <gravatar email.bind="authentication.email"
+                        class="rounded-circle"
                         size.bind="24"></gravatar>
               <span id="navbarIdentityUsername">${authentication.name}</span>
             </a>
@@ -138,13 +139,13 @@
               <a id="navbarIdentityProfile"
                  class="dropdown-item"
                  href="/user/profile">
-                <i class="fa fa-user fa-fw"></i> Edit Profile</a>
+                <i class="fas fa-user"></i> Edit Profile</a>
               <div class="dropdown-divider"></div>
               <a id="navbarIdentityLogout"
                  class="dropdown-item"
                  href=""
                  click.delegate="logout()">
-                <i class="fa fa-power-off fa-fw"></i> Logout</a>
+                <i class="fas fa-power-off"></i> Logout</a>
             </div>
           </li>
           <li class="nav-item"

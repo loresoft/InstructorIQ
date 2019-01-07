@@ -18,7 +18,7 @@ namespace InstructorIQ.Core.Data.Mapping
         {
             #region Generated Configure
             // table
-            builder.ToTable("HistoryRecord", "dbo");
+            builder.ToTable("HistoryRecord", "IQ");
 
             // key
             builder.HasKey(t => t.Id);

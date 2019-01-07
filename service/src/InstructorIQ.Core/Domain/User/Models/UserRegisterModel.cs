@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InstructorIQ.Core.Domain.User.Models
+namespace InstructorIQ.Core.Domain.Models
 {
     public class UserRegisterModel
     {

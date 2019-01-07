@@ -1,13 +1,6 @@
 ﻿
-export interface IUserResetPassword {
+export interface UserResetPassword {
   emailAddress?: string;
-  securityToken?: string;
+  resetToken?: string;
   updatedPassword?: string;
 }
-
-export class UserResetPassword implements IUserResetPassword {
-  emailAddress?: string;
-  securityToken?: string;
-  updatedPassword?: string;
-}
-

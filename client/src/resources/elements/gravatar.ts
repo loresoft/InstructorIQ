@@ -1,4 +1,4 @@
-import {computedFrom, bindable, inject} from 'aurelia-framework';
+import {computedFrom, bindable} from 'aurelia-framework';
 import md5 from 'md5';
 
 export class GravatarCustomElement {
@@ -8,6 +8,7 @@ export class GravatarCustomElement {
   @bindable rating = 'g';
   @bindable default = 'mm';
   @bindable secure = true;
+  @bindable class = '';
 
   constructor() {
   }

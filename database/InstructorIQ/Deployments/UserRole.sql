@@ -1,6 +1,6 @@
-﻿-- Table [dbo].[UserRole] data
+﻿-- Table [IQ].[UserRole] data
 
-MERGE INTO [dbo].[UserRole] AS t
+MERGE INTO [IQ].[UserRole] AS t
 USING
 (
     VALUES

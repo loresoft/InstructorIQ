@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[UserLogin]
+﻿CREATE TABLE [IQ].[UserLogin]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_UserLogin_Id] DEFAULT (NEWSEQUENTIALID()),
 
@@ -24,14 +24,14 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_UserLogin] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_UserLogin_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([Id]),
+    CONSTRAINT [FK_UserLogin_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [IQ].[User]([Id]),
 )
 
 GO
 CREATE INDEX [IX_UserLogin_EmailAddress]
-ON [dbo].[UserLogin] ([EmailAddress])
+ON [IQ].[UserLogin] ([EmailAddress])
 
 GO
 CREATE INDEX [IX_UserLogin_UserId]
-ON [dbo].[UserLogin] ([UserId])
+ON [IQ].[UserLogin] ([UserId])
 

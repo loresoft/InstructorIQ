@@ -1,6 +1,6 @@
-﻿-- Table [dbo].[Tenant] data
+﻿-- Table [IQ].[Tenant] data
 
-MERGE INTO [dbo].[Tenant] AS t
+MERGE INTO [IQ].[Tenant] AS t
 USING
 (
     VALUES

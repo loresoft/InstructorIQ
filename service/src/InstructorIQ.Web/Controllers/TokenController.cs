@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using InstructorIQ.Core.Domain.Authentication.Commands;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Security;
 using MediatR;

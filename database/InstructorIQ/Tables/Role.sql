@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Role]
+﻿CREATE TABLE [IQ].[Role]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Role_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
@@ -15,4 +15,4 @@
 
 GO
 CREATE UNIQUE INDEX [UX_Role_Name]
-ON [dbo].[Role] ([Name])
+ON [IQ].[Role] ([Name])

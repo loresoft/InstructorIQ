@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using EntityFrameworkCore.CommandQuery.Behaviors;
+using InstructorIQ.Core.Domain.Commands;
+using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.User.Commands;
-using InstructorIQ.Core.Domain.User.Handlers;
-using InstructorIQ.Core.Domain.User.Models;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

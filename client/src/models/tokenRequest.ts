@@ -1,5 +1,5 @@
 ﻿
-export interface ITokenRequest {
+export interface TokenRequest {
   grant_type?: string;
   client_id?: string;
   user_name?: string;
@@ -7,13 +7,3 @@ export interface ITokenRequest {
   refresh_token?: string;
   organization_id?: string;
 }
-
-export class TokenRequest implements ITokenRequest {
-  grant_type?: string;
-  client_id?: string;
-  user_name?: string;
-  password?: string;
-  refresh_token?: string;
-  organization_id?: string;
-}
-

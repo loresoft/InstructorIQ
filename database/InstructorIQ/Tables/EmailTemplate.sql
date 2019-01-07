@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[EmailTemplate]
+﻿CREATE TABLE [IQ].[EmailTemplate]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_EmailTemplate_Id] DEFAULT (NEWSEQUENTIALID()),
     [Key] NVARCHAR(100) NOT NULL,
@@ -22,13 +22,13 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_EmailTemplate] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_EmailTemplate_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
+    CONSTRAINT [FK_EmailTemplate_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
 )
 
 GO
 CREATE UNIQUE INDEX [UX_EmailTemplate_Key]
-ON [dbo].[EmailTemplate] ([Key])
+ON [IQ].[EmailTemplate] ([Key])
 
 GO
 CREATE INDEX [IX_EmailTemplate_TenantId]
-ON [dbo].[EmailTemplate] ([TenantId])
+ON [IQ].[EmailTemplate] ([TenantId])

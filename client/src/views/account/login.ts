@@ -2,25 +2,23 @@ import { autoinject, bindable } from 'aurelia-framework';
 import { AppRouter } from "aurelia-router";
 import { ValidationRules, ValidationController, ValidationControllerFactory } from "aurelia-validation";
 
-import { Authentication } from "services/authentication";
+import { AuthenticationService } from "services/authenticationService";
 import { Notifier } from "services/notifier";
 import { BootstrapRenderer } from 'services/bootstrapRenderer';
 
-
 @autoinject
 export class Login {
+  @bindable loading: boolean;
+  @bindable dirty: boolean = false;
 
-  @bindable message: string;
   @bindable emailAddress: string;
   @bindable password: string;
-
-  @bindable loading: boolean;
 
   controller: ValidationController;
 
   constructor(
     private appRouter: AppRouter,
-    private authentication: Authentication,
+    private authentication: AuthenticationService,
     private notifier: Notifier,
     private controllerFactory: ValidationControllerFactory
   ) {
@@ -42,12 +40,10 @@ export class Login {
       .on(this);
   }
 
-  async processForm() {
-    this.message = null;
-    
+  async processForm() {   
     let v = await this.controller.validate();
     if (!v.valid) {
-      this.notifier.error("Please ensure all fields are filled out.", "Validation Failure");
+      this.notifier.error("Please ensure all fields are filled out.");
       return;
     } 
     
@@ -60,11 +56,10 @@ export class Login {
         return;
       }
 
-      this.message = response.message;
-      this.notifier.error(response.message, "Login Failure");
+      await this.notifier.error(response.message);
 
     } catch (e) {
-      this.notifier.error(e, "Login Error");
+      await this.notifier.error(e);
     } finally{
       this.loading = false;
     }

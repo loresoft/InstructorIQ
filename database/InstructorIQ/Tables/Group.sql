@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Group]
+﻿CREATE TABLE [IQ].[Group]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Group_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
@@ -13,14 +13,14 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Group] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Group_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
+    CONSTRAINT [FK_Group_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
 
 )
 
 GO
 CREATE INDEX [IX_Group_Name]
-ON [dbo].[Group] ([Name])
+ON [IQ].[Group] ([Name])
 
 GO
 CREATE INDEX [IX_Group_TenantId]
-ON [dbo].[Group] ([TenantId])
+ON [IQ].[Group] ([TenantId])

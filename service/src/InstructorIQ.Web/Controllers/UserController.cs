@@ -2,11 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
-using InstructorIQ.Core.Data.Entities;
-using InstructorIQ.Core.Domain.Authentication.Commands;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.User.Commands;
-using InstructorIQ.Core.Domain.User.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Security;
 using MediatR;
@@ -118,7 +115,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPatch("{id}")]
         [ProducesResponseType(typeof(UserReadModel), 200)]
-        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, JsonPatchDocument<User> jsonPatch)
+        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, JsonPatchDocument jsonPatch)
         {
             var readModel = await PatchCommand(id, jsonPatch, cancellationToken).ConfigureAwait(false);
 
@@ -133,5 +130,18 @@ namespace InstructorIQ.Web.Controllers
 
             return Ok(readModel);
         }
+
+        [HttpPut("{id}/changePassword")]
+        [ProducesResponseType(typeof(UserReadModel), 200)]
+        public async Task<IActionResult> ChangePassword(CancellationToken cancellationToken, Guid id, UserChangePasswordModel updateModel)
+        {
+            var userAgent = Request.UserAgent();
+
+            var command = new UserManagementCommand<UserChangePasswordModel>(updateModel, User, userAgent);
+            var result = await Mediator.Send(command, cancellationToken).ConfigureAwait(false);
+
+            return Ok(result);
+        }
+
     }
 }

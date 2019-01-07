@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
-using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -68,7 +67,7 @@ namespace InstructorIQ.Web.Controllers
 
         [HttpPatch("{id}")]
         [ProducesResponseType(typeof(LocationReadModel), 200)]
-        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, JsonPatchDocument<Location> jsonPatch)
+        public async Task<IActionResult> Patch(CancellationToken cancellationToken, Guid id, JsonPatchDocument jsonPatch)
         {
             var readModel = await PatchCommand(id, jsonPatch, cancellationToken).ConfigureAwait(false);
 

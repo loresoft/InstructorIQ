@@ -6,13 +6,12 @@ using AutoMapper;
 using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Queries;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.User.Commands;
-using InstructorIQ.Core.Domain.User.Models;
 using InstructorIQ.Core.Security;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.Core.Domain.User.Handlers
+namespace InstructorIQ.Core.Domain.Handlers
 {
     public class UserResetPasswordCommandHandler : RequestHandlerBase<UserManagementCommand<UserResetPasswordModel>, UserReadModel>
     {

@@ -1,13 +1,13 @@
 import { autoinject } from 'aurelia-framework';
 import { RouterConfiguration, Router, NavigationInstruction, Next, Redirect } from 'aurelia-router';
 
-import { Authentication } from "services/authentication";
+import { AuthenticationService } from "services/authenticationService";
 import { logger } from "services/logger";
 
 @autoinject
 export class AuthenticateStep {
   constructor(
-    private authentication: Authentication) {
+    private authentication: AuthenticationService) {
 
   }
 

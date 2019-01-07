@@ -8,6 +8,7 @@ using KickStart;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
@@ -86,21 +87,11 @@ namespace InstructorIQ.Web
                 c.SwaggerDoc("v1", new Info { Title = "InstructorIQ API", Version = "v1" });
             });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", builder => builder
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowAnyOrigin()
-                    .AllowCredentials()
-                    .SetPreflightMaxAge(TimeSpan.FromMinutes(5))
-                    .WithExposedHeaders("ETag")
-                );
-            });
+            services.AddCors();
 
             services
                 .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(o =>
                 {
                     o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -116,7 +107,15 @@ namespace InstructorIQ.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors("AllowAll");
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .WithMethods(HttpMethods.Get, HttpMethods.Post, HttpMethods.Put, HttpMethods.Delete, HttpMethods.Patch, HttpMethods.Options)
+                .AllowCredentials()
+                .SetPreflightMaxAge(TimeSpan.FromMinutes(5))
+                .WithExposedHeaders("ETag")
+            );
+
             app.UseMiddleware<JsonExceptionMiddleware>();
             app.UseDefaultFiles();
             app.UseStaticFiles();

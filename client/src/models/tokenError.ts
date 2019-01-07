@@ -1,10 +1,5 @@
 ﻿
-export interface ITokenError {
-  error?: string;
-  error_description?: string;
-}
-
-export class TokenError implements ITokenError {
+export interface TokenError {
   error?: string;
   error_description?: string;
 }

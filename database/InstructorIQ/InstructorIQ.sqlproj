@@ -25,9 +25,10 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <Recovery>SIMPLE</Recovery>
     <AllowSnapshotIsolation>True</AllowSnapshotIsolation>
-    <ReadCommittedSnapshot>True</ReadCommittedSnapshot>
+    <ReadCommittedSnapshot>False</ReadCommittedSnapshot>
     <ChangeTrackingRetentionUnit>Hours</ChangeTrackingRetentionUnit>
     <EnableFullTextSearch>False</EnableFullTextSearch>
+    <DefaultSchema>IQ</DefaultSchema>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -65,6 +66,7 @@
     <Folder Include="Tables" />
     <Folder Include="Deployments" />
     <Folder Include="Procedures" />
+    <Folder Include="Security" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Topic.sql" />
@@ -81,11 +83,16 @@
     <Build Include="Tables\RefreshToken.sql" />
     <Build Include="Tables\EmailTemplate.sql" />
     <Build Include="Tables\EmailDelivery.sql" />
-    <Build Include="Procedures\GetNextEmailDelivery.sql" />
     <None Include="Deployments\EmailTemplate.sql" />
     <Build Include="Tables\Datasweep.sql" />
     <Build Include="Tables\UserLogin.sql" />
     <Build Include="Tables\HistoryRecord.sql" />
+    <Build Include="Security\IQ.sql" />
+    <Build Include="Tables\Invite.sql" />
+    <Build Include="Tables\InviteRole.sql" />
+    <Build Include="Tables\Notification.sql" />
+    <Build Include="Tables\NotificationRecipient.sql" />
+    <Build Include="Procedures\GetNotificationCount.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

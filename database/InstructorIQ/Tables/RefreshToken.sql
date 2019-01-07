@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[RefreshToken]
+﻿CREATE TABLE [IQ].[RefreshToken]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_RefreshToken_Id] DEFAULT (NEWSEQUENTIALID()),
 
@@ -14,17 +14,17 @@
     [Expires] DATETIMEOFFSET NULL,
 
     CONSTRAINT [PK_RefreshToken] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_RefreshToken_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([Id]),
+    CONSTRAINT [FK_RefreshToken_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [IQ].[User]([Id]),
 )
 
 GO
 CREATE INDEX [IX_RefreshToken_UserId]
-ON [dbo].[RefreshToken] ([UserId])
+ON [IQ].[RefreshToken] ([UserId])
 
 GO
 CREATE INDEX [IX_RefreshToken_UserName]
-ON [dbo].[RefreshToken] ([UserName])
+ON [IQ].[RefreshToken] ([UserName])
 
 GO
 CREATE UNIQUE INDEX [UX_RefreshToken_TokenHashed]
-ON [dbo].[RefreshToken] ([TokenHashed])
+ON [IQ].[RefreshToken] ([TokenHashed])

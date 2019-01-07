@@ -32,8 +32,11 @@ export default class ElementGenerator {
   }
 
   generateJSSource(className) {
-    return `export class ${className} {    
-  message: string;
+    return `import { autoinject, bindable } from 'aurelia-framework';
+
+@autoinject    
+export class ${className} {    
+  @bindable message: string;
   
   constructor() {
     this.message = 'Hello world';

@@ -16,8 +16,8 @@ namespace InstructorIQ.Core.Data.Entities
         {
             #region Generated Constructor
             LeadSessions = new HashSet<Session>();
-            LeadTopics = new HashSet<Topic>();
             SessionInstructors = new HashSet<SessionInstructor>();
+            LeadTopics = new HashSet<Topic>();
             #endregion
         }
 
@@ -180,20 +180,20 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Session> LeadSessions { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Topic" />.
-        /// </value>
-        public virtual ICollection<Topic> LeadTopics { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.
         /// </summary>
         /// <value>
         /// The the navigation collection for entity <see cref="SessionInstructor" />.
         /// </value>
         public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Topic" />.
+        /// </value>
+        public virtual ICollection<Topic> LeadTopics { get; set; }
 
         #endregion
 

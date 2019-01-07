@@ -1,7 +1,9 @@
 /// <reference types="aurelia-loader-webpack/src/webpack-hot-interface"/>
 
-import 'font-awesome/scss/font-awesome.scss';
-import './scss/style.scss';
+import '@fortawesome/fontawesome-free/scss/fontawesome.scss'
+import '@fortawesome/fontawesome-free/scss/solid.scss'
+import '@fortawesome/fontawesome-free/scss/brands.scss'
+import './scss/site.scss';
 
 import 'isomorphic-fetch';
 

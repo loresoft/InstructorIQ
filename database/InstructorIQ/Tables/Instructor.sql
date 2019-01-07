@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Instructor]
+﻿CREATE TABLE [IQ].[Instructor]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Instructor_Id] DEFAULT (NEWSEQUENTIALID()),
 
@@ -25,18 +25,18 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Instructor] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Instructor_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [User]([Id]),
-    CONSTRAINT [FK_Instructor_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
+    CONSTRAINT [FK_Instructor_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [IQ].[User]([Id]),
+    CONSTRAINT [FK_Instructor_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
 )
 
 GO
 CREATE INDEX [IX_Instructor_EmailAddress]
-ON [dbo].[Instructor] ([EmailAddress])
+ON [IQ].[Instructor] ([EmailAddress])
 
 GO
 CREATE INDEX [IX_Instructor_UserId]
-ON [dbo].[Instructor] ([UserId])
+ON [IQ].[Instructor] ([UserId])
 
 GO
 CREATE INDEX [IX_Instructor_TenantId]
-ON [dbo].[Instructor] ([TenantId])
+ON [IQ].[Instructor] ([TenantId])

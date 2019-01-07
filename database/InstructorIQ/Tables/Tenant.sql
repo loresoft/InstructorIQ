@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Tenant]
+﻿CREATE TABLE [IQ].[Tenant]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Tenant_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
@@ -18,8 +18,8 @@
 
 GO
 CREATE INDEX [IX_Tenant_Name]
-ON [dbo].[Tenant] ([Name])
+ON [IQ].[Tenant] ([Name])
 
 GO
 CREATE INDEX [IX_Tenant_IsDeleted]
-ON [dbo].[Tenant] ([IsDeleted])
+ON [IQ].[Tenant] ([IsDeleted])

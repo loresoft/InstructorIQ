@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[HistoryRecord]
+﻿CREATE TABLE [IQ].[HistoryRecord]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_HistoryRecord_Id] DEFAULT (NEWSEQUENTIALID()),
 
@@ -35,5 +35,5 @@
 
 GO
 CREATE INDEX [IX_HistoryRecord_Entity]
-ON [dbo].[HistoryRecord] ([Key], [Entity])
+ON [IQ].[HistoryRecord] ([Key], [Entity])
 

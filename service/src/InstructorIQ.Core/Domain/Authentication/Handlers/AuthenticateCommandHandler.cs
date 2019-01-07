@@ -10,7 +10,7 @@ using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
-using InstructorIQ.Core.Domain.Authentication.Commands;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
@@ -20,7 +20,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace InstructorIQ.Core.Domain.Authentication.Handlers
+// ReSharper disable once CheckNamespace
+namespace InstructorIQ.Core.Domain.Handlers
 {
     public class AuthenticateCommandHandler : RequestHandlerBase<AuthenticateCommand, TokenResponse>
     {
@@ -80,12 +81,12 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
                 throw new AuthenticationException(TokenConstants.Errors.InvalidRequest, "Refresh token expired");
             }
 
-            var organizationId = tokenRequest.TenantId;
+            var tenantId = tokenRequest.TenantId;
             var clientId = refreshToken.ClientId;
             var userName = refreshToken.UserName;
 
             // create new token from refresh data
-            var result = await CreateToken(authenticateCommand.UserAgent, organizationId, clientId, userName, null, false).ConfigureAwait(false);
+            var result = await CreateToken(authenticateCommand.UserAgent, tenantId, clientId, userName, null, false).ConfigureAwait(false);
 
             // delete refresh token to prevent reuse
             _dataContext.RefreshTokens.Remove(refreshToken);
@@ -100,17 +101,17 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
             var clientId = tokenRequest.ClientId;
             var userName = tokenRequest.UserName;
             var password = tokenRequest.Password;
-            var organizationId = tokenRequest.TenantId;
+            var tenantId = tokenRequest.TenantId;
 
             if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrEmpty(password))
-                return await CreateToken(authenticateCommand.UserAgent, organizationId, clientId, userName, password, true).ConfigureAwait(false);
+                return await CreateToken(authenticateCommand.UserAgent, tenantId, clientId, userName, password, true).ConfigureAwait(false);
 
             // missing userName or password
             Logger.LogWarning($"User name or password not in form request; UserName: {userName}");
             throw new AuthenticationException(TokenConstants.Errors.InvalidGrant, "The user name or password is incorrect");
         }
 
-        private async Task<TokenResponse> CreateToken(UserAgentModel userAgent, Guid? organizationId, string clientId, string userName, string password, bool verifyPassword)
+        private async Task<TokenResponse> CreateToken(UserAgentModel userAgent, Guid? tenantId, string clientId, string userName, string password, bool verifyPassword)
         {
             var user = await _dataContext.Users
                 .GetByEmailAddressAsync(userName)
@@ -136,10 +137,10 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
 
             await CreateHistory(userAgent, userName, user).ConfigureAwait(false);
 
-            var organization = await GetTenant(organizationId, user).ConfigureAwait(false);
+            var tenant = await GetTenant(tenantId, user).ConfigureAwait(false);
 
             // create identity
-            var claimsIdentity = await CreateIdentity(user, organization).ConfigureAwait(false);
+            var claimsIdentity = await CreateIdentity(user, tenant).ConfigureAwait(false);
             var accessToken = CreateAccessToken(claimsIdentity);
 
             // create refresh token
@@ -147,7 +148,7 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
 
             // update user
             user.LastLogin = DateTime.UtcNow;
-            user.LastTenantId = organization?.Id;
+            user.LastTenantId = tenant?.Id;
 
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
 
@@ -236,38 +237,38 @@ namespace InstructorIQ.Core.Domain.Authentication.Handlers
         private async Task<Tenant> GetTenant(Guid? id, Data.Entities.User user)
         {
             // first try by id
-            Data.Entities.Tenant organization = null;
+            Tenant tenant = null;
 
             if (id.HasValue)
             {
-                organization = await _dataContext.Tenants
+                tenant = await _dataContext.Tenants
                     .GetByKeyAsync(id.Value)
                     .ConfigureAwait(false);
 
-                if (organization != null && !organization.IsDeleted)
-                    return organization;
+                if (tenant != null && !tenant.IsDeleted)
+                    return tenant;
             }
 
             // next try last tenant
             if (user.LastTenantId.HasValue)
             {
-                organization = await _dataContext.Tenants
+                tenant = await _dataContext.Tenants
                     .GetByKeyAsync(user.LastTenantId.Value)
                     .ConfigureAwait(false);
 
-                if (organization != null && !organization.IsDeleted)
-                    return organization;
+                if (tenant != null && !tenant.IsDeleted)
+                    return tenant;
             }
 
             // finally try first membership
-            organization = await _dataContext.UserRoles
+            tenant = await _dataContext.UserRoles
                 .ByUserId(user.Id)
                 .AsNoTracking()
                 .Select(o => o.Tenant)
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
 
-            return organization;
+            return tenant;
         }
 
         private async Task<ClaimsIdentity> CreateIdentity(Data.Entities.User user, Tenant tenant)

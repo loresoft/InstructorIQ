@@ -1,6 +1,6 @@
-﻿-- Table [EmailTemplate] data
+﻿-- Table [IQ].[EmailTemplate] data
 
-MERGE INTO [EmailTemplate] AS t
+MERGE INTO [IQ].[EmailTemplate] AS t
 USING
 (
     VALUES

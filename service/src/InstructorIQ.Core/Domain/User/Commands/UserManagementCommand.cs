@@ -4,7 +4,7 @@ using EntityFrameworkCore.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Models;
 
-namespace InstructorIQ.Core.Domain.User.Commands
+namespace InstructorIQ.Core.Domain.Commands
 {
     public class UserManagementCommand<TUserModel> : EntityModelCommand<TUserModel, UserReadModel>
     {

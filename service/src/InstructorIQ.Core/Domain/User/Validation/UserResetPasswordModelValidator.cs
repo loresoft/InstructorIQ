@@ -1,7 +1,5 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.User.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Validation

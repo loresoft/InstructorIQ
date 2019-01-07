@@ -9,7 +9,7 @@ export class LoadingStateCustomAttribute {
   private originalText: string;
 
   constructor(private element: Element) { 
-    
+    this.originalText = this.getElementValue();
   }
 
   busyChanged(newValue, oldValue) {

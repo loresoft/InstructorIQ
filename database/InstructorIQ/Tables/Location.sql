@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Location]
+﻿CREATE TABLE [IQ].[Location]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Location_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
@@ -23,13 +23,13 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Location] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Location_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
+    CONSTRAINT [FK_Location_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
 )
 
 GO
 CREATE INDEX [IX_Location_Name]
-ON [dbo].[Location] ([Name])
+ON [IQ].[Location] ([Name])
 
 GO
 CREATE INDEX [IX_Location_TenantId]
-ON [dbo].[Location] ([TenantId])
+ON [IQ].[Location] ([TenantId])

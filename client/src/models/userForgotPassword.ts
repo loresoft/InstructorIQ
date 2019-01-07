@@ -1,9 +1,4 @@
 ﻿
-export interface IUserForgotPassword {
+export interface UserForgotPassword {
   emailAddress?: string;
 }
-
-export class UserForgotPassword implements IUserForgotPassword {
-  emailAddress?: string;
-}
-

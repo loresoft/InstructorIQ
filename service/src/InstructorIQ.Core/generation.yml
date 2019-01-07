@@ -3,25 +3,8 @@ project:
   directory: .\
 database:
   connectionString: 'Data Source=(local);Initial Catalog=InstructorIQ;Integrated Security=True'
-  tables:
-    - EmailDelivery
-    - EmailTemplate
-    - Group
-    - HistoryRecord
-    - Instructor
-    - Location
-    - Organization
-    - RefreshToken
-    - Role
-    - Session
-    - SessionGroup
-    - SessionInstructor
-    - Topic
-    - User
-    - UserLogin
-    - UserRole
   schemas:
-    - dbo
+    - IQ
 data:
   context:
     name: 'InstructorIQContext'
@@ -50,6 +33,9 @@ model:
     directory: '{Project.Directory}\Domain\{Entity.Name}\Models'
     exclude:
       entities:
+        - 'InviteUser'
+        - 'Notification'
+        - 'NotificationRecipient'
         - 'RefreshToken'
         - 'Role'
         - 'UserRole'
@@ -60,6 +46,7 @@ model:
         - '\.Updated$'
         - '\.UpdatedBy$'
         - '\.RowVersion$'
+        - 'Invite\.InviteHash$'
         - 'User\.PasswordHash$'
         - 'User\.ResetHash$'
         - 'User\.InviteHash$'
@@ -77,6 +64,7 @@ model:
       entities:
         - 'EmailDelivery'
         - 'HistoryRecord'
+        - 'User'
         - 'UserLogin'
   update:
     generate: true
@@ -87,6 +75,8 @@ model:
       entities:
         - 'EmailDelivery'
         - 'HistoryRecord'
+        - 'Invite'
+        - 'User'
         - 'UserLogin'
   mapper:
     generate: true

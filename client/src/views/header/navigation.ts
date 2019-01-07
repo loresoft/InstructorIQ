@@ -1,14 +1,14 @@
 import { autoinject, bindable } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
 
-import { Authentication } from "services/authentication";
+import { AuthenticationService } from "services/authenticationService";
 
 @autoinject
 export class NavigationCustomElement {
 
   @bindable router: Router = null;
 
-  constructor(private authentication: Authentication) {
+  constructor(private authentication: AuthenticationService) {
   }
 
   logout() {

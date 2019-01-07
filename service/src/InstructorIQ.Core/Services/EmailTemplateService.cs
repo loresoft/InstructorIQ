@@ -8,7 +8,6 @@ using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.User.Models;
 using InstructorIQ.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;

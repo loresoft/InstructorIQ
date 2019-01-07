@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[EmailDelivery]
+﻿CREATE TABLE [IQ].[EmailDelivery]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_EmailDelivery_Id] DEFAULT (NEWSEQUENTIALID()),
 
@@ -29,14 +29,14 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_EmailDelivery] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_EmailDelivery_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [Tenant]([Id]),
+    CONSTRAINT [FK_EmailDelivery_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
 )
 
 GO
 CREATE INDEX [IX_EmailDelivery_Next]
-ON [dbo].[EmailDelivery] ([IsProcessing], [IsDelivered], [NextAttempt])
+ON [IQ].[EmailDelivery] ([IsProcessing], [IsDelivered], [NextAttempt])
 
 GO
 CREATE INDEX [IX_EmailDelivery_TenantId]
-ON [dbo].[EmailDelivery] ([TenantId])
+ON [IQ].[EmailDelivery] ([TenantId])
 

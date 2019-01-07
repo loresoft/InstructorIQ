@@ -1,13 +1,6 @@
 ﻿
-export interface IUserRegister {
+export interface UserRegister {
   displayName?: string;
   emailAddress?: string;
   password?: string;
 }
-
-export class UserRegister implements IUserRegister {
-  displayName?: string;
-  emailAddress?: string;
-  password?: string;
-}
-

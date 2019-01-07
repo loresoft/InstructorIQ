@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using InstructorIQ.Core.Domain.Authentication.Commands;
-using InstructorIQ.Core.Domain.Authentication.Handlers;
+using InstructorIQ.Core.Domain.Commands;
+using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

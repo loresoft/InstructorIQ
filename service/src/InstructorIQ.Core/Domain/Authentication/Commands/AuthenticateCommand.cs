@@ -3,7 +3,8 @@ using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
 using MediatR;
 
-namespace InstructorIQ.Core.Domain.Authentication.Commands
+// ReSharper disable once CheckNamespace
+namespace InstructorIQ.Core.Domain.Commands
 {
     public class AuthenticateCommand : IRequest<TokenResponse>
     {
