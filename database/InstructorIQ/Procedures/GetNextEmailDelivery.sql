@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetNextEmailDelivery]
+﻿CREATE PROCEDURE [IQ].[GetNextEmailDelivery]
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -6,7 +6,7 @@ BEGIN
 	WITH q AS
 	(
 		SELECT TOP 1 *
-		FROM [dbo].[EmailDelivery] ed
+		FROM [IQ].[EmailDelivery] ed
 		WHERE ed.[IsProcessing] = 0
 			AND ed.[IsDelivered] = 0
 			AND ed.[NextAttempt] IS NOT NULL

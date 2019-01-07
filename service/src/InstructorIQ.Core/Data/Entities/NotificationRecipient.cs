@@ -1,22 +1,19 @@
 using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
-    /// Entity class representing data for table 'Role'.
+    /// Entity class representing data for table 'NotificationRecipient'.
     /// </summary>
-    public class Role : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
+    public partial class NotificationRecipient
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Role"/> class.
+        /// Initializes a new instance of the <see cref="NotificationRecipient"/> class.
         /// </summary>
-        public Role()
+        public NotificationRecipient()
         {
             #region Generated Constructor
-            InviteRoles = new HashSet<InviteRole>();
-            UserRoles = new HashSet<UserRole>();
             #endregion
         }
 
@@ -30,20 +27,28 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'Name'.
+        /// Gets or sets the property value representing column 'NotificationId'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'Name'.
+        /// The property value representing column 'NotificationId'.
         /// </value>
-        public string Name { get; set; }
+        public Guid NotificationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'Description'.
+        /// Gets or sets the property value representing column 'UserId'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'Description'.
+        /// The property value representing column 'UserId'.
         /// </value>
-        public string Description { get; set; }
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Read'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Read'.
+        /// </value>
+        public DateTimeOffset? Read { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.
@@ -89,20 +94,22 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="InviteRole" />.
+        /// Gets or sets the navigation property for entity <see cref="Notification" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="InviteRole" />.
+        /// The the navigation property for entity <see cref="Notification" />.
         /// </value>
-        public virtual ICollection<InviteRole> InviteRoles { get; set; }
+        /// <seealso cref="NotificationId" />
+        public virtual Notification Notification { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="UserRole" />.
+        /// Gets or sets the navigation property for entity <see cref="User" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="UserRole" />.
+        /// The the navigation property for entity <see cref="User" />.
         /// </value>
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        /// <seealso cref="UserId" />
+        public virtual User User { get; set; }
 
         #endregion
 

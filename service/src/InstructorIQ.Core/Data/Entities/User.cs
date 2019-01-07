@@ -15,6 +15,8 @@ namespace InstructorIQ.Core.Data.Entities
         public User()
         {
             #region Generated Constructor
+            Invites = new HashSet<Invite>();
+            NotificationRecipients = new HashSet<NotificationRecipient>();
             Instructors = new HashSet<Instructor>();
             RefreshTokens = new HashSet<RefreshToken>();
             UserLogins = new HashSet<UserLogin>();
@@ -178,6 +180,22 @@ namespace InstructorIQ.Core.Data.Entities
         #endregion
 
         #region Generated Relationships
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Invite" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Invite" />.
+        /// </value>
+        public virtual ICollection<Invite> Invites { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="NotificationRecipient" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="NotificationRecipient" />.
+        /// </value>
+        public virtual ICollection<NotificationRecipient> NotificationRecipients { get; set; }
+
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
         /// </summary>

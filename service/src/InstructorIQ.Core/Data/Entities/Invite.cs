@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
-    /// Entity class representing data for table 'Role'.
+    /// Entity class representing data for table 'Invite'.
     /// </summary>
-    public class Role : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
+    public partial class Invite
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Role"/> class.
+        /// Initializes a new instance of the <see cref="Invite"/> class.
         /// </summary>
-        public Role()
+        public Invite()
         {
             #region Generated Constructor
             InviteRoles = new HashSet<InviteRole>();
-            UserRoles = new HashSet<UserRole>();
             #endregion
         }
 
@@ -30,20 +28,44 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'Name'.
+        /// Gets or sets the property value representing column 'DisplayName'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'Name'.
+        /// The property value representing column 'DisplayName'.
         /// </value>
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'Description'.
+        /// Gets or sets the property value representing column 'EmailAddress'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'Description'.
+        /// The property value representing column 'EmailAddress'.
         /// </value>
-        public string Description { get; set; }
+        public string EmailAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'UserId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'UserId'.
+        /// </value>
+        public Guid? UserId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'TenantId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'TenantId'.
+        /// </value>
+        public Guid TenantId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'InviteHash'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'InviteHash'.
+        /// </value>
+        public string InviteHash { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.
@@ -89,20 +111,30 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Tenant" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Tenant" />.
+        /// </value>
+        /// <seealso cref="TenantId" />
+        public virtual Tenant Tenant { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="User" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="User" />.
+        /// </value>
+        /// <seealso cref="UserId" />
+        public virtual User User { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="InviteRole" />.
         /// </summary>
         /// <value>
         /// The the navigation collection for entity <see cref="InviteRole" />.
         /// </value>
         public virtual ICollection<InviteRole> InviteRoles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="UserRole" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="UserRole" />.
-        /// </value>
-        public virtual ICollection<UserRole> UserRoles { get; set; }
 
         #endregion
 

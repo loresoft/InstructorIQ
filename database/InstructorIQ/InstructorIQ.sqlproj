@@ -92,7 +92,7 @@
     <Build Include="Tables\InviteRole.sql" />
     <Build Include="Tables\Notification.sql" />
     <Build Include="Tables\NotificationRecipient.sql" />
-    <Build Include="Procedures\GetNotificationCount.sql" />
+    <Build Include="Procedures\GetNextEmailDelivery.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />
