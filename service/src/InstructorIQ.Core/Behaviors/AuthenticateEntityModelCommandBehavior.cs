@@ -41,8 +41,8 @@ namespace InstructorIQ.Core.Behaviors
             if (!(request.Model is IHaveTenant<Guid> tenantModel))
                 return;
 
-            var organizationString = principal.Identity?.GetTenantId();
-            Guid.TryParse(organizationString, out var tenantId);
+            var tenentString = principal.Identity?.GetTenantId();
+            Guid.TryParse(tenentString, out var tenantId);
 
             if (tenantId == tenantModel.TenantId)
                 return;

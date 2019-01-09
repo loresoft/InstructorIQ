@@ -1,4 +1,3 @@
-import { json } from 'aurelia-fetch-client';
 import { logger } from "services/logger";
 import { AlertMessage } from 'models/alertMessage';
 import { transient, bindable } from 'aurelia-framework';

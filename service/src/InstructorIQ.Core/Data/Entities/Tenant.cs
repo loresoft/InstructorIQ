@@ -18,9 +18,9 @@ namespace InstructorIQ.Core.Data.Entities
             Invites = new HashSet<Invite>();
             EmailDeliveries = new HashSet<EmailDelivery>();
             EmailTemplates = new HashSet<EmailTemplate>();
-            Groups = new HashSet<Group>();
             Instructors = new HashSet<Instructor>();
             Locations = new HashSet<Location>();
+            Groups = new HashSet<Group>();
             Sessions = new HashSet<Session>();
             Topics = new HashSet<Topic>();
             LastUsers = new HashSet<User>();
@@ -137,14 +137,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Group" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Group" />.
-        /// </value>
-        public virtual ICollection<Group> Groups { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
         /// </summary>
         /// <value>
@@ -159,6 +151,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Location" />.
         /// </value>
         public virtual ICollection<Location> Locations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Group" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Group" />.
+        /// </value>
+        public virtual ICollection<Group> Groups { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Session" />.

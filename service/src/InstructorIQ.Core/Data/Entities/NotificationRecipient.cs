@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
     /// Entity class representing data for table 'NotificationRecipient'.
     /// </summary>
-    public partial class NotificationRecipient
+    public partial class NotificationRecipient : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationRecipient"/> class.

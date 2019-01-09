@@ -45,6 +45,14 @@ namespace InstructorIQ.Core.Data.Entities
         public string Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'Sequence'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Sequence'.
+        /// </value>
+        public int Sequence { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'TenantId'.
         /// </summary>
         /// <value>

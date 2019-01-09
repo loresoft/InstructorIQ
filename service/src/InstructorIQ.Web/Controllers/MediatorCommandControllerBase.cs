@@ -1,6 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
+using EntityFrameworkCore.CommandQuery.Definitions;
+using InstructorIQ.Core.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.JsonPatch;
 
@@ -15,11 +18,15 @@ namespace InstructorIQ.Web.Controllers
 
         protected virtual async Task<TReadModel> CreateCommand(TCreateModel createModel, CancellationToken cancellationToken = default(CancellationToken))
         {
+
+            SetTenant(createModel);
+
             var command = new EntityCreateCommand<TCreateModel, TReadModel>(createModel, User);
             var result = await Mediator.Send(command, cancellationToken).ConfigureAwait(false);
 
             return result;
         }
+
 
         protected virtual async Task<TReadModel> UpdateCommand(TKey id, TUpdateModel updateModel, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -44,5 +51,16 @@ namespace InstructorIQ.Web.Controllers
 
             return result;
         }
+
+        protected void SetTenant<T>(T model)
+        {
+            if (!(model is IHaveTenant<Guid> tenantModel))
+                return;
+
+            var tenantString = User.Identity?.GetTenantId();
+            if (Guid.TryParse(tenantString, out var tenantId))
+                tenantModel.TenantId = tenantId;
+        }
+
     }
 }

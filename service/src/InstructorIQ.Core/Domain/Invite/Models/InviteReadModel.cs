@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using EntityFrameworkCore.CommandQuery.Models;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
     /// <summary>

@@ -2,10 +2,8 @@ import { autoinject, bindable } from 'aurelia-framework';
 import { ValidationRules, ValidationController, ValidationControllerFactory } from "aurelia-validation";
 import { Notifier } from "services/notifier";
 import { BootstrapRenderer } from 'services/bootstrapRenderer';
-import { UserProfile } from 'models/userProfile';
 import { AuthenticationService } from 'services/authenticationService';
-import { observe, unobserve, Observer, compare } from 'fast-json-patch'
-import { json } from 'aurelia-fetch-client';
+import { compare } from 'fast-json-patch'
 import { UserRepository } from 'repositories/userRepository';
 
 @autoinject
@@ -17,7 +15,6 @@ export class ProfileForm {
   @bindable dirty: boolean = false;
 
   controller: ValidationController;
-  patchObserver: Observer<UserProfile>;
 
   constructor(
     private notifier: Notifier,

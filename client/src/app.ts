@@ -85,6 +85,16 @@ export class App {
         }
       },
       {
+        route: 'group/create',
+        name: 'groupCreate',
+        moduleId: PLATFORM.moduleName('views/group/group-edit'),
+        nav: false,
+        title: 'Group Create',
+        settings: {
+          authorize: true
+        }
+      },
+      {
         route: 'group/:id',
         name: 'groupEdit',
         moduleId: PLATFORM.moduleName('views/group/group-edit'),

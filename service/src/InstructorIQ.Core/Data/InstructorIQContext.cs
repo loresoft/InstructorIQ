@@ -100,14 +100,6 @@ namespace InstructorIQ.Core.Data
         public virtual DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> EmailTemplates { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Group> Groups { get; set; }
-
-        /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Instructor"/>.
         /// </summary>
         /// <value>
@@ -122,6 +114,14 @@ namespace InstructorIQ.Core.Data
         /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
         /// </value>
         public virtual DbSet<InstructorIQ.Core.Data.Entities.Location> Locations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Group> Groups { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.RefreshToken"/>.
@@ -198,9 +198,9 @@ namespace InstructorIQ.Core.Data
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.HistoryRecordMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailDeliveryMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailTemplateMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LocationMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.RefreshTokenMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TopicMap());

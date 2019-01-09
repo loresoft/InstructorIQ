@@ -40,6 +40,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Description")
                 .HasColumnType("nvarchar(max)");
 
+            builder.Property(t => t.Sequence)
+                .IsRequired()
+                .HasColumnName("Sequence")
+                .HasColumnType("int");
+
             builder.Property(t => t.TenantId)
                 .IsRequired()
                 .HasColumnName("TenantId")

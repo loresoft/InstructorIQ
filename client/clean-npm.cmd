@@ -1,5 +1,5 @@
 @echo off
 
-RMDIR "node_modules" /S /Q
+rmdir "node_modules" /S /Q
 del package-lock.json
 npm cache verify

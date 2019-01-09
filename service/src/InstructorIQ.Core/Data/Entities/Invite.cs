@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using EntityFrameworkCore.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
     /// Entity class representing data for table 'Invite'.
     /// </summary>
-    public partial class Invite
+    public partial class Invite : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveTenant<Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Invite"/> class.
