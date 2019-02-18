@@ -8,6 +8,8 @@ export function configure(config: FrameworkConfiguration) {
 
     PLATFORM.moduleName('resources/elements/alert'),
     PLATFORM.moduleName('resources/elements/busy-button'),
+    PLATFORM.moduleName('resources/elements/confirm-dialog'),
+    PLATFORM.moduleName('resources/elements/confirm-button'),
     PLATFORM.moduleName('resources/elements/loading-indicator'),
     PLATFORM.moduleName('resources/elements/gravatar'),
     PLATFORM.moduleName('resources/elements/pagination'),

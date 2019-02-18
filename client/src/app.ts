@@ -169,16 +169,16 @@ export class App {
 
       // user menu
       {
-        route: 'user/profile',
-        name: 'profile',
+        route: 'user',
+        name: 'user',
         moduleId: PLATFORM.moduleName('views/user/profile'),
         nav: true,
-        title: 'Profile',
+        title: 'User',
         settings: {
           authorize: true
         }
       },
-
+      
     ]);
   }
 }

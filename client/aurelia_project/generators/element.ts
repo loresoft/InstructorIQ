@@ -23,10 +23,15 @@ export default class ElementGenerator {
   }
 
   generateJSSource(className) {
-return `import {bindable} from 'aurelia-framework';
+return `import { autoinject, bindable} from 'aurelia-framework';
 
+@autoinject    
 export class ${className} {
   @bindable value;
+
+  constructor() {
+    
+  }
 
   valueChanged(newValue, oldValue) {
 

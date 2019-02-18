@@ -11,7 +11,7 @@ export class GroupRepository extends Repository<GroupRead, GroupCreate, GroupUpd
   constructor(
     network: Network
   ) {
-    super(network, 'group/');
+    super(network, 'group');
   }
 
 }

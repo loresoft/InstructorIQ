@@ -5,7 +5,6 @@ import { Notifier } from "services/notifier";
 import { BootstrapRenderer } from 'services/bootstrapRenderer';
 import { GroupRepository } from 'repositories/groupRepository';
 import { GroupRead } from 'models/groupRead';
-import { json } from 'aurelia-fetch-client';
 import { compare } from 'fast-json-patch';
 
 
@@ -125,6 +124,10 @@ export class GroupEdit {
     } finally {
       this.loading = false;
     }
+  }
+
+  async delete(){
+    console.log("delete");
   }
 
   resetForm() {

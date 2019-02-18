@@ -6,7 +6,7 @@ import { EntityResult } from "models/entityResult";
 import { EntityQuery } from 'models/entityQuery';
 
 export class Repository<TRead, TCreate, TUpdate> {
-  endpoint = '/';
+  endpoint = '';
   network: Network;
 
   constructor(
@@ -27,7 +27,7 @@ export class Repository<TRead, TCreate, TUpdate> {
   }
 
   async update(id: string, update: TUpdate): Promise<TRead>{
-    const url = `${this.endpoint}${id}`;
+    const url = `${this.endpoint}/${id}`;
     
     const response = await this.network.put(url, json(update));
     const result = response.json();
@@ -36,7 +36,7 @@ export class Repository<TRead, TCreate, TUpdate> {
   }
 
   async patch(id: string, operations: Operation[]) : Promise<TRead> {
-    const url = `${this.endpoint}${id}`;
+    const url = `${this.endpoint}/${id}`;
     
     const response = await this.network.patch(url, json(operations));
     const result = response.json();
@@ -45,7 +45,7 @@ export class Repository<TRead, TCreate, TUpdate> {
   }
 
   async read(id: string) : Promise<TRead> {
-    const url = `${this.endpoint}${id}`;
+    const url = `${this.endpoint}/${id}`;
     
     const response = await this.network.get(url);
     const result = response.json();
