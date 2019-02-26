@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFrameworkCore.CommandQuery" Version="1.0.0.6" />
     <PackageReference Include="Handlebars.Net" Version="1.9.5" />
     <PackageReference Include="HangFire.Core" Version="1.6.22" />
     <PackageReference Include="KickStart.DependencyInjection" Version="6.2.0.122" />
@@ -15,10 +16,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.2" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
     <PackageReference Include="UAParser" Version="3.1.36" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\EntityFrameworkCore.CommandQuery\src\EntityFrameworkCore.CommandQuery\EntityFrameworkCore.CommandQuery.csproj" />
   </ItemGroup>
 
 
