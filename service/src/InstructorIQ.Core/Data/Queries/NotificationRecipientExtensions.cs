@@ -55,11 +55,11 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="userId">The value to filter by.</param>
+        /// <param name="userName">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.NotificationRecipient> ByUserId(this IQueryable<InstructorIQ.Core.Data.Entities.NotificationRecipient> queryable, Guid userId)
+        public static IQueryable<InstructorIQ.Core.Data.Entities.NotificationRecipient> ByUserName(this IQueryable<InstructorIQ.Core.Data.Entities.NotificationRecipient> queryable, string userName)
         {
-            return queryable.Where(q => q.UserId == userId);
+            return queryable.Where(q => q.UserName == userName);
         }
 
         #endregion

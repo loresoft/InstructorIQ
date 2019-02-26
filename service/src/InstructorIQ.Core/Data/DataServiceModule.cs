@@ -19,9 +19,9 @@ namespace InstructorIQ.Core.Data
 
             var connectionString = configuration.GetConnectionString("InstructorIQ");
 
-            services.AddDbContext<InstructorIQContext>(options => options.UseSqlServer(connectionString));
-
-            services.TryAddScoped<DbContext>(s => s.GetRequiredService<InstructorIQContext>());
+            services.AddDbContext<InstructorIQContext>(options => options
+                .UseSqlServer(connectionString)
+            );
         }
     }
 }

@@ -51,17 +51,6 @@ namespace InstructorIQ.Core.Data.Queries
             return queryable.Where(q => q.InviteId == inviteId);
         }
 
-        /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="roleId">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.InviteRole> ByRoleId(this IQueryable<InstructorIQ.Core.Data.Entities.InviteRole> queryable, Guid roleId)
-        {
-            return queryable.Where(q => q.RoleId == roleId);
-        }
-
         #endregion
 
     }

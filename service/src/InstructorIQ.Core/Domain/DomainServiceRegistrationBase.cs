@@ -22,6 +22,9 @@ namespace InstructorIQ.Core.Domain
             where TCreateModel : class
             where TUpdateModel : class
         {
+            // allow query for update models
+            services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<TKey, TUpdateModel>, TUpdateModel>, EntityIdentifierQueryHandler<InstructorIQContext, TEntity, TKey, TUpdateModel>>();
+
             // standard crud commands
             services.TryAddTransient<IRequestHandler<EntityCreateCommand<TCreateModel, TReadModel>, TReadModel>, EntityCreateCommandHandler<InstructorIQContext, TEntity, TKey, TCreateModel, TReadModel>>();
             services.TryAddTransient<IRequestHandler<EntityUpdateCommand<TKey, TUpdateModel, TReadModel>, TReadModel>, EntityUpdateCommandHandler<InstructorIQContext, TEntity, TKey, TUpdateModel, TReadModel>>();
@@ -29,6 +32,9 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<EntityDeleteCommand<TKey, TReadModel>, TReadModel>, EntityDeleteCommandHandler<InstructorIQContext, TEntity, TKey, TReadModel>>();
 
             // pipeline registration, run in order registered
+            services.AddTransient<IPipelineBehavior<EntityCreateCommand<TCreateModel, TReadModel>, TReadModel>, TenantCreateCommandBehavior<TCreateModel, TReadModel>>();
+            services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TKey, TUpdateModel, TReadModel>, TReadModel>, TenantUpdateCommandBehavior<TKey, TUpdateModel, TReadModel>>();
+
             services.AddTransient<IPipelineBehavior<EntityCreateCommand<TCreateModel, TReadModel>, TReadModel>, TrackCreateCommandBehavior<TCreateModel, TReadModel>>();
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<TKey, TUpdateModel, TReadModel>, TReadModel>, TrackUpdateCommandBehavior<TKey, TUpdateModel, TReadModel>>();
 

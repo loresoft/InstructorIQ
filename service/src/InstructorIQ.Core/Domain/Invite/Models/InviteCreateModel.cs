@@ -29,14 +29,6 @@ namespace InstructorIQ.Core.Domain.Models
         public string EmailAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'UserId'.
-        /// </summary>
-        /// <value>
-        /// The property value for 'UserId'.
-        /// </value>
-        public Guid? UserId { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value for 'TenantId'.
         /// </summary>
         /// <value>

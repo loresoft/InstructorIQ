@@ -35,10 +35,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("NotificationId")
                 .HasColumnType("uniqueidentifier");
 
-            builder.Property(t => t.UserId)
+            builder.Property(t => t.UserName)
                 .IsRequired()
-                .HasColumnName("UserId")
-                .HasColumnType("uniqueidentifier");
+                .HasColumnName("UserName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
 
             builder.Property(t => t.Read)
                 .HasColumnName("Read")
@@ -78,11 +79,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .WithMany(t => t.NotificationRecipients)
                 .HasForeignKey(d => d.NotificationId)
                 .HasConstraintName("FK_NotificationRecipient_Notification_NotificationId");
-
-            builder.HasOne(t => t.User)
-                .WithMany(t => t.NotificationRecipients)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_NotificationRecipient_User_UserId");
 
             #endregion
         }

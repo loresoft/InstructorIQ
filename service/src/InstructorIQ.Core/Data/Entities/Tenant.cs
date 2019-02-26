@@ -23,8 +23,6 @@ namespace InstructorIQ.Core.Data.Entities
             Groups = new HashSet<Group>();
             Sessions = new HashSet<Session>();
             Topics = new HashSet<Topic>();
-            LastUsers = new HashSet<User>();
-            UserRoles = new HashSet<UserRole>();
             #endregion
         }
 
@@ -175,22 +173,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Topic" />.
         /// </value>
         public virtual ICollection<Topic> Topics { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="User" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="User" />.
-        /// </value>
-        public virtual ICollection<User> LastUsers { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="UserRole" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="UserRole" />.
-        /// </value>
-        public virtual ICollection<UserRole> UserRoles { get; set; }
 
         #endregion
 

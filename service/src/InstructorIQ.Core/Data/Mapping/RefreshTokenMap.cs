@@ -7,7 +7,7 @@ namespace InstructorIQ.Core.Data.Mapping
     /// <summary>
     /// Allows configuration for an entity type <see cref="InstructorIQ.Core.Data.Entities.RefreshToken" />
     /// </summary>
-    public class RefreshTokenMap
+    public partial class RefreshTokenMap
         : IEntityTypeConfiguration<InstructorIQ.Core.Data.Entities.RefreshToken>
     {
         /// <summary>
@@ -36,11 +36,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
-            builder.Property(t => t.UserId)
-                .IsRequired()
-                .HasColumnName("UserId")
-                .HasColumnType("uniqueidentifier");
-
             builder.Property(t => t.UserName)
                 .IsRequired()
                 .HasColumnName("UserName")
@@ -67,11 +62,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("datetimeoffset");
 
             // relationships
-            builder.HasOne(t => t.User)
-                .WithMany(t => t.RefreshTokens)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_RefreshToken_User_UserId");
-
             #endregion
         }
 

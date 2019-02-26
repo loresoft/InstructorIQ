@@ -1,0 +1,123 @@
+﻿body {
+    padding-top: 4.5rem;
+}
+
+.footer {
+    margin: 5rem 0;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 85%;
+}
+
+.navbar-default {
+    background-color: #f8f8f8;
+    /*border-top: 2px solid rgb(46, 138, 150);*/
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.img-avatar {
+    border-radius: 50em;
+}
+
+.card > .table {
+    border-right: 0;
+    border-left: 0;
+    margin-bottom: 0;
+}
+
+    .card > .table:last-child {
+        border-bottom: 0;
+    }
+
+    .card > .table td:first-child,
+    .card > .table th:first-child {
+        border-left: 0;
+    }
+
+    .card > .table td:last-child,
+    .card > .table th:last-child {
+        border-right: 0;
+    }
+
+    .card > .table tr:first-child td,
+    .card > .table tr:first-child th {
+        border-top: 0;
+    }
+
+    .card > .table tr:last-child td {
+        border-bottom: 0;
+    }
+
+.card .card-header + .table {
+    border-top: 0;
+}
+
+.card .card-header .btn {
+    border: 1px solid #ced4da;
+}
+
+.tab-container > .tab-content > .tab-pane {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+}
+
+.tab-container > .nav-tabs {
+    margin-bottom: 0;
+}
+
+th a,
+td a {
+    display: block;
+    width: 100%;
+}
+
+    th a.sort-by {
+        padding-right: 18px;
+        position: relative;
+    }
+
+        th a.sort-by:link,
+        th a.sort-by:visited,
+        th a.sort-by:hover,
+        th a.sort-by:active {
+            text-decoration: none;
+            color: #000
+        }
+
+a.sort-by:before,
+a.sort-by:after {
+    border: 4px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    right: 5px;
+    top: 50%;
+    position: absolute;
+    width: 0;
+}
+
+a.sort-by:before {
+    border-bottom-color: rgba(0, 0, 0, 0.125);
+    margin-top: -9px;
+}
+
+a.sort-by:after {
+    border-top-color: rgba(0, 0, 0, 0.125);
+    margin-top: 1px;
+}
+
+a.sort-by.ascending:before {
+    border-bottom-color: #000;
+    margin-top: -9px;
+}
+
+a.sort-by.descending:after {
+    border-top-color: #000;
+    margin-top: 1px;
+}
+
+

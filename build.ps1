@@ -16,29 +16,17 @@ If (!$version) {
     $version = "1.0.0.0"
 }
 
-# build client
-Write-Host "*** Build Client ***"
-
-Push-Location $workingDirectory\client\
-
-& npm install aurelia-cli -g
-& npm install
-& au build --env prod
-
-Pop-Location
-
 # build database
 Write-Host "*** Build Database ***"
 & msbuild $workingDirectory\database\InstructorIQ.sln /t:Build /p:Configuration=Release  /p:OutputPath=$buildDirectory\database
 
 # build service
 Write-Host "*** Build Service ***"
-& dotnet publish $workingDirectory\service\src\InstructorIQ.Web\InstructorIQ.Web.csproj -c Release -o $buildDirectory\website
+& dotnet publish $workingDirectory\service\src\InstructorIQ.WebApplication\InstructorIQ.WebApplication.csproj -c Release -o $buildDirectory\website
 & dotnet publish $workingDirectory\service\src\InstructorIQ.JobRunner\InstructorIQ.JobRunner.csproj -c Release -o $buildDirectory\runner
 
 # create package
 Write-Host "*** Create Packages ***"
-Copy-Item -Path $workingDirectory\client\dist -Destination $buildDirectory\website\wwwroot -recurse -Force
 Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\App_Data\jobs\continuous\runner -recurse -Force
 
 # zip package

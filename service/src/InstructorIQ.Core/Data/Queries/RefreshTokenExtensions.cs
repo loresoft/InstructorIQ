@@ -44,17 +44,6 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="userId">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> ByUserId(this IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> queryable, Guid userId)
-        {
-            return queryable.Where(q => q.UserId == userId);
-        }
-
-        /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="userName">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
         public static IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> ByUserName(this IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> queryable, string userName)

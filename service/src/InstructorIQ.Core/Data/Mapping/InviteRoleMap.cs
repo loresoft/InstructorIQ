@@ -35,21 +35,17 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("InviteId")
                 .HasColumnType("uniqueidentifier");
 
-            builder.Property(t => t.RoleId)
+            builder.Property(t => t.RoleName)
                 .IsRequired()
-                .HasColumnName("RoleId")
-                .HasColumnType("uniqueidentifier");
+                .HasColumnName("RoleName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
 
             // relationships
             builder.HasOne(t => t.Invite)
                 .WithMany(t => t.InviteRoles)
                 .HasForeignKey(d => d.InviteId)
                 .HasConstraintName("FK_InviteRole_Invite_InviteId");
-
-            builder.HasOne(t => t.Role)
-                .WithMany(t => t.InviteRoles)
-                .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK_InviteRole_Role_RoleId");
 
             #endregion
         }

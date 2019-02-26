@@ -40,10 +40,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
-            builder.Property(t => t.UserId)
-                .HasColumnName("UserId")
-                .HasColumnType("uniqueidentifier");
-
             builder.Property(t => t.TenantId)
                 .IsRequired()
                 .HasColumnName("TenantId")
@@ -87,11 +83,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .WithMany(t => t.Invites)
                 .HasForeignKey(d => d.TenantId)
                 .HasConstraintName("FK_Invite_Tenant_TenantId");
-
-            builder.HasOne(t => t.User)
-                .WithMany(t => t.Invites)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK_Invite_User_UserId");
 
             #endregion
         }

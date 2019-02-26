@@ -36,12 +36,12 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid InviteId { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'RoleId'.
+        /// Gets or sets the property value representing column 'RoleName'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'RoleId'.
+        /// The property value representing column 'RoleName'.
         /// </value>
-        public Guid RoleId { get; set; }
+        public string RoleName { get; set; }
 
         #endregion
 
@@ -54,15 +54,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="InviteId" />
         public virtual Invite Invite { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="Role" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="Role" />.
-        /// </value>
-        /// <seealso cref="RoleId" />
-        public virtual Role Role { get; set; }
 
         #endregion
 

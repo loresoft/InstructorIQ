@@ -45,14 +45,6 @@ namespace InstructorIQ.Core.Data.Entities
         public string EmailAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'UserId'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'UserId'.
-        /// </value>
-        public Guid? UserId { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value representing column 'TenantId'.
         /// </summary>
         /// <value>
@@ -119,15 +111,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="TenantId" />
         public virtual Tenant Tenant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="User" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="User" />.
-        /// </value>
-        /// <seealso cref="UserId" />
-        public virtual User User { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="InviteRole" />.

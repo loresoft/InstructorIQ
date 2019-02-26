@@ -37,8 +37,6 @@ model:
         - 'Notification'
         - 'NotificationRecipient'
         - 'RefreshToken'
-        - 'Role'
-        - 'UserRole'
       properties:
         - '\.Id$'
         - '\.Created$'
@@ -47,9 +45,6 @@ model:
         - '\.UpdatedBy$'
         - '\.RowVersion$'
         - 'Invite\.InviteHash$'
-        - 'User\.PasswordHash$'
-        - 'User\.ResetHash$'
-        - 'User\.InviteHash$'
   read:
     generate: true
     name: '{Entity.Name}ReadModel'
@@ -64,8 +59,6 @@ model:
       entities:
         - 'EmailDelivery'
         - 'HistoryRecord'
-        - 'User'
-        - 'UserLogin'
   update:
     generate: true
     name: '{Entity.Name}UpdateModel'
@@ -76,8 +69,6 @@ model:
         - 'EmailDelivery'
         - 'HistoryRecord'
         - 'Invite'
-        - 'User'
-        - 'UserLogin'
   mapper:
     generate: true
     name: '{Entity.Name}Profile'

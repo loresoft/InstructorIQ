@@ -44,11 +44,11 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="organizationId">The value to filter by.</param>
+        /// <param name="tenantId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid? organizationId)
+        public static IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid? tenantId)
         {
-            return queryable.Where(q => (q.OrganizationId == organizationId || (organizationId == null && q.OrganizationId == null)));
+            return queryable.Where(q => (q.TenantId == tenantId || (tenantId == null && q.TenantId == null)));
         }
 
         /// <summary>

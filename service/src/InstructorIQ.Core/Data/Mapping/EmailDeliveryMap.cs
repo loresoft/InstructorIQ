@@ -84,7 +84,7 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("MimeMessage")
                 .HasColumnType("varbinary(max)");
 
-            builder.Property(t => t.OrganizationId)
+            builder.Property(t => t.TenantId)
                 .HasColumnName("TenantId")
                 .HasColumnType("uniqueidentifier");
 
@@ -120,7 +120,7 @@ namespace InstructorIQ.Core.Data.Mapping
             // relationships
             builder.HasOne(t => t.Tenant)
                 .WithMany(t => t.EmailDeliveries)
-                .HasForeignKey(d => d.OrganizationId)
+                .HasForeignKey(d => d.TenantId)
                 .HasConstraintName("FK_EmailDelivery_Tenant_TenantId");
 
             #endregion

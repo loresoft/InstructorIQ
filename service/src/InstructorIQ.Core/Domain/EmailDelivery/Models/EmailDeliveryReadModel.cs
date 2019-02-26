@@ -108,12 +108,12 @@ namespace InstructorIQ.Core.Domain.Models
         public Byte[] MimeMessage { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'OrganizationId'.
+        /// Gets or sets the property value for 'TenantId'.
         /// </summary>
         /// <value>
-        /// The property value for 'OrganizationId'.
+        /// The property value for 'TenantId'.
         /// </value>
-        public Guid? OrganizationId { get; set; }
+        public Guid? TenantId { get; set; }
 
         #endregion
 

@@ -1,0 +1,29 @@
+[
+  {
+    "outputFileName": "wwwroot/bundle.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.js",
+      "wwwroot/lib/jquery-validate/jquery.validate.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "wwwroot/lib/twitter-bootstrap/js/bootstrap.js",
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  },
+  {
+    "outputFileName": "wwwroot/bundle.css",
+    "inputFiles": [
+      "wwwroot/lib/fontawesome/css/all.css",
+      "wwwroot/lib/twitter-bootstrap/css/bootstrap.css",
+      "wwwroot/css/site.css"
+    ],
+    "minify": {
+      "enabled": true
+    },
+    "sourceMap": true
+  }
+]

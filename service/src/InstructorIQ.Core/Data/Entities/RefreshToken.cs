@@ -36,14 +36,6 @@ namespace InstructorIQ.Core.Data.Entities
         public string TokenHashed { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'UserId'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'UserId'.
-        /// </value>
-        public Guid UserId { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value representing column 'UserName'.
         /// </summary>
         /// <value>
@@ -86,15 +78,6 @@ namespace InstructorIQ.Core.Data.Entities
         #endregion
 
         #region Generated Relationships
-        /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="User" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="User" />.
-        /// </value>
-        /// <seealso cref="UserId" />
-        public virtual User User { get; set; }
-
         #endregion
 
     }

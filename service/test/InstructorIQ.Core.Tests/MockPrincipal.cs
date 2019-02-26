@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
 using InstructorIQ.Core.Security;
 
 namespace InstructorIQ.Core.Tests
@@ -25,19 +21,14 @@ namespace InstructorIQ.Core.Tests
 
         public static ClaimsPrincipal CreatePrincipal(string email, string name, Guid userId, Guid organizationId, string organizationName, bool isGlobalAdmin = false)
         {
-            var claimsIdentity = new ClaimsIdentity(JwtConstants.TokenType, TokenConstants.Claims.Name, TokenConstants.Claims.Role);
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Subject, email));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Name, name));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Email, email));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.UserId, userId.ToString()));
+            var claimsIdentity = new ClaimsIdentity("Identity.Application", ClaimTypes.Name, ClaimTypes.Role);
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userId.ToString()));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, name));
 
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.TenantId, organizationId.ToString()));
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.TenantName, organizationName));
 
-            if (isGlobalAdmin)
-                claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, Data.Constants.Role.GlobalAdministrator));
+            claimsIdentity.AddClaim(new Claim(UserClaims.Email, email));
 
-            claimsIdentity.AddClaim(new Claim(TokenConstants.Claims.Role, Data.Constants.Role.MemberName));
+            claimsIdentity.AddClaim(new Claim(UserClaims.TenantId, organizationId.ToString()));
 
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             return claimsPrincipal;

@@ -36,12 +36,12 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid NotificationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'UserId'.
+        /// Gets or sets the property value representing column 'UserName'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'UserId'.
+        /// The property value representing column 'UserName'.
         /// </value>
-        public Guid UserId { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Read'.
@@ -102,15 +102,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="NotificationId" />
         public virtual Notification Notification { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="User" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="User" />.
-        /// </value>
-        /// <seealso cref="UserId" />
-        public virtual User User { get; set; }
 
         #endregion
 

@@ -16,8 +16,8 @@ namespace InstructorIQ.Core.Domain.Mapping
         /// </summary>
         public InviteProfile()
         {
-            CreateMap<InstructorIQ.Core.Data.Entities.Invite, InstructorIQ.Core.Domain.Models.InviteReadModel>();
-            CreateMap<InstructorIQ.Core.Domain.Models.InviteCreateModel, InstructorIQ.Core.Data.Entities.Invite>();
+            CreateMap<Invite, InviteReadModel>();
+            CreateMap<InviteCreateModel, Invite>();
         }
 
     }

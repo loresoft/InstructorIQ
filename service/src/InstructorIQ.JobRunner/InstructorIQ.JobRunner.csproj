@@ -11,14 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\InstructorIQ.Web\appsettings.json" Link="appsettings.json">
+    <Content Include="..\InstructorIQ.WebApplication\appsettings.json" Link="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HangFire.Core" Version="1.6.21" />
-    <PackageReference Include="HangFire.SqlServer" Version="1.6.21" />
+    <PackageReference Include="HangFire.Core" Version="1.6.22" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.6.22" />
     <PackageReference Include="KickStart.AutoMapper" Version="6.2.0.122" />
     <PackageReference Include="KickStart.DependencyInjection" Version="6.2.0.122" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />

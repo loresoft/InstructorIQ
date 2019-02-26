@@ -7,6 +7,7 @@ using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Definitions;
 using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -15,8 +16,12 @@ namespace InstructorIQ.Core.Behaviors
     public class AuthenticateEntityModelCommandBehavior<TEntityModel, TResponse> : PipelineBehaviorBase<EntityModelCommand<TEntityModel, TResponse>, TResponse>
         where TEntityModel : class
     {
-        public AuthenticateEntityModelCommandBehavior(ILoggerFactory loggerFactory) : base(loggerFactory)
+
+        private readonly UserClaimManager _claimManager;
+
+        public AuthenticateEntityModelCommandBehavior(ILoggerFactory loggerFactory, UserClaimManager claimManager) : base(loggerFactory)
         {
+            _claimManager = claimManager;
         }
 
         protected override async Task<TResponse> Process(EntityModelCommand<TEntityModel, TResponse> request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -33,7 +38,7 @@ namespace InstructorIQ.Core.Behaviors
             if (principal == null)
                 return;
 
-            var isGlobalAdmin = principal.IsGlobalAdministrator();
+            var isGlobalAdmin = _claimManager.IsGlobalAdministrator(principal);
             if (isGlobalAdmin)
                 return;
 
@@ -41,8 +46,8 @@ namespace InstructorIQ.Core.Behaviors
             if (!(request.Model is IHaveTenant<Guid> tenantModel))
                 return;
 
-            var tenentString = principal.Identity?.GetTenantId();
-            Guid.TryParse(tenentString, out var tenantId);
+            var tenantString = _claimManager.GetTenantId(principal);
+            Guid.TryParse(tenantString, out var tenantId);
 
             if (tenantId == tenantModel.TenantId)
                 return;

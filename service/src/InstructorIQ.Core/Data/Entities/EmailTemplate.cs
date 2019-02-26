@@ -97,7 +97,7 @@ namespace InstructorIQ.Core.Data.Entities
         /// <value>
         /// The property value representing column 'TenantId'.
         /// </value>
-        public Guid? OrganizationId { get; set; }
+        public Guid? TenantId { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.
@@ -148,7 +148,7 @@ namespace InstructorIQ.Core.Data.Entities
         /// <value>
         /// The the navigation property for entity <see cref="Tenant" />.
         /// </value>
-        /// <seealso cref="OrganizationId" />
+        /// <seealso cref="TenantId" />
         public virtual Tenant Tenant { get; set; }
 
         #endregion

@@ -70,7 +70,7 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("HtmlBody")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.OrganizationId)
+            builder.Property(t => t.TenantId)
                 .HasColumnName("TenantId")
                 .HasColumnType("uniqueidentifier");
 
@@ -106,7 +106,7 @@ namespace InstructorIQ.Core.Data.Mapping
             // relationships
             builder.HasOne(t => t.Tenant)
                 .WithMany(t => t.EmailTemplates)
-                .HasForeignKey(d => d.OrganizationId)
+                .HasForeignKey(d => d.TenantId)
                 .HasConstraintName("FK_EmailTemplate_Tenant_TenantId");
 
             #endregion

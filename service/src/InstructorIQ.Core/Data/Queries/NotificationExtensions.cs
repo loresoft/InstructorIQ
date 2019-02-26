@@ -42,5 +42,5 @@ namespace InstructorIQ.Core.Data.Queries
 
         #endregion
 
-        }
     }
+}
