@@ -13,7 +13,8 @@ Post-Deployment Script Template
 :r .\Deployments\Tenant.sql
 :r .\Deployments\User.sql
 :r .\Deployments\Role.sql
-:r .\Deployments\UserRole.sql
+:r .\Deployments\UserClaim.sql
+/*:r .\Deployments\UserRole.sql*/
 
 /* Must Be Last */
 :r .\Datasweeps.sql

@@ -25,12 +25,12 @@
 
 GO
 CREATE INDEX [IX_Topic_Title]
-ON [IQ].[Topic] ([Title])
+    ON [IQ].[Topic] ([Title])
 
 GO
 CREATE INDEX [IX_Topic_TenantId]
-ON [IQ].[Topic] ([TenantId])
+    ON [IQ].[Topic] ([TenantId])
 
 GO
 CREATE INDEX [IX_Topic_CalendarYear]
-ON [IQ].[Topic] ([CalendarYear])
+    ON [IQ].[Topic] ([CalendarYear])

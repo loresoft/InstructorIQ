@@ -34,9 +34,9 @@
 
 GO
 CREATE INDEX [IX_EmailDelivery_Next]
-ON [IQ].[EmailDelivery] ([IsProcessing], [IsDelivered], [NextAttempt])
+    ON [IQ].[EmailDelivery] ([IsProcessing], [IsDelivered], [NextAttempt])
 
 GO
 CREATE INDEX [IX_EmailDelivery_TenantId]
-ON [IQ].[EmailDelivery] ([TenantId])
+    ON [IQ].[EmailDelivery] ([TenantId])
 

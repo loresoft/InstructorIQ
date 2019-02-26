@@ -3,6 +3,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	-- get first not processed and not delivered email messages
 	WITH q AS
 	(
 		SELECT TOP 1 *

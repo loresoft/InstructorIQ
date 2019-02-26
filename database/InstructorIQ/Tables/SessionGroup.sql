@@ -12,4 +12,4 @@
 
 GO
 CREATE CLUSTERED INDEX [IX_SessionGroup_SessionId_GroupId]
-ON [IQ].[SessionGroup] ([SessionId] ASC, [GroupId] ASC)
+    ON [IQ].[SessionGroup] ([SessionId] ASC, [GroupId] ASC)

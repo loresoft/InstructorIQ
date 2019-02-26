@@ -14,8 +14,6 @@
     [MobilePhone] nvarchar(50) NOT NULL,
     [BusinessPhone] nvarchar(50) NULL,
 
-    [UserId] UNIQUEIDENTIFIER NULL,
-
     [TenantId] UNIQUEIDENTIFIER NOT NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Instructor_Created] DEFAULT (SYSUTCDATETIME()),
@@ -25,18 +23,13 @@
     [RowVersion] ROWVERSION NOT NULL,
 
     CONSTRAINT [PK_Instructor] PRIMARY KEY NONCLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_Instructor_User_UserId] FOREIGN KEY ([UserId]) REFERENCES [IQ].[User]([Id]),
     CONSTRAINT [FK_Instructor_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
 )
 
 GO
 CREATE INDEX [IX_Instructor_EmailAddress]
-ON [IQ].[Instructor] ([EmailAddress])
-
-GO
-CREATE INDEX [IX_Instructor_UserId]
-ON [IQ].[Instructor] ([UserId])
+    ON [IQ].[Instructor] ([EmailAddress])
 
 GO
 CREATE INDEX [IX_Instructor_TenantId]
-ON [IQ].[Instructor] ([TenantId])
+    ON [IQ].[Instructor] ([TenantId])

@@ -1,34 +1,46 @@
-﻿-- Table [IQ].[User] data
+﻿-- Table [Identity].[User] data
 
-MERGE INTO [IQ].[User] AS t
+MERGE INTO [Identity].[User] AS t
 USING
 (
     VALUES
     (
-        '2a31eec5-30eb-e711-87c1-708bcd56aa6d',
-        'support@InstructorIQ.com',
+        '3ce68132-6617-4222-326e-08d697685e3a',
+        'test@test.com',
+        'TEST@TEST.COM',
         1,
-        'InstructorIQ Support',
-        'AQAAAAEAACcQAAAAEAXUuNkUYofVK26eJqdE4gxaxbjVGlj67l7cruoqSZYhGvb2c8EWkKXE8x7C2S6aBQ==',
-        'e8a8db6e-2feb-e711-87c1-708bcd56aa6d'
+        'test@test.com',
+        'TEST@TEST.COM',
+        'Test User',
+        'AQAAAAEAACcQAAAAEHPiqxm4sPUHn6Phip8f65AbBNSlFYcjppG1ettpFjA/b142jl2TV2IlS8fN9ZJMSw==',
+        '6BO66WD72QR2NQIKLA2XX7WQT5NCGWOD',
+        'b46d0372-f5ed-4eff-bbae-6c34abfa0a81'
     ),
     (
-        '52ae0c20-c4de-e711-87bf-708bcd56aa6d',
-        'test@mailinator.com',
+        'c1e86361-62d2-4ef9-4618-08d69773ffa9',
+        'support@InstructorIQ.com',
+        'SUPPORT@INSTRUCTORIQ.COM',
         1,
-        'Test User',
-        'AQAAAAEAACcQAAAAEP8GauthVFLL/l5N/QeA3TmZLo0kQ/QwLAJnkjv4/Mtb8XT7H3iWSOoFZBIj+dJqEw==',
-        '2a3080d2-a9ec-e711-87c2-708bcd56aa6d'
+        'support@InstructorIQ.com',
+        'SUPPORT@INSTRUCTORIQ.COM',
+        'Support',
+        'AQAAAAEAACcQAAAAEP6QKFEOwETAN2lhOpllQ8c5na91FaYbdNRu+4byItVpD5bosn6qoGTmaXakyMCFug==',
+        'HTD7C7YJ5D6UEULRG6ND5VDSCC37GS5I',
+        '3bc48f6a-5087-4c74-b0b6-721f711c065e'
     )
 )
 AS s
 (
     [Id],
-    [EmailAddress],
-    [IsEmailAddressConfirmed],
+    [Email],
+    [NormalizedEmail],
+    [EmailConfirmed],
+    [UserName],
+    [NormalizedUserName],
     [DisplayName],
     [PasswordHash],
-    [LastTenantId]
+    [SecurityStamp],
+    [ConcurrencyStamp]
 )
 ON
 (
@@ -38,27 +50,40 @@ WHEN NOT MATCHED BY TARGET THEN
     INSERT
     (
         [Id],
-        [EmailAddress],
-        [IsEmailAddressConfirmed],
+        [Email],
+        [NormalizedEmail],
+        [EmailConfirmed],
+        [UserName],
+        [NormalizedUserName],
         [DisplayName],
         [PasswordHash],
-        [LastTenantId]
+        [SecurityStamp],
+        [ConcurrencyStamp]
     )
     VALUES
     (
         s.[Id],
-        s.[EmailAddress],
-        s.[IsEmailAddressConfirmed],
+        s.[Email],
+        s.[NormalizedEmail],
+        s.[EmailConfirmed],
+        s.[UserName],
+        s.[NormalizedUserName],
         s.[DisplayName],
         s.[PasswordHash],
-        s.[LastTenantId]
+        s.[SecurityStamp],
+        s.[ConcurrencyStamp]
     )
 WHEN MATCHED THEN
     UPDATE SET
-        t.[EmailAddress] = s.[EmailAddress],
-        t.[IsEmailAddressConfirmed] = s.[IsEmailAddressConfirmed],
+        t.[Id] = s.[Id],
+        t.[Email] = s.[Email],
+        t.[NormalizedEmail] = s.[NormalizedEmail],
+        t.[EmailConfirmed] = s.[EmailConfirmed],
+        t.[UserName] = s.[UserName],
+        t.[NormalizedUserName] = s.[NormalizedUserName],
         t.[DisplayName] = s.[DisplayName],
         t.[PasswordHash] = s.[PasswordHash],
-        t.[LastTenantId] = s.[LastTenantId]
+        t.[SecurityStamp] = s.[SecurityStamp],
+        t.[ConcurrencyStamp] = s.[ConcurrencyStamp]
 OUTPUT $action as [Action];
 

@@ -1,6 +1,6 @@
-﻿-- Table [IQ].[Role] data
+﻿-- Table [Identity].[Role] data
 
-MERGE INTO [IQ].[Role] AS t
+MERGE INTO [Identity].[Role] AS t
 USING
 (
     VALUES
@@ -35,17 +35,20 @@ WHEN NOT MATCHED BY TARGET THEN
     (
         [Id],
         [Name],
+        [NormalizedName],
         [Description]
     )
     VALUES
     (
         s.[Id],
         s.[Name],
+        UPPER(s.[Name]),
         s.[Description]
     )
 WHEN MATCHED THEN
     UPDATE SET
         t.[Name] = s.[Name],
+        t.[NormalizedName] = UPPER(s.[Name]),
         t.[Description] = s.[Description]
 OUTPUT $action as [Action];
 

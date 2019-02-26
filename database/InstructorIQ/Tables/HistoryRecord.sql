@@ -35,5 +35,5 @@
 
 GO
 CREATE INDEX [IX_HistoryRecord_Entity]
-ON [IQ].[HistoryRecord] ([Key], [Entity])
+    ON [IQ].[HistoryRecord] ([Key], [Entity])
 

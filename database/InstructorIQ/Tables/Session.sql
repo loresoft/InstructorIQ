@@ -28,12 +28,12 @@
 
 GO
 CREATE INDEX [IX_Session_Name]
-ON [IQ].[Session] ([Name])
+    ON [IQ].[Session] ([Name])
 
 GO
 CREATE INDEX [IX_Session_TenantId]
-ON [IQ].[Session] ([TenantId])
+    ON [IQ].[Session] ([TenantId])
 
 GO
 CREATE INDEX [IX_Session_TopicId]
-ON [IQ].[Session] ([TopicId])
+    ON [IQ].[Session] ([TopicId])

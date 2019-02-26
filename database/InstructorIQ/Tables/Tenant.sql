@@ -18,8 +18,8 @@
 
 GO
 CREATE INDEX [IX_Tenant_Name]
-ON [IQ].[Tenant] ([Name])
+    ON [IQ].[Tenant] ([Name])
 
 GO
 CREATE INDEX [IX_Tenant_IsDeleted]
-ON [IQ].[Tenant] ([IsDeleted])
+    ON [IQ].[Tenant] ([IsDeleted])

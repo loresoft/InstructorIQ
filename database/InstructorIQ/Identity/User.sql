@@ -1,36 +1,38 @@
-﻿CREATE TABLE [dbo].[User]
+﻿CREATE TABLE [Identity].[User]
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_User_Id] DEFAULT (newsequentialid()),
 
     [Email] NVARCHAR(256) NULL,
-    [EmailConfirmed] BIT NOT NULL CONSTRAINT [DF_User_EmailConfirmed] DEFAULT (0),
     [NormalizedEmail] NVARCHAR(256) NULL,
+    [EmailConfirmed] BIT NOT NULL CONSTRAINT [DF_User_EmailConfirmed] DEFAULT (0),
 
     [UserName] NVARCHAR(256) NULL,
     [NormalizedUserName] NVARCHAR(256) NULL,
 
-    [PhoneNumber] NVARCHAR(max) NULL,
-    [PhoneNumberConfirmed] BIT NOT NULL,
+    [PhoneNumber] NVARCHAR(MAX) NULL,
+    [PhoneNumberConfirmed] BIT NOT NULL CONSTRAINT [DF_User_PhoneNumberConfirmed] DEFAULT (0),
 
-    [PasswordHash] NVARCHAR(max) NULL,
+    [DisplayName] NVARCHAR(256) NOT NULL,
+
+    [PasswordHash] NVARCHAR(MAX) NULL,
 
     [TwoFactorEnabled] BIT NOT NULL CONSTRAINT [DF_User_TwoFactorEnabled] DEFAULT (0),
 
     [AccessFailedCount] INT NOT NULL CONSTRAINT [DF_User_AccessFailedCount] DEFAULT (0),
     [LockoutEnabled] BIT NOT NULL CONSTRAINT [DF_User_LockoutEnabled] DEFAULT (0),
-    [LockoutEnd] DATETIMEOFFSET NULL,
+    [LockoutEnd] DATETIMEOFFSET(7) NULL,
 
-    [SecurityStamp] NVARCHAR(max) NULL,
-    [ConcurrencyStamp] NVARCHAR(max) NULL,
+    [SecurityStamp] NVARCHAR(MAX) NULL,
+    [ConcurrencyStamp] NVARCHAR(MAX) NULL,
 
     CONSTRAINT [PK_User] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 )
 GO
+CREATE NONCLUSTERED INDEX [EmailIndex]
+    ON [Identity].[User]([NormalizedEmail] ASC);
 
-CREATE UNIQUE INDEX [UX_User_UserName]
-ON [dbo].[User] ([NormalizedUserName])
-GO
 
-CREATE UNIQUE INDEX [UX_User_EmailAddress]
-ON [dbo].[User] ([NormalizedEmail])
 GO
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex]
+    ON [Identity].[User]([NormalizedUserName] ASC) WHERE ([NormalizedUserName] IS NOT NULL);
+

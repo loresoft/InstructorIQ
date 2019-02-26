@@ -22,8 +22,8 @@
 
 GO
 CREATE INDEX [IX_Group_Name]
-ON [IQ].[Group] ([Name])
+    ON [IQ].[Group] ([Name])
 
 GO
 CREATE INDEX [IX_Group_TenantId]
-ON [IQ].[Group] ([TenantId])
+    ON [IQ].[Group] ([TenantId])

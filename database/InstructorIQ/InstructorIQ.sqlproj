@@ -66,33 +66,39 @@
     <Folder Include="Tables" />
     <Folder Include="Deployments" />
     <Folder Include="Procedures" />
-    <Folder Include="Security" />
+    <Folder Include="Schema" />
+    <Folder Include="Identity" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Topic.sql" />
     <Build Include="Tables\Tenant.sql" />
     <Build Include="Tables\Session.sql" />
-    <Build Include="Tables\User.sql" />
     <Build Include="Tables\SessionInstructor.sql" />
     <Build Include="Tables\Location.sql" />
     <Build Include="Tables\Group.sql" />
     <Build Include="Tables\SessionGroup.sql" />
     <Build Include="Tables\Instructor.sql" />
-    <Build Include="Tables\Role.sql" />
-    <Build Include="Tables\UserRole.sql" />
     <Build Include="Tables\RefreshToken.sql" />
     <Build Include="Tables\EmailTemplate.sql" />
     <Build Include="Tables\EmailDelivery.sql" />
     <None Include="Deployments\EmailTemplate.sql" />
     <Build Include="Tables\Datasweep.sql" />
-    <Build Include="Tables\UserLogin.sql" />
+    <Build Include="Tables\AuthenticationEvent.sql" />
     <Build Include="Tables\HistoryRecord.sql" />
-    <Build Include="Security\IQ.sql" />
+    <Build Include="Schema\IQ.sql" />
     <Build Include="Tables\Invite.sql" />
     <Build Include="Tables\InviteRole.sql" />
     <Build Include="Tables\Notification.sql" />
     <Build Include="Tables\NotificationRecipient.sql" />
     <Build Include="Procedures\GetNextEmailDelivery.sql" />
+    <Build Include="Schema\Identity.sql" />
+    <Build Include="Identity\Role.sql" />
+    <Build Include="Identity\RoleClaim.sql" />
+    <Build Include="Identity\User.sql" />
+    <Build Include="Identity\UserClaim.sql" />
+    <Build Include="Identity\UserLogin.sql" />
+    <Build Include="Identity\UserRole.sql" />
+    <Build Include="Identity\UserToken.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />
@@ -104,6 +110,7 @@
     <None Include="publish.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Deployments\UserClaim.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

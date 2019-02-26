@@ -27,8 +27,8 @@
 
 GO
 CREATE UNIQUE INDEX [UX_EmailTemplate_Key]
-ON [IQ].[EmailTemplate] ([Key])
+    ON [IQ].[EmailTemplate] ([Key])
 
 GO
 CREATE INDEX [IX_EmailTemplate_TenantId]
-ON [IQ].[EmailTemplate] ([TenantId])
+    ON [IQ].[EmailTemplate] ([TenantId])

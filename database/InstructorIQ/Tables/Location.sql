@@ -28,8 +28,8 @@
 
 GO
 CREATE INDEX [IX_Location_Name]
-ON [IQ].[Location] ([Name])
+    ON [IQ].[Location] ([Name])
 
 GO
 CREATE INDEX [IX_Location_TenantId]
-ON [IQ].[Location] ([TenantId])
+    ON [IQ].[Location] ([TenantId])
