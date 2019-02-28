@@ -129,7 +129,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             // don't show if only 1 page
-            if (PageCount == 1)
+            if (PageCount <= 1)
             {
                 output.SuppressOutput();
                 return;

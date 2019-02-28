@@ -1,8 +1,152 @@
 ﻿@page
-@model InstructorIQ.WebApplication.Pages.Location.IndexModel
+@model IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Locations";
 }
 
-<h1>Index</h1>
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Locations</li>
+        </ol>
+    </nav>
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-th-list mr-2"
+               aria-hidden="true"></i> Locations
+            <div class="btn-toolbar float-right">
+                <form id="location-search-form"
+                      name="location-search-form"
+                      role="form"
+                      method="get">
+                    <div class="input-group input-group-sm mr-2">
+                        <input type="hidden"
+                               name="s"
+                               value="@Model.Sort" />
+                        <input type="text"
+                               name="q"
+                               value="@Model.Query"
+                               class="form-control"
+                               placeholder="Search" />
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-outline-secondary"
+                                    type="submit">
+                                <i class="fas fa-search"
+                                   aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <a asp-page="/location/create"
+                   title="Create New Location"
+                   class="btn btn-sm btn-primary">Create</a>
+            </div>
+        </div>
+
+        <div class="card-block p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm m-0">
+                    <colgroup>
+                        <col style="">
+                        <col style="">
+                        <col style="">
+                        <col style="">
+                        <col style="width: 90px">
+                    </colgroup>
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <header asp-page="/location/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Name"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Name">
+                                    Name
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/location/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Description"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Description">
+                                    Description
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/location/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="AddressLine1"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by AddressLine1">
+                                    Address
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/location/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="UpdatedBy"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updater">
+                                    Updater
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/location/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Updated"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updated">
+                                    Updated
+                                </header>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr repeat.for="location of result.data">
+                                <td>
+                                    <a asp-page="/location/edit"
+                                       asp-route-id="@item.Id"
+                                       title="Edit Location"
+                                       class="d-block">@item.Name</a>
+                                </td>
+                                <td>@item.Description</td>
+                                <td>@item.AddressLine1</td>
+                                <td>@item.UpdatedBy</td>
+                                <td>@item.Updated.ToString("MM/dd/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer p-0">
+            <div class="row">
+                <div class="col">
+                    <a asp-page="/location/create"
+                       title="Create New Location"
+                       class="btn btn-primary m-3">Create</a>
+                </div>
+                <div class="col">
+                    <pagination current-page="@Model.PageNumber"
+                                page-size="@Model.PageSize"
+                                total-items="@Model.Total"
+                                asp-page="/location/index"
+                                asp-route-z="@Model.PageSize"
+                                asp-route-s="@Model.Sort"
+                                asp-route-q="@Model.Query"
+                                class="justify-content-end m-3" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 

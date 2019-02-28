@@ -1,31 +1,20 @@
 ﻿using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Group
 {
-    public class CreateModel : PageModel
+    public class CreateModel : EntityModelBase<GroupCreateModel>
     {
-        private readonly ILogger<CreateModel> _logger;
-        private readonly IMediator _mediator;
-
-        public CreateModel(
-            ILogger<CreateModel> logger,
-            IMediator mediator)
+        public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
+            : base(mediator, loggerFactory)
         {
-            _logger = logger;
-            _mediator = mediator;
+
         }
-
-        [TempData]
-        public string Message { get; set; }
-
-        [BindProperty]
-        public GroupCreateModel Group { get; set; } = new GroupCreateModel();
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -34,18 +23,19 @@ namespace InstructorIQ.WebApplication.Pages.Group
 
             var createModel = new GroupCreateModel();
 
+            // only update input fields
             await TryUpdateModelAsync(
                 createModel,
-                "Group",
+                nameof(Entity),
                 p => p.Name,
                 p => p.Description,
                 p => p.Sequence
             );
 
             var command = new EntityCreateCommand<GroupCreateModel, GroupReadModel>(createModel, User);
-            var result = await _mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command);
 
-            Message = "Successfully created group";
+            ShowAlert("Successfully created group");
 
             return RedirectToPage("/Group/Edit", new { id = result.Id });
         }

@@ -25,48 +25,40 @@
                aria-hidden="true"></i> Group
         </div>
         <div class="card-body">
+
             <form id="group-form"
                   name="group-form"
                   role="form"
                   method="post">
 
-                <div class="alert alert-success alert-dismissible fade show"
-                     exclude-if="@String.IsNullOrEmpty(Model.Message)"
-                     role="alert">
-                    @Model.Message
-                    <button type="button"
-                            class="close"
-                            data-dismiss="alert"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                <alert type="@TempData["alert.type"]"
+                       message="@TempData["alert.message"]" />
 
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="form-group">
-                    <label asp-for="Group.Name">Name <required /></label>
-                    <input asp-for="Group.Name"
+                    <label asp-for="Entity.Name">Name <required /></label>
+                    <input asp-for="Entity.Name"
                            type="text"
                            class="form-control"
                            placeholder="Name" />
-                    <span asp-validation-for="Group.Name" class="text-danger"></span>
+                    <span asp-validation-for="Entity.Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Group.Description">Description</label>
-                    <textarea asp-for="Group.Description"
+                    <label asp-for="Entity.Description">Description</label>
+                    <textarea asp-for="Entity.Description"
                               rows="10"
                               class="form-control"
                               placeholder="Description"></textarea>
-                    <span asp-validation-for="Group.Description" class="text-danger"></span>
+                    <span asp-validation-for="Entity.Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Group.Sequence">Sequence <required /></label>
-                    <input asp-for="Group.Sequence"
+                    <label asp-for="Entity.Sequence">Sequence <required /></label>
+                    <input asp-for="Entity.Sequence"
                            type="number"
                            class="form-control"
                            placeholder="Sequence" />
-                    <span asp-validation-for="Group.Sequence" class="text-danger"></span>
+                    <span asp-validation-for="Entity.Sequence" class="text-danger"></span>
                 </div>
 
                 <div class="row">

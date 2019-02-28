@@ -1,68 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Queries;
+﻿using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.WebApplication.Models;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Group
 {
-    public class IndexModel : PageModel
+    public class IndexModel : EntityListModelBase<GroupReadModel>
     {
-        private readonly IMediator _mediator;
 
-        public IndexModel(IMediator mediator)
+        public IndexModel(IMediator mediator, ILoggerFactory loggerFactory)
+            : base(mediator, loggerFactory)
         {
-            _mediator = mediator;
-            Sort = "Sequence";
+            Sort = nameof(GroupReadModel.Sequence);
         }
 
-
-        [BindProperty(Name = "p", SupportsGet = true)]
-        public int PageNumber { get; set; } = 1;
-
-        [BindProperty(Name = "z", SupportsGet = true)]
-        public int PageSize { get; set; } = 20;
-
-        [BindProperty(Name = "s", SupportsGet = true)]
-        public string Sort { get; set; }
-
-        [BindProperty(Name = "q", SupportsGet = true)]
-        public string Query { get; set; }
-
-
-        public long Total { get; set; }
-
-        public IReadOnlyCollection<GroupReadModel> Data { get; set; }
-
-
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var query = CreateQuery();
-            var command = new EntityListQuery<GroupReadModel>(query, User);
-
-            var result = await _mediator.Send(command).ConfigureAwait(false);
-            Total = result.Total;
-            Data = result.Data;
-
-            return Page();
-        }
-
-
-        private EntityQuery CreateQuery()
-        {
-            var query = new EntityQuery(null, PageNumber, PageSize, Sort);
-
-            if (string.IsNullOrWhiteSpace(Query))
-                return query;
-
-            query.Filter = CreateFilter();
-
-            return query;
-        }
-
-        private EntityFilter CreateFilter()
+        protected override EntityFilter CreateFilter()
         {
             var filter = new EntityFilter
             {
@@ -71,13 +24,13 @@ namespace InstructorIQ.WebApplication.Pages.Group
                 {
                     new EntityFilter
                     {
-                        Name = "Name",
+                        Name = nameof(GroupReadModel.Name),
                         Value = Query,
                         Operator = "Contains"
                     },
                     new EntityFilter
                     {
-                        Name = "Description",
+                        Name = nameof(GroupReadModel.Description),
                         Value = Query,
                         Operator = "Contains"
                     }
@@ -87,5 +40,4 @@ namespace InstructorIQ.WebApplication.Pages.Group
             return filter;
         }
     }
-
 }

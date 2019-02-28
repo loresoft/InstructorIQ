@@ -1,17 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using EntityFrameworkCore.CommandQuery.Queries;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.WebApplication.Models;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Location
 {
-    public class IndexModel : PageModel
+    public class IndexModel : EntityListModelBase<LocationReadModel>
     {
-        public void OnGet()
+        public IndexModel(IMediator mediator, ILoggerFactory loggerFactory)
+            : base(mediator, loggerFactory)
         {
-
         }
+
+        protected override EntityFilter CreateFilter()
+        {
+            var filter = new EntityFilter
+            {
+                Logic = "or",
+                Filters = new[]
+                {
+                    new EntityFilter
+                    {
+                        Name = nameof(LocationReadModel.Name),
+                        Value = Query,
+                        Operator = "Contains"
+                    },
+                    new EntityFilter
+                    {
+                        Name = nameof(LocationReadModel.Description),
+                        Value = Query,
+                        Operator = "Contains"
+                    },
+                    new EntityFilter
+                    {
+                        Name = nameof(LocationReadModel.City),
+                        Value = Query,
+                        Operator = "Contains"
+                    }
+                }
+            };
+
+            return filter;
+        }
+
     }
 }

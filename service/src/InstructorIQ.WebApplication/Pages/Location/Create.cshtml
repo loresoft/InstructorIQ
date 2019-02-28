@@ -1,8 +1,148 @@
 ﻿@page
-@model InstructorIQ.WebApplication.Pages.Location.CreateModel
+@model CreateModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Location";
 }
 
-<h1>Create</h1>
+<div class="container">
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/location/index">Locations</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Create Location</li>
+        </ol>
+    </nav>
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-map-marker-alt"></i> Location
+        </div>
+        <div class="card-body">
+            <form id="location-form"
+                  name="location-form"
+                  role="form"
+                  method="post">
+
+                <alert type="@TempData["alert.type"]"
+                       message="@TempData["alert.message"]" />
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Entity.Name">Name <required /></label>
+                    <input asp-for="Entity.Name"
+                           type="text"
+                           class="form-control"
+                           placeholder="Name" />
+                    <span asp-validation-for="Entity.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.Description">Description</label>
+                    <textarea asp-for="Entity.Description"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Description"></textarea>
+                    <span asp-validation-for="Entity.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.AddressLine1">Address</label>
+                    <input asp-for="Entity.AddressLine1"
+                           type="text"
+                           class="form-control"
+                           placeholder="AddressLine1" />
+                    <span asp-validation-for="Entity.AddressLine1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.City">City</label>
+                    <input asp-for="Entity.City"
+                           type="text"
+                           class="form-control"
+                           placeholder="City" />
+                    <span asp-validation-for="Entity.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.StateProvince">State</label>
+                    <select asp-for="Entity.StateProvince"
+                            class="form-control">
+                        <option value=""></option>
+                        <option value="AL">AL - Alabama</option>
+                        <option value="AK">AK - Alaska</option>
+                        <option value="AZ">AZ - Arizona</option>
+                        <option value="AR">AR - Arkansas</option>
+                        <option value="CA">CA - California</option>
+                        <option value="CO">CO - Colorado</option>
+                        <option value="CT">CT - Connecticut</option>
+                        <option value="DE">DE - Delaware</option>
+                        <option value="DC">DC - District Of Columbia</option>
+                        <option value="FL">FL - Florida</option>
+                        <option value="GA">GA - Georgia</option>
+                        <option value="HI">HI - Hawaii</option>
+                        <option value="ID">ID - Idaho</option>
+                        <option value="IL">IL - Illinois</option>
+                        <option value="IN">IN - Indiana</option>
+                        <option value="IA">IA - Iowa</option>
+                        <option value="KS">KS - Kansas</option>
+                        <option value="KY">KY - Kentucky</option>
+                        <option value="LA">LA - Louisiana</option>
+                        <option value="ME">ME - Maine</option>
+                        <option value="MD">MD - Maryland</option>
+                        <option value="MA">MA - Massachusetts</option>
+                        <option value="MI">MI - Michigan</option>
+                        <option value="MN">MN - Minnesota</option>
+                        <option value="MS">MS - Mississippi</option>
+                        <option value="MO">MO - Missouri</option>
+                        <option value="MT">MT - Montana</option>
+                        <option value="NE">NE - Nebraska</option>
+                        <option value="NV">NV - Nevada</option>
+                        <option value="NH">NH - New Hampshire</option>
+                        <option value="NJ">NJ - New Jersey</option>
+                        <option value="NM">NM - New Mexico</option>
+                        <option value="NY">NY - New York</option>
+                        <option value="NC">NC - North Carolina</option>
+                        <option value="ND">ND - North Dakota</option>
+                        <option value="OH">OH - Ohio</option>
+                        <option value="OK">OK - Oklahoma</option>
+                        <option value="OR">OR - Oregon</option>
+                        <option value="PA">PA - Pennsylvania</option>
+                        <option value="RI">RI - Rhode Island</option>
+                        <option value="SC">SC - South Carolina</option>
+                        <option value="SD">SD - South Dakota</option>
+                        <option value="TN">TN - Tennessee</option>
+                        <option value="TX">TX - Texas</option>
+                        <option value="UT">UT - Utah</option>
+                        <option value="VT">VT - Vermont</option>
+                        <option value="VA">VA - Virginia</option>
+                        <option value="WA">WA - Washington</option>
+                        <option value="WV">WV - West Virginia</option>
+                        <option value="WI">WI - Wisconsin</option>
+                        <option value="WY">WY - Wyoming</option>
+                    </select>
+                    <span asp-validation-for="Entity.StateProvince" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.PostalCode">Zip Code</label>
+                    <input asp-for="Entity.PostalCode"
+                           type="text"
+                           class="form-control"
+                           placeholder="PostalCode" />
+                    <span asp-validation-for="Entity.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
