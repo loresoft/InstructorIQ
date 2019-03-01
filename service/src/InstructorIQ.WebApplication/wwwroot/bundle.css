@@ -14009,32 +14009,32 @@ body {
     border-radius: 50em;
 }
 
-.card > .table {
+.card .table {
     border-right: 0;
     border-left: 0;
     margin-bottom: 0;
 }
 
-    .card > .table:last-child {
+    .card .table:last-child {
         border-bottom: 0;
     }
 
-    .card > .table td:first-child,
-    .card > .table th:first-child {
+    .card .table td:first-child,
+    .card .table th:first-child {
         border-left: 0;
     }
 
-    .card > .table td:last-child,
-    .card > .table th:last-child {
+    .card .table td:last-child,
+    .card .table th:last-child {
         border-right: 0;
     }
 
-    .card > .table tr:first-child td,
-    .card > .table tr:first-child th {
+    .card .table tr:first-child td,
+    .card .table tr:first-child th {
         border-top: 0;
     }
 
-    .card > .table tr:last-child td {
+    .card .table tr:last-child td {
         border-bottom: 0;
     }
 

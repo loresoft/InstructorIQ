@@ -19,20 +19,20 @@ namespace InstructorIQ.WebApplication.Pages.Group
         {
             var filter = new EntityFilter
             {
-                Logic = "or",
+                Logic = EntityFilterLogic.Or,
                 Filters = new[]
                 {
                     new EntityFilter
                     {
                         Name = nameof(GroupReadModel.Name),
                         Value = Query,
-                        Operator = "Contains"
+                        Operator = EntityFilterOperators.Contains
                     },
                     new EntityFilter
                     {
                         Name = nameof(GroupReadModel.Description),
                         Value = Query,
-                        Operator = "Contains"
+                        Operator = EntityFilterOperators.Contains
                     }
                 }
             };

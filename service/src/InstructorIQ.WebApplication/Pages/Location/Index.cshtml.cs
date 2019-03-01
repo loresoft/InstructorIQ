@@ -17,26 +17,26 @@ namespace InstructorIQ.WebApplication.Pages.Location
         {
             var filter = new EntityFilter
             {
-                Logic = "or",
+                Logic = EntityFilterLogic.Or,
                 Filters = new[]
                 {
                     new EntityFilter
                     {
                         Name = nameof(LocationReadModel.Name),
                         Value = Query,
-                        Operator = "Contains"
+                        Operator = EntityFilterOperators.Contains
                     },
                     new EntityFilter
                     {
                         Name = nameof(LocationReadModel.Description),
                         Value = Query,
-                        Operator = "Contains"
+                        Operator = EntityFilterOperators.Contains
                     },
                     new EntityFilter
                     {
                         Name = nameof(LocationReadModel.City),
                         Value = Query,
-                        Operator = "Contains"
+                        Operator = EntityFilterOperators.Contains
                     }
                 }
             };

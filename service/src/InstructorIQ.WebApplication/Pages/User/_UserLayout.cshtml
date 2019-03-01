@@ -15,13 +15,13 @@
                             <li class="nav-item">
                                 <a id="user-profile-tab"
                                    title="Profile"
-                                   class="nav-link @(ViewData["Title"] == "Profile" ? "active": "")"
+                                   class="nav-link @(ViewBag.Title == "Profile" ? "active": "")"
                                    asp-page="/user/profile">Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a id="user-password-tab"
                                    title="Password"
-                                   class="nav-link @(ViewData["Title"] == "Password" ? "active": "")"
+                                   class="nav-link @(ViewBag.Title == "Password" ? "active": "")"
                                    asp-page="/user/password">Password</a>
                             </li>
                         </ul>

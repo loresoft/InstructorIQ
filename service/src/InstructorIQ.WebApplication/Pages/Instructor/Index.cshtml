@@ -1,8 +1,151 @@
 ﻿@page
 @model InstructorIQ.WebApplication.Pages.Instructor.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Instructors";
 }
 
-<h1>Index</h1>
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Instructors</li>
+        </ol>
+    </nav>
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-th-list mr-2"
+               aria-hidden="true"></i> Groups
+            <div class="btn-toolbar float-right">
+                <form id="instructor-search-form"
+                      name="instructor-search-form"
+                      role="form"
+                      method="get">
+                    <div class="input-group input-group-sm mr-2">
+                        <input type="hidden"
+                               name="s"
+                               value="@Model.Sort" />
+                        <input type="text"
+                               name="q"
+                               value="@Model.Query"
+                               class="form-control"
+                               placeholder="Search" />
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-outline-secondary"
+                                    type="submit">
+                                <i class="fas fa-search"
+                                   aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <a asp-page="/instructor/create"
+                   title="Create New Instructor"
+                   class="btn btn-sm btn-primary">Create</a>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm m-0">
+                    <colgroup>
+                        <col style="">
+                        <col style="">
+                        <col style="width: 90px">
+                        <col style="">
+                        <col style="width: 90px">
+                    </colgroup>
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <header asp-page="/instructor/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="FamilyName"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Family Name">
+                                    Last
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/instructor/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="GivenName"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Given Name">
+                                    First
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/instructor/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="EmailAddress"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Email Address">
+                                    Email
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/instructor/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="UpdatedBy"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updater">
+                                    Updater
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/instructor/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Updated"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updated">
+                                    Updated
+                                </header>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-page="/instructor/edit"
+                                       asp-route-id="@item.Id"
+                                       title="Edit Instructor"
+                                       class="d-block">@item.FamilyName</a>
+                                </td>
+                                <td>@item.GivenName</td>
+                                <td>@item.EmailAddress</td>
+                                <td>@item.UpdatedBy</td>
+                                <td>@item.Updated.ToString("MM/dd/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer p-0">
+            <div class="row">
+                <div class="col">
+                    <a asp-page="/instructor/create"
+                       title="Create New Instructor"
+                       class="btn btn-primary m-3">Create</a>
+                </div>
+                <div class="col">
+                    <pagination current-page="@Model.PageNumber"
+                                page-size="@Model.PageSize"
+                                total-items="@Model.Total"
+                                asp-page="/instructor/index"
+                                asp-route-z="@Model.PageSize"
+                                asp-route-s="@Model.Sort"
+                                asp-route-q="@Model.Query"
+                                class="justify-content-end m-3" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

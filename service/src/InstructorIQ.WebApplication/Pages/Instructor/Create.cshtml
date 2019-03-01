@@ -1,8 +1,100 @@
 ﻿@page
-@model InstructorIQ.WebApplication.Pages.Instructor.CreateModel
+@model CreateModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Instructor";
 }
 
-<h1>Create</h1>
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/instructor/index">Instructors</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Create Instructor</li>
+        </ol>
+    </nav>
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-chalkboard-teacher"></i> Instructor
+        </div>
+        <div class="card-body">
+            <form id="instructor-form"
+                  name="instructor-form"
+                  role="form"
+                  method="post">
+
+                <alert type="@TempData["alert.type"]"
+                       message="@TempData["alert.message"]" />
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Entity.DisplayName">Display Name <required /></label>
+                    <input asp-for="Entity.DisplayName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Display Name" />
+                    <span asp-validation-for="Entity.DisplayName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.GivenName">First Name </label>
+                    <input asp-for="Entity.GivenName"
+                           type="text"
+                           class="form-control"
+                           placeholder="First Name" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.FamilyName">Last Name </label>
+                    <input asp-for="Entity.FamilyName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Last Name" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.JobTitle">Job Title </label>
+                    <input asp-for="Entity.JobTitle"
+                           type="text"
+                           class="form-control"
+                           placeholder="Job Title" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.EmailAddress">Email Address </label>
+                    <input asp-for="Entity.EmailAddress"
+                           type="text"
+                           class="form-control"
+                           placeholder="Email Address" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.MobilePhone">Mobile Phone </label>
+                    <input asp-for="Entity.MobilePhone"
+                           type="text"
+                           class="form-control"
+                           placeholder="Mobile Phone" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.BusinessPhone">Business Phone </label>
+                    <input asp-for="Entity.BusinessPhone"
+                           type="text"
+                           class="form-control"
+                           placeholder="Business Phone" />
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 

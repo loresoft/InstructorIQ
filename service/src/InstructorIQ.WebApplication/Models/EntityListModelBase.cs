@@ -62,14 +62,14 @@ namespace InstructorIQ.WebApplication.Models
         {
             var filter = new EntityFilter
             {
-                Logic = "or",
+                Logic = EntityFilterLogic.Or,
                 Filters = new[]
                 {
                     new EntityFilter
                     {
                         Name = "Name",
                         Value = Query,
-                        Operator = "Contains"
+                        Operator = EntityFilterOperators.Contains
                     }
                 }
             };
