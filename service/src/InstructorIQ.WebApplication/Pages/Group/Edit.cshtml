@@ -19,6 +19,9 @@
         </ol>
     </nav>
 
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
     <div class="card mb-5">
         <div class="card-header">
             <i class="fas fa-users mr-2"
@@ -30,9 +33,6 @@
                   name="group-form"
                   role="form"
                   method="post">
-
-                <alert type="@TempData["alert.type"]"
-                       message="@TempData["alert.message"]" />
 
                 <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -68,11 +68,24 @@
                                 class="btn btn-primary">
                             Save
                         </button>
+                        <button id="reset-button"
+                                type="reset"
+                                class="btn btn-secondary">
+                            Reset
+                        </button>
+                    </div>
+                    <div class="col">
+                        <confirm-button id="delete-button"
+                                        class="btn btn-danger fa-pull-right"
+                                        asp-page-handler="DeleteEntity"
+                                        modal-button="Delete"
+                                        modal-color="danger"
+                                        modal-text="Are you sure you want to delete this?">
+                            Delete
+                        </confirm-button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Group
@@ -44,6 +42,17 @@ namespace InstructorIQ.WebApplication.Pages.Group
             ShowAlert("Successfully saved group");
 
             return RedirectToPage("/Group/Edit", new { id = result.Id });
+        }
+
+        public async Task<IActionResult> OnPostDeleteEntity()
+        {
+            var command = new EntityDeleteCommand<Guid, GroupReadModel>(Id, User);
+            var result = await Mediator.Send(command);
+
+            ShowAlert("Successfully deleted group");
+
+            return RedirectToPage("/Group/Index");
+
         }
 
     }

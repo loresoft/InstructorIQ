@@ -19,6 +19,9 @@
         </ol>
     </nav>
 
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
     <div class="card mb-5">
         <div class="card-header">
             <i class="fas fa-map-marker-alt"></i> Location
@@ -28,9 +31,6 @@
                   name="location-form"
                   role="form"
                   method="post">
-
-                <alert type="@TempData["alert.type"]"
-                       message="@TempData["alert.message"]" />
 
                 <div asp-validation-summary="All" class="text-danger"></div>
 

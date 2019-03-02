@@ -13,8 +13,8 @@ namespace InstructorIQ.WebApplication.TagHelpers
     public class PaginationTagHelper : TagHelper
     {
         private const string ActionAttributeName = "asp-action";
-        private const string ControllerAttributeName = "asp-controller";
         private const string AreaAttributeName = "asp-area";
+        private const string ControllerAttributeName = "asp-controller";
         private const string PageAttributeName = "asp-page";
         private const string PageHandlerAttributeName = "asp-page-handler";
         private const string FragmentAttributeName = "asp-fragment";

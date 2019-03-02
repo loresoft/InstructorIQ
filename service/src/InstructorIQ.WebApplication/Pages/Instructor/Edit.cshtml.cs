@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
@@ -8,7 +6,6 @@ using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Instructor
@@ -49,6 +46,17 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
             ShowAlert("Successfully saved instructor");
 
             return RedirectToPage("/Instructor/Edit", new { id = result.Id });
+        }
+
+        public async Task<IActionResult> OnPostDeleteEntity()
+        {
+            var command = new EntityDeleteCommand<Guid, InstructorReadModel>(Id, User);
+            var result = await Mediator.Send(command);
+
+            ShowAlert("Successfully deleted instructor");
+
+            return RedirectToPage("/Instructor/Index");
+
         }
 
     }

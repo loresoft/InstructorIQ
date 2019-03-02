@@ -47,5 +47,16 @@ namespace InstructorIQ.WebApplication.Pages.Location
             return RedirectToPage("/Location/Edit", new { id = result.Id });
         }
 
+        public async Task<IActionResult> OnPostDeleteEntity()
+        {
+            var command = new EntityDeleteCommand<Guid, LocationReadModel>(Id, User);
+            var result = await Mediator.Send(command);
+
+            ShowAlert("Successfully deleted location");
+
+            return RedirectToPage("/Location/Index");
+
+        }
+
     }
 }
