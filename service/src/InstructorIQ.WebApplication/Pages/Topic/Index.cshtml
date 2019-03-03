@@ -1,8 +1,169 @@
 ﻿@page
-@model InstructorIQ.WebApplication.Pages.Topic.IndexModel
+@model IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Topics";
 }
 
-<h1>Index</h1>
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Topics</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-th-list mr-2"
+               aria-hidden="true"></i> Groups
+            <div class="btn-toolbar float-right">
+                <form id="topic-search-form"
+                      name="topic-search-form"
+                      role="form"
+                      method="get">
+                    <div class="row">
+                        <div class="col">
+                            <select name="year" class="custom-select custom-select-sm">
+                                <option value="2020">2020</option>
+                                <option value="2019" selected="selected">2019</option>
+                                <option value="2018">2018</option>
+                                <option value="2017">2017</option>
+                                <option value="2016">2016</option>
+                            </select>
+
+                        </div>
+                        <div class="col">
+                            <div class="input-group input-group-sm mr-2">
+                                <input type="hidden"
+                                       name="s"
+                                       value="@Model.Sort"/>
+                                <input type="text"
+                                       name="q"
+                                       value="@Model.Query"
+                                       class="form-control"
+                                       placeholder="Search"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-sm btn-outline-secondary"
+                                            type="submit">
+                                        <i class="fas fa-search"
+                                           aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+                <a asp-page="/topic/create"
+                   title="Create New Topic"
+                   class="btn btn-sm btn-primary">Create</a>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm m-0">
+                    <colgroup>
+                        <col style="">
+                        <col style="">
+                        <col style="width: 90px">
+                        <col style="">
+                        <col style="width: 90px">
+                    </colgroup>
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <header asp-page="/topic/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Title"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Title">
+                                    Title
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/topic/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Description"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Description">
+                                    Description
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/topic/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="CalendarYear"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Calendar Year">
+                                    Year
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/topic/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="UpdatedBy"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updater">
+                                    Updater
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/topic/index"
+                                        asp-route-q="@Model.Query"
+                                        sort-by="Updated"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updated">
+                                    Updated
+                                </header>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-page="/topic/edit"
+                                       asp-route-id="@item.Id"
+                                       title="Edit Topic"
+                                       class="d-block">@item.Title</a>
+                                </td>
+                                <td>@item.Description</td>
+                                <td>@item.CalendarYear</td>
+                                <td>@item.UpdatedBy</td>
+                                <td>@item.Updated.ToString("MM/dd/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer p-0">
+            <div class="row">
+                <div class="col">
+                    <a asp-page="/topic/create"
+                       title="Create New Topic"
+                       class="btn btn-primary m-3">Create</a>
+                </div>
+                <div class="col">
+                    <pagination current-page="@Model.PageNumber"
+                                page-size="@Model.PageSize"
+                                total-items="@Model.Total"
+                                asp-page="/topic/index"
+                                asp-route-z="@Model.PageSize"
+                                asp-route-s="@Model.Sort"
+                                asp-route-q="@Model.Query"
+                                class="justify-content-end m-3" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

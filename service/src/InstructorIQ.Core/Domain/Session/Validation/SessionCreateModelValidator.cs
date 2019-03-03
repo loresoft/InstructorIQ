@@ -17,8 +17,6 @@ namespace InstructorIQ.Core.Domain.Validation
         public SessionCreateModelValidator()
         {
             #region Generated Constructor
-            RuleFor(p => p.Name).NotEmpty();
-            RuleFor(p => p.Name).MaximumLength(256);
             #endregion
         }
 

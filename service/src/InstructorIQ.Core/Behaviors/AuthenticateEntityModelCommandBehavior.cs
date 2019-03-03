@@ -6,7 +6,6 @@ using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Definitions;
 using InstructorIQ.Core.Domain;
-using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.Extensions.Logging;

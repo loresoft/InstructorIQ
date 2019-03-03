@@ -1,8 +1,81 @@
 ﻿@page
 @model InstructorIQ.WebApplication.Pages.Topic.CreateModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Topic";
 }
 
-<h1>Create</h1>
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index">Topics</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Create Topic</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-book-open mr-2"
+               aria-hidden="true"></i> Topic
+        </div>
+        <div class="card-body">
+            <form id="topic-form"
+                  name="topic-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Entity.Title">Title <required /></label>
+                    <input asp-for="Entity.Title"
+                           type="text"
+                           class="form-control"
+                           placeholder="Title" />
+                    <span asp-validation-for="Entity.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.Description">Description</label>
+                    <textarea asp-for="Entity.Description"
+                              rows="10"
+                              class="form-control"
+                              placeholder="Description"></textarea>
+                    <span asp-validation-for="Entity.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
+                    <select asp-for="Entity.CalendarYear"
+                            class="custom-select">
+                        <option value="2020">2020</option>
+                        <option value="2019" selected="selected">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                    </select>
+                    <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 

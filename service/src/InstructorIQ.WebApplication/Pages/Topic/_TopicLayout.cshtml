@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index">Topics</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Topic</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-book-open mr-2"
+               aria-hidden="true"></i> Topic @ViewBag.TopicTitle
+
+            <ul class="nav nav-tabs card-header-tabs float-right">
+                <li class="nav-item">
+                    <a id="topic-edit-tab"
+                       class="nav-link @(ViewBag.Title == "Edit Topic" ? "active": "")"
+                       title="Edit Topic"
+                       asp-page="/topic/edit"
+                       asp-route-id="@Model.Id">General</a>
+                </li>
+                <li class="nav-item">
+                    <a id="topic-sessions-tab"
+                       class="nav-link @(ViewBag.Title == "Edit Sessions" ? "active": "")"
+                       title="Edit Sessions"
+                       asp-page="/topic/session/index"
+                       asp-route-id="@Model.Id">Sessions</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            @RenderBody()
+        </div>
+    </div>
+</div>

@@ -1,17 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using EntityFrameworkCore.CommandQuery.Queries;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.WebApplication.Models;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic
 {
-    public class IndexModel : PageModel
+    public class IndexModel : EntityListModelBase<TopicReadModel>
     {
-        public void OnGet()
+        public IndexModel(IMediator mediator, ILoggerFactory loggerFactory) : base(mediator, loggerFactory)
         {
+            Sort = nameof(TopicReadModel.CalendarYear);
+        }
 
+
+        protected override EntityFilter CreateFilter()
+        {
+            var filter = new EntityFilter
+            {
+                Logic = EntityFilterLogic.Or,
+                Filters = new[]
+                {
+                    new EntityFilter
+                    {
+                        Name = nameof(TopicReadModel.Title),
+                        Value = Query,
+                        Operator = EntityFilterOperators.Contains
+                    },
+                    new EntityFilter
+                    {
+                        Name = nameof(TopicReadModel.Description),
+                        Value = Query,
+                        Operator = EntityFilterOperators.Contains
+                    }
+                }
+            };
+
+            return filter;
         }
     }
 }

@@ -30,12 +30,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("uniqueidentifier")
                 .HasDefaultValueSql("(newsequentialid())");
 
-            builder.Property(t => t.Name)
-                .IsRequired()
-                .HasColumnName("Name")
-                .HasColumnType("nvarchar(256)")
-                .HasMaxLength(256);
-
             builder.Property(t => t.Note)
                 .HasColumnName("Note")
                 .HasColumnType("nvarchar(max)");
@@ -62,9 +56,18 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("LocationId")
                 .HasColumnType("uniqueidentifier");
 
+            builder.Property(t => t.GroupId)
+                .HasColumnName("GroupId")
+                .HasColumnType("uniqueidentifier");
+
             builder.Property(t => t.LeadInstructorId)
                 .HasColumnName("LeadInstructorId")
                 .HasColumnType("uniqueidentifier");
+
+            builder.Property(t => t.DisplayOrder)
+                .IsRequired()
+                .HasColumnName("DisplayOrder")
+                .HasColumnType("int");
 
             builder.Property(t => t.Created)
                 .IsRequired()
@@ -96,6 +99,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
 
             // relationships
+            builder.HasOne(t => t.Group)
+                .WithMany(t => t.Sessions)
+                .HasForeignKey(d => d.GroupId)
+                .HasConstraintName("FK_Session_Group_GroupId");
+
             builder.HasOne(t => t.LeadInstructor)
                 .WithMany(t => t.LeadSessions)
                 .HasForeignKey(d => d.LeadInstructorId)

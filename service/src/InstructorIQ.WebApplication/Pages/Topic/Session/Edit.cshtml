@@ -1,0 +1,134 @@
+﻿@page "{TopicId:Guid}/{Id:Guid}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Session";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index">Topics</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/session/index"
+                   asp-route-id="@Model.TopicId">Topic Sessions</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Session</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-book-open mr-2"
+               aria-hidden="true"></i> Topic Session
+        </div>
+        <div class="card-body">
+            <form id="session-form"
+                  name="session-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label asp-for="Entity.StartTime">Start</label>
+                        <input asp-for="Entity.StartTime"
+                               type="datetime-local"
+                               class="form-control"
+                               placeholder="Start" />
+                        <span asp-validation-for="Entity.StartTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label asp-for="Entity.EndTime">End</label>
+                        <input asp-for="Entity.EndTime"
+                               type="datetime-local"
+                               class="form-control"
+                               placeholder="End" />
+                        <span asp-validation-for="Entity.EndTime" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.LeadInstructorId">Lead Instructor</label>
+                        <select asp-for="Entity.LeadInstructorId"
+                                asp-items="@Model.Instructors"
+                                class="custom-select">
+                            <option value="">- Select -</option>
+                        </select>
+                        <span asp-validation-for="Entity.LeadInstructorId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.LocationId">Location</label>
+                        <select asp-for="Entity.LocationId"
+                                asp-items="@Model.Locations"
+                                class="custom-select">
+                            <option value="">- Select -</option>
+                        </select>
+                        <span asp-validation-for="Entity.LocationId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.GroupId">Group</label>
+                        <select asp-for="Entity.GroupId"
+                                asp-items="@Model.Groups"
+                                class="custom-select">
+                            <option value="">- Select -</option>
+                        </select>
+                        <span asp-validation-for="Entity.GroupId" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Entity.Note">Notes</label>
+                    <textarea asp-for="Entity.Note"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Notes"></textarea>
+                    <span asp-validation-for="Entity.Note" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                        <button id="reset-button"
+                                type="reset"
+                                class="btn btn-secondary">
+                            Reset
+                        </button>
+                    </div>
+                    <div class="col">
+                        <confirm-button id="delete-button"
+                                        class="btn btn-danger fa-pull-right"
+                                        asp-page-handler="DeleteEntity"
+                                        modal-button="Delete"
+                                        modal-color="danger"
+                                        modal-text="Are you sure you want to delete this?">
+                            Delete
+                        </confirm-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

@@ -44,17 +44,6 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="name">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByName(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, string name)
-        {
-            return queryable.Where(q => q.Name == name);
-        }
-
-        /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="tenantId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
         public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid tenantId)
@@ -71,6 +60,17 @@ namespace InstructorIQ.Core.Data.Queries
         public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByTopicId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid topicId)
         {
             return queryable.Where(q => q.TopicId == topicId);
+        }
+
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="groupId">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByGroupId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? groupId)
+        {
+            return queryable.Where(q => (q.GroupId == groupId || (groupId == null && q.GroupId == null)));
         }
 
         /// <summary>

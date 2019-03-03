@@ -13,14 +13,6 @@ namespace InstructorIQ.Core.Domain.Models
     {
         #region Generated Properties
         /// <summary>
-        /// Gets or sets the property value for 'Name'.
-        /// </summary>
-        /// <value>
-        /// The property value for 'Name'.
-        /// </value>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value for 'Note'.
         /// </summary>
         /// <value>
@@ -69,6 +61,14 @@ namespace InstructorIQ.Core.Domain.Models
         public Guid? LocationId { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'GroupId'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'GroupId'.
+        /// </value>
+        public Guid? GroupId { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'LeadInstructorId'.
         /// </summary>
         /// <value>
@@ -76,8 +76,22 @@ namespace InstructorIQ.Core.Domain.Models
         /// </value>
         public Guid? LeadInstructorId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the property value for 'DisplayOrder'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'DisplayOrder'.
+        /// </value>
+        public int DisplayOrder { get; set; }
+
         #endregion
 
         public string TenantName { get; set; }
+
+        public string LocationName { get; set; }
+
+        public string GroupName { get; set; }
+
+        public string LeadInstructorName { get; set; }
     }
 }

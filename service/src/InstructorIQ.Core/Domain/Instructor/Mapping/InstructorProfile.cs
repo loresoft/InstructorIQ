@@ -29,6 +29,12 @@ namespace InstructorIQ.Core.Domain.Mapping
 
             CreateMap<Instructor, InstructorUpdateModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+
+
+            CreateMap<Instructor, InstructorDropdownModel>()
+                .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))
+                .ForMember(d => d.Text, opt => opt.MapFrom(s => s.DisplayName));
+
         }
 
     }

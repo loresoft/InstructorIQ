@@ -15,7 +15,7 @@ namespace InstructorIQ.Core.Data.Entities
         public Group()
         {
             #region Generated Constructor
-            SessionGroups = new HashSet<SessionGroup>();
+            Sessions = new HashSet<Session>();
             #endregion
         }
 
@@ -51,6 +51,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The property value representing column 'Sequence'.
         /// </value>
         public int Sequence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'DisplayOrder'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'DisplayOrder'.
+        /// </value>
+        public int DisplayOrder { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'TenantId'.
@@ -104,6 +112,14 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Session" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Session" />.
+        /// </value>
+        public virtual ICollection<Session> Sessions { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Tenant" />.
         /// </summary>
         /// <value>
@@ -111,14 +127,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="TenantId" />
         public virtual Tenant Tenant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="SessionGroup" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="SessionGroup" />.
-        /// </value>
-        public virtual ICollection<SessionGroup> SessionGroups { get; set; }
 
         #endregion
 

@@ -37,6 +37,14 @@ namespace InstructorIQ.Core.Domain.Models
         public int Sequence { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'DisplayOrder'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'DisplayOrder'.
+        /// </value>
+        public int DisplayOrder { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'TenantId'.
         /// </summary>
         /// <value>

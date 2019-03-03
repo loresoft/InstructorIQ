@@ -6,6 +6,7 @@
     [Description] NVARCHAR(MAX) NULL,
 
     [Sequence] INT NOT NULL CONSTRAINT [DF_Group_Sequence] DEFAULT (0),
+    [DisplayOrder] INT NOT NULL  CONSTRAINT [DF_Group_DisplayOrder] DEFAULT (0),
 
     [TenantId] UNIQUEIDENTIFIER NOT NULL,
 

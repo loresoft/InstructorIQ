@@ -146,6 +146,14 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Session" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Session" />.
+        /// </value>
+        public virtual ICollection<Session> LeadSessions { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Tenant" />.
         /// </summary>
         /// <value>
@@ -153,14 +161,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="TenantId" />
         public virtual Tenant Tenant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Session" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Session" />.
-        /// </value>
-        public virtual ICollection<Session> LeadSessions { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.

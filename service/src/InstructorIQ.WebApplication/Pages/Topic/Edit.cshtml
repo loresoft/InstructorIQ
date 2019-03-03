@@ -1,8 +1,90 @@
-﻿@page
-@model InstructorIQ.WebApplication.Pages.Topic.EditModel
+﻿@page  "{id:Guid}"
+@model EditModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Topic";
+    Layout = "_TopicLayout";
 }
 
-<h1>Edit</h1>
+<form id="topic-form"
+      name="topic-form"
+      role="form"
+      method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Entity.Title">Title <required /></label>
+        <input asp-for="Entity.Title"
+               type="text"
+               class="form-control"
+               placeholder="Title" />
+        <span asp-validation-for="Entity.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Entity.Description">Description</label>
+        <textarea asp-for="Entity.Description"
+                  rows="5"
+                  class="form-control"
+                  placeholder="Description"></textarea>
+        <span asp-validation-for="Entity.Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Entity.Objectives">Objectives </label>
+        <textarea asp-for="Entity.Objectives"
+                  rows="10"
+                  class="form-control"
+                  placeholder="Objectives"></textarea>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Entity.LeadInstructorId">Lead Instructor</label>
+            <select asp-for="Entity.LeadInstructorId"
+                    asp-items="@Model.Instructors"
+                    class="custom-select">
+                <option value="">- Select -</option>
+            </select>
+            <span asp-validation-for="Entity.LeadInstructorId" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
+            <select asp-for="Entity.CalendarYear"
+                    class="custom-select">
+                <option value="2020">2020</option>
+                <option value="2019" selected="selected">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+            </select>
+            <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button id="save-button"
+                    type="submit"
+                    class="btn btn-primary">
+                Save
+            </button>
+            <button id="reset-button"
+                    type="reset"
+                    class="btn btn-secondary">
+                Reset
+            </button>
+        </div>
+        <div class="col">
+            <confirm-button id="delete-button"
+                            class="btn btn-danger fa-pull-right"
+                            asp-page-handler="DeleteEntity"
+                            modal-button="Delete"
+                            modal-color="danger"
+                            modal-text="Are you sure you want to delete this?">
+                Delete
+            </confirm-button>
+        </div>
+    </div>
+</form>
+
+
 

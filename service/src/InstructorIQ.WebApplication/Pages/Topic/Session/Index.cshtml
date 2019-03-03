@@ -1,0 +1,133 @@
+﻿@page  "{id:Guid}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Edit Sessions";
+    Layout = "_TopicLayout";
+}
+
+<div class="row">
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm m-0">
+            <colgroup>
+                <col style="width: 90px">
+                <col style="width: 90px">
+                <col style="width: 90px">
+                <col style="width: 90px">
+                <col style="">
+                <col style="">
+                <col style="">
+                <col style="">
+                <col style="width: 90px">
+            </colgroup>
+            <thead class="">
+                <tr>
+                    <th></th>
+                    <th>
+                        <header asp-page="/topic/session/index"
+                                asp-route-q="@Model.Query"
+                                asp-route-id="@Model.Id"
+                                sort-by="StartTime"
+                                sort-current="@Model.Sort"
+                                title="Sort by Date">
+                            Date
+                        </header>
+                    </th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>
+                        <header asp-page="/topic/session/index"
+                                asp-route-q="@Model.Query"
+                                asp-route-id="@Model.Id"
+                                sort-by="GroupName"
+                                sort-current="@Model.Sort"
+                                title="Sort by Group">
+                            Group
+                        </header>
+                    </th>
+                    <th>
+                        <header asp-page="/topic/session/index"
+                                asp-route-q="@Model.Query"
+                                asp-route-id="@Model.Id"
+                                sort-by="LocationName"
+                                sort-current="@Model.Sort"
+                                title="Sort by Location">
+                            Location
+                        </header>
+                    </th>
+                    <th>
+                        <header asp-page="/topic/session/index"
+                                asp-route-q="@Model.Query"
+                                asp-route-id="@Model.Id"
+                                sort-by="LeadInstructorName"
+                                sort-current="@Model.Sort"
+                                title="Sort by Instructor">
+                            Instructor
+                        </header>
+                    </th>
+                    <th>
+                        <header asp-page="/topic/session/index"
+                                asp-route-q="@Model.Query"
+                                asp-route-id="@Model.Id"
+                                sort-by="UpdatedBy"
+                                sort-current="@Model.Sort"
+                                title="Sort by Updater">
+                            Updater
+                        </header>
+                    </th>
+                    <th>
+                        <header asp-page="/topic/session/index"
+                                asp-route-q="@Model.Query"
+                                asp-route-id="@Model.Id"
+                                sort-by="Updated"
+                                sort-current="@Model.Sort"
+                                title="Sort by Updated">
+                            Updated
+                        </header>
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                <tr>
+                    <td>
+                        <a asp-page="/topic/session/edit"
+                           asp-route-topicid="@Model.Id"
+                           asp-route-id="@item.Id"
+                           title="Edit Session"
+                           class="d-block">Edit</a>
+                    </td>
+                    <td>@item.StartTime?.ToString("MM/dd/yyyy")</td>
+                    <td>@item.StartTime?.ToString("hh:mm")</td>
+                    <td>@item.EndTime?.ToString("hh:mm")</td>
+                    <td>@item.GroupName</td>
+                    <td>@item.LocationName</td>
+                    <td>@item.LeadInstructorName</td>
+                    <td>@item.UpdatedBy</td>
+                    <td>@item.Updated.ToString("MM/dd/yyyy")</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <a asp-page="/topic/session/create"
+           asp-route-topicid="@Model.Id"
+           title="Create New Session"
+           class="btn btn-primary m-3">Create</a>
+    </div>
+    <div class="col">
+        <pagination current-page="@Model.PageNumber"
+                    page-size="@Model.PageSize"
+                    total-items="@Model.Total"
+                    asp-page="/topic/index"
+                    asp-route-z="@Model.PageSize"
+                    asp-route-s="@Model.Sort"
+                    asp-route-q="@Model.Query"
+                    class="justify-content-end m-3" />
+    </div>
+</div>
+

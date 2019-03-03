@@ -15,7 +15,6 @@ namespace InstructorIQ.Core.Data.Entities
         public Session()
         {
             #region Generated Constructor
-            SessionGroups = new HashSet<SessionGroup>();
             SessionInstructors = new HashSet<SessionInstructor>();
             #endregion
         }
@@ -28,14 +27,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// The property value representing column 'Id'.
         /// </value>
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the property value representing column 'Name'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'Name'.
-        /// </value>
-        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Note'.
@@ -86,12 +77,28 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid? LocationId { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'GroupId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'GroupId'.
+        /// </value>
+        public Guid? GroupId { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'LeadInstructorId'.
         /// </summary>
         /// <value>
         /// The property value representing column 'LeadInstructorId'.
         /// </value>
         public Guid? LeadInstructorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'DisplayOrder'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'DisplayOrder'.
+        /// </value>
+        public int DisplayOrder { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.
@@ -137,6 +144,15 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Group" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Group" />.
+        /// </value>
+        /// <seealso cref="GroupId" />
+        public virtual Group Group { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Instructor" />.
         /// </summary>
         /// <value>
@@ -171,14 +187,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="TopicId" />
         public virtual Topic Topic { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="SessionGroup" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="SessionGroup" />.
-        /// </value>
-        public virtual ICollection<SessionGroup> SessionGroups { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.

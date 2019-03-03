@@ -76,7 +76,6 @@
     <Build Include="Tables\SessionInstructor.sql" />
     <Build Include="Tables\Location.sql" />
     <Build Include="Tables\Group.sql" />
-    <Build Include="Tables\SessionGroup.sql" />
     <Build Include="Tables\Instructor.sql" />
     <Build Include="Tables\RefreshToken.sql" />
     <Build Include="Tables\EmailTemplate.sql" />

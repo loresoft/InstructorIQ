@@ -18,7 +18,7 @@ namespace InstructorIQ.WebApplication.Models
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public virtual async Task<IActionResult> OnGetAsync()
         {
             var command = new EntityIdentifierQuery<Guid, TModel>(Id, User);
 

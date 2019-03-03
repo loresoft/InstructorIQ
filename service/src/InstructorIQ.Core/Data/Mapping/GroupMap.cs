@@ -45,6 +45,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Sequence")
                 .HasColumnType("int");
 
+            builder.Property(t => t.DisplayOrder)
+                .IsRequired()
+                .HasColumnName("DisplayOrder")
+                .HasColumnType("int");
+
             builder.Property(t => t.TenantId)
                 .IsRequired()
                 .HasColumnName("TenantId")
