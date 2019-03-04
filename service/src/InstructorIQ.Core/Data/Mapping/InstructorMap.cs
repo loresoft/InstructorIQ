@@ -31,7 +31,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasDefaultValueSql("(newsequentialid())");
 
             builder.Property(t => t.GivenName)
-                .IsRequired()
                 .HasColumnName("GivenName")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
@@ -42,7 +41,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasMaxLength(256);
 
             builder.Property(t => t.FamilyName)
-                .IsRequired()
                 .HasColumnName("FamilyName")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
@@ -59,13 +57,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasMaxLength(256);
 
             builder.Property(t => t.EmailAddress)
-                .IsRequired()
                 .HasColumnName("EmailAddress")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
             builder.Property(t => t.MobilePhone)
-                .IsRequired()
                 .HasColumnName("MobilePhone")
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50);

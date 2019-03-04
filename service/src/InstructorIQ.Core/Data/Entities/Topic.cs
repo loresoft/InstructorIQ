@@ -69,12 +69,36 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid? LeadInstructorId { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'IsRequired'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'IsRequired'.
+        /// </value>
+        public bool IsRequired { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'IsPublished'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'IsPublished'.
+        /// </value>
+        public bool IsPublished { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'CalendarYear'.
         /// </summary>
         /// <value>
         /// The property value representing column 'CalendarYear'.
         /// </value>
         public short CalendarYear { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'TargetMonth'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'TargetMonth'.
+        /// </value>
+        public short? TargetMonth { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.

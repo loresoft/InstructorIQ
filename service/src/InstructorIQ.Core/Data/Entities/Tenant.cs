@@ -16,12 +16,12 @@ namespace InstructorIQ.Core.Data.Entities
         {
             #region Generated Constructor
             Sessions = new HashSet<Session>();
+            Instructors = new HashSet<Instructor>();
+            Topics = new HashSet<Topic>();
             Invites = new HashSet<Invite>();
             EmailDeliveries = new HashSet<EmailDelivery>();
             EmailTemplates = new HashSet<EmailTemplate>();
-            Instructors = new HashSet<Instructor>();
             Locations = new HashSet<Location>();
-            Topics = new HashSet<Topic>();
             Groups = new HashSet<Group>();
             #endregion
         }
@@ -119,6 +119,22 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Session> Sessions { get; set; }
 
         /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Instructor" />.
+        /// </value>
+        public virtual ICollection<Instructor> Instructors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Topic" />.
+        /// </value>
+        public virtual ICollection<Topic> Topics { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Invite" />.
         /// </summary>
         /// <value>
@@ -143,28 +159,12 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Instructor" />.
-        /// </value>
-        public virtual ICollection<Instructor> Instructors { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Location" />.
         /// </summary>
         /// <value>
         /// The the navigation collection for entity <see cref="Location" />.
         /// </value>
         public virtual ICollection<Location> Locations { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Topic" />.
-        /// </value>
-        public virtual ICollection<Topic> Topics { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Group" />.

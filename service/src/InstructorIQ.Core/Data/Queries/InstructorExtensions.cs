@@ -48,7 +48,7 @@ namespace InstructorIQ.Core.Data.Queries
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
         public static IQueryable<InstructorIQ.Core.Data.Entities.Instructor> ByEmailAddress(this IQueryable<InstructorIQ.Core.Data.Entities.Instructor> queryable, string emailAddress)
         {
-            return queryable.Where(q => q.EmailAddress == emailAddress);
+            return queryable.Where(q => (q.EmailAddress == emailAddress || (emailAddress == null && q.EmailAddress == null)));
         }
 
         /// <summary>

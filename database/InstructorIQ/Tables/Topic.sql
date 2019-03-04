@@ -10,7 +10,11 @@
 
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
 
-    [CalendarYear] SMALLINT NOT NULL CONSTRAINT [DF_Topic_CalendarYear] DEFAULT year(getdate()),
+    [IsRequired] BIT NOT NULL CONSTRAINT [DF_Topic_IsRequired] DEFAULT (0),
+    [IsPublished] BIT NOT NULL CONSTRAINT [DF_Topic_IsPublished] DEFAULT (0),
+
+    [CalendarYear] SMALLINT NOT NULL CONSTRAINT [DF_Topic_CalendarYear] DEFAULT YEAR(GETDATE()),
+    [TargetMonth] SMALLINT NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Topic_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,

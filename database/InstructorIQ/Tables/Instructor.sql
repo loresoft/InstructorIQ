@@ -2,16 +2,16 @@
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Instructor_Id] DEFAULT (NEWSEQUENTIALID()),
 
-    [GivenName] nvarchar(256) NOT NULL,
+    [GivenName] nvarchar(256) NULL,
     [MiddleName] nvarchar(256) NULL,
-    [FamilyName] nvarchar(256) NOT NULL,
+    [FamilyName] nvarchar(256) NULL,
 
     [DisplayName] NVARCHAR(256) NOT NULL,
 
     [JobTitle] nvarchar(256) NULL,
 
-    [EmailAddress] nvarchar(256) NOT NULL,
-    [MobilePhone] nvarchar(50) NOT NULL,
+    [EmailAddress] nvarchar(256) NULL,
+    [MobilePhone] nvarchar(50) NULL,
     [BusinessPhone] nvarchar(50) NULL,
 
     [TenantId] UNIQUEIDENTIFIER NOT NULL,

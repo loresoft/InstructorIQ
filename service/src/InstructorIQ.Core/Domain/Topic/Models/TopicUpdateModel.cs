@@ -53,12 +53,36 @@ namespace InstructorIQ.Core.Domain.Models
         public Guid? LeadInstructorId { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'IsRequired'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'IsRequired'.
+        /// </value>
+        public bool IsRequired { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'IsPublished'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'IsPublished'.
+        /// </value>
+        public bool IsPublished { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'CalendarYear'.
         /// </summary>
         /// <value>
         /// The property value for 'CalendarYear'.
         /// </value>
         public short CalendarYear { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'TargetMonth'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'TargetMonth'.
+        /// </value>
+        public short? TargetMonth { get; set; }
 
         #endregion
 

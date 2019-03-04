@@ -53,11 +53,25 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("LeadInstructorId")
                 .HasColumnType("uniqueidentifier");
 
+            builder.Property(t => t.IsRequired)
+                .IsRequired()
+                .HasColumnName("IsRequired")
+                .HasColumnType("bit");
+
+            builder.Property(t => t.IsPublished)
+                .IsRequired()
+                .HasColumnName("IsPublished")
+                .HasColumnType("bit");
+
             builder.Property(t => t.CalendarYear)
                 .IsRequired()
                 .HasColumnName("CalendarYear")
                 .HasColumnType("smallint")
                 .HasDefaultValueSql("(datepart(year,getdate()))");
+
+            builder.Property(t => t.TargetMonth)
+                .HasColumnName("TargetMonth")
+                .HasColumnType("smallint");
 
             builder.Property(t => t.Created)
                 .IsRequired()
