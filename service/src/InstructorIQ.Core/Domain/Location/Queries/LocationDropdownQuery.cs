@@ -1,22 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Security.Principal;
+using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using MediatR;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries
 {
-    public class LocationDropdownQuery : IRequest<IReadOnlyCollection<LocationDropdownModel>>
+    public class LocationDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<LocationDropdownModel>>
     {
-        public LocationDropdownQuery()
+        public LocationDropdownQuery(IPrincipal principal) : base(principal)
         {
         }
-
-        public LocationDropdownQuery(IPrincipal principal)
-        {
-            Principal = principal;
-        }
-
-        public IPrincipal Principal { get; set; }
     }
 }

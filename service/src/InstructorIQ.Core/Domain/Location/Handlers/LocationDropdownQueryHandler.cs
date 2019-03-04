@@ -16,17 +16,13 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class LocationDropdownQueryHandler : RequestHandlerBase<LocationDropdownQuery, IReadOnlyCollection<LocationDropdownModel>>
+    public class LocationDropdownQueryHandler : DataContextHandlerBase<InstructorIQContext, LocationDropdownQuery, IReadOnlyCollection<LocationDropdownModel>>
     {
         private readonly UserClaimManager _userClaimManager;
 
-        protected InstructorIQContext DataContext { get; }
-        protected IMapper Mapper { get; }
-
-        public LocationDropdownQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager) : base(loggerFactory)
+        public LocationDropdownQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager)
+            : base(loggerFactory, dataContext, mapper)
         {
-            DataContext = dataContext;
-            Mapper = mapper;
             _userClaimManager = userClaimManager;
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
+using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.WebApplication.Models;
@@ -19,8 +20,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         }
 
+
         [BindProperty(SupportsGet = true)]
         public Guid TopicId { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public TopicReadModel Topic { get; set; }
 
         [BindProperty]
         public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
@@ -34,9 +39,21 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Instructors = await LoadInstructors();
-            Locations = await LoadLocations();
-            Groups = await LoadGroups();
+            var loadTopicTask = LoadTopic();
+            var instructorTask = LoadInstructors();
+            var locationTask = LoadLocations();
+            var groupTask = LoadGroups();
+
+            // load all in parallel
+            await Task.WhenAll(loadTopicTask, instructorTask, locationTask, groupTask);
+
+            Topic = loadTopicTask.Result;
+            Instructors = instructorTask.Result;
+            Locations = locationTask.Result;
+            Groups = groupTask.Result;
+
+            // shared layout title
+            ViewData["TopicTitle"] = $" - {Topic.Title}";
 
             return Page();
         }
@@ -69,6 +86,15 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             ShowAlert("Successfully created topic session");
 
             return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId });
+        }
+
+
+        private async Task<TopicReadModel> LoadTopic()
+        {
+            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(TopicId, User);
+            var result = await Mediator.Send(command);
+
+            return result;
         }
 
         private async Task<IReadOnlyCollection<InstructorDropdownModel>> LoadInstructors()

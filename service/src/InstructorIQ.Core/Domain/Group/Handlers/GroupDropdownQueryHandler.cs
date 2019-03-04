@@ -16,17 +16,13 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class GroupDropdownQueryHandler : RequestHandlerBase<GroupDropdownQuery, IReadOnlyCollection<GroupDropdownModel>>
+    public class GroupDropdownQueryHandler : DataContextHandlerBase<InstructorIQContext, GroupDropdownQuery, IReadOnlyCollection<GroupDropdownModel>>
     {
         private readonly UserClaimManager _userClaimManager;
 
-        protected InstructorIQContext DataContext { get; }
-        protected IMapper Mapper { get; }
-
-        public GroupDropdownQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager) : base(loggerFactory)
+        public GroupDropdownQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager)
+            : base(loggerFactory, dataContext, mapper)
         {
-            DataContext = dataContext;
-            Mapper = mapper;
             _userClaimManager = userClaimManager;
         }
 

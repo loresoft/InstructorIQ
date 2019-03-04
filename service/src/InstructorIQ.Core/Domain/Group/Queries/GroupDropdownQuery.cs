@@ -1,22 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Security.Principal;
+using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
-using MediatR;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries
 {
-    public class GroupDropdownQuery : IRequest<IReadOnlyCollection<GroupDropdownModel>>
+    public class GroupDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<GroupDropdownModel>>
     {
-        public GroupDropdownQuery()
+        public GroupDropdownQuery(IPrincipal principal) : base(principal)
         {
         }
-
-        public GroupDropdownQuery(IPrincipal principal)
-        {
-            Principal = principal;
-        }
-
-        public IPrincipal Principal { get; set; }
     }
 }

@@ -22,6 +22,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         [BindProperty(SupportsGet = true)]
         public Guid TopicId { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public TopicReadModel Topic { get; set; }
+
         [BindProperty]
         public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
 
@@ -34,11 +37,22 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         public override async Task<IActionResult> OnGetAsync()
         {
-            await base.OnGetAsync();
+            var loadTask = base.OnGetAsync();
+            var loadTopicTask = LoadTopic();
+            var instructorTask = LoadInstructors();
+            var locationTask = LoadLocations();
+            var groupTask = LoadGroups();
 
-            Instructors = await LoadInstructors();
-            Locations = await LoadLocations();
-            Groups = await LoadGroups();
+            // load all in parallel
+            await Task.WhenAll(loadTopicTask, loadTask, instructorTask, locationTask, groupTask);
+
+            Topic = loadTopicTask.Result;
+            Instructors = instructorTask.Result;
+            Locations = locationTask.Result;
+            Groups = groupTask.Result;
+
+            // shared layout title
+            ViewData["TopicTitle"] = $" - {Topic.Title}";
 
             return Page();
         }
@@ -83,6 +97,14 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             return RedirectToPage("/Topic/Session/Index", new { Id = TopicId });
         }
 
+
+        private async Task<TopicReadModel> LoadTopic()
+        {
+            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(TopicId, User);
+            var result = await Mediator.Send(command);
+
+            return result;
+        }
 
         private async Task<IReadOnlyCollection<InstructorDropdownModel>> LoadInstructors()
         {

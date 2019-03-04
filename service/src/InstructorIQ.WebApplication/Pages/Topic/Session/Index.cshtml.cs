@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
@@ -16,22 +15,11 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         public IndexModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
         {
+            Sort = nameof(SessionReadModel.StartTime);
         }
-
-        [BindProperty(Name = "p", SupportsGet = true)]
-        public int PageNumber { get; set; } = 1;
-
-        [BindProperty(Name = "z", SupportsGet = true)]
-        public int PageSize { get; set; } = 20;
 
         [BindProperty(Name = "s", SupportsGet = true)]
         public string Sort { get; set; }
-
-        [BindProperty(Name = "q", SupportsGet = true)]
-        public string Query { get; set; }
-
-
-        public long Total { get; set; }
 
         public IReadOnlyCollection<SessionReadModel> Items { get; set; }
 
@@ -42,47 +30,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             // shared layout title
             ViewData["TopicTitle"] = $" - {Entity.Title}";
 
-            var query = CreateQuery();
-            var command = new EntityListQuery<SessionReadModel>(query, User);
+            var query = new TopicSessionQuery(User, Id, Sort);
+            var result = await Mediator.Send(query);
 
-            var result = await Mediator.Send(command).ConfigureAwait(false);
-            Total = result.Total;
-            Items = result.Data;
+            Items = result;
 
             return Page();
         }
-
-
-        protected virtual EntityQuery CreateQuery()
-        {
-            var query = new EntityQuery(null, PageNumber, PageSize, Sort);
-
-            if (string.IsNullOrWhiteSpace(Query))
-                return query;
-
-            query.Filter = CreateFilter();
-
-            return query;
-        }
-
-        protected virtual EntityFilter CreateFilter()
-        {
-            var filter = new EntityFilter
-            {
-                Logic = EntityFilterLogic.Or,
-                Filters = new[]
-                {
-                    new EntityFilter
-                    {
-                        Name = "Name",
-                        Value = Query,
-                        Operator = EntityFilterOperators.Contains
-                    }
-                }
-            };
-
-            return filter;
-        }
-
     }
 }
