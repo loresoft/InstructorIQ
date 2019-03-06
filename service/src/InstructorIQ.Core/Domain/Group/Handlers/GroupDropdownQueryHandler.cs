@@ -28,15 +28,11 @@ namespace InstructorIQ.Core.Domain.Handlers
 
         protected override async Task<IReadOnlyCollection<GroupDropdownModel>> Process(GroupDropdownQuery message, CancellationToken cancellationToken)
         {
-            var query = DataContext.Groups
+            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
+
+            var result = await DataContext.Groups
                 .AsNoTracking()
-                .AsQueryable();
-
-            var tenantString = _userClaimManager.GetTenantId(message.Principal);
-            if (Guid.TryParse(tenantString, out var tenantId))
-                query = query.Where(q => q.TenantId == tenantId);
-
-            var result = await query
+                .Where(q => q.TenantId == tenantId)
                 .ProjectTo<GroupDropdownModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

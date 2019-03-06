@@ -15,5 +15,11 @@ namespace InstructorIQ.WebApplication.Models
         protected ILogger Logger { get; }
 
         protected IMediator Mediator { get; }
+
+        protected void ShowAlert(string message, string type = "success")
+        {
+            TempData["alert.type"] = type;
+            TempData["alert.message"] = message;
+        }
     }
 }

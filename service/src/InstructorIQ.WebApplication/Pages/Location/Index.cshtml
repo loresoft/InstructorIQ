@@ -57,7 +57,6 @@
                         <col style="">
                         <col style="">
                         <col style="">
-                        <col style="">
                         <col style="width: 90px">
                     </colgroup>
                     <thead class="">
@@ -92,15 +91,6 @@
                             <th>
                                 <header asp-page="/location/index"
                                         asp-route-q="@Model.Query"
-                                        sort-by="UpdatedBy"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Updater">
-                                    Updater
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-page="/location/index"
-                                        asp-route-q="@Model.Query"
                                         sort-by="Updated"
                                         sort-current="@Model.Sort"
                                         title="Sort by Updated">
@@ -121,7 +111,6 @@
                                 </td>
                                 <td>@item.Description</td>
                                 <td>@item.AddressLine1</td>
-                                <td>@item.UpdatedBy</td>
                                 <td>@item.Updated.ToString("MM/dd/yyyy")</td>
                             </tr>
                         }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Definitions;
+using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -37,9 +38,8 @@ namespace InstructorIQ.Core.Behaviors
             if (tenantModel.TenantId != Guid.Empty)
                 return;
 
-            var tenantString = _userClaimManager.GetTenantId(request.Principal);
-            if (Guid.TryParse(tenantString, out var tenantId))
-                tenantModel.TenantId = tenantId;
+            var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
+            tenantModel.TenantId = tenantId;
         }
     }
 }

@@ -32,6 +32,7 @@
       "destination": "wwwroot/lib/twitter-bootstrap/",
       "files": [
         "js/bootstrap.js",
+
         "css/bootstrap.css"
       ]
     },
@@ -60,9 +61,9 @@
     },
     {
       "library": "popper.js@1.14.7",
-      "destination": "wwwroot/lib/popper.js/",
+      "destination": "wwwroot/lib/popper/",
       "files": [
-        "popper.js"
+        "umd/popper.js"
       ]
     }
   ]

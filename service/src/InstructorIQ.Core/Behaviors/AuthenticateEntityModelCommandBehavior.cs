@@ -45,9 +45,7 @@ namespace InstructorIQ.Core.Behaviors
             if (!(request.Model is IHaveTenant<Guid> tenantModel))
                 return;
 
-            var tenantString = _claimManager.GetTenantId(principal);
-            Guid.TryParse(tenantString, out var tenantId);
-
+            var tenantId = _claimManager.GetRequiredTenantId(principal);
             if (tenantId == tenantModel.TenantId)
                 return;
 

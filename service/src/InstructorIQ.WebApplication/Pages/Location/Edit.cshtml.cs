@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Location
 {
-    public class EditModel : EntityIdentifierModelBase<LocationUpdateModel>
+    public class EditModel : EntityEditModelBase<LocationUpdateModel>
     {
         public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)

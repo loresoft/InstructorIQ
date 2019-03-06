@@ -5,6 +5,7 @@
       "wwwroot/lib/jquery/jquery.js",
       "wwwroot/lib/jquery-validate/jquery.validate.js",
       "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "wwwroot/lib/popper/umd/popper.js",
       "wwwroot/lib/twitter-bootstrap/js/bootstrap.js",
       "wwwroot/js/site.js"
     ],

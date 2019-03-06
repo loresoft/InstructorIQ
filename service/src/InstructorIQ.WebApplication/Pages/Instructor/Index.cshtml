@@ -56,7 +56,7 @@
                     <colgroup>
                         <col style="">
                         <col style="">
-                        <col style="width: 90px">
+                        <col style="">
                         <col style="">
                         <col style="width: 90px">
                     </colgroup>
@@ -65,9 +65,18 @@
                             <th>
                                 <header asp-page="/instructor/index"
                                         asp-route-q="@Model.Query"
+                                        sort-by="DisplayName"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Name">
+                                    Name
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-page="/instructor/index"
+                                        asp-route-q="@Model.Query"
                                         sort-by="FamilyName"
                                         sort-current="@Model.Sort"
-                                        title="Sort by Family Name">
+                                        title="Sort by Last">
                                     Last
                                 </header>
                             </th>
@@ -76,7 +85,7 @@
                                         asp-route-q="@Model.Query"
                                         sort-by="GivenName"
                                         sort-current="@Model.Sort"
-                                        title="Sort by Given Name">
+                                        title="Sort by First Name">
                                     First
                                 </header>
                             </th>
@@ -87,15 +96,6 @@
                                         sort-current="@Model.Sort"
                                         title="Sort by Email Address">
                                     Email
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-page="/instructor/index"
-                                        asp-route-q="@Model.Query"
-                                        sort-by="UpdatedBy"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Updater">
-                                    Updater
                                 </header>
                             </th>
                             <th>
@@ -117,11 +117,11 @@
                                     <a asp-page="/instructor/edit"
                                        asp-route-id="@item.Id"
                                        title="Edit Instructor"
-                                       class="d-block">@item.FamilyName</a>
+                                       class="d-block">@item.DisplayName</a>
                                 </td>
+                                <td>@item.FamilyName</td>
                                 <td>@item.GivenName</td>
                                 <td>@item.EmailAddress</td>
-                                <td>@item.UpdatedBy</td>
                                 <td>@item.Updated.ToString("MM/dd/yyyy")</td>
                             </tr>
                         }

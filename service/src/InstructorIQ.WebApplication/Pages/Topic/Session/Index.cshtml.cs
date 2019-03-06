@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
-    public class IndexModel : EntityIdentifierModelBase<TopicUpdateModel>
+    public class IndexModel : EntityEditModelBase<TopicUpdateModel>
     {
         public IndexModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
@@ -30,7 +30,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             // shared layout title
             ViewData["TopicTitle"] = $" - {Entity.Title}";
 
-            var query = new TopicSessionQuery(User, Id, Sort);
+            var query = new SessionTopicQuery(User, Id, Sort);
             var result = await Mediator.Send(query);
 
             Items = result;

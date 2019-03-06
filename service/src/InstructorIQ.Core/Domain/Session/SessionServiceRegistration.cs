@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using InstructorIQ.Core.Data.Entities;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Models;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -18,7 +20,8 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityQuery<Guid, Session, SessionReadModel>(services);
             RegisterEntityCommand<Guid, Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
 
-            services.TryAddTransient<IRequestHandler<TopicSessionQuery, IReadOnlyCollection<SessionReadModel>>, TopicSessionQueryHandler>();
+            services.TryAddTransient<IRequestHandler<SessionTopicQuery, IReadOnlyCollection<SessionReadModel>>, SessionTopicQueryHandler>();
+            services.TryAddTransient<IRequestHandler<SessionBulkUpdateCommand, CommandCompleteModel>, SessionBulkUpdateCommandHandler>();
         }
     }
 }

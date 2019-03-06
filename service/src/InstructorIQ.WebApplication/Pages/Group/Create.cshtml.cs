@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Group
 {
-    public class CreateModel : EntityModelBase<GroupCreateModel>
+    public class CreateModel : EntityCreateModelBase<GroupCreateModel>
     {
         public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)

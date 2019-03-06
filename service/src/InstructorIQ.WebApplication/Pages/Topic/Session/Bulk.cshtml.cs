@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.WebApplication.Models;
@@ -12,15 +13,18 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
-    public class EditModel : EntityEditModelBase<SessionUpdateModel>
+    public class BulkModel : MediatorModelBase
     {
-        public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
+        public BulkModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
         {
         }
 
         [BindProperty(SupportsGet = true)]
-        public Guid TopicId { get; set; }
+        public Guid Id { get; set; }
+
+        [BindProperty]
+        public List<SessionBulkUpdateModel> Sessions { get; set; }
 
         public TopicReadModel Topic { get; set; }
 
@@ -31,16 +35,22 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         public IReadOnlyCollection<GroupDropdownModel> Groups { get; set; }
 
 
-        public override async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            var loadTask = base.OnGetAsync();
             var loadTopicTask = LoadTopic();
+            var loadSessionsTask = LoadSessions();
             var instructorTask = LoadInstructors();
             var locationTask = LoadLocations();
             var groupTask = LoadGroups();
 
             // load all in parallel
-            await Task.WhenAll(loadTopicTask, loadTask, instructorTask, locationTask, groupTask);
+            await Task.WhenAll(
+                loadSessionsTask,
+                loadTopicTask,
+                instructorTask,
+                locationTask,
+                groupTask
+            );
 
             Topic = loadTopicTask.Result;
             Instructors = instructorTask.Result;
@@ -50,6 +60,20 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             // shared layout title
             ViewData["TopicTitle"] = $" - {Topic.Title}";
 
+            // convert to bulk update
+            Sessions = loadSessionsTask.Result
+                .Select(i => new SessionBulkUpdateModel
+                {
+                    Id = i.Id,
+                    StartTime = i.StartTime,
+                    EndTime = i.EndTime,
+                    GroupId = i.GroupId,
+                    LeadInstructorId = i.LeadInstructorId,
+                    LocationId = i.LocationId,
+                    Note = i.Note
+                })
+                .ToList();
+
             return Page();
         }
 
@@ -58,48 +82,30 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, SessionUpdateModel>(Id, User);
-            var updateModel = await Mediator.Send(readCommand);
-            if (updateModel == null)
-                return NotFound();
+            var bulkUpdateCommand = new SessionBulkUpdateCommand(User, Id, Sessions);
+            var result = await Mediator.Send(bulkUpdateCommand);
 
-            // only update input fields
-            await TryUpdateModelAsync(
-                updateModel,
-                nameof(Entity),
-                p => p.Note,
-                p => p.StartTime,
-                p => p.EndTime,
-                p => p.LocationId,
-                p => p.GroupId,
-                p => p.LeadInstructorId
-            );
+            ShowAlert("Successfully saved topic sessions");
 
-            var updateCommand = new EntityUpdateCommand<Guid, SessionUpdateModel, SessionReadModel>(Id, updateModel, User);
-            var result = await Mediator.Send(updateCommand);
-
-            ShowAlert("Successfully saved topic session");
-
-            return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId });
-        }
-
-        public async Task<IActionResult> OnPostDeleteEntity()
-        {
-            var command = new EntityDeleteCommand<Guid, SessionReadModel>(Id, User);
-            var result = await Mediator.Send(command);
-
-            ShowAlert("Successfully deleted topic");
-
-            return RedirectToPage("/Topic/Session/Index", new { Id = TopicId });
+            return RedirectToPage("/Topic/Session/Index", new { Id });
         }
 
 
         private async Task<TopicReadModel> LoadTopic()
         {
-            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(TopicId, User);
+            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(Id, User);
             var result = await Mediator.Send(command);
 
             return result;
+        }
+
+        private async Task<IReadOnlyCollection<SessionReadModel>> LoadSessions()
+        {
+            var sort = nameof(SessionReadModel.StartTime);
+            var query = new SessionTopicQuery(User, Id, sort);
+            var items = await Mediator.Send(query);
+
+            return items;
         }
 
         private async Task<IReadOnlyCollection<InstructorDropdownModel>> LoadInstructors()
@@ -125,5 +131,6 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             return items;
         }
+
     }
 }

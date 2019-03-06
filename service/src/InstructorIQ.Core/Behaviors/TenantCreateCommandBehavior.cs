@@ -38,9 +38,8 @@ namespace InstructorIQ.Core.Behaviors
             if (tenantModel.TenantId != Guid.Empty)
                 return;
 
-            var tenantString = _userClaimManager.GetTenantId(request.Principal);
-            if (Guid.TryParse(tenantString, out var tenantId))
-                tenantModel.TenantId = tenantId;
+            var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
+            tenantModel.TenantId = tenantId;
         }
     }
 }

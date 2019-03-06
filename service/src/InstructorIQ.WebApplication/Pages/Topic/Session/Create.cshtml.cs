@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
-    public class CreateModel : EntityModelBase<SessionCreateModel>
+    public class CreateModel : EntityCreateModelBase<SessionCreateModel>
     {
         public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
@@ -24,16 +24,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         [BindProperty(SupportsGet = true)]
         public Guid TopicId { get; set; }
 
-        [BindProperty(SupportsGet = true)]
         public TopicReadModel Topic { get; set; }
 
-        [BindProperty]
         public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
 
-        [BindProperty]
         public IReadOnlyCollection<LocationDropdownModel> Locations { get; set; }
 
-        [BindProperty]
         public IReadOnlyCollection<GroupDropdownModel> Groups { get; set; }
 
 
@@ -54,6 +50,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             // shared layout title
             ViewData["TopicTitle"] = $" - {Topic.Title}";
+
+            Entity.LeadInstructorId = Topic.LeadInstructorId;
 
             return Page();
         }

@@ -7,16 +7,21 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Models
 {
-    public abstract class EntityIdentifierModelBase<TModel> : EntityModelBase<TModel>
+    public abstract class EntityEditModelBase<TModel> : MediatorModelBase
         where TModel : new()
     {
-        protected EntityIdentifierModelBase(IMediator mediator, ILoggerFactory loggerFactory)
+        protected EntityEditModelBase(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
         {
+            Entity = new TModel();
         }
 
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
+
+        [BindProperty]
+        public TModel Entity { get; set; }
+
 
         public virtual async Task<IActionResult> OnGetAsync()
         {

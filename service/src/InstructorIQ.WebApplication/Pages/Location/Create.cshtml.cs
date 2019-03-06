@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Location
 {
-    public class CreateModel : EntityModelBase<LocationCreateModel>
+    public class CreateModel : EntityCreateModelBase<LocationCreateModel>
     {
         public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)

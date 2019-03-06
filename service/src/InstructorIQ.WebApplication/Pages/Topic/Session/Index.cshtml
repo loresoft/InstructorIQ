@@ -1,4 +1,5 @@
 ﻿@page  "{id:Guid}"
+@using InstructorIQ.Core.Extensions
 @model IndexModel
 @{
     ViewData["Title"] = "Edit Sessions";
@@ -9,11 +10,10 @@
     <div class="table-responsive">
         <table class="table table-bordered table-sm m-0">
             <colgroup>
-                <col style="width: 30px">
+                <col style="width: 80px">
                 <col style="width: 90px">
                 <col style="width: 80px">
                 <col style="width: 80px">
-                <col style="">
                 <col style="">
                 <col style="">
                 <col style="">
@@ -22,72 +22,78 @@
             <thead class="">
                 <tr>
                     <th></th>
-                    <th>
-                        <header asp-page="/topic/session/index"
-                                asp-route-id="@Model.Id"
-                                sort-by="StartTime"
-                                sort-current="@Model.Sort"
-                                title="Sort by Date">
-                            Date
-                        </header>
-                    </th>
+                    <th>Date</th>
                     <th>Start</th>
                     <th>End</th>
                     <th>Group</th>
                     <th>Location</th>
                     <th>Instructor</th>
-                    <th>
-                        <header asp-page="/topic/session/index"
-                                asp-route-id="@Model.Id"
-                                sort-by="UpdatedBy"
-                                sort-current="@Model.Sort"
-                                title="Sort by Updater">
-                            Updater
-                        </header>
-                    </th>
-                    <th>
-                        <header asp-page="/topic/session/index"
-                                asp-route-id="@Model.Id"
-                                sort-by="Updated"
-                                sort-current="@Model.Sort"
-                                title="Sort by Updated">
-                            Updated
-                        </header>
-                    </th>
+                    <th>Updated</th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Items)
+                @foreach (var item in Model.Items.ToIndexedList())
                 {
-                <tr>
-                    <td>
-                        <a asp-page="/topic/session/edit"
-                           asp-route-topicid="@Model.Id"
-                           asp-route-id="@item.Id"
-                           title="Edit Session"
-                           class="d-block"><i class="fas fa-edit"></i></a>
-                    </td>
-                    <td>@item.StartTime?.ToString("MM/dd/yyyy")</td>
-                    <td>@item.StartTime?.ToString("HH:mm")</td>
-                    <td>@item.EndTime?.ToString("HH:mm")</td>
-                    <td>@item.GroupName</td>
-                    <td>@item.LocationName</td>
-                    <td>@item.LeadInstructorName</td>
-                    <td>@item.UpdatedBy</td>
-                    <td>@item.Updated.ToString("MM/dd/yyyy")</td>
-                </tr>
+                    <tr>
+                        <td>
+                            <a asp-page="/topic/session/edit"
+                               asp-route-topicid="@Model.Id"
+                               asp-route-id="@item.Value.Id"
+                               title="Edit Session"
+                               class="d-block">Session @(item.Index + 1)</a>
+                        </td>
+                        <td>@item.Value.StartTime?.ToString("MM/dd/yyyy")</td>
+                        <td>@item.Value.StartTime?.ToString("HH:mm")</td>
+                        <td>@item.Value.EndTime?.ToString("HH:mm")</td>
+                        <td>@item.Value.GroupName</td>
+                        <td>@item.Value.LocationName</td>
+                        <td>@item.Value.LeadInstructorName</td>
+                        <td>@item.Value.Updated.ToString("MM/dd/yyyy")</td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
-<div class="row">
+<div class="row mt-2">
     <div class="col">
-        <a asp-page="/topic/session/create"
-           asp-route-topicid="@Model.Id"
-           title="Create New Session"
-           class="btn btn-primary m-3">Create</a>
+        <div class="btn-group">
+            <a asp-page="/topic/session/create"
+               asp-route-topicid="@Model.Id"
+               title="Create New Session"
+               class="btn btn-primary">
+                Create
+            </a>
+            <button type="button"
+                    class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+                <a asp-page="/topic/session/create"
+                   asp-route-topicid="@Model.Id"
+                   title="Create New Session"
+                   class="dropdown-item">
+                    Create New Session
+                </a>
+                <a asp-page="/topic/session/sequence"
+                   asp-route-topicid="@Model.Id"
+                   title="Create via Group Sequence"
+                   class="dropdown-item">
+                    Create via Group Sequence
+                </a>
+                <div class="dropdown-divider"></div>
+                <a asp-page="/topic/session/bulk"
+                   asp-route-id="@Model.Id"
+                   title="Bulk Edit Sessions"
+                   class="dropdown-item">
+                    Bulk Edit Sessions
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 

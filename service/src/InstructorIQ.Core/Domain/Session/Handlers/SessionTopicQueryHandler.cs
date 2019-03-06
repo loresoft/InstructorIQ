@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,25 +16,24 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class TopicSessionQueryHandler : DataContextHandlerBase<InstructorIQContext, TopicSessionQuery, IReadOnlyCollection<SessionReadModel>>
+    public class SessionTopicQueryHandler : DataContextHandlerBase<InstructorIQContext, SessionTopicQuery, IReadOnlyCollection<SessionReadModel>>
     {
         private readonly UserClaimManager _userClaimManager;
 
-        public TopicSessionQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager)
+        public SessionTopicQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager)
             : base(loggerFactory, dataContext, mapper)
         {
             _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<IReadOnlyCollection<SessionReadModel>> Process(TopicSessionQuery message, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<SessionReadModel>> Process(SessionTopicQuery message, CancellationToken cancellationToken)
         {
+            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
+
             var query = DataContext.Sessions
                 .AsNoTracking()
-                .Where(s => s.TopicId == message.TopicId);
-
-            var tenantString = _userClaimManager.GetTenantId(message.Principal);
-            if (Guid.TryParse(tenantString, out var tenantId))
-                query = query.Where(q => q.TenantId == tenantId);
+                .Where(s => s.TopicId == message.TopicId)
+                .Where(q => q.TenantId == tenantId);
 
             if (message.Sort != null)
                 query = query.Sort(new[] { message.Sort });

@@ -181,3 +181,12 @@ a.sort-by.descending:after {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
+
+.nowrap {
+    -ms-text-overflow: ellipsis !important;
+    -o-text-overflow: ellipsis !important;
+    -moz-text-overflow: ellipsis !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}

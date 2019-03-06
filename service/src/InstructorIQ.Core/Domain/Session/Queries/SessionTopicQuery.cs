@@ -7,16 +7,16 @@ using InstructorIQ.Core.Domain.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries
 {
-    public class TopicSessionQuery : PrincipalQueryBase<IReadOnlyCollection<SessionReadModel>>
+    public class SessionTopicQuery : PrincipalQueryBase<IReadOnlyCollection<SessionReadModel>>
     {
 
-        public TopicSessionQuery(IPrincipal principal, Guid topicId) : base(principal)
+        public SessionTopicQuery(IPrincipal principal, Guid topicId) : base(principal)
         {
             Principal = principal;
             TopicId = topicId;
         }
 
-        public TopicSessionQuery(IPrincipal principal, Guid topicId, string sort)
+        public SessionTopicQuery(IPrincipal principal, Guid topicId, string sort)
             : this(principal, topicId)
         {
             Sort = EntitySort.Parse(sort);

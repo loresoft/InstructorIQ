@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic
 {
-    public class EditModel : EntityIdentifierModelBase<TopicUpdateModel>
+    public class EditModel : EntityEditModelBase<TopicUpdateModel>
     {
         public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)

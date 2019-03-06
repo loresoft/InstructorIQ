@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace InstructorIQ.Core.Extensions
 {
+    /// <summary>
+    /// Extension methods for <see cref="IEnumerable{T}"/>
+    /// </summary>
     public static class EnumerableExtensions
     {
         /// <summary>
@@ -95,6 +99,32 @@ namespace InstructorIQ.Core.Extensions
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Converts an IEnumerable to an index value.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="items">The items to index.</param>
+        /// <returns></returns>
+        public static IEnumerable<IndexedValue<TValue>> ToIndexedList<TValue>(this IEnumerable<TValue> items)
+        {
+            int index = 0;
+            return items.Select(item => new IndexedValue<TValue>(index++, item));
+        }
+
+
+        public class IndexedValue<T>
+        {
+            public IndexedValue(int index, T value)
+            {
+                Index = index;
+                Value = value;
+            }
+
+            public int Index { get; }
+
+            public T Value { get; }
         }
 
     }

@@ -1,0 +1,133 @@
+﻿@page  "{id:Guid}"
+@using InstructorIQ.Core.Extensions
+@model BulkModel
+@{
+    ViewData["Title"] = "Bulk Update Session";
+}
+
+<div class="container-fluid">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index">Topics</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/session/index"
+                   asp-route-id="@Model.Id">Topic Sessions</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Sessions</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <form id="bulk-session-form"
+          name="bulk-session-form"
+          role="form"
+          method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="card mb-5">
+            <div class="card-header">
+                <i class="fas fa-book-open mr-2"
+                   aria-hidden="true"></i> Topic Session @ViewBag.TopicTitle
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm m-0">
+                            <colgroup>
+                                <col style="width: 200px">
+                                <col style="width: 200px">
+                                <col style="">
+                                <col style="">
+                                <col style="">
+                                <col style="">
+                            </colgroup>
+                            <thead class="">
+                                <tr>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Group</th>
+                                    <th>Location</th>
+                                    <th>Instructor</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Sessions.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input asp-for="Sessions[i].Id"
+                                                   type="hidden" />
+
+                                            <input asp-for="Sessions[i].StartTime"
+                                                   type="datetime-local"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Start" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Sessions[i].EndTime"
+                                                   type="datetime-local"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="End" />
+                                        </td>
+                                        <td>
+                                            <select asp-for="Sessions[i].GroupId"
+                                                    asp-items="@Model.Groups"
+                                                    class="custom-select custom-select-sm">
+                                                <option value="">- Group -</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select asp-for="Sessions[i].LocationId"
+                                                    asp-items="@Model.Locations"
+                                                    class="custom-select custom-select-sm">
+                                                <option value="">- Location -</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select asp-for="Sessions[i].LeadInstructorId"
+                                                    asp-items="@Model.Instructors"
+                                                    class="custom-select custom-select-sm">
+                                                <option value="">- Instructor -</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input asp-for="Sessions[i].Note"
+                                                   type="text"
+                                                   class="form-control form-control-sm"
+                                                   placeholder="Note" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                        <button id="reset-button"
+                                type="reset"
+                                class="btn btn-secondary">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

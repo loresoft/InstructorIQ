@@ -1,6 +1,8 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Security.Principal;
 using InstructorIQ.Core.Data.Constants;
+using InstructorIQ.Core.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
@@ -33,10 +35,14 @@ namespace InstructorIQ.Core.Security
             return claimPrincipal?.FindFirstValue(Options.ClaimsIdentity.UserNameClaimType);
         }
 
-        public string GetUserId(IPrincipal principal)
+        public Guid? GetUserId(IPrincipal principal)
         {
             var claimPrincipal = principal as ClaimsPrincipal;
-            return claimPrincipal?.FindFirstValue(Options.ClaimsIdentity.UserIdClaimType);
+            var userString = claimPrincipal?.FindFirstValue(Options.ClaimsIdentity.UserIdClaimType);
+            if (Guid.TryParse(userString, out var userId))
+                return userId;
+
+            return null;
         }
 
         public string GetEmail(IPrincipal principal)
@@ -52,10 +58,24 @@ namespace InstructorIQ.Core.Security
             return claimPrincipal?.FindFirstValue(UserClaims.DisplayName);
         }
 
-        public string GetTenantId(IPrincipal principal)
+        public Guid? GetTenantId(IPrincipal principal)
         {
             var claimPrincipal = principal as ClaimsPrincipal;
-            return claimPrincipal?.FindFirstValue(UserClaims.TenantId);
+            var tenantString = claimPrincipal?.FindFirstValue(UserClaims.TenantId);
+            if (Guid.TryParse(tenantString, out var tenantId))
+                return tenantId;
+
+            return null;
+        }
+
+        public Guid GetRequiredTenantId(IPrincipal principal)
+        {
+            var claimPrincipal = principal as ClaimsPrincipal;
+            var tenantString = claimPrincipal?.FindFirstValue(UserClaims.TenantId);
+            if (Guid.TryParse(tenantString, out var tenantId))
+                return tenantId;
+
+            throw new DomainException(500, "Could not find tenant identifier in current user token.");
         }
     }
 }

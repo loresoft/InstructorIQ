@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Group
 {
-    public class EditModel : EntityIdentifierModelBase<GroupUpdateModel>
+    public class EditModel : EntityEditModelBase<GroupUpdateModel>
     {
         public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
