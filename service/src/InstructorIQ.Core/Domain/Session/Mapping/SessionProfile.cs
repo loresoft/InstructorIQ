@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
@@ -36,7 +37,8 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name))
                 .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Location.Name))
                 .ForMember(d => d.GroupName, opt => opt.MapFrom(s => s.Group.Name))
-                .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName));
+                .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
+                .ForMember(d => d.AdditionalInstructors, opt => opt.MapFrom(s => s.SessionInstructors.Select(i => i.Instructor.DisplayName)));
 
             CreateMap<Session, SessionUpdateModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));

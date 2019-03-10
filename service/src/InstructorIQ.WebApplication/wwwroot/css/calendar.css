@@ -87,7 +87,7 @@
 }
 
 .calendar-label {
-    font-size: 80%;
+    font-size: 70%;
     font-style: italic;
     padding: .10rem .50rem;
     border-right: 1px solid #6F6F6F;
@@ -100,4 +100,6 @@
     border-right: 1px solid #6F6F6F;
     border-left: 1px solid #6F6F6F;
     border-bottom: 1px solid #6F6F6F;
+    vertical-align: top;
+    height: 20px;
 }

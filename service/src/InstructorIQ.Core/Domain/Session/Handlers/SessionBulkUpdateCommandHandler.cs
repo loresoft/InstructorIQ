@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -22,12 +23,12 @@ namespace InstructorIQ.Core.Domain.Handlers
         protected override async Task<CommandCompleteModel> Process(SessionBulkUpdateCommand message, CancellationToken cancellationToken)
         {
             foreach (var updateModel in message.Models)
-                await UpdateSession(updateModel);
+                await UpdateSession(updateModel, message.Principal?.Identity?.Name);
 
             return new CommandCompleteModel();
         }
 
-        private async Task UpdateSession(SessionBulkUpdateModel updateModel)
+        private async Task UpdateSession(SessionBulkUpdateModel updateModel, string identityName)
         {
             var session = await DataContext.Sessions.FindAsync(updateModel.Id);
             if (session == null)
@@ -39,6 +40,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             session.GroupId = updateModel.GroupId;
             session.LeadInstructorId = updateModel.LeadInstructorId;
             session.Note = updateModel.Note;
+
+            session.Updated = DateTimeOffset.UtcNow;
+            session.UpdatedBy = identityName;
 
             await DataContext.SaveChangesAsync();
         }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.WebApplication.Models;
@@ -17,10 +19,14 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
         {
+            AdditionalInstructors = new List<Guid>();
         }
 
         [BindProperty(SupportsGet = true)]
         public Guid TopicId { get; set; }
+
+        [BindProperty]
+        public List<Guid> AdditionalInstructors { get; set; }
 
         public TopicReadModel Topic { get; set; }
 
@@ -36,16 +42,28 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             var loadTask = base.OnGetAsync();
             var loadTopicTask = LoadTopic();
             var instructorTask = LoadInstructors();
+            var additionalTask = LoadAdditionalInstructors();
             var locationTask = LoadLocations();
             var groupTask = LoadGroups();
 
             // load all in parallel
-            await Task.WhenAll(loadTopicTask, loadTask, instructorTask, locationTask, groupTask);
+            await Task.WhenAll(
+                loadTopicTask,
+                loadTask,
+                instructorTask,
+                additionalTask,
+                locationTask,
+                groupTask
+            );
 
             Topic = loadTopicTask.Result;
             Instructors = instructorTask.Result;
             Locations = locationTask.Result;
             Groups = groupTask.Result;
+
+            AdditionalInstructors = additionalTask.Result
+                .Select(i => i.InstructorId)
+                .ToList();
 
             // shared layout title
             ViewData["TopicTitle"] = $" - {Topic.Title}";
@@ -78,6 +96,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             var updateCommand = new EntityUpdateCommand<Guid, SessionUpdateModel, SessionReadModel>(Id, updateModel, User);
             var result = await Mediator.Send(updateCommand);
 
+            var instructorCommand = new SessionInstructorUpdateCommand(User, Id, AdditionalInstructors);
+            await Mediator.Send(instructorCommand);
+
             ShowAlert("Successfully saved topic session");
 
             return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId });
@@ -105,6 +126,14 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         private async Task<IReadOnlyCollection<InstructorDropdownModel>> LoadInstructors()
         {
             var dropdownQuery = new InstructorDropdownQuery(User);
+            var items = await Mediator.Send(dropdownQuery);
+
+            return items;
+        }
+
+        private async Task<IReadOnlyCollection<SessionInstructorModel>> LoadAdditionalInstructors()
+        {
+            var dropdownQuery = new SessionInstructorQuery(User, Id);
             var items = await Mediator.Send(dropdownQuery);
 
             return items;

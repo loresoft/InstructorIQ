@@ -12,7 +12,6 @@ namespace InstructorIQ.Core.Domain.Queries
 
         public SessionTopicQuery(IPrincipal principal, Guid topicId) : base(principal)
         {
-            Principal = principal;
             TopicId = topicId;
         }
 

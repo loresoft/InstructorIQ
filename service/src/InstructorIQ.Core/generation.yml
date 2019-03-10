@@ -37,6 +37,7 @@ model:
         - 'Notification'
         - 'NotificationRecipient'
         - 'RefreshToken'
+        - 'SessionInstructor'
       properties:
         - '\.Id$'
         - '\.Created$'

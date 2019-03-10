@@ -68,7 +68,7 @@
                             <a asp-page="/topic/session/edit"
                                asp-route-topicid="@c.TopicId"
                                asp-route-id="@c.Id">
-                                @c.GroupName &nbsp;
+                                @c.GroupName
                             </a>
                         </td>
                     }
@@ -80,7 +80,7 @@
                             <a asp-page="/topic/edit"
                                asp-route-id="@c.TopicId"
                                title="@c.TopicTitle">
-                                @c.TopicTitle &nbsp;
+                                @c.TopicTitle
                             </a>
                             @if (c.IsRequired)
                             {
@@ -98,7 +98,7 @@
                 <tr>
                     @foreach (var c in sortedGroups)
                     {
-                        <td class="calendar-data">@c.LocationName &nbsp;</td>
+                        <td class="calendar-data">@c.LocationName</td>
                     }
                 </tr>
                 <tr>
@@ -110,7 +110,7 @@
                 <tr>
                     @foreach (var c in sortedGroups)
                     {
-                        <td class="calendar-data">@c.LeadInstructorName &nbsp;</td>
+                        <td class="calendar-data">@c.LeadInstructorName</td>
                     }
                 </tr>
                 <tr>
@@ -122,7 +122,12 @@
                 <tr>
                     @foreach (var c in sortedGroups)
                     {
-                        <td class="calendar-data">&nbsp;</td>
+                        <td class="calendar-data">
+                            @foreach (var i in c.AdditionalInstructors.OrderBy(x => x))
+                            {
+                                @i <br />
+                            }
+                        </td>
                     }
                 </tr>
                 <tr>
@@ -134,7 +139,7 @@
                 <tr>
                     @foreach (var c in sortedGroups)
                     {
-                        <td class="calendar-data">@c.Note &nbsp;</td>
+                        <td class="calendar-data">@c.Note</td>
                     }
                 </tr>
             </tbody>
