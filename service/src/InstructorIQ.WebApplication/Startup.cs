@@ -1,3 +1,4 @@
+using System.Linq;
 using FluentValidation.AspNetCore;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
@@ -7,8 +8,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -64,6 +65,18 @@ namespace InstructorIQ.WebApplication
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
+            services.AddResponseCompression(options =>
+            {
+                options.Providers.Add<BrotliCompressionProvider>();
+                options.Providers.Add<GzipCompressionProvider>();
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
+                {
+                    "font/woff2",
+                    "image/svg+xml"
+                });
+                options.EnableForHttps = true;
+            });
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -98,6 +111,7 @@ namespace InstructorIQ.WebApplication
                 app.UseHsts();
             }
 
+            app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

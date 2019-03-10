@@ -10,7 +10,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
     {
         public IndexModel(IMediator mediator, ILoggerFactory loggerFactory) : base(mediator, loggerFactory)
         {
-            Sort = nameof(TopicReadModel.CalendarYear);
+            Sort = nameof(TopicReadModel.TargetMonth);
         }
 
 

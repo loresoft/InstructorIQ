@@ -1,0 +1,99 @@
+﻿@page  "{id:Guid}"
+@model SequenceModel
+@{
+    ViewData["Title"] = "Create Sessions by Sequence";
+}
+
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index">Topics</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/session/index"
+                   asp-route-id="@Model.Id">Topic Sessions</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Add Sessions for Groups</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <form id="create-session-form"
+          name="create-session-form"
+          role="form"
+          method="post">
+
+        <div class="card mb-5">
+            <div class="card-header">
+                <i class="fas fa-book-open mr-2"
+                   aria-hidden="true"></i> Topic Session @ViewBag.TopicTitle
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm m-0">
+                            <colgroup>
+                                <col style="width: 30px">
+                                <col style="width: 100px">
+                                <col style="">
+                            </colgroup>
+                            <thead class="">
+                                <tr>
+                                    <th></th>
+                                    <th>Sequence</th>
+                                    <th>Groups</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sequence in Model.Sequences)
+                                {
+                                    <tr>
+                                        <td style="text-align: center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox"
+                                                       name="Selected"
+                                                       value="@sequence.Sequence"
+                                                       class="custom-control-input"
+                                                       id="sequence-@sequence.Sequence">
+                                                <label class="custom-control-label"
+                                                       for="sequence-@sequence.Sequence"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            @sequence.Sequence
+                                        </td>
+                                        <td>
+                                            @sequence.Name
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col">
+                        <button id="create-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+

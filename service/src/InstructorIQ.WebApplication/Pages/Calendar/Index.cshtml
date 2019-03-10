@@ -1,8 +1,144 @@
 ﻿@page
+@using System.Globalization
+@using NaturalSort.Extension
 @model InstructorIQ.WebApplication.Pages.Calendar.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Calendar";
 }
 
-<h1>Index</h1>
+<div class="container">
+    <form role="form"
+          method="get">
+        <div class="row m-3 d-print-none">
+            <div class="col">
 
+            </div>
+            <div class="col">
+                <select asp-for="Month"
+                        class="custom-select"
+                        onchange="this.form.submit()">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+            </div>
+            <div class="col">
+                <select asp-for="Year"
+                        class="custom-select"
+                        onchange="this.form.submit()">
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                </select>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </form>
+    <div class="d-none d-print-block">
+        <div class="text-center calendar-header-title">Eden Prairie Fire Department</div>
+        <div class="text-center calendar-header-date">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month) @Model.Year</div>
+    </div>
+    <table class="calendar-table">
+        @foreach (var grouping in Model.Items.GroupBy(g => g.StartTime?.Date ?? DateTime.MinValue))
+        {
+            var sortedGroups = grouping
+                .OrderBy(i => i.StartTime)
+                .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                .ToList();
+
+            <tbody>
+                <tr>
+                    <td class="calendar-date" rowspan="10"><span class="vertical-text">@grouping.Key.ToString("d-MMM")</span></td>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-attendee">
+                            <a asp-page="/topic/session/edit"
+                               asp-route-topicid="@c.TopicId"
+                               asp-route-id="@c.Id">
+                                @c.GroupName &nbsp;
+                            </a>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-topic">
+                            <a asp-page="/topic/edit"
+                               asp-route-id="@c.TopicId"
+                               title="@c.TopicTitle">
+                                @c.TopicTitle &nbsp;
+                            </a>
+                            @if (c.IsRequired)
+                            {
+                                <span class="required">Required</span>
+                            }
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-label">Location</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-data">@c.LocationName &nbsp;</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-label">Instructors</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-data">@c.LeadInstructorName &nbsp;</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-label">Safety / Co-Lead</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-data">&nbsp;</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-label">Notes</td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var c in sortedGroups)
+                    {
+                        <td class="calendar-data">@c.Note &nbsp;</td>
+                    }
+                </tr>
+            </tbody>
+        }
+
+    </table>
+</div>

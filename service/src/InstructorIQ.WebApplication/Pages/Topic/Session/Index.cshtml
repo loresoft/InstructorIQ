@@ -63,7 +63,7 @@
                asp-route-topicid="@Model.Id"
                title="Create New Session"
                class="btn btn-primary">
-                Create
+                Add Session
             </a>
             <button type="button"
                     class="btn btn-primary dropdown-toggle dropdown-toggle-split"
@@ -77,13 +77,13 @@
                    asp-route-topicid="@Model.Id"
                    title="Create New Session"
                    class="dropdown-item">
-                    Create New Session
+                    Add New Session
                 </a>
                 <a asp-page="/topic/session/sequence"
-                   asp-route-topicid="@Model.Id"
-                   title="Create via Group Sequence"
+                   asp-route-id="@Model.Id"
+                   title="Add Sessions for Groups"
                    class="dropdown-item">
-                    Create via Group Sequence
+                    Add Sessions for Groups
                 </a>
                 <div class="dropdown-divider"></div>
                 <a asp-page="/topic/session/bulk"

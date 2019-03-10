@@ -27,26 +27,26 @@
                       role="form"
                       method="get">
                     <div class="row">
-                        <div class="col">
-                            <select name="year" class="custom-select custom-select-sm">
+                        <div class="col-md-4">
+                            <select name="year"
+                                    class="custom-select custom-select-sm">
                                 <option value="2020">2020</option>
                                 <option value="2019" selected="selected">2019</option>
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
                             </select>
-
                         </div>
-                        <div class="col">
+                        <div class="col-md-8">
                             <div class="input-group input-group-sm mr-2">
                                 <input type="hidden"
                                        name="s"
-                                       value="@Model.Sort"/>
+                                       value="@Model.Sort" />
                                 <input type="text"
                                        name="q"
                                        value="@Model.Query"
                                        class="form-control"
-                                       placeholder="Search"/>
+                                       placeholder="Search" />
                                 <div class="input-group-append">
                                     <button class="btn btn-sm btn-outline-secondary"
                                             type="submit">
@@ -60,8 +60,8 @@
                     </div>
                 </form>
                 <a asp-page="/topic/create"
-                   title="Create New Topic"
-                   class="btn btn-sm btn-primary">Create</a>
+                   title="Add Topic"
+                   class="btn btn-sm btn-primary">Add</a>
             </div>
         </div>
 
@@ -71,6 +71,8 @@
                     <colgroup>
                         <col style="">
                         <col style="">
+                        <col style="width: 90px">
+                        <col style="width: 90px">
                         <col style="width: 90px">
                         <col style="width: 90px">
                     </colgroup>
@@ -106,6 +108,16 @@
                             <th>
                                 <header asp-page="/topic/index"
                                         asp-route-q="@Model.Query"
+                                        sort-by="TargetMonth"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Target Month">
+                                    Month
+                                </header>
+                            </th>
+                            <th>Sessions</th>
+                            <th>
+                                <header asp-page="/topic/index"
+                                        asp-route-q="@Model.Query"
                                         sort-by="Updated"
                                         sort-current="@Model.Sort"
                                         title="Sort by Updated">
@@ -126,6 +138,8 @@
                                 </td>
                                 <td>@item.Description</td>
                                 <td>@item.CalendarYear</td>
+                                <td>@item.TargetMonth</td>
+                                <td>@item.SessionCount</td>
                                 <td>@item.Updated.ToString("MM/dd/yyyy")</td>
                             </tr>
                         }
@@ -138,8 +152,8 @@
             <div class="row">
                 <div class="col">
                     <a asp-page="/topic/create"
-                       title="Create New Topic"
-                       class="btn btn-primary m-3">Create</a>
+                       title="Add New Topic"
+                       class="btn btn-primary m-3">Add Topic</a>
                 </div>
                 <div class="col">
                     <pagination current-page="@Model.PageNumber"

@@ -42,19 +42,21 @@
                            placeholder="Display Name" />
                     <span asp-validation-for="Entity.DisplayName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Entity.GivenName">First Name </label>
-                    <input asp-for="Entity.GivenName"
-                           type="text"
-                           class="form-control"
-                           placeholder="First Name" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Entity.FamilyName">Last Name </label>
-                    <input asp-for="Entity.FamilyName"
-                           type="text"
-                           class="form-control"
-                           placeholder="Last Name" />
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.GivenName">First Name </label>
+                        <input asp-for="Entity.GivenName"
+                               type="text"
+                               class="form-control"
+                               placeholder="First Name" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.FamilyName">Last Name </label>
+                        <input asp-for="Entity.FamilyName"
+                               type="text"
+                               class="form-control"
+                               placeholder="Last Name" />
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Entity.JobTitle">Job Title </label>
@@ -66,23 +68,25 @@
                 <div class="form-group">
                     <label asp-for="Entity.EmailAddress">Email Address </label>
                     <input asp-for="Entity.EmailAddress"
-                           type="text"
+                           type="email"
                            class="form-control"
                            placeholder="Email Address" />
                 </div>
-                <div class="form-group">
-                    <label asp-for="Entity.MobilePhone">Mobile Phone </label>
-                    <input asp-for="Entity.MobilePhone"
-                           type="text"
-                           class="form-control"
-                           placeholder="Mobile Phone" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Entity.BusinessPhone">Business Phone </label>
-                    <input asp-for="Entity.BusinessPhone"
-                           type="text"
-                           class="form-control"
-                           placeholder="Business Phone" />
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.MobilePhone">Mobile Phone </label>
+                        <input asp-for="Entity.MobilePhone"
+                               type="tel"
+                               class="form-control"
+                               placeholder="Mobile Phone" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.BusinessPhone">Business Phone </label>
+                        <input asp-for="Entity.BusinessPhone"
+                               type="tel"
+                               class="form-control"
+                               placeholder="Business Phone" />
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">

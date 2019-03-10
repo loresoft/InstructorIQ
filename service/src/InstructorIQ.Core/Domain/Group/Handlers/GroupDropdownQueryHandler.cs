@@ -33,6 +33,8 @@ namespace InstructorIQ.Core.Domain.Handlers
             var result = await DataContext.Groups
                 .AsNoTracking()
                 .Where(q => q.TenantId == tenantId)
+                .OrderBy(q => q.Sequence)
+                .ThenBy(q=>q.Name)
                 .ProjectTo<GroupDropdownModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

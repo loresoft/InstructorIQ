@@ -32,7 +32,6 @@
       "destination": "wwwroot/lib/twitter-bootstrap/",
       "files": [
         "js/bootstrap.js",
-
         "css/bootstrap.css"
       ]
     },
@@ -64,6 +63,37 @@
       "destination": "wwwroot/lib/popper/",
       "files": [
         "umd/popper.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "moment.js@2.24.0",
+      "destination": "wwwroot/lib/moment/",
+      "files": [
+        "moment.js"
+      ]
+    },
+    {
+      "library": "flatpickr@4.5.7",
+      "destination": "wwwroot/lib/flatpickr/",
+      "files": [
+        "flatpickr.js",
+        "flatpickr.css"
+      ]
+    },
+    {
+      "library": "select2@4.0.5",
+      "destination": "wwwroot/lib/select2/",
+      "files": [
+        "js/select2.js",
+        "css/select2.css"
+      ]
+    },
+    {
+      "library": "select2-bootstrap-theme@0.1.0-beta.10",
+      "destination": "wwwroot/lib/select2-bootstrap-theme/",
+      "files": [
+        "select2-bootstrap.css"
       ]
     }
   ]

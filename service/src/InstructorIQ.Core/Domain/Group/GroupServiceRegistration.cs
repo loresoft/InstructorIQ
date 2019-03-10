@@ -19,6 +19,7 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityCommand<Guid, Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
 
             services.TryAddTransient<IRequestHandler<GroupDropdownQuery, IReadOnlyCollection<GroupDropdownModel>>, GroupDropdownQueryHandler>();
+            services.TryAddTransient<IRequestHandler<GroupSequenceQuery, IReadOnlyCollection<GroupSequenceModel>>, GroupSequenceQueryHandler>();
         }
     }
 }

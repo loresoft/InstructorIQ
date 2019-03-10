@@ -38,7 +38,7 @@ namespace InstructorIQ.WebApplication.Models
             var query = CreateQuery();
             var command = new EntityListQuery<TEntity>(query, User);
 
-            var result = await Mediator.Send(command).ConfigureAwait(false);
+            var result = await Mediator.Send(command);
             Total = result.Total;
             Items = result.Data;
 

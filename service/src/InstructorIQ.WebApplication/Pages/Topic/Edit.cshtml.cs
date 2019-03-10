@@ -53,7 +53,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic
                 p => p.Description,
                 p => p.Objectives,
                 p => p.CalendarYear,
-                p => p.LeadInstructorId
+                p => p.TargetMonth,
+                p => p.LeadInstructorId,
+                p => p.IsRequired
             );
 
             var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(Id, updateModel, User);

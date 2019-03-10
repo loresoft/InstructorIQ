@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
@@ -24,7 +25,8 @@ namespace InstructorIQ.Core.Domain.Mapping
 
             CreateMap<Topic, TopicReadModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
-                .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name));
+                .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name))
+                .ForMember(d => d.SessionCount, opt => opt.MapFrom(s => s.Sessions.Count()));
 
             CreateMap<Topic, TopicUpdateModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));

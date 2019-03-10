@@ -40,6 +40,38 @@
                        asp-page="/topic/session/index"
                        asp-route-id="@Model.Id">Sessions</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#" id="actionDropdown"
+                       role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        Actions
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="actionDropdown">
+                        <a asp-page="/topic/session/create"
+                           asp-route-topicid="@Model.Id"
+                           title="Add New Session"
+                           class="dropdown-item">
+                            Add New Session
+                        </a>
+                        <a asp-page="/topic/session/sequence"
+                           asp-route-id="@Model.Id"
+                           title="Add Sessions for Groups"
+                           class="dropdown-item">
+                            Add Sessions for Groups
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a asp-page="/topic/session/bulk"
+                           asp-route-id="@Model.Id"
+                           title="Bulk Edit Sessions"
+                           class="dropdown-item">
+                            Bulk Edit Sessions
+                        </a>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="card-body">

@@ -93,5 +93,6 @@ namespace InstructorIQ.Core.Domain.Models
         public string GroupName { get; set; }
 
         public string LeadInstructorName { get; set; }
+
     }
 }

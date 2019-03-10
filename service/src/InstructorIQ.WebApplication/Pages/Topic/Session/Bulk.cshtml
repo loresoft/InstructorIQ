@@ -71,7 +71,10 @@
 
                                             <input asp-for="Sessions[i].StartTime"
                                                    type="datetime-local"
-                                                   class="form-control form-control-sm"
+                                                   class="form-control form-control-sm start-date"
+                                                   data-target="#@Html.IdFor(p=>p.Sessions[i].EndTime)"
+                                                   data-hours="2"
+                                                   data-minutes="45"
                                                    placeholder="Start" />
                                         </td>
                                         <td>
@@ -131,3 +134,11 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('.start-date').copyDate();
+        });
+    </script>
+}

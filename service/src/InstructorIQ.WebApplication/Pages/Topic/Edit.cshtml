@@ -46,21 +46,50 @@
             </select>
             <span asp-validation-for="Entity.LeadInstructorId" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
             <select asp-for="Entity.CalendarYear"
                     class="custom-select">
                 <option value="2020">2020</option>
-                <option value="2019" selected="selected">2019</option>
+                <option value="2019">2019</option>
                 <option value="2018">2018</option>
                 <option value="2017">2017</option>
                 <option value="2016">2016</option>
             </select>
             <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
         </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Entity.TargetMonth">Target Month</label>
+            <select asp-for="Entity.TargetMonth"
+                    class="custom-select">
+                <option value="">- Select -</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <span asp-validation-for="Entity.TargetMonth" class="text-danger"></span>
+        </div>
+
     </div>
 
-    <div class="row">
+    <div class="custom-control custom-checkbox">
+        <input asp-for="Entity.IsRequired"
+               type="checkbox"
+               class="custom-control-input" />
+        <label asp-for="Entity.IsRequired"
+               class="custom-control-label">Topic is Required</label>
+    </div>
+
+    <div class="row mt-3">
         <div class="col">
             <button id="save-button"
                     type="submit"

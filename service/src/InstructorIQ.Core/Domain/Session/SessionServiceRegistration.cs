@@ -21,7 +21,9 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityCommand<Guid, Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
 
             services.TryAddTransient<IRequestHandler<SessionTopicQuery, IReadOnlyCollection<SessionReadModel>>, SessionTopicQueryHandler>();
+            services.TryAddTransient<IRequestHandler<SessionCalendarQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionCalendarQueryHandler>();
             services.TryAddTransient<IRequestHandler<SessionBulkUpdateCommand, CommandCompleteModel>, SessionBulkUpdateCommandHandler>();
+            services.TryAddTransient<IRequestHandler<SessionSequenceCreateCommand, CommandCompleteModel>, SessionSequenceCreateCommandHandler>();
         }
     }
 }

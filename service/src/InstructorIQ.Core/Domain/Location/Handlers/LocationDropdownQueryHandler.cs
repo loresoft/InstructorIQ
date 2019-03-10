@@ -32,6 +32,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             var result = await DataContext.Locations
                 .AsNoTracking()
                 .Where(q => q.TenantId == tenantId)
+                .OrderBy(q => q.Name)
                 .ProjectTo<LocationDropdownModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
