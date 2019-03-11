@@ -5,6 +5,10 @@
     [Abbreviation] NVARCHAR(50) NOT NULL,
     [Description] NVARCHAR(MAX) NULL,
 
+    [City] nvarchar(150) NULL,
+    [StateProvince]  nvarchar(150) NULL,
+    [TimeZone] NVARCHAR(150) NOT NULL CONSTRAINT [DF_Tenant_TimeZone] DEFAULT 'Central Standard Time',
+
     [IsDeleted] BIT NOT NULL CONSTRAINT [DF_Tenant_IsDeleted] DEFAULT (0),
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Tenant_Created] DEFAULT (SYSUTCDATETIME()),

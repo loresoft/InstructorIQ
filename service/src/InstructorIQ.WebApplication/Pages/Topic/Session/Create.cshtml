@@ -40,25 +40,36 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label asp-for="Entity.StartTime">Start</label>
+                    <div class="form-group col-md-2">
+                        <label asp-for="Entity.StartDate">Start Date</label>
+                        <input asp-for="Entity.StartDate"
+                               type="date"
+                               class="form-control" />
+                        <span asp-validation-for="Entity.StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="Entity.StartTime">Start Time</label>
                         <input asp-for="Entity.StartTime"
-                               type="datetime-local"
-                               class="form-control"
-                               placeholder="Start" />
+                               type="time"
+                               class="form-control" />
                         <span asp-validation-for="Entity.StartTime" class="text-danger"></span>
                     </div>
-
-                    <div class="form-group col-md-3">
-                        <label asp-for="Entity.EndTime">End</label>
+                    <div class="form-group col-md-2">
+                        <label asp-for="Entity.EndDate">End Date</label>
+                        <input asp-for="Entity.EndDate"
+                               type="date"
+                               class="form-control" />
+                        <span asp-validation-for="Entity.EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="Entity.EndTime">End Time</label>
                         <input asp-for="Entity.EndTime"
-                               type="datetime-local"
-                               class="form-control"
-                               placeholder="End" />
+                               type="time"
+                               class="form-control" />
                         <span asp-validation-for="Entity.EndTime" class="text-danger"></span>
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label asp-for="Entity.LeadInstructorId">Lead Instructor</label>
                         <select asp-for="Entity.LeadInstructorId"
                                 asp-items="@Model.Instructors"

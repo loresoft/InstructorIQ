@@ -36,8 +36,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             var query = DataContext.Sessions
                 .AsNoTracking()
                 .Where(q => q.TenantId == tenantId)
-                .Where(q => q.StartTime >= startDate && q.StartTime < endDate)
-                .OrderBy(q => q.StartTime);
+                .Where(q => q.StartDate >= startDate && q.StartDate < endDate)
+                .OrderBy(q => q.StartDate)
+                .ThenBy(q => q.StartTime);
 
             var result = await query
                 .ProjectTo<SessionCalendarModel>(Mapper.ConfigurationProvider)

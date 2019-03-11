@@ -37,6 +37,30 @@ namespace InstructorIQ.Core.Domain.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'City'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'City'.
+        /// </value>
+        public string City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'StateProvince'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'StateProvince'.
+        /// </value>
+        public string StateProvince { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'TimeZone'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'TimeZone'.
+        /// </value>
+        public string TimeZone { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'IsDeleted'.
         /// </summary>
         /// <value>

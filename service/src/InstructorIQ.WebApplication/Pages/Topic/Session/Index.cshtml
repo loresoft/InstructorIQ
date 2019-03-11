@@ -43,9 +43,9 @@
                                title="Edit Session"
                                class="d-block">Session @(item.Index + 1)</a>
                         </td>
-                        <td>@item.Value.StartTime?.ToString("MM/dd/yyyy")</td>
-                        <td>@item.Value.StartTime?.ToString("HH:mm")</td>
-                        <td>@item.Value.EndTime?.ToString("HH:mm")</td>
+                        <td>@item.Value.StartDate?.ToString("MM/dd/yyyy")</td>
+                        <td>@item.Value.StartTime?.ToString(@"hh\:mm")</td>
+                        <td>@item.Value.EndTime?.ToString(@"hh\:mm")</td>
                         <td>@item.Value.GroupName</td>
                         <td>@item.Value.LocationName</td>
                         <td>@item.Value.LeadInstructorName</td>

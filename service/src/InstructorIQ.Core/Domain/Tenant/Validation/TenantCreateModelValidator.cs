@@ -21,6 +21,10 @@ namespace InstructorIQ.Core.Domain.Validation
             RuleFor(p => p.Name).MaximumLength(256);
             RuleFor(p => p.Abbreviation).NotEmpty();
             RuleFor(p => p.Abbreviation).MaximumLength(50);
+            RuleFor(p => p.City).MaximumLength(150);
+            RuleFor(p => p.StateProvince).MaximumLength(150);
+            RuleFor(p => p.TimeZone).NotEmpty();
+            RuleFor(p => p.TimeZone).MaximumLength(150);
             #endregion
         }
 

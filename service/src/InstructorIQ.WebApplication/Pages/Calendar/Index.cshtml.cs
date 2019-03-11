@@ -44,9 +44,6 @@ namespace InstructorIQ.WebApplication.Pages.Calendar
 
             Items = result;
 
-            var grouped = result
-                .GroupBy(g => g.StartTime?.Date ?? DateTime.MinValue);
-
             return Page();
         }
 

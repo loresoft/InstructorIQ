@@ -65,7 +65,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
                 .Select(i => new SessionBulkUpdateModel
                 {
                     Id = i.Id,
+                    StartDate = i.StartDate,
                     StartTime = i.StartTime,
+                    EndDate = i.EndDate,
                     EndTime = i.EndTime,
                     GroupId = i.GroupId,
                     LeadInstructorId = i.LeadInstructorId,

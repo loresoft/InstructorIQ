@@ -46,6 +46,23 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Description")
                 .HasColumnType("nvarchar(max)");
 
+            builder.Property(t => t.City)
+                .HasColumnName("City")
+                .HasColumnType("nvarchar(150)")
+                .HasMaxLength(150);
+
+            builder.Property(t => t.StateProvince)
+                .HasColumnName("StateProvince")
+                .HasColumnType("nvarchar(150)")
+                .HasMaxLength(150);
+
+            builder.Property(t => t.TimeZone)
+                .IsRequired()
+                .HasColumnName("TimeZone")
+                .HasColumnType("nvarchar(150)")
+                .HasMaxLength(150)
+                .HasDefaultValueSql("('Central Standard Time')");
+
             builder.Property(t => t.IsDeleted)
                 .IsRequired()
                 .HasColumnName("IsDeleted")

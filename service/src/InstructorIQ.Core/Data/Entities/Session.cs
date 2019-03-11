@@ -37,12 +37,28 @@ namespace InstructorIQ.Core.Data.Entities
         public string Note { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'StartDate'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'StartDate'.
+        /// </value>
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'StartTime'.
         /// </summary>
         /// <value>
         /// The property value representing column 'StartTime'.
         /// </value>
-        public DateTimeOffset? StartTime { get; set; }
+        public TimeSpan? StartTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'EndDate'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'EndDate'.
+        /// </value>
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'EndTime'.
@@ -50,7 +66,7 @@ namespace InstructorIQ.Core.Data.Entities
         /// <value>
         /// The property value representing column 'EndTime'.
         /// </value>
-        public DateTimeOffset? EndTime { get; set; }
+        public TimeSpan? EndTime { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'TenantId'.
@@ -91,14 +107,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// The property value representing column 'LeadInstructorId'.
         /// </value>
         public Guid? LeadInstructorId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the property value representing column 'DisplayOrder'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'DisplayOrder'.
-        /// </value>
-        public int DisplayOrder { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.

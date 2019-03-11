@@ -52,7 +52,7 @@
         <div class="text-center calendar-header-date">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month) @Model.Year</div>
     </div>
     <table class="calendar-table">
-        @foreach (var grouping in Model.Items.GroupBy(g => g.StartTime?.Date ?? DateTime.MinValue))
+        @foreach (var grouping in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate ?? DateTime.MinValue))
         {
             var sortedGroups = grouping
                 .OrderBy(i => i.StartTime)

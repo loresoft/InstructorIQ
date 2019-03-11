@@ -44,8 +44,10 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm m-0">
                             <colgroup>
-                                <col style="width: 200px">
-                                <col style="width: 200px">
+                                <col style="width: 180px">
+                                <col style="width: 125px">
+                                <col style="width: 180px">
+                                <col style="width: 125px">
                                 <col style="">
                                 <col style="">
                                 <col style="">
@@ -53,8 +55,10 @@
                             </colgroup>
                             <thead class="">
                                 <tr>
-                                    <th>Start</th>
-                                    <th>End</th>
+                                    <th>Start Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Date</th>
+                                    <th>End Time</th>
                                     <th>Group</th>
                                     <th>Location</th>
                                     <th>Instructor</th>
@@ -65,23 +69,29 @@
                                 @for (int i = 0; i < Model.Sessions.Count; i++)
                                 {
                                     <tr>
+
                                         <td>
                                             <input asp-for="Sessions[i].Id"
                                                    type="hidden" />
 
+                                            <input asp-for="Sessions[i].StartDate"
+                                                   type="date"
+                                                   class="form-control form-control-sm" />
+                                        </td>
+                                        <td>
                                             <input asp-for="Sessions[i].StartTime"
-                                                   type="datetime-local"
-                                                   class="form-control form-control-sm start-date"
-                                                   data-target="#@Html.IdFor(p=>p.Sessions[i].EndTime)"
-                                                   data-hours="2"
-                                                   data-minutes="45"
-                                                   placeholder="Start" />
+                                                   type="time"
+                                                   class="form-control form-control-sm" />
+                                        </td>
+                                        <td>
+                                            <input asp-for="Sessions[i].EndDate"
+                                                   type="date"
+                                                   class="form-control form-control-sm" />
                                         </td>
                                         <td>
                                             <input asp-for="Sessions[i].EndTime"
-                                                   type="datetime-local"
-                                                   class="form-control form-control-sm"
-                                                   placeholder="End" />
+                                                   type="time"
+                                                   class="form-control form-control-sm" />
                                         </td>
                                         <td>
                                             <select asp-for="Sessions[i].GroupId"
@@ -108,7 +118,7 @@
                                             <input asp-for="Sessions[i].Note"
                                                    type="text"
                                                    class="form-control form-control-sm"
-                                                   placeholder="Note" />
+                                                   placeholder="Note"/>
                                         </td>
                                     </tr>
                                 }
@@ -138,7 +148,7 @@
 @section Scripts {
     <script>
         $(function () {
-            $('.start-date').copyDate();
+            //$('.start-date').copyDate();
         });
     </script>
 }

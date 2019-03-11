@@ -15,7 +15,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         public IndexModel(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
         {
-            Sort = nameof(SessionReadModel.StartTime);
+            Sort = nameof(SessionReadModel.StartDate);
         }
 
         [BindProperty(Name = "s", SupportsGet = true)]

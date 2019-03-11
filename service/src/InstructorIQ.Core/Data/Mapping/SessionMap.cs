@@ -34,13 +34,21 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Note")
                 .HasColumnType("nvarchar(max)");
 
+            builder.Property(t => t.StartDate)
+                .HasColumnName("StartDate")
+                .HasColumnType("date");
+
             builder.Property(t => t.StartTime)
                 .HasColumnName("StartTime")
-                .HasColumnType("datetimeoffset");
+                .HasColumnType("time(1)");
+
+            builder.Property(t => t.EndDate)
+                .HasColumnName("EndDate")
+                .HasColumnType("date");
 
             builder.Property(t => t.EndTime)
                 .HasColumnName("EndTime")
-                .HasColumnType("datetimeoffset");
+                .HasColumnType("time(1)");
 
             builder.Property(t => t.TenantId)
                 .IsRequired()
@@ -63,11 +71,6 @@ namespace InstructorIQ.Core.Data.Mapping
             builder.Property(t => t.LeadInstructorId)
                 .HasColumnName("LeadInstructorId")
                 .HasColumnType("uniqueidentifier");
-
-            builder.Property(t => t.DisplayOrder)
-                .IsRequired()
-                .HasColumnName("DisplayOrder")
-                .HasColumnType("int");
 
             builder.Property(t => t.Created)
                 .IsRequired()

@@ -15,10 +15,10 @@ namespace InstructorIQ.Core.Data.Entities
         public Tenant()
         {
             #region Generated Constructor
-            Sessions = new HashSet<Session>();
             Instructors = new HashSet<Instructor>();
             Topics = new HashSet<Topic>();
             Invites = new HashSet<Invite>();
+            Sessions = new HashSet<Session>();
             EmailDeliveries = new HashSet<EmailDelivery>();
             EmailTemplates = new HashSet<EmailTemplate>();
             Locations = new HashSet<Location>();
@@ -58,6 +58,30 @@ namespace InstructorIQ.Core.Data.Entities
         /// The property value representing column 'Description'.
         /// </value>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'City'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'City'.
+        /// </value>
+        public string City { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'StateProvince'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'StateProvince'.
+        /// </value>
+        public string StateProvince { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'TimeZone'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'TimeZone'.
+        /// </value>
+        public string TimeZone { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'IsDeleted'.
@@ -111,14 +135,6 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Session" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Session" />.
-        /// </value>
-        public virtual ICollection<Session> Sessions { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
         /// </summary>
         /// <value>
@@ -141,6 +157,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Invite" />.
         /// </value>
         public virtual ICollection<Invite> Invites { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Session" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Session" />.
+        /// </value>
+        public virtual ICollection<Session> Sessions { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="EmailDelivery" />.

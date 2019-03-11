@@ -4,16 +4,16 @@
 
     [Note] NVARCHAR(MAX) NULL,
 
-    [StartTime] DATETIMEOFFSET NULL,
-    [EndTime] DATETIMEOFFSET NULL,
+    [StartDate] DATE NULL,
+    [StartTime] TIME(1) NULL,
+    [EndDate] DATE NULL,
+    [EndTime] TIME(1) NULL,
 
     [TenantId] UNIQUEIDENTIFIER NOT NULL,
     [TopicId] UNIQUEIDENTIFIER NOT NULL,
     [LocationId] UNIQUEIDENTIFIER NULL,
     [GroupId] UNIQUEIDENTIFIER NULL,
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
-
-    [DisplayOrder] INT NOT NULL  CONSTRAINT [DF_Session_DisplayOrder] DEFAULT (0),
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Session_Created] DEFAULT (SYSUTCDATETIME()),
     [CreatedBy] NVARCHAR(100) NULL,
@@ -33,6 +33,10 @@
 GO
 CREATE INDEX [IX_Session_TenantId]
     ON [IQ].[Session] ([TenantId])
+
+GO
+CREATE INDEX [IX_Session_StartDate]
+    ON [IQ].[Session] ([StartDate])
 
 GO
 CREATE INDEX [IX_Session_TopicId]

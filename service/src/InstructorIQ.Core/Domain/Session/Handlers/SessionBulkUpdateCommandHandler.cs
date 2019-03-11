@@ -34,7 +34,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             if (session == null)
                 throw new DomainException(HttpStatusCode.NotFound, $"Session with id '{updateModel.Id}' not found.");
 
+            session.StartDate = updateModel.StartDate;
             session.StartTime = updateModel.StartTime;
+            session.EndDate = updateModel.EndDate;
             session.EndTime = updateModel.EndTime;
             session.LocationId = updateModel.LocationId;
             session.GroupId = updateModel.GroupId;

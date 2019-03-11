@@ -21,12 +21,28 @@ namespace InstructorIQ.Core.Domain.Models
         public string Note { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'StartDate'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'StartDate'.
+        /// </value>
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'StartTime'.
         /// </summary>
         /// <value>
         /// The property value for 'StartTime'.
         /// </value>
-        public DateTimeOffset? StartTime { get; set; }
+        public TimeSpan? StartTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'EndDate'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'EndDate'.
+        /// </value>
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'EndTime'.
@@ -34,7 +50,7 @@ namespace InstructorIQ.Core.Domain.Models
         /// <value>
         /// The property value for 'EndTime'.
         /// </value>
-        public DateTimeOffset? EndTime { get; set; }
+        public TimeSpan? EndTime { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'TenantId'.
@@ -75,14 +91,6 @@ namespace InstructorIQ.Core.Domain.Models
         /// The property value for 'LeadInstructorId'.
         /// </value>
         public Guid? LeadInstructorId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the property value for 'DisplayOrder'.
-        /// </summary>
-        /// <value>
-        /// The property value for 'DisplayOrder'.
-        /// </value>
-        public int DisplayOrder { get; set; }
 
         #endregion
 
