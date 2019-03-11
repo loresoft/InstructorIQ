@@ -36,6 +36,7 @@ namespace InstructorIQ.Core.Tests.Domain
             // Create Entity
             var createModel = Generator.Default.Single<TenantCreateModel>();
             createModel.Abbreviation = "TEST";
+            createModel.TimeZone = "Central Standard Time";
 
             var createCommand = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(createModel, MockPrincipal.Default);
             var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
@@ -99,7 +100,8 @@ namespace InstructorIQ.Core.Tests.Domain
             {
                 Abbreviation = "TEST",
                 Name = "Test Department " + DateTime.Now.Ticks,
-                Description = "Created from Unit Test"
+                Description = "Created from Unit Test",
+                TimeZone = "Central Standard Time"
             };
 
             var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(createModel, MockPrincipal.Default);
