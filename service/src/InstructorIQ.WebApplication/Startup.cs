@@ -1,4 +1,5 @@
 using System.Linq;
+using Exceptionless;
 using FluentValidation.AspNetCore;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace InstructorIQ.WebApplication
@@ -111,6 +113,10 @@ namespace InstructorIQ.WebApplication
                 app.UseHsts();
             }
 
+            var options = app.ApplicationServices.GetService<IOptions<HostingConfiguration>>();
+
+            app.UseExceptionless(options.Value.ExceptionlessKey);
+            app.UseSecurityHeaders();
             app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
