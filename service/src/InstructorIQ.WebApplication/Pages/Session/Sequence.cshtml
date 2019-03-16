@@ -1,9 +1,8 @@
-﻿@page  "{id:Guid}"
-@model SequenceModel
+﻿@page
+@model InstructorIQ.WebApplication.Pages.Session.SequenceModel
 @{
-    ViewData["Title"] = "Create Sessions by Sequence";
+    ViewData["Title"] = "Sequence";
 }
-
 
 <div class="container">
 
@@ -14,10 +13,6 @@
             </li>
             <li class="breadcrumb-item">
                 <a asp-page="/topic/index">Topics</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a asp-page="/topic/session/index"
-                   asp-route-id="@Model.Id">Topic Sessions</a>
             </li>
             <li class="breadcrumb-item active"
                 aria-current="page">Add Sessions for Groups</li>
@@ -96,4 +91,5 @@
         </div>
     </form>
 </div>
+
 

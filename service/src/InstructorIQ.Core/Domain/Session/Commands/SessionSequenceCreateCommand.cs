@@ -12,13 +12,19 @@ namespace InstructorIQ.Core.Domain.Commands
     {
         public SessionSequenceCreateCommand(IPrincipal principal, Guid topicId, IEnumerable<int> sequences) : base(principal)
         {
-            TopicId = topicId;
+            TopicIds = new List<Guid> { topicId };
             Sequences = sequences.ToList();
         }
 
-        public Guid TopicId { get; set; }
+        public SessionSequenceCreateCommand(IPrincipal principal, IEnumerable<Guid> topicIds, IEnumerable<int> sequences) : base(principal)
+        {
+            TopicIds = topicIds.ToList();
+            Sequences = sequences.ToList();
+        }
 
-        public List<int> Sequences { get; set; }
+        public IReadOnlyCollection<Guid> TopicIds { get; set; }
+
+        public IReadOnlyCollection<int> Sequences { get; set; }
 
     }
 }

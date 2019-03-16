@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -33,9 +32,10 @@ namespace InstructorIQ.Core.Domain.Handlers
             var identityName = message.Principal?.Identity?.Name;
 
             // load topic
-            var topic = await DataContext.Topics.FindAsync(message.TopicId);
-            if (topic == null)
-                throw new DomainException(HttpStatusCode.NotFound, $"Topic with id '{message.TopicId}' not found.");
+            var topics = await DataContext.Topics
+                .Where(g => g.TenantId == tenantId)
+                .Where(g => message.TopicIds.Contains(g.Id))
+                .ToListAsync(cancellationToken);
 
             // load groups by sequence
             var groups = await DataContext.Groups
@@ -45,24 +45,28 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             var orderedGroups = groups
                 .OrderBy(g => g.Sequence)
-                .ThenBy(g => g.Name, StringComparer.OrdinalIgnoreCase.WithNaturalSort());
+                .ThenBy(g => g.Name, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                .ToList();
 
             // create groups
-            foreach (var group in orderedGroups)
+            foreach (var topic in topics)
             {
-                var session = new Session
+                foreach (var group in orderedGroups)
                 {
-                    TopicId = topic.Id,
-                    LeadInstructorId = topic.LeadInstructorId,
-                    TenantId = topic.TenantId,
-                    GroupId = group.Id,
-                    Created = DateTimeOffset.UtcNow,
-                    CreatedBy = identityName,
-                    Updated = DateTimeOffset.UtcNow,
-                    UpdatedBy = identityName
-                };
+                    var session = new Session
+                    {
+                        TopicId = topic.Id,
+                        LeadInstructorId = topic.LeadInstructorId,
+                        TenantId = topic.TenantId,
+                        GroupId = group.Id,
+                        Created = DateTimeOffset.UtcNow,
+                        CreatedBy = identityName,
+                        Updated = DateTimeOffset.UtcNow,
+                        UpdatedBy = identityName
+                    };
 
-                DataContext.Sessions.Add(session);
+                    DataContext.Sessions.Add(session);
+                }
             }
 
             await DataContext.SaveChangesAsync(cancellationToken);

@@ -16,7 +16,7 @@
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2022" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.1.3" />
-    <PackageReference Include="HangFire" Version="1.6.22" />
+    <PackageReference Include="HangFire" Version="1.6.23" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.124" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.124" />
     <PackageReference Include="Microsoft.AspNetCore.App" />

@@ -55,6 +55,7 @@ namespace InstructorIQ.Core.Domain
         {
             // standard queries
             services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<TKey, TReadModel>, TReadModel>, EntityIdentifierQueryHandler<InstructorIQContext, TEntity, TKey, TReadModel>>();
+            services.TryAddTransient<IRequestHandler<EntityIdentifiersQuery<TKey, TReadModel>, IReadOnlyCollection<TReadModel>>, EntityIdentifiersQueryHandler<InstructorIQContext, TEntity, TKey, TReadModel>>();
             services.TryAddTransient<IRequestHandler<EntityListQuery<TReadModel>, EntityListResult<TReadModel>>, EntityListQueryHandler<InstructorIQContext, TEntity, TReadModel>>();
 
             // pipeline registration, run in order registered

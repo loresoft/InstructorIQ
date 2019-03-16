@@ -1,51 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Extensions;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.Topic.Session
+namespace InstructorIQ.WebApplication.Pages.Session
 {
     public class SequenceModel : MediatorModelBase
     {
         public SequenceModel(IMediator mediator, ILoggerFactory loggerFactory) : base(mediator, loggerFactory)
         {
             Selected = new List<int>();
+            TopicIds = new List<Guid>();
         }
 
         [BindProperty(SupportsGet = true)]
-        public Guid Id { get; set; }
+        public List<Guid> TopicIds { get; set; }
 
-        [BindProperty]
-        public List<int> Selected { get; set; }
+        [BindProperty] public List<int> Selected { get; set; }
 
-        public TopicReadModel Topic { get; set; }
+        public IReadOnlyCollection<TopicReadModel> Topics { get; set; }
 
         public IReadOnlyCollection<GroupSequenceModel> Sequences { get; set; }
 
-
         public async Task<IActionResult> OnGetAsync()
         {
-            var topicTask = LoadTopic();
+            var topicsTask = LoadTopics();
             var groupsTask = LoadGroups();
 
             // load all in parallel
             await Task.WhenAll(
-                topicTask,
+                topicsTask,
                 groupsTask
             );
 
-            Topic = topicTask.Result;
+            Topics = topicsTask.Result;
             Sequences = groupsTask.Result;
 
+            var title = Topics.Select(t => t.Title).ToDelimitedString("; ");
+
             // shared layout title
-            ViewData["TopicTitle"] = $" - {Topic.Title}";
+            ViewData["TopicTitle"] = $" - {title}";
 
             return Page();
         }
@@ -55,15 +58,15 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             if (Selected.Count == 0)
                 return Page();
 
-            var command = new SessionSequenceCreateCommand(User, Id, Selected);
+            var command = new SessionSequenceCreateCommand(User, TopicIds, Selected);
             var result = await Mediator.Send(command);
 
-            return RedirectToPage("/topic/session/bulk", new { Id });
+            return RedirectToPage("/session/bulk", new { TopicIds });
         }
 
-        private async Task<TopicReadModel> LoadTopic()
+        private async Task<IReadOnlyCollection<TopicReadModel>> LoadTopics()
         {
-            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(Id, User);
+            var command = new EntityIdentifiersQuery<Guid, TopicReadModel>(TopicIds, User);
             var result = await Mediator.Send(command);
 
             return result;
@@ -76,6 +79,5 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             return items;
         }
-
     }
 }

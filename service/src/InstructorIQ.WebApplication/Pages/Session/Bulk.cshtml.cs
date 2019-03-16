@@ -6,12 +6,13 @@ using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Extensions;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.Topic.Session
+namespace InstructorIQ.WebApplication.Pages.Session
 {
     public class BulkModel : MediatorModelBase
     {
@@ -21,12 +22,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         }
 
         [BindProperty(SupportsGet = true)]
-        public Guid Id { get; set; }
+        public List<Guid> TopicIds { get; set; }
 
         [BindProperty]
         public List<SessionBulkUpdateModel> Sessions { get; set; }
 
-        public TopicReadModel Topic { get; set; }
+        public IReadOnlyCollection<TopicReadModel> Topics { get; set; }
 
         public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
 
@@ -37,31 +38,36 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var loadTopicTask = LoadTopic();
-            var loadSessionsTask = LoadSessions();
+            var topicsTask = LoadTopics();
+            var sessionsTask = LoadSessions();
             var instructorTask = LoadInstructors();
             var locationTask = LoadLocations();
             var groupTask = LoadGroups();
 
             // load all in parallel
             await Task.WhenAll(
-                loadSessionsTask,
-                loadTopicTask,
+                sessionsTask,
+                topicsTask,
                 instructorTask,
                 locationTask,
                 groupTask
             );
 
-            Topic = loadTopicTask.Result;
+            Topics = topicsTask.Result;
             Instructors = instructorTask.Result;
             Locations = locationTask.Result;
             Groups = groupTask.Result;
 
+            var title = Topics.Select(t => t.Title).ToDelimitedString("; ");
+
             // shared layout title
-            ViewData["TopicTitle"] = $" - {Topic.Title}";
+            ViewData["TopicTitle"] = $" - {title}";
 
             // convert to bulk update
-            Sessions = loadSessionsTask.Result
+            Sessions = sessionsTask.Result
+                .OrderBy(s => s.TopicTitle)
+                .ThenBy(s => s.StartDate)
+                .ThenBy(s => s.StartTime)
                 .Select(i => new SessionBulkUpdateModel
                 {
                     Id = i.Id,
@@ -72,7 +78,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
                     GroupId = i.GroupId,
                     LeadInstructorId = i.LeadInstructorId,
                     LocationId = i.LocationId,
-                    Note = i.Note
+                    Note = i.Note,
+                    TopicId = i.TopicId,
+                    TopicTitle = i.TopicTitle
                 })
                 .ToList();
 
@@ -89,13 +97,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             ShowAlert("Successfully saved topic sessions");
 
-            return RedirectToPage("/Topic/Session/Index", new { Id });
+            return RedirectToPage("/Topic/Index");
         }
 
-
-        private async Task<TopicReadModel> LoadTopic()
+        private async Task<IReadOnlyCollection<TopicReadModel>> LoadTopics()
         {
-            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(Id, User);
+            var command = new EntityIdentifiersQuery<Guid, TopicReadModel>(TopicIds, User);
             var result = await Mediator.Send(command);
 
             return result;
@@ -103,7 +110,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         private async Task<IReadOnlyCollection<SessionReadModel>> LoadSessions()
         {
-            var query = new SessionTopicQuery(User, Id);
+            var query = new SessionTopicQuery(User, TopicIds);
             var items = await Mediator.Send(query);
 
             return items;

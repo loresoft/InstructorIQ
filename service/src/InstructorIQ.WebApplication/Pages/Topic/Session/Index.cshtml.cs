@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.WebApplication.Models;
@@ -30,10 +30,13 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             // shared layout title
             ViewData["TopicTitle"] = $" - {Entity.Title}";
 
-            var query = new SessionTopicQuery(User, Id, Sort);
+            var query = new SessionTopicQuery(User, Id);
             var result = await Mediator.Send(query);
 
-            Items = result;
+            Items = result
+                .OrderBy(r => r.StartDate)
+                .ThenBy(r => r.StartTime)
+                .ToList();
 
             return Page();
         }

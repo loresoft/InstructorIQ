@@ -22,6 +22,10 @@ namespace InstructorIQ.Core.Domain.Models
 
         public Guid? LeadInstructorId { get; set; }
 
+        public Guid TopicId { get; set; }
+
+        public string TopicTitle { get; set; }
+
         public string Note { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
@@ -12,17 +13,14 @@ namespace InstructorIQ.Core.Domain.Queries
 
         public SessionTopicQuery(IPrincipal principal, Guid topicId) : base(principal)
         {
-            TopicId = topicId;
+            TopicIds = new List<Guid> { topicId };
         }
 
-        public SessionTopicQuery(IPrincipal principal, Guid topicId, string sort)
-            : this(principal, topicId)
+        public SessionTopicQuery(IPrincipal principal, IEnumerable<Guid> topicIds) : base(principal)
         {
-            Sort = EntitySort.Parse(sort);
+            TopicIds = topicIds.ToList();
         }
 
-        public Guid TopicId { get; set; }
-
-        public EntitySort Sort { get; set; }
+        public IReadOnlyCollection<Guid> TopicIds { get; set; }
     }
 }

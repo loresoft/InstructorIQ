@@ -32,11 +32,8 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             var query = DataContext.Sessions
                 .AsNoTracking()
-                .Where(s => s.TopicId == message.TopicId)
-                .Where(q => q.TenantId == tenantId);
-
-            if (message.Sort != null)
-                query = query.Sort(new[] { message.Sort });
+                .Where(q => q.TenantId == tenantId)
+                .Where(s => message.TopicIds.Contains(s.TopicId));
 
             var result = await query
                 .ProjectTo<SessionReadModel>(Mapper.ConfigurationProvider)

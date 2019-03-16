@@ -13,6 +13,7 @@ namespace InstructorIQ.WebApplication.Models
         protected EntityListModelBase(IMediator mediator, ILoggerFactory loggerFactory)
             : base(mediator, loggerFactory)
         {
+            Items = new List<TEntity>();
         }
 
         [BindProperty(Name = "p", SupportsGet = true)]
