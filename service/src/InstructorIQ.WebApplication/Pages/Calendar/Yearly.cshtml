@@ -1,0 +1,130 @@
+﻿@page "{year:int?}"
+@using System.Globalization
+@using NaturalSort.Extension
+@model YearlyModel
+@{
+    var currentDate = new DateTime(Model.Year, 1, 1);
+    var previousDate = currentDate.AddYears(-1);
+    var nextDate = currentDate.AddYears(1);
+
+    ViewData["Title"] = $"{Model.Year} Calendar";
+}
+
+<div class="container">
+    <div class="row m-3 d-print-none">
+        <div class="col text-right">
+            <a class="btn btn-outline-secondary"
+               style="width: 110px"
+               asp-route-year="@previousDate.Year">Previous</a>
+        </div>
+        <div class="col">
+            <select asp-for="Year"
+                    class="custom-select"
+                    onchange="changeDate()">
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+            </select>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-secondary"
+               style="width: 110px"
+               asp-route-year="@nextDate.Year">Next</a>
+        </div>
+    </div>
+
+    <div class="d-none d-print-block">
+        <div class="text-center calendar-header-title">
+            Eden Prairie Fire Department
+        </div>
+        <div class="text-center calendar-header-date">
+            @Model.Year Calendar
+        </div>
+    </div>
+
+    @foreach (var monthGroup in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate?.Month ?? 0))
+    {
+        var month = monthGroup.Select(m => m.StartDate?.Month).FirstOrDefault();
+        if (!month.HasValue)
+        {
+            continue;
+        }
+
+        var currentMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Value);
+        var dayGroups = monthGroup.GroupBy(g => g.StartDate ?? DateTime.MinValue).ToList();
+        var dayCount = dayGroups.Count();
+
+        <table class="year-month-table">
+            <tbody>
+                <tr>
+                    <td colspan="@dayCount"
+                        class="year-month-header">
+                        <a asp-page="/calendar/monthly"
+                           asp-route-year="@Model.Year"
+                           asp-route-month="@month">
+                            @currentMonth
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+
+                    @foreach (var dayGroup in dayGroups)
+                    {
+                        <td class="year-date-header">
+                            @dayGroup.Key.ToString("d-MMM")
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    @foreach (var dayGroup in dayGroups)
+                    {
+                        var sortedDay = dayGroup
+                            .OrderBy(i => i.StartTime)
+                            .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                            .ToList();
+
+                        <td class="year-date-container">
+                            <table class="year-date-table">
+                                <tbody>
+                                    @foreach (var session in sortedDay)
+                                    {
+                                        <tr>
+                                            <td class="year-date-group">
+                                                <a asp-page="/topic/session/edit"
+                                                   asp-route-topicid="@session.TopicId"
+                                                   asp-route-id="@session.Id">
+                                                    @session.GroupName
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="year-date-topic @(session.IsRequired ? "required" : "")">
+                                                <a asp-page="/topic/edit"
+                                                   asp-route-id="@session.TopicId"
+                                                   title="@session.TopicTitle">
+                                                    @session.TopicTitle
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function changeDate() {
+            var year = $('#@Html.IdFor(p => p.Year)').val();
+            var url = '/Calendar/Yearly/' + year;
+            window.location.href = url;
+        }
+    </script>
+}

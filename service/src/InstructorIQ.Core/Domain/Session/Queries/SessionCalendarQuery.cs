@@ -8,7 +8,13 @@ namespace InstructorIQ.Core.Domain.Queries
 {
     public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<SessionCalendarModel>>
     {
-        public SessionCalendarQuery(IPrincipal principal, int month, int year)
+        public SessionCalendarQuery(IPrincipal principal, int year)
+            : base(principal)
+        {
+            Year = year;
+        }
+
+        public SessionCalendarQuery(IPrincipal principal, int year, int month)
             : base(principal)
         {
             Month = month;
@@ -17,7 +23,6 @@ namespace InstructorIQ.Core.Domain.Queries
 
         public int Year { get; set; }
 
-        public int Month { get; set; }
-
+        public int? Month { get; set; }
     }
 }

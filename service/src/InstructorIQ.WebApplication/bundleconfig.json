@@ -28,6 +28,7 @@
       "wwwroot/lib/select2-bootstrap-theme/select2-bootstrap.css",
       "wwwroot/lib/flatpickr/flatpickr.css",
       "wwwroot/css/calendar.css",
+      "wwwroot/css/error.css",
       "wwwroot/css/site.css"
     ],
     "minify": {

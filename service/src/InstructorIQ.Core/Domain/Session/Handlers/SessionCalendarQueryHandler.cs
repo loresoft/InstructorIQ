@@ -30,8 +30,22 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
             var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
 
-            var startDate = new DateTime(message.Year, message.Month, 1);
-            var endDate = startDate.AddMonths(1);
+
+            DateTime startDate;
+            DateTime endDate;
+
+            // if month send, then select only one month
+            if (message.Month.HasValue)
+            {
+                startDate = new DateTime(message.Year, message.Month.Value, 1);
+                endDate = startDate.AddMonths(1);
+            }
+            // if no month, select whole year
+            else
+            {
+                startDate = new DateTime(message.Year, 1, 1);
+                endDate = startDate.AddYears(1);
+            }
 
             var query = DataContext.Sessions
                 .AsNoTracking()

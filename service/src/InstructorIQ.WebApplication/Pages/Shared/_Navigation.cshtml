@@ -10,6 +10,7 @@
            asp-page="/index"
            style="padding: 0">
             <img src="~/media/logo-full.svg"
+                 asp-append-version="true"
                  alt="InstructorIQ"
                  height="30" />
         </a>
@@ -38,9 +39,12 @@
                     </a>
                     <div class="dropdown-menu"
                          aria-labelledby="navbarDropdownCalendar">
-                        <a id="navbarViewCalendarLink"
+                        <a id="navbarMonthlyCalendarLink"
                            class="dropdown-item"
-                           asp-page="/calendar/index">View Calendar</a>
+                           asp-page="/calendar/monthly">Monthly Calendar</a>
+                        <a id="navbarYearlyCalendarLink"
+                           class="dropdown-item"
+                           asp-page="/calendar/yearly">Yearly Calendar</a>
                     </div>
                 </li>
                 <!-- Topic Menu -->

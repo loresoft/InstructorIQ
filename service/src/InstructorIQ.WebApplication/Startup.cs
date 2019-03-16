@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Exceptionless;
 using FluentValidation.AspNetCore;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace InstructorIQ.WebApplication
 {
@@ -119,7 +121,19 @@ namespace InstructorIQ.WebApplication
             app.UseSecurityHeaders();
             app.UseResponseCompression();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                OnPrepareResponse = context =>
+                {
+                    var headers = context.Context.Response.GetTypedHeaders();
+                    headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue
+                    {
+                        Public = true,
+                        MaxAge = TimeSpan.FromDays(365)
+                    };
+                }
+            });
+
             app.UseCookiePolicy();
 
             app.UseAuthentication();

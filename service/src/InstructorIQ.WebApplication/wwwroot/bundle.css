@@ -15961,7 +15961,7 @@ span.flatpickr-weekday {
     margin-bottom: 10px;
 }
 
-.calendar-table {
+.monthly-table {
     width: 100%;
     margin-bottom: 1rem;
     background-color: transparent;
@@ -15969,7 +15969,7 @@ span.flatpickr-weekday {
     empty-cells: show;
 }
 
-.calendar-date {
+.monthly-date {
     background-color: #6F6F6F;
     border: 1px solid #6F6F6F;
     color: #FFF;
@@ -15979,7 +15979,7 @@ span.flatpickr-weekday {
     position: relative;
 }
 
-.calendar-attendee {
+.monthly-attendee {
     background-color: #6F6F6F;
     border: 1px solid #6F6F6F;
     color: #FFF;
@@ -15989,16 +15989,19 @@ span.flatpickr-weekday {
     text-align: center;
 }
 
-    .calendar-attendee a:link,
-    .calendar-attendee a:visited,
-    .calendar-attendee a:hover,
-    .calendar-attendee a:active {
+    .monthly-attendee a:link,
+    .monthly-attendee a:visited,
+    .monthly-attendee a:hover,
+    .monthly-attendee a:active {
         text-decoration: none;
         color: #FFF
     }
 
+    .monthly-attendee small {
+        font-size: 60%;
+    }
 
-.calendar-topic {
+.monthly-topic {
     background-color: #c0c0c0;
     color: #000;
     font-weight: 600;
@@ -16008,10 +16011,10 @@ span.flatpickr-weekday {
     text-align: center;
 }
 
-    .calendar-topic a:link,
-    .calendar-topic a:visited,
-    .calendar-topic a:hover,
-    .calendar-topic a:active {
+    .monthly-topic a:link,
+    .monthly-topic a:visited,
+    .monthly-topic a:hover,
+    .monthly-topic a:active {
         text-decoration: none;
         color: #000
     }
@@ -16021,7 +16024,7 @@ span.flatpickr-weekday {
 }
 
 
-.calendar-topic > .required {
+.monthly-topic > .required {
     display: block;
 }
 
@@ -16035,7 +16038,7 @@ span.flatpickr-weekday {
     width: 60px;
 }
 
-.calendar-label {
+.monthly-label {
     font-size: 70%;
     font-style: italic;
     padding: .10rem .50rem;
@@ -16043,7 +16046,7 @@ span.flatpickr-weekday {
     border-left: 1px solid #6F6F6F;
 }
 
-.calendar-data {
+.monthly-data {
     font-size: 90%;
     padding: .10rem .50rem;
     border-right: 1px solid #6F6F6F;
@@ -16051,6 +16054,186 @@ span.flatpickr-weekday {
     border-bottom: 1px solid #6F6F6F;
     vertical-align: top;
     height: 20px;
+}
+
+.year-month-table,
+.year-date-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+    empty-cells: show;
+    page-break-inside: avoid;
+}
+
+    .year-month-table .year-month-header {
+        background-color: #6F6F6F;
+        border: 1px solid #6F6F6F;
+        color: #FFF;
+        font-weight: 600;
+        font-size: 90%;
+        padding: .20rem;
+        text-align: center;
+    }
+
+        .year-month-table .year-month-header a:link,
+        .year-month-table .year-month-header a:visited,
+        .year-month-table .year-month-header a:hover,
+        .year-month-table .year-month-header a:active {
+            text-decoration: none;
+            color: #FFF;
+        }
+
+    .year-month-table .year-date-table a:link,
+    .year-month-table .year-date-table a:visited,
+    .year-month-table .year-date-table a:hover,
+    .year-month-table .year-date-table a:active {
+        text-decoration: none;
+        color: #000;
+    }
+
+    .year-month-table .year-date-table .required a:link,
+    .year-month-table .year-date-table .required a:visited,
+    .year-month-table .year-date-table .required a:hover,
+    .year-month-table .year-date-table .required a:active {
+        text-decoration: none;
+        color: #990000;
+    }
+
+    .year-month-table .year-date-header {
+        background-color: #c0c0c0;
+        border: 1px solid #6F6F6F;
+        font-weight: 600;
+        font-size: 90%;
+        padding: .20rem;
+        text-align: center;
+    }
+
+    .year-month-table .year-date-container {
+        border: 1px solid #6F6F6F;
+        padding: .20rem;
+        text-align: center;
+    }
+
+    .year-month-table .year-date-table .year-date-group {
+        text-align: center;
+        text-decoration: underline;
+        padding: .20rem;
+        font-size: 70%;
+    }
+
+    .year-month-table .year-date-table .year-date-topic {
+        font-weight: 600;
+        text-align: center;
+        padding: .20rem;
+    }
+
+#error-page {
+    position: relative;
+    height: 100vh;
+}
+
+    #error-page .error-page {
+        position: absolute;
+        left: 50%;
+        top: 200px;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+.error-page {
+    max-width: 520px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+}
+
+    .error-page .error-page-404,
+    .error-page .error-page-500 {
+        position: relative;
+        height: 240px;
+    }
+
+        .error-page .error-page-404 h1,
+        .error-page .error-page-500 h1 {
+            font-family: 'Montserrat', sans-serif;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-size: 252px;
+            font-weight: 900;
+            margin: 0px;
+            color: #6F6F6F;
+            text-transform: uppercase;
+            letter-spacing: -40px;
+            margin-left: -20px;
+        }
+
+            .error-page .error-page-404 h1 > span,
+            .error-page .error-page-500 h1 > span {
+                text-shadow: -8px 0px 0px #fff;
+            }
+
+        .error-page .error-page-404 h3,
+        .error-page .error-page-500 h3 {
+            font-family: 'Cabin', sans-serif;
+            position: relative;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #262626;
+            margin: 0px;
+            letter-spacing: 3px;
+            padding-left: 6px;
+        }
+
+        .error-page .error-page-500 h1,
+        .error-page .error-page-500 h3 {
+            color: #990000;
+        }
+
+    .error-page h2 {
+        font-family: 'Cabin', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #000;
+        margin-top: 0px;
+        margin-bottom: 25px;
+    }
+
+@media only screen and (max-width: 767px) {
+    .error-page .error-page-404,
+    .error-page .error-page-500 {
+        height: 200px;
+    }
+
+        .error-page .error-page-404 h1,
+        .error-page .error-page-500 h1 {
+            font-size: 200px;
+        }
+}
+
+@media only screen and (max-width: 480px) {
+    .error-page .error-page-404,
+    .error-page .error-page-500 {
+        height: 162px;
+    }
+
+        .error-page .error-page-404 h1,
+        .error-page .error-page-500 h1 {
+            font-size: 162px;
+            height: 150px;
+            line-height: 162px;
+        }
+
+    .error-page h2 {
+        font-size: 16px;
+    }
 }
 
 body {
