@@ -9,8 +9,7 @@
       "wwwroot/lib/twitter-bootstrap/js/bootstrap.js",
       "wwwroot/lib/moment/moment.js",
       "wwwroot/lib/select2/js/select2.js",
-      "wwwroot/lib/flatpickr/flatpickr.js",
-      "wwwroot/js/copyDate.js",
+      "wwwroot/js/copyValue.js",
       "wwwroot/js/site.js"
     ],
     "minify": {
@@ -25,8 +24,6 @@
       "wwwroot/lib/fontawesome/css/all.css",
       "wwwroot/lib/twitter-bootstrap/css/bootstrap.css",
       "wwwroot/lib/select2/css/select2.css",
-      "wwwroot/lib/select2-bootstrap-theme/select2-bootstrap.css",
-      "wwwroot/lib/flatpickr/flatpickr.css",
       "wwwroot/css/calendar.css",
       "wwwroot/css/error.css",
       "wwwroot/css/site.css"

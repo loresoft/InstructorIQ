@@ -44,6 +44,7 @@
                         <label asp-for="Entity.StartDate">Start Date</label>
                         <input asp-for="Entity.StartDate"
                                type="date"
+                               data-target="#@Html.IdFor(p=>p.Entity.EndDate)"
                                class="form-control" />
                         <span asp-validation-for="Entity.StartDate" class="text-danger"></span>
                     </div>
@@ -153,9 +154,9 @@
 @section Scripts {
     <script>
         $(function () {
-            //$('.start-date').copyDate();
+            $('input[data-target]').copyValue();
 
-            $('.custom-select').select2();
+            $('#@Html.IdFor(p=> p.Instructors)').select2();
         });
     </script>
 }

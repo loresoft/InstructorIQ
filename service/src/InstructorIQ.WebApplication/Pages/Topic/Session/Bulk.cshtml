@@ -76,6 +76,7 @@
 
                                             <input asp-for="Sessions[i].StartDate"
                                                    type="date"
+                                                   data-target="#@Html.IdFor(p=>p.Sessions[i].EndDate)"
                                                    class="form-control form-control-sm" />
                                         </td>
                                         <td>
@@ -148,7 +149,7 @@
 @section Scripts {
     <script>
         $(function () {
-            //$('.start-date').copyDate();
+            $('input[data-target]').copyValue();
         });
     </script>
 }
