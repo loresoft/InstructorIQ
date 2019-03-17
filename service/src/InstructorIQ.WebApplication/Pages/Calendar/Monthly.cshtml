@@ -81,7 +81,8 @@
                             <span class="fa-pull-right mr-2"><small>@c?.EndTime?.ToString(@"hh\:mm")</small></span>
                             <a asp-page="/topic/session/edit"
                                asp-route-topicid="@c.TopicId"
-                               asp-route-id="@c.Id">
+                               asp-route-id="@c.Id"
+                               title="Edit @c.GroupName Session">
                                 @c.GroupName
                             </a>
                         </td>
@@ -93,7 +94,7 @@
                         <td class="monthly-topic">
                             <a asp-page="/topic/edit"
                                asp-route-id="@c.TopicId"
-                               title="@c.TopicTitle">
+                               title="Edit @c.TopicTitle Topic">
                                 @c.TopicTitle
                             </a>
                             @if (c.IsRequired)
@@ -118,7 +119,7 @@
                 <tr>
                     @foreach (var c in sortedGroups)
                     {
-                        <td class="monthly-label">Instructors</td>
+                        <td class="monthly-label">Lead Instructor</td>
                     }
                 </tr>
                 <tr>
@@ -130,7 +131,7 @@
                 <tr>
                     @foreach (var c in sortedGroups)
                     {
-                        <td class="monthly-label">Safety / Co-Lead</td>
+                        <td class="monthly-label">Additional Instructors</td>
                     }
                 </tr>
                 <tr>

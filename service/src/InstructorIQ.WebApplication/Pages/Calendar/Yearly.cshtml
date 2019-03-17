@@ -63,7 +63,8 @@
                         class="year-month-header">
                         <a asp-page="/calendar/monthly"
                            asp-route-year="@Model.Year"
-                           asp-route-month="@month">
+                           asp-route-month="@month"
+                           title="View @currentMonth Calendar">
                             @currentMonth
                         </a>
                     </td>
@@ -94,7 +95,8 @@
                                             <td class="year-date-group">
                                                 <a asp-page="/topic/session/edit"
                                                    asp-route-topicid="@session.TopicId"
-                                                   asp-route-id="@session.Id">
+                                                   asp-route-id="@session.Id"
+                                                   title="Edit @session.GroupName Session">
                                                     @session.GroupName
                                                 </a>
                                             </td>
@@ -103,7 +105,7 @@
                                             <td class="year-date-topic @(session.IsRequired ? "required" : "")">
                                                 <a asp-page="/topic/edit"
                                                    asp-route-id="@session.TopicId"
-                                                   title="@session.TopicTitle">
+                                                   title="Edit @session.TopicTitle Topic">
                                                     @session.TopicTitle
                                                 </a>
                                             </td>

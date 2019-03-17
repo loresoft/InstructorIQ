@@ -80,6 +80,13 @@
         "js/select2.js",
         "css/select2.css"
       ]
+    },
+    {
+      "library": "select2-bootstrap-theme@0.1.0-beta.10",
+      "destination": "wwwroot/lib/select2-bootstrap-theme/",
+      "files": [
+        "select2-bootstrap.css"
+      ]
     }
   ]
 }
