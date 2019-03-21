@@ -13,7 +13,7 @@ namespace InstructorIQ.WebApplication.Pages.Calendar
 {
     public class YearlyModel : MediatorModelBase
     {
-        public YearlyModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory) 
+        public YearlyModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
             Year = DateTime.Now.Year;
@@ -26,12 +26,15 @@ namespace InstructorIQ.WebApplication.Pages.Calendar
 
         public virtual async Task<IActionResult> OnGetAsync()
         {
+            if (Tenant == null || !Tenant.HasValue)
+                return RedirectToPage("/Index");
+
             var year = Year;
 
             if (year == 0)
                 year = DateTime.Now.Year;
 
-            var command = new SessionCalendarQuery(User, year);
+            var command = new SessionCalendarQuery(User, Tenant.Value.Id, year);
             var result = await Mediator.Send(command);
 
             Items = result;

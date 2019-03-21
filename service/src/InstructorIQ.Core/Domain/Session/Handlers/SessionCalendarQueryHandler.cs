@@ -28,9 +28,6 @@ namespace InstructorIQ.Core.Domain.Handlers
 
         protected override async Task<IReadOnlyCollection<SessionCalendarModel>> Process(SessionCalendarQuery message, CancellationToken cancellationToken)
         {
-            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
-
-
             DateTime startDate;
             DateTime endDate;
 
@@ -49,7 +46,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             var query = DataContext.Sessions
                 .AsNoTracking()
-                .Where(q => q.TenantId == tenantId)
+                .Where(q => q.TenantId == message.TenantId)
                 .Where(q => q.StartDate >= startDate && q.StartDate < endDate)
                 .OrderBy(q => q.StartDate)
                 .ThenBy(q => q.StartTime);

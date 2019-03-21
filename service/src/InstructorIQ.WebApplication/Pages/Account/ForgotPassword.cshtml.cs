@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +14,12 @@ namespace InstructorIQ.WebApplication.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
+        private readonly IEmailTemplateService _templateService;
 
-        public ForgotPasswordModel(UserManager<Core.Data.Entities.User> userManager)
+        public ForgotPasswordModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService)
         {
             _userManager = userManager;
+            _templateService = templateService;
         }
 
         [BindProperty]
@@ -39,19 +44,22 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 return Page();
             }
 
-            // For more information on how to enable account confirmation and password reset please
-            // visit https://go.microsoft.com/fwlink/?LinkID=532713
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var callbackUrl = Url.Page(
+            var resetLink = Url.Page(
                 "/Account/ResetPassword",
                 pageHandler: null,
                 values: new { code },
                 protocol: Request.Scheme);
 
-            //await _emailSender.SendEmailAsync(
-            //    Input.Email,
-            //    "Reset Password",
-            //    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            var userAgent = Request.UserAgent();
+            var model = new UserResetPasswordEmail
+            {
+                DisplayName = user.DisplayName,
+                EmailAddress = user.Email,
+                ResetLink = resetLink,
+                UserAgent = userAgent
+            };
+            var result = await _templateService.SendResetPasswordEmail(model);
 
             return RedirectToPage("./ForgotPasswordConfirmation");
         }

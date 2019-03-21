@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
@@ -8,18 +9,22 @@ namespace InstructorIQ.Core.Domain.Queries
 {
     public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<SessionCalendarModel>>
     {
-        public SessionCalendarQuery(IPrincipal principal, int year)
+        public SessionCalendarQuery(IPrincipal principal, Guid tenantId, int year)
             : base(principal)
         {
+            TenantId = tenantId;
             Year = year;
         }
 
-        public SessionCalendarQuery(IPrincipal principal, int year, int month)
+        public SessionCalendarQuery(IPrincipal principal, Guid tenantId, int year, int month)
             : base(principal)
         {
+            TenantId = tenantId;
             Month = month;
             Year = year;
         }
+
+        public Guid TenantId { get; set; }
 
         public int Year { get; set; }
 

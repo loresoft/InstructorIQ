@@ -30,6 +30,9 @@ namespace InstructorIQ.WebApplication.Pages.Calendar
 
         public virtual async Task<IActionResult> OnGetAsync()
         {
+            if (Tenant == null || !Tenant.HasValue)
+                return RedirectToPage("/Index");
+
             var month = Month;
             var year = Year;
 
@@ -39,7 +42,7 @@ namespace InstructorIQ.WebApplication.Pages.Calendar
             if (year == 0)
                 year = DateTime.Now.Year;
 
-            var command = new SessionCalendarQuery(User, year, month);
+            var command = new SessionCalendarQuery(User, Tenant.Value.Id, year, month);
             var result = await Mediator.Send(command);
 
             Items = result;
