@@ -13,6 +13,8 @@
     [PhoneNumberConfirmed] BIT NOT NULL CONSTRAINT [DF_User_PhoneNumberConfirmed] DEFAULT (0),
 
     [DisplayName] NVARCHAR(256) NOT NULL,
+    [LastTenantId] UNIQUEIDENTIFIER NULL,
+    [IsGlobalAdministrator] BIT NOT NULL CONSTRAINT [DF_User_IsGlobalAdministrator] DEFAULT (0),
 
     [PasswordHash] NVARCHAR(MAX) NULL,
 

@@ -1,5 +1,6 @@
 ﻿using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,8 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
 {
     public class IndexModel : EntityListModelBase<InstructorReadModel>
     {
-        public IndexModel(IMediator mediator, ILoggerFactory loggerFactory) : base(mediator, loggerFactory)
+        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             Sort = nameof(InstructorReadModel.FamilyName);
         }

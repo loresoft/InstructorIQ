@@ -68,6 +68,7 @@
     <Folder Include="Procedures" />
     <Folder Include="Schema" />
     <Folder Include="Identity" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Topic.sql" />
@@ -98,6 +99,8 @@
     <Build Include="Identity\UserLogin.sql" />
     <Build Include="Identity\UserRole.sql" />
     <Build Include="Identity\UserToken.sql" />
+    <Build Include="Views\SessionCalendar.sql" />
+    <Build Include="Tables\TenantUserRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

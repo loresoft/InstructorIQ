@@ -7,10 +7,12 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a asp-page="/">Home</a>
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a asp-page="/topic/index">Topics</a>
+                <a asp-page="/topic/index"
+                   asp-route-tenant="@Model.TenantRoute">Topics</a>
             </li>
             <li class="breadcrumb-item active"
                 aria-current="page">Edit Topic</li>
@@ -31,6 +33,7 @@
                        class="nav-link @(ViewBag.Title == "Edit Topic" ? "active": "")"
                        title="Edit Topic"
                        asp-page="/topic/edit"
+                       asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">General</a>
                 </li>
                 <li class="nav-item">
@@ -38,6 +41,7 @@
                        class="nav-link @(ViewBag.Title == "Edit Sessions" ? "active": "")"
                        title="Edit Sessions"
                        asp-page="/topic/session/index"
+                       asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">Sessions</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -52,12 +56,14 @@
                     <div class="dropdown-menu"
                          aria-labelledby="actionDropdown">
                         <a asp-page="/topic/session/create"
+                           asp-route-tenant="@Model.TenantRoute"
                            asp-route-topicid="@Model.Id"
                            title="Add New Session"
                            class="dropdown-item">
                             Add New Session
                         </a>
                         <a asp-page="/topic/session/sequence"
+                           asp-route-tenant="@Model.TenantRoute"
                            asp-route-id="@Model.Id"
                            title="Add Sessions for Groups"
                            class="dropdown-item">
@@ -65,6 +71,7 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <a asp-page="/topic/session/bulk"
+                           asp-route-tenant="@Model.TenantRoute"
                            asp-route-id="@Model.Id"
                            title="Bulk Edit Sessions"
                            class="dropdown-item">

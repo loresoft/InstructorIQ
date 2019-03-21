@@ -1,36 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.WebApplication.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.User
 {
-    public class PasswordModel : PageModel
+    public class PasswordModel : MediatorModelBase
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
         private readonly SignInManager<Core.Data.Entities.User> _signInManager;
-        private readonly ILogger<PasswordModel> _logger;
 
         public PasswordModel(
+            ITenant<TenantReadModel> tenant,
+            IMediator mediator,
+            ILoggerFactory loggerFactory,
             UserManager<Core.Data.Entities.User> userManager,
-            SignInManager<Core.Data.Entities.User> signInManager,
-            ILogger<PasswordModel> logger)
+            SignInManager<Core.Data.Entities.User> signInManager)
+            : base(tenant, mediator, loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
-
-        [TempData]
-        public string StatusMessage { get; set; }
 
         public class InputModel
         {
@@ -87,8 +85,8 @@ namespace InstructorIQ.WebApplication.Pages.User
 
             await _signInManager.RefreshSignInAsync(user);
 
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            Logger.LogInformation("User changed their password successfully.");
+            ShowAlert("Your password has been changed");
 
             return RedirectToPage();
         }

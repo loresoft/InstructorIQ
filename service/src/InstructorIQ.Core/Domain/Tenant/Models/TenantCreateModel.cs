@@ -21,12 +21,12 @@ namespace InstructorIQ.Core.Domain.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'Abbreviation'.
+        /// Gets or sets the property value for 'Slug'.
         /// </summary>
         /// <value>
-        /// The property value for 'Abbreviation'.
+        /// The property value for 'Slug'.
         /// </value>
-        public string Abbreviation { get; set; }
+        public string Slug { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'Description'.
@@ -59,6 +59,14 @@ namespace InstructorIQ.Core.Domain.Models
         /// The property value for 'TimeZone'.
         /// </value>
         public string TimeZone { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'DomainName'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'DomainName'.
+        /// </value>
+        public string DomainName { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'IsDeleted'.

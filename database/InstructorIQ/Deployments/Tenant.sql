@@ -7,14 +7,14 @@ USING
     (
         'e8a8db6e-2feb-e711-87c1-708bcd56aa6d',
         'Demo Tenant',
-        'DEMO',
+        'Demo',
         'Demo Tenant',
         0
     ),
     (
         '2a3080d2-a9ec-e711-87c2-708bcd56aa6d',
         'Test Tenant',
-        'TEST',
+        'Test',
         'Test Tenant',
         0
     )
@@ -23,7 +23,7 @@ AS s
 (
     [Id],
     [Name],
-    [Abbreviation],
+    [Slug],
     [Description],
     [IsDeleted]
 )
@@ -36,7 +36,7 @@ WHEN NOT MATCHED BY TARGET THEN
     (
         [Id],
         [Name],
-        [Abbreviation],
+        [Slug],
         [Description],
         [IsDeleted]
     )
@@ -44,14 +44,14 @@ WHEN NOT MATCHED BY TARGET THEN
     (
         s.[Id],
         s.[Name],
-        s.[Abbreviation],
+        s.[Slug],
         s.[Description],
         s.[IsDeleted]
     )
 WHEN MATCHED THEN
     UPDATE SET
         t.[Name] = s.[Name],
-        t.[Abbreviation] = s.[Abbreviation],
+        t.[Slug] = s.[Slug],
         t.[Description] = s.[Description],
         t.[IsDeleted] = s.[IsDeleted]
 OUTPUT $action as [Action];

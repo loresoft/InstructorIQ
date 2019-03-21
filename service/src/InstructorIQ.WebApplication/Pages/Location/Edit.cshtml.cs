@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +13,8 @@ namespace InstructorIQ.WebApplication.Pages.Location
 {
     public class EditModel : EntityEditModelBase<LocationUpdateModel>
     {
-        public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
         }
 
@@ -44,7 +45,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
 
             ShowAlert("Successfully saved location");
 
-            return RedirectToPage("/Location/Edit", new { id = result.Id });
+            return RedirectToPage("/Location/Edit", new { id = result.Id, tenant = TenantRoute });
         }
 
         public async Task<IActionResult> OnPostDeleteEntity()
@@ -54,7 +55,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
 
             ShowAlert("Successfully deleted location");
 
-            return RedirectToPage("/Location/Index");
+            return RedirectToPage("/Location/Index", new { tenant = TenantRoute });
 
         }
 

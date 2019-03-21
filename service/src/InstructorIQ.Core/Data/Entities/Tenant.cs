@@ -15,6 +15,7 @@ namespace InstructorIQ.Core.Data.Entities
         public Tenant()
         {
             #region Generated Constructor
+            TenantUserRoles = new HashSet<TenantUserRole>();
             Instructors = new HashSet<Instructor>();
             Topics = new HashSet<Topic>();
             Invites = new HashSet<Invite>();
@@ -44,12 +45,12 @@ namespace InstructorIQ.Core.Data.Entities
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'Abbreviation'.
+        /// Gets or sets the property value representing column 'Slug'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'Abbreviation'.
+        /// The property value representing column 'Slug'.
         /// </value>
-        public string Abbreviation { get; set; }
+        public string Slug { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Description'.
@@ -82,6 +83,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The property value representing column 'TimeZone'.
         /// </value>
         public string TimeZone { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'DomainName'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'DomainName'.
+        /// </value>
+        public string DomainName { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'IsDeleted'.
@@ -134,6 +143,14 @@ namespace InstructorIQ.Core.Data.Entities
         #endregion
 
         #region Generated Relationships
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="TenantUserRole" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="TenantUserRole" />.
+        /// </value>
+        public virtual ICollection<TenantUserRole> TenantUserRoles { get; set; }
+
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
         /// </summary>

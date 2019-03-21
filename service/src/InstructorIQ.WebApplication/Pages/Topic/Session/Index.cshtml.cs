@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +13,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
     public class IndexModel : EntityEditModelBase<TopicUpdateModel>
     {
-        public IndexModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             Sort = nameof(SessionReadModel.StartDate);
         }

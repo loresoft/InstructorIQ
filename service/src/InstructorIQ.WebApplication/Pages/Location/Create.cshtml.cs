@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,8 @@ namespace InstructorIQ.WebApplication.Pages.Location
 {
     public class CreateModel : EntityCreateModelBase<LocationCreateModel>
     {
-        public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
 
         }
@@ -40,7 +41,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
 
             ShowAlert("Successfully created location");
 
-            return RedirectToPage("/Location/Edit", new { id = result.Id });
+            return RedirectToPage("/Location/Edit", new { id = result.Id, tenant = TenantRoute });
         }
     }
 }

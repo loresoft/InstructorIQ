@@ -15,6 +15,7 @@
         <div class="col text-right">
             <a class="btn btn-outline-secondary"
                style="width: 110px"
+               asp-route-tenant="@Model.TenantRoute"
                asp-route-year="@previousDate.Year">Previous</a>
         </div>
         <div class="col">
@@ -31,13 +32,14 @@
         <div class="col">
             <a class="btn btn-outline-secondary"
                style="width: 110px"
+               asp-route-tenant="@Model.TenantRoute"
                asp-route-year="@nextDate.Year">Next</a>
         </div>
     </div>
 
     <div class="d-none d-print-block">
         <div class="text-center calendar-header-title">
-            Eden Prairie Fire Department
+            @Model.Tenant.Value?.Name
         </div>
         <div class="text-center calendar-header-date">
             @Model.Year Calendar
@@ -62,6 +64,7 @@
                     <td colspan="@dayCount"
                         class="year-month-header">
                         <a asp-page="/calendar/monthly"
+                           asp-route-tenant="@Model.TenantRoute"
                            asp-route-year="@Model.Year"
                            asp-route-month="@month"
                            title="View @currentMonth Calendar">
@@ -94,6 +97,7 @@
                                         <tr>
                                             <td class="year-date-group">
                                                 <a asp-page="/topic/session/edit"
+                                                   asp-route-tenant="@Model.TenantRoute"
                                                    asp-route-topicid="@session.TopicId"
                                                    asp-route-id="@session.Id"
                                                    title="Edit @session.GroupName Session">
@@ -104,6 +108,7 @@
                                         <tr>
                                             <td class="year-date-topic @(session.IsRequired ? "required" : "")">
                                                 <a asp-page="/topic/edit"
+                                                   asp-route-tenant="@Model.TenantRoute"
                                                    asp-route-id="@session.TopicId"
                                                    title="Edit @session.TopicTitle Topic">
                                                     @session.TopicTitle
@@ -125,7 +130,7 @@
     <script>
         function changeDate() {
             var year = $('#@Html.IdFor(p => p.Year)').val();
-            var url = '/Calendar/Yearly/' + year;
+            var url = '/@Model.TenantRoute/Calendar/Yearly/' + year;
             window.location.href = url;
         }
     </script>

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,8 +12,8 @@ namespace InstructorIQ.WebApplication.Models
 {
     public abstract class EntityListModelBase<TEntity> : MediatorModelBase
     {
-        protected EntityListModelBase(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        protected EntityListModelBase(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             Items = new List<TEntity>();
         }

@@ -36,9 +36,9 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
-            builder.Property(t => t.Abbreviation)
+            builder.Property(t => t.Slug)
                 .IsRequired()
-                .HasColumnName("Abbreviation")
+                .HasColumnName("Slug")
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50);
 
@@ -62,6 +62,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(150)")
                 .HasMaxLength(150)
                 .HasDefaultValueSql("('Central Standard Time')");
+
+            builder.Property(t => t.DomainName)
+                .HasColumnName("DomainName")
+                .HasColumnType("nvarchar(150)")
+                .HasMaxLength(150);
 
             builder.Property(t => t.IsDeleted)
                 .IsRequired()

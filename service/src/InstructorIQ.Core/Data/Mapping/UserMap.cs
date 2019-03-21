@@ -17,6 +17,21 @@ namespace InstructorIQ.Core.Data.Mapping
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<InstructorIQ.Core.Data.Entities.User> builder)
         {
             builder.ToTable("User", "Identity");
+
+            builder.Property(t => t.DisplayName)
+                .IsRequired()
+                .HasColumnName("DisplayName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.LastTenantId)
+                .HasColumnName("LastTenantId")
+                .HasColumnType("uniqueidentifier");
+
+            builder.Property(t => t.IsGlobalAdministrator)
+                .IsRequired()
+                .HasColumnName("IsGlobalAdministrator")
+                .HasColumnType("bit");
         }
 
     }

@@ -1,39 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
-using InstructorIQ.WebApplication.Pages.Account;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.WebApplication.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.User
 {
-    public class ProfileModel : PageModel
+    public class ProfileModel : MediatorModelBase
     {
         private readonly SignInManager<Core.Data.Entities.User> _signInManager;
         private readonly UserManager<Core.Data.Entities.User> _userManager;
-        private readonly ILogger<PageModel> _logger;
 
         public ProfileModel(
+            ITenant<TenantReadModel> tenant,
+            IMediator mediator,
+            ILoggerFactory loggerFactory,
             UserManager<Core.Data.Entities.User> userManager,
-            SignInManager<Core.Data.Entities.User> signInManager,
-            ILogger<RegisterModel> logger)
+            SignInManager<Core.Data.Entities.User> signInManager)
+            : base(tenant, mediator, loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
         public string Username { get; set; }
-
-        [TempData]
-        public string StatusMessage { get; set; }
 
         public class InputModel
         {
@@ -118,7 +116,7 @@ namespace InstructorIQ.WebApplication.Pages.User
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            ShowAlert("Your profile has been updated");
 
             return RedirectToPage();
         }

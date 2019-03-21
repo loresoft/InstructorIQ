@@ -1,13 +1,16 @@
 ﻿@using InstructorIQ.Core.Data.Entities
+@using InstructorIQ.Core.Domain.Models
+@using InstructorIQ.Core.Multitenancy
 @using InstructorIQ.Core.Security
 @inject SignInManager<User> SignInManager
 @inject UserClaimManager UserClaimManager
-
+@inject ITenant<TenantReadModel> Tenant
 <nav id="navbar-main"
      class="navbar navbar-expand-lg navbar-light fixed-top navbar-default">
     <div class="container-fluid">
         <a class="navbar-brand"
            asp-page="/index"
+           asp-route-tenant="@Tenant.Value?.Slug"
            style="padding: 0">
             <img src="~/media/logo-full.svg"
                  asp-append-version="true"
@@ -28,7 +31,8 @@
              id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 <!-- Calendar Menu -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"
+                    include-if="@Tenant.HasValue">
                     <a id="navbarDropdownCalendar"
                        class="nav-link dropdown-toggle"
                        href="#"
@@ -41,14 +45,18 @@
                          aria-labelledby="navbarDropdownCalendar">
                         <a id="navbarMonthlyCalendarLink"
                            class="dropdown-item"
-                           asp-page="/calendar/monthly">Monthly Calendar</a>
+                           asp-page="/calendar/monthly"
+                           asp-route-tenant="@Tenant.Value?.Slug">Monthly Calendar</a>
                         <a id="navbarYearlyCalendarLink"
                            class="dropdown-item"
-                           asp-page="/calendar/yearly">Yearly Calendar</a>
+                           asp-page="/calendar/yearly"
+                           asp-route-tenant="@Tenant.Value?.Slug">Yearly Calendar</a>
                     </div>
                 </li>
+
                 <!-- Topic Menu -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"
+                    include-if="@Tenant.HasValue">
                     <a id="navbarDropdownTopic"
                        class="nav-link dropdown-toggle"
                        href="#"
@@ -61,16 +69,19 @@
                          aria-labelledby="navbarDropdownTopic">
                         <a id="navbarViewTopicLink"
                            class="dropdown-item"
-                           asp-page="/topic/index">View Topics</a>
+                           asp-page="/topic/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">View Topics</a>
                         <div class="dropdown-divider"></div>
                         <a id="navbarCreateTopicLink"
                            class="dropdown-item"
-                           asp-page="/topic/create">Add Topic</a>
+                           asp-page="/topic/create"
+                           asp-route-tenant="@Tenant.Value?.Slug">Add Topic</a>
                     </div>
                 </li>
 
                 <!-- Instructor Menu -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"
+                    include-if="@Tenant.HasValue">
                     <a id="navbarDropdownInstructors"
                        class="nav-link dropdown-toggle"
                        href="#"
@@ -83,16 +94,19 @@
                          aria-labelledby="navbarDropdownInstructors">
                         <a id="navbarViewInstructorsLink"
                            class="dropdown-item"
-                           asp-page="/instructor/index">View Instructors</a>
+                           asp-page="/instructor/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">View Instructors</a>
                         <div class="dropdown-divider"></div>
                         <a id="navbarCreateInstructorLink"
                            class="dropdown-item"
-                           asp-page="/instructor/create">Add Instructor</a>
+                           asp-page="/instructor/create"
+                           asp-route-tenant="@Tenant.Value?.Slug">Add Instructor</a>
                     </div>
                 </li>
 
                 <!-- Administrative  Menu -->
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"
+                    include-if="@Tenant.HasValue">
                     <a id="navbarDropdownAdministrative"
                        href="#"
                        class="nav-link dropdown-toggle"
@@ -105,24 +119,27 @@
                          aria-labelledby="navbarDropdownAdministrative">
                         <a id="navbarAdministrativeLocationsLink"
                            class="dropdown-item"
-                           asp-page="/location/index">Locations</a>
+                           asp-page="/location/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Locations</a>
                         <a id="navbarAdministrativeGroupsLink"
                            class="dropdown-item"
-                           asp-page="/group/index">Groups</a>
+                           asp-page="/group/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Groups</a>
                         <div class="dropdown-divider"></div>
 
                     </div>
                 </li>
             </ul>
 
-            <form class="form-inline mt-2 mt-md-0 d-none d-xl-block">
+            @*<form class="form-inline mt-2 mt-md-0 d-none d-xl-block"
+                  include-if="@Tenant.HasValue">
                 <input id="navbarSearchInput"
                        class="form-control mr-sm-2"
                        type="text"
                        placeholder="Search"
                        aria-label="Search"
                        style="background: transparent;">
-            </form>
+            </form>*@
 
             <!-- User Menu -->
             <ul class="navbar-nav"
@@ -145,19 +162,22 @@
                              aria-labelledby="navbarDropdownUser">
                             <a id="navbarIdentityProfile"
                                class="dropdown-item"
-                               asp-page="/user/profile">
+                               asp-page="/user/profile"
+                               asp-route-tenant="@Tenant.Value?.Slug">
                                 <i class="fas fa-user"></i> Update Profile
                             </a>
                             <a id="navbarIdentityProfile"
                                class="dropdown-item"
-                               asp-page="/user/password">
+                               asp-page="/user/password"
+                               asp-route-tenant="@Tenant.Value?.Slug">
                                 <i class="fas fa-lock"></i> Change Password
                             </a>
                             <div class="dropdown-divider"></div>
                             <a id="navbarIdentityLogout"
                                class="dropdown-item"
                                asp-page="/account/logout"
-                               asp-route-returnurl="/">
+                               asp-route-returnurl="/"
+                               asp-route-tenant="@Tenant.Value?.Slug">
                                 <i class="fas fa-power-off"></i> Logout
                             </a>
                         </div>
@@ -167,7 +187,8 @@
                 {
                     <li class="nav-item">
                         <a class="nav-link"
-                           asp-page="/account/login">
+                           asp-page="/account/login"
+                           asp-route-tenant="@Tenant.Value?.Slug">
                             Login
                         </a>
                     </li>

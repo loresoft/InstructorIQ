@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 {
     public class CreateModel : EntityCreateModelBase<TopicCreateModel>
     {
-        public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
 
         }
@@ -37,7 +38,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
             ShowAlert("Successfully created topic");
 
-            return RedirectToPage("/Topic/Edit", new { id = result.Id });
+            return RedirectToPage("/Topic/Edit", new { id = result.Id, tenant = TenantRoute });
         }
     }
 }

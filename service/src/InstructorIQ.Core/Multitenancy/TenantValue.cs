@@ -10,5 +10,7 @@ namespace InstructorIQ.Core.Multitenancy
         }
 
         public TTenant Value { get; }
+
+        public bool HasValue => Value != null;
     }
 }

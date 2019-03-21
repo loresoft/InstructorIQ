@@ -16,6 +16,7 @@
         <div class="col text-right">
             <a class="btn btn-outline-secondary"
                style="width: 110px"
+               asp-route-tenant="@Model.TenantRoute"
                asp-route-month="@previousDate.Month"
                asp-route-year="@previousDate.Year">Previous</a>
         </div>
@@ -51,13 +52,14 @@
         <div class="col">
             <a class="btn btn-outline-secondary"
                style="width: 110px"
+               asp-route-tenant="@Model.TenantRoute"
                asp-route-month="@nextDate.Month"
                asp-route-year="@nextDate.Year">Next</a>
         </div>
     </div>
     <div class="d-none d-print-block">
         <div class="text-center calendar-header-title">
-            Eden Prairie Fire Department
+            @Model.Tenant.Value?.Name
         </div>
         <div class="text-center calendar-header-date">
             @currentMonth @Model.Year
@@ -81,6 +83,7 @@
                             <span class="fa-pull-right mr-2"><small>@c?.EndTime?.ToString(@"hh\:mm")</small></span>
                             <a asp-page="/topic/session/edit"
                                asp-route-topicid="@c.TopicId"
+                               asp-route-tenant="@Model.TenantRoute"
                                asp-route-id="@c.Id"
                                title="Edit @c.GroupName Session">
                                 @c.GroupName
@@ -93,6 +96,7 @@
                     {
                         <td class="monthly-topic">
                             <a asp-page="/topic/edit"
+                               asp-route-tenant="@Model.TenantRoute"
                                asp-route-id="@c.TopicId"
                                title="Edit @c.TopicTitle Topic">
                                 @c.TopicTitle
@@ -168,7 +172,7 @@
         function changeDate() {
             var year = $('#@Html.IdFor(p => p.Year)').val();
             var month = $('#@Html.IdFor(p => p.Month)').val();
-            var url = '/Calendar/Monthly/' + year + '/' + month;
+            var url = '/@Model.TenantRoute/Calendar/Monthly/' + year + '/' + month;
             window.location.href = url;
         }
     </script>

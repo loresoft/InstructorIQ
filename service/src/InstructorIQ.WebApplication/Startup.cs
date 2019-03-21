@@ -4,6 +4,8 @@ using Exceptionless;
 using FluentValidation.AspNetCore;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
 using KickStart;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,11 +49,6 @@ namespace InstructorIQ.WebApplication
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<InstructorIQContext>()
-                .AddDefaultTokenProviders();
-
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -68,6 +66,15 @@ namespace InstructorIQ.WebApplication
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
+
+
+            services.AddMemoryCache();
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<InstructorIQContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddMultitenancy<TenantReadModel, TenantModelResolver>();
 
             services.AddResponseCompression(options =>
             {
@@ -97,9 +104,20 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AuthorizeFolder("/Session");
                     options.Conventions.AuthorizeFolder("/Topic");
                     options.Conventions.AuthorizeFolder("/User");
+
+                    options.Conventions.AddPageTenantRoute("/Index", false);
+                    options.Conventions.AddFolderTenantRoute("/Account", false);
+                    options.Conventions.AddFolderTenantRoute("/Calendar");
+                    options.Conventions.AddFolderTenantRoute("/Group");
+                    options.Conventions.AddFolderTenantRoute("/Instructor");
+                    options.Conventions.AddFolderTenantRoute("/Location");
+                    options.Conventions.AddFolderTenantRoute("/Session");
+                    options.Conventions.AddFolderTenantRoute("/Topic");
+                    options.Conventions.AddFolderTenantRoute("/User");
                 })
                 .AddFluentValidation();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -137,6 +155,8 @@ namespace InstructorIQ.WebApplication
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseMultitenancy<TenantReadModel>();
 
             app.UseMvc();
         }

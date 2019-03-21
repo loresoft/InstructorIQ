@@ -9,13 +9,16 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a asp-page="/">Home</a>
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a asp-page="/topic/index">Topics</a>
+                <a asp-page="/topic/index"
+                   asp-route-tenant="@Model.TenantRoute">Topics</a>
             </li>
             <li class="breadcrumb-item">
                 <a asp-page="/topic/session/index"
+                   asp-route-tenant="@Model.TenantRoute"
                    asp-route-id="@Model.TopicId">Topic Sessions</a>
             </li>
             <li class="breadcrumb-item active"

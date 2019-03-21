@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Multitenancy
@@ -41,6 +42,7 @@ namespace InstructorIQ.Core.Multitenancy
             }
             else
             {
+                // return 404?
                 _logger.LogDebug("TenantContext Not Resolved.");
             }
 

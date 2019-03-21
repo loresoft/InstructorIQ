@@ -7,6 +7,7 @@ using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +17,8 @@ namespace InstructorIQ.WebApplication.Pages.Session
 {
     public class BulkModel : MediatorModelBase
     {
-        public BulkModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public BulkModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
         }
 
@@ -97,7 +98,7 @@ namespace InstructorIQ.WebApplication.Pages.Session
 
             ShowAlert("Successfully saved topic sessions");
 
-            return RedirectToPage("/Topic/Index");
+            return RedirectToPage("/Topic/Index", new { tenant = TenantRoute });
         }
 
         private async Task<IReadOnlyCollection<TopicReadModel>> LoadTopics()

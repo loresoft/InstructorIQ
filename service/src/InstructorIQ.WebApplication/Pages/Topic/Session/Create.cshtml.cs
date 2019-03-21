@@ -5,6 +5,7 @@ using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
     public class CreateModel : EntityCreateModelBase<SessionCreateModel>
     {
-        public CreateModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
 
         }
@@ -85,7 +86,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             ShowAlert("Successfully created topic session");
 
-            return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId });
+            return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId, tenant = TenantRoute });
         }
 
 

@@ -8,7 +8,9 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">
+                <a asp-page="/Index" asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
             <li class="breadcrumb-item active"
                 aria-current="page">Groups</li>
         </ol>
@@ -45,6 +47,7 @@
                     </div>
                 </form>
                 <a asp-page="/group/create"
+                   asp-route-tenant="@Model.TenantRoute"
                    title="Add New Group"
                    class="btn btn-sm btn-primary">Add</a>
             </div>
@@ -62,8 +65,7 @@
                     <thead class="">
                         <tr>
                             <th>
-                                <header asp-page="/group/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="Name"
                                         sort-current="@Model.Sort"
                                         title="Sort by Name">
@@ -71,8 +73,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/group/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="Description"
                                         sort-current="@Model.Sort"
                                         title="Sort by Description">
@@ -80,8 +81,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/group/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="Sequence"
                                         sort-current="@Model.Sort"
                                         title="Sort by Sequence">
@@ -89,8 +89,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/group/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="Updated"
                                         sort-current="@Model.Sort"
                                         title="Sort by Updated">
@@ -105,6 +104,7 @@
                             <tr repeat.for="group of result.data">
                                 <td>
                                     <a asp-page="/group/edit"
+                                       asp-route-tenant="@Model.TenantRoute"
                                        asp-route-id="@item.Id"
                                        title="Edit Group"
                                        class="d-block">@item.Name</a>
@@ -123,6 +123,7 @@
             <div class="row">
                 <div class="col">
                     <a asp-page="/group/create"
+                       asp-route-tenant="@Model.TenantRoute"
                        title="Add New Group"
                        class="btn btn-primary m-3">Add Group</a>
                 </div>
@@ -130,7 +131,6 @@
                     <pagination current-page="@Model.PageNumber"
                                 page-size="@Model.PageSize"
                                 total-items="@Model.Total"
-                                asp-page="/group/index"
                                 asp-route-z="@Model.PageSize"
                                 asp-route-s="@Model.Sort"
                                 asp-route-q="@Model.Query"

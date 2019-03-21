@@ -2,12 +2,14 @@
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_Tenant_Id] DEFAULT (NEWSEQUENTIALID()),
     [Name] NVARCHAR(256) NOT NULL,
-    [Abbreviation] NVARCHAR(50) NOT NULL,
+    [Slug] NVARCHAR(50) NOT NULL,
     [Description] NVARCHAR(MAX) NULL,
 
     [City] nvarchar(150) NULL,
     [StateProvince]  nvarchar(150) NULL,
     [TimeZone] NVARCHAR(150) NOT NULL CONSTRAINT [DF_Tenant_TimeZone] DEFAULT 'Central Standard Time',
+
+    [DomainName] nvarchar(150) NULL,
 
     [IsDeleted] BIT NOT NULL CONSTRAINT [DF_Tenant_IsDeleted] DEFAULT (0),
 
@@ -23,6 +25,10 @@
 GO
 CREATE INDEX [IX_Tenant_Name]
     ON [IQ].[Tenant] ([Name])
+
+GO
+CREATE UNIQUE INDEX [UX_Tenant_Slug]
+    ON [IQ].[Tenant] ([Slug])
 
 GO
 CREATE INDEX [IX_Tenant_IsDeleted]

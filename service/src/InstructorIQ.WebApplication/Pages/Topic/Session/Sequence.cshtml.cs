@@ -5,6 +5,7 @@ using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
     public class SequenceModel : MediatorModelBase
     {
-        public SequenceModel(IMediator mediator, ILoggerFactory loggerFactory) : base(mediator, loggerFactory)
+        public SequenceModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             Selected = new List<int>();
         }
@@ -58,7 +60,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             var command = new SessionSequenceCreateCommand(User, Id, Selected);
             var result = await Mediator.Send(command);
 
-            return RedirectToPage("/topic/session/bulk", new { Id });
+            return RedirectToPage("/topic/session/bulk", new { Id, tenant = TenantRoute });
         }
 
         private async Task<TopicReadModel> LoadTopic()

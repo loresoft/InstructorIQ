@@ -77,5 +77,18 @@ namespace InstructorIQ.Core.Security
 
             throw new DomainException(500, "Could not find tenant identifier in current user token.");
         }
+
+        public string GetTenantName(IPrincipal principal)
+        {
+            var claimPrincipal = principal as ClaimsPrincipal;
+            return claimPrincipal?.FindFirstValue(UserClaims.TenantName);
+        }
+
+        public string GetTenantSlug(IPrincipal principal)
+        {
+            var claimPrincipal = principal as ClaimsPrincipal;
+            return claimPrincipal?.FindFirstValue(UserClaims.TenantSlug);
+        }
+
     }
 }

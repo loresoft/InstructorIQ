@@ -7,6 +7,7 @@ using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +17,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
     public class EditModel : EntityEditModelBase<SessionUpdateModel>
     {
-        public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             AdditionalInstructors = new List<Guid>();
         }
@@ -103,7 +104,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             ShowAlert("Successfully saved topic session");
 
-            return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId });
+            return RedirectToPage("/Topic/Session/Edit", new { result.Id, TopicId, tenant = TenantRoute });
         }
 
         public async Task<IActionResult> OnPostDeleteEntity()
@@ -113,7 +114,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             ShowAlert("Successfully deleted topic");
 
-            return RedirectToPage("/Topic/Session/Index", new { Id = TopicId });
+            return RedirectToPage("/Topic/Session/Index", new { Id = TopicId, tenant = TenantRoute });
         }
 
 

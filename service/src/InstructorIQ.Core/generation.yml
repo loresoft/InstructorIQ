@@ -38,6 +38,7 @@ model:
         - 'NotificationRecipient'
         - 'RefreshToken'
         - 'SessionInstructor'
+        - 'TenantUserRole'
       properties:
         - '\.Id$'
         - '\.Created$'

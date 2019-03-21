@@ -35,7 +35,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             // Create Entity
             var createModel = Generator.Default.Single<TenantCreateModel>();
-            createModel.Abbreviation = "TEST";
+            createModel.Slug = "Test" + DateTime.Now.Ticks;
             createModel.TimeZone = "Central Standard Time";
 
             var createCommand = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(createModel, MockPrincipal.Default);
@@ -98,7 +98,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             var createModel = new TenantCreateModel
             {
-                Abbreviation = "TEST",
+                Slug = "Test" + DateTime.Now.Ticks,
                 Name = "Test Department " + DateTime.Now.Ticks,
                 Description = "Created from Unit Test",
                 TimeZone = "Central Standard Time"
@@ -120,7 +120,7 @@ namespace InstructorIQ.Core.Tests.Domain
             var query = new EntityQuery
             {
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
-                Filter = new EntityFilter { Name = "Abbreviation", Value = "TEST" }
+                Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
             var command = new EntityListQuery<TenantReadModel>(query, MockPrincipal.Default);
 

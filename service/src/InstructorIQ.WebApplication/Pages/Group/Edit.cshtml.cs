@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +13,8 @@ namespace InstructorIQ.WebApplication.Pages.Group
 {
     public class EditModel : EntityEditModelBase<GroupUpdateModel>
     {
-        public EditModel(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
         }
 
@@ -41,7 +42,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
 
             ShowAlert("Successfully saved group");
 
-            return RedirectToPage("/Group/Edit", new { id = result.Id });
+            return RedirectToPage("/Group/Edit", new { id = result.Id, tenant = TenantRoute });
         }
 
         public async Task<IActionResult> OnPostDeleteEntity()
@@ -51,7 +52,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
 
             ShowAlert("Successfully deleted group");
 
-            return RedirectToPage("/Group/Index");
+            return RedirectToPage("/Group/Index", new { tenant = TenantRoute });
 
         }
 

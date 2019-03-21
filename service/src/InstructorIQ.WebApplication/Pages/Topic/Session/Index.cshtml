@@ -38,6 +38,7 @@
                     <tr>
                         <td>
                             <a asp-page="/topic/session/edit"
+                               asp-route-tenant="@Model.TenantRoute"
                                asp-route-topicid="@Model.Id"
                                asp-route-id="@item.Value.Id"
                                title="Edit Session"
@@ -60,6 +61,7 @@
     <div class="col">
         <div class="btn-group">
             <a asp-page="/topic/session/create"
+               asp-route-tenant="@Model.TenantRoute"
                asp-route-topicid="@Model.Id"
                title="Create New Session"
                class="btn btn-primary">
@@ -74,12 +76,14 @@
             </button>
             <div class="dropdown-menu">
                 <a asp-page="/topic/session/create"
+                   asp-route-tenant="@Model.TenantRoute"
                    asp-route-topicid="@Model.Id"
                    title="Create New Session"
                    class="dropdown-item">
                     Add New Session
                 </a>
                 <a asp-page="/topic/session/sequence"
+                   asp-route-tenant="@Model.TenantRoute"
                    asp-route-id="@Model.Id"
                    title="Add Sessions for Groups"
                    class="dropdown-item">
@@ -87,6 +91,7 @@
                 </a>
                 <div class="dropdown-divider"></div>
                 <a asp-page="/topic/session/bulk"
+                   asp-route-tenant="@Model.TenantRoute"
                    asp-route-id="@Model.Id"
                    title="Bulk Edit Sessions"
                    class="dropdown-item">

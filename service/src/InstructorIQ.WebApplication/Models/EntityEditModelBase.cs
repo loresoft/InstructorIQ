@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Queries;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,8 +12,8 @@ namespace InstructorIQ.WebApplication.Models
     public abstract class EntityEditModelBase<TModel> : MediatorModelBase
         where TModel : new()
     {
-        protected EntityEditModelBase(IMediator mediator, ILoggerFactory loggerFactory)
-            : base(mediator, loggerFactory)
+        protected EntityEditModelBase(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             Entity = new TModel();
         }

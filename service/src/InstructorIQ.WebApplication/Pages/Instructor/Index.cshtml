@@ -8,7 +8,10 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
             <li class="breadcrumb-item active"
                 aria-current="page">Instructors</li>
         </ol>
@@ -45,6 +48,7 @@
                     </div>
                 </form>
                 <a asp-page="/instructor/create"
+                   asp-route-tenant="@Model.TenantRoute"
                    title="Add New Instructor"
                    class="btn btn-sm btn-primary">Add</a>
             </div>
@@ -63,8 +67,7 @@
                     <thead class="">
                         <tr>
                             <th>
-                                <header asp-page="/instructor/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="DisplayName"
                                         sort-current="@Model.Sort"
                                         title="Sort by Name">
@@ -72,8 +75,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/instructor/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="FamilyName"
                                         sort-current="@Model.Sort"
                                         title="Sort by Last">
@@ -81,8 +83,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/instructor/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="GivenName"
                                         sort-current="@Model.Sort"
                                         title="Sort by First Name">
@@ -90,8 +91,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/instructor/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="EmailAddress"
                                         sort-current="@Model.Sort"
                                         title="Sort by Email Address">
@@ -99,8 +99,7 @@
                                 </header>
                             </th>
                             <th>
-                                <header asp-page="/instructor/index"
-                                        asp-route-q="@Model.Query"
+                                <header asp-route-q="@Model.Query"
                                         sort-by="Updated"
                                         sort-current="@Model.Sort"
                                         title="Sort by Updated">
@@ -115,6 +114,7 @@
                             <tr>
                                 <td>
                                     <a asp-page="/instructor/edit"
+                                       asp-route-tenant="@Model.TenantRoute"
                                        asp-route-id="@item.Id"
                                        title="Edit Instructor"
                                        class="d-block">@item.DisplayName</a>
@@ -134,6 +134,7 @@
             <div class="row">
                 <div class="col">
                     <a asp-page="/instructor/create"
+                       asp-route-tenant="@Model.TenantRoute"
                        title="Add New Instructor"
                        class="btn btn-primary m-3">Add Instructor</a>
                 </div>
@@ -141,7 +142,6 @@
                     <pagination current-page="@Model.PageNumber"
                                 page-size="@Model.PageSize"
                                 total-items="@Model.Total"
-                                asp-page="/instructor/index"
                                 asp-route-z="@Model.PageSize"
                                 asp-route-s="@Model.Sort"
                                 asp-route-q="@Model.Query"

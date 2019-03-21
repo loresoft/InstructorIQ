@@ -19,5 +19,9 @@ namespace InstructorIQ.Core.Data.Entities
         }
 
         public string DisplayName { get; set; } = string.Empty;
+
+        public Guid? LastTenantId { get; set; }
+
+        public bool IsGlobalAdministrator { get; set; }
     }
 }
