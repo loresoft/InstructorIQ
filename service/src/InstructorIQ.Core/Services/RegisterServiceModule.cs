@@ -11,7 +11,7 @@ namespace InstructorIQ.Core.Services
     {
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
-            services.TryAddSingleton<IEmailTemplateService, EmailTemplateService>();
+            services.TryAddScoped<IEmailTemplateService, EmailTemplateService>();
         }
     }
 }
