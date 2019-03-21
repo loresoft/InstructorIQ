@@ -52,7 +52,7 @@ namespace InstructorIQ.Core.Tests.Domain
             var entityQuery = new EntityQuery
             {
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
-                Filter = new EntityFilter { Name = "Abbreviation", Value = "TEST" }
+                Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
             var listQuery = new EntityListQuery<TenantReadModel>(entityQuery, MockPrincipal.Default);
 
