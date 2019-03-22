@@ -9,6 +9,10 @@ USING
         'Demo Tenant',
         'Demo',
         'Demo Tenant',
+        NULL,
+        'MN',
+        'Central Standard Time',
+        'InstructorIQ.com',
         0
     ),
     (
@@ -16,6 +20,10 @@ USING
         'Test Tenant',
         'Test',
         'Test Tenant',
+        NULL,
+        'MN',
+        'Central Standard Time',
+        'mailinator.com',
         0
     )
 )
@@ -25,6 +33,10 @@ AS s
     [Name],
     [Slug],
     [Description],
+    [City],
+    [StateProvince],
+    [TimeZone],
+    [DomainName],
     [IsDeleted]
 )
 ON
@@ -38,6 +50,10 @@ WHEN NOT MATCHED BY TARGET THEN
         [Name],
         [Slug],
         [Description],
+        [City],
+        [StateProvince],
+        [TimeZone],
+        [DomainName],
         [IsDeleted]
     )
     VALUES
@@ -46,6 +62,10 @@ WHEN NOT MATCHED BY TARGET THEN
         s.[Name],
         s.[Slug],
         s.[Description],
+        s.[City],
+        s.[StateProvince],
+        s.[TimeZone],
+        s.[DomainName],
         s.[IsDeleted]
     )
 WHEN MATCHED THEN
@@ -53,6 +73,10 @@ WHEN MATCHED THEN
         t.[Name] = s.[Name],
         t.[Slug] = s.[Slug],
         t.[Description] = s.[Description],
+        t.[City] = s.[City],
+        t.[StateProvince] = s.[StateProvince],
+        t.[TimeZone] = s.[TimeZone],
+        t.[DomainName] = s.[DomainName],
         t.[IsDeleted] = s.[IsDeleted]
 OUTPUT $action as [Action];
 

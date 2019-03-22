@@ -108,11 +108,10 @@
     <None Include="Deployments\Tenant.sql" />
     <None Include="Deployments\User.sql" />
     <None Include="Deployments\Role.sql" />
-    <None Include="Deployments\UserRole.sql" />
     <None Include="publish.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Deployments\UserClaim.sql" />
+    <None Include="Deployments\TenantUserRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment.sql" />

@@ -1,2 +1,0 @@
-﻿-- Table [Identity].[UserRole] data
-

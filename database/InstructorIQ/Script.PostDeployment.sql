@@ -10,11 +10,10 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 :r .\Deployments\EmailTemplate.sql
-:r .\Deployments\Tenant.sql
 :r .\Deployments\User.sql
 :r .\Deployments\Role.sql
-:r .\Deployments\UserClaim.sql
-/*:r .\Deployments\UserRole.sql*/
+:r .\Deployments\Tenant.sql
+:r .\Deployments\TenantUserRole.sql
 
 /* Must Be Last */
 :r .\Datasweeps.sql
