@@ -9,10 +9,10 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Models
 {
-    public abstract class EntityEditModelBase<TModel> : MediatorModelBase
+    public abstract class EntityIdentifierModelBase<TModel> : MediatorModelBase
         where TModel : new()
     {
-        protected EntityEditModelBase(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        protected EntityIdentifierModelBase(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
             Entity = new TModel();

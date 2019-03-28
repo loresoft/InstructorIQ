@@ -1,0 +1,121 @@
+﻿@page  "/topic/{TopicId:Guid}/session/{Id:Guid}/view"
+@using InstructorIQ.Core.Extensions
+@using InstructorIQ.Core.Security
+@model ViewModel
+@{
+    ViewData["Title"] = "View Session";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index"
+                   asp-route-tenant="@Model.TenantRoute">Topics</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/session/index"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@Model.TopicId">Topic Sessions</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">View Session</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-book-open mr-2"
+               aria-hidden="true"></i> Topic Session - @Model.Entity.TopicTitle
+        </div>
+        <div class="card-body">
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label>Start Date</label>
+                    <div class="form-control-view">
+                        @Model.Entity.StartDate?.ToString("MM/dd/yyyy")
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Start Time</label>
+                    <div class="form-control-view">
+                        @Model.Entity.StartTime?.ToString(@"hh\:mm")
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>End Date</label>
+                    <div class="form-control-view">
+                        @Model.Entity.EndDate?.ToString("MM/dd/yyyy")
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>End Time</label>
+                    <div class="form-control-view">
+                        @Model.Entity.EndTime?.ToString(@"hh\:mm")
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Location</label>
+                    <div class="form-control-view">
+                        @Model.Entity.LocationName
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Group</label>
+                    <div class="form-control-view">
+                        @Model.Entity.GroupName
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Lead Instructor</label>
+                <div class="form-control-view">
+                    @Model.Entity.LeadInstructorName
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Additional Instructors</label>
+                <div class="form-control-view">
+                    @Model.AdditionalInstructors.Select(s => s.DisplayName).ToDelimitedString("; ")
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Notes</label>
+                <div class="form-control-view">
+                    <markdown content="Entity.Note"></markdown>
+                </div>
+            </div>
+
+            <div class="row mt-2"
+                 authorize-policy="@UserPolicies.AdministratorPolicy">
+                <div class="col">
+                    <a asp-page="/topic/session/edit"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-topicid="@Model.TopicId"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-primary">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

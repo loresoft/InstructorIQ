@@ -6,14 +6,17 @@ using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic
 {
-    public class EditModel : EntityEditModelBase<TopicUpdateModel>
+    [Authorize(Policy = UserPolicies.InstructorPolicy)]
+    public class EditModel : EntityIdentifierModelBase<TopicUpdateModel>
     {
         public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
@@ -26,10 +29,6 @@ namespace InstructorIQ.WebApplication.Pages.Topic
         public override async Task<IActionResult> OnGetAsync()
         {
             await base.OnGetAsync();
-
-            // shared layout title
-            ViewData["TopicTitle"] = $" - {Entity.Title}";
-
 
             Instructors = await LoadInstructors();
 
@@ -64,7 +63,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
             ShowAlert("Successfully saved topic");
 
-            return RedirectToPage("/Topic/Edit", new { id = result.Id, tenant = TenantRoute });
+            return RedirectToPage("/Topic/View", new { id = result.Id, tenant = TenantRoute });
         }
 
         public async Task<IActionResult> OnPostDeleteEntity()

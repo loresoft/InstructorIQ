@@ -5,7 +5,9 @@ using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Definitions;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain;
+using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -14,11 +16,11 @@ namespace InstructorIQ.Core.Behaviors
 {
     public class TenantFilterQueryBehavior<TEntityModel> : PipelineBehaviorBase<EntityListQuery<TEntityModel>, EntityListResult<TEntityModel>>
     {
-        private readonly UserClaimManager _userClaimManager;
+        private readonly ITenant<TenantReadModel> _tenant;
 
-        public TenantFilterQueryBehavior(ILoggerFactory loggerFactory, UserClaimManager userClaimManager) : base(loggerFactory)
+        public TenantFilterQueryBehavior(ILoggerFactory loggerFactory, ITenant<TenantReadModel> tenant) : base(loggerFactory)
         {
-            _userClaimManager = userClaimManager;
+            _tenant = tenant;
         }
 
         protected override async Task<EntityListResult<TEntityModel>> Process(EntityListQuery<TEntityModel> request, CancellationToken cancellationToken, RequestHandlerDelegate<EntityListResult<TEntityModel>> next)
@@ -36,7 +38,10 @@ namespace InstructorIQ.Core.Behaviors
             if (!supportsTenant)
                 return;
 
-            var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
+            if (!_tenant.HasValue)
+                throw new DomainException(500, "Could not find tenant for the current request.");
+
+            var tenantId = _tenant.Value.Id;
             var tenantFilter = new EntityFilter
             {
                 Name = nameof(IHaveTenant<Guid>.TenantId),

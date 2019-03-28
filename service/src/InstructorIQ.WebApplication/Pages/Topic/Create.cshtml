@@ -1,4 +1,5 @@
 ﻿@page
+@using InstructorIQ.Core.Services
 @model InstructorIQ.WebApplication.Pages.Topic.CreateModel
 @{
     ViewData["Title"] = "Create Topic";
@@ -48,7 +49,7 @@
                 <div class="form-group">
                     <label asp-for="Entity.Description">Description</label>
                     <textarea asp-for="Entity.Description"
-                              rows="10"
+                              rows="5"
                               class="form-control"
                               placeholder="Description"></textarea>
                     <span asp-validation-for="Entity.Description" class="text-danger"></span>
@@ -56,13 +57,8 @@
                 <div class="form-group">
                     <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
                     <select asp-for="Entity.CalendarYear"
-                            class="custom-select">
-                        <option value="2020">2020</option>
-                        <option value="2019" selected="selected">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                    </select>
+                            asp-items="SelectItemFactory.Years()"
+                            class="custom-select"></select>
                     <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
                 </div>
 
@@ -73,6 +69,12 @@
                                 class="btn btn-primary">
                             Save
                         </button>
+                        <a id="cancel-button"
+                           asp-page="/topic/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
                     </div>
                 </div>
             </form>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using InstructorIQ.Core.Security
+@{
     Layout = "_Layout";
 }
 
@@ -15,7 +16,7 @@
                    asp-route-tenant="@Model.TenantRoute">Topics</a>
             </li>
             <li class="breadcrumb-item active"
-                aria-current="page">Edit Topic</li>
+                aria-current="page">Topic</li>
         </ol>
     </nav>
 
@@ -30,21 +31,22 @@
             <ul class="nav nav-tabs card-header-tabs float-right">
                 <li class="nav-item">
                     <a id="topic-edit-tab"
-                       class="nav-link @(ViewBag.Title == "Edit Topic" ? "active": "")"
+                       class="nav-link @(ViewBag.TopicTab == "General" ? "active": "")"
                        title="Edit Topic"
-                       asp-page="/topic/edit"
+                       asp-page="/topic/view"
                        asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">General</a>
                 </li>
                 <li class="nav-item">
                     <a id="topic-sessions-tab"
-                       class="nav-link @(ViewBag.Title == "Edit Sessions" ? "active": "")"
+                       class="nav-link @(ViewBag.TopicTab == "Sessions" ? "active": "")"
                        title="Edit Sessions"
                        asp-page="/topic/session/index"
                        asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">Sessions</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"
+                    authorize-policy="@UserPolicies.AdministratorPolicy">
                     <a class="nav-link dropdown-toggle"
                        href="#" id="actionDropdown"
                        role="button"

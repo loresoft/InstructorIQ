@@ -7,13 +7,13 @@ using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
+using InstructorIQ.Core.Security;
 using KickStart;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -98,13 +98,6 @@ namespace InstructorIQ.WebApplication
                 })
                 .AddRazorPagesOptions(options =>
                 {
-                    options.Conventions.AuthorizeFolder("/Group");
-                    options.Conventions.AuthorizeFolder("/Instructor");
-                    options.Conventions.AuthorizeFolder("/Location");
-                    options.Conventions.AuthorizeFolder("/Session");
-                    options.Conventions.AuthorizeFolder("/Topic");
-                    options.Conventions.AuthorizeFolder("/User");
-
                     options.Conventions.AddPageTenantRoute("/Index", false);
                     options.Conventions.AddFolderTenantRoute("/Account", false);
                     options.Conventions.AddFolderTenantRoute("/Calendar");
@@ -116,6 +109,31 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/User");
                 })
                 .AddFluentValidation();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(
+                    UserPolicies.InstructorPolicy,
+                    policy => policy.RequireRole(
+                        Core.Data.Constants.Role.GlobalAdministrator,
+                        Core.Data.Constants.Role.AdministratorName,
+                        Core.Data.Constants.Role.InstructorName
+                    )
+                );
+                options.AddPolicy(
+                    UserPolicies.AdministratorPolicy,
+                    policy => policy.RequireRole(
+                        Core.Data.Constants.Role.GlobalAdministrator,
+                        Core.Data.Constants.Role.AdministratorName
+                    )
+                );
+                options.AddPolicy(
+                    UserPolicies.GlobalPolicy,
+                    policy => policy.RequireRole(
+                        Core.Data.Constants.Role.GlobalAdministrator
+                    )
+                );
+            });
         }
 
 

@@ -6,13 +6,16 @@ using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
+    [Authorize(Policy = UserPolicies.AdministratorPolicy)]
     public class SequenceModel : MediatorModelBase
     {
         public SequenceModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)

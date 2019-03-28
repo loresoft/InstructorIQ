@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
-    public class IndexModel : EntityEditModelBase<TopicUpdateModel>
+    public class IndexModel : EntityIdentifierModelBase<TopicUpdateModel>
     {
         public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
@@ -27,9 +27,6 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         public override async Task<IActionResult> OnGetAsync()
         {
             await base.OnGetAsync();
-
-            // shared layout title
-            ViewData["TopicTitle"] = $" - {Entity.Title}";
 
             var query = new SessionTopicQuery(User, Id);
             var result = await Mediator.Send(query);

@@ -1,8 +1,12 @@
-﻿@page  "{id:Guid}"
+﻿@page  "/topic/{id:Guid}/sessions/"
 @using InstructorIQ.Core.Extensions
+@using InstructorIQ.Core.Security
 @model IndexModel
 @{
-    ViewData["Title"] = "Edit Sessions";
+    ViewData["Title"] = $"Sessions for {Model.Entity.Title}"; ;
+    ViewData["TopicTitle"] = $" - {Model.Entity.Title}";
+    ViewData["TopicTab"] = "Sessions";
+
     Layout = "_TopicLayout";
 }
 
@@ -37,7 +41,7 @@
                 {
                     <tr>
                         <td>
-                            <a asp-page="/topic/session/edit"
+                            <a asp-page="/topic/session/view"
                                asp-route-tenant="@Model.TenantRoute"
                                asp-route-topicid="@Model.Id"
                                asp-route-id="@item.Value.Id"
@@ -57,7 +61,8 @@
         </table>
     </div>
 </div>
-<div class="row mt-2">
+<div class="row mt-2"
+     authorize-policy="@UserPolicies.AdministratorPolicy">
     <div class="col">
         <div class="btn-group">
             <a asp-page="/topic/session/create"

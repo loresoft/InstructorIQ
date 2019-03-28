@@ -1,7 +1,11 @@
 ﻿@page  "{id:Guid}"
+@using InstructorIQ.Core.Services
 @model EditModel
 @{
-    ViewData["Title"] = "Edit Topic";
+    ViewData["Title"] = $"Topic {Model.Entity.Title}"; ;
+    ViewData["TopicTitle"] = $" - {Model.Entity.Title}";
+    ViewData["TopicTab"] = "General";
+
     Layout = "_TopicLayout";
 }
 
@@ -49,44 +53,29 @@
         <div class="form-group col-md-3">
             <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
             <select asp-for="Entity.CalendarYear"
-                    class="custom-select">
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-            </select>
+                    asp-items="SelectItemFactory.Years()"
+                    class="custom-select"></select>
             <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
         </div>
         <div class="form-group col-md-3">
             <label asp-for="Entity.TargetMonth">Target Month</label>
             <select asp-for="Entity.TargetMonth"
+                    asp-items="SelectItemFactory.Months()"
                     class="custom-select">
                 <option value="">- Select -</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
             </select>
             <span asp-validation-for="Entity.TargetMonth" class="text-danger"></span>
         </div>
 
     </div>
 
-    <div class="custom-control custom-checkbox">
-        <input asp-for="Entity.IsRequired"
-               type="checkbox"
-               class="custom-control-input" />
-        <label asp-for="Entity.IsRequired"
-               class="custom-control-label">Topic is Required</label>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label asp-for="Entity.IsRequired">Required</label>
+            <select asp-for="Entity.IsRequired"
+                    asp-items="SelectItemFactory.Boolean()"
+                    class="custom-select"></select>
+        </div>
     </div>
 
     <div class="row mt-3">
@@ -96,11 +85,13 @@
                     class="btn btn-primary">
                 Save
             </button>
-            <button id="reset-button"
-                    type="reset"
-                    class="btn btn-secondary">
-                Reset
-            </button>
+            <a id="cancel-button"
+               asp-page="/topic/view"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-id="@Model.Id"
+               class="btn btn-secondary">
+                Cancel
+            </a>
         </div>
         <div class="col">
             <confirm-button id="delete-button"

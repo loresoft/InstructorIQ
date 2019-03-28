@@ -4,12 +4,14 @@ using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.User
 {
+    [Authorize]
     public class PasswordModel : MediatorModelBase
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;

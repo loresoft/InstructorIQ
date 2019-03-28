@@ -1,5 +1,6 @@
 ﻿@page "{year:int?}"
 @using System.Globalization
+@using InstructorIQ.Core.Services
 @using NaturalSort.Extension
 @model YearlyModel
 @{
@@ -20,13 +21,9 @@
         </div>
         <div class="col">
             <select asp-for="Year"
+                    asp-items="SelectItemFactory.Years()"
                     class="custom-select"
                     onchange="changeDate()">
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
             </select>
         </div>
         <div class="col">
@@ -96,7 +93,7 @@
                                     {
                                         <tr>
                                             <td class="year-date-group">
-                                                <a asp-page="/topic/session/edit"
+                                                <a asp-page="/topic/session/view"
                                                    asp-route-tenant="@Model.TenantRoute"
                                                    asp-route-topicid="@session.TopicId"
                                                    asp-route-id="@session.Id"
@@ -107,7 +104,7 @@
                                         </tr>
                                         <tr>
                                             <td class="year-date-topic @(session.IsRequired ? "required" : "")">
-                                                <a asp-page="/topic/edit"
+                                                <a asp-page="/topic/view"
                                                    asp-route-tenant="@Model.TenantRoute"
                                                    asp-route-id="@session.TopicId"
                                                    title="Edit @session.TopicTitle Topic">

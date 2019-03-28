@@ -88,6 +88,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string TenantName { get; set; }
 
+        public string LeadInstructorName { get; set; }
+
         public int SessionCount { get; set; }
     }
 }

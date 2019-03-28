@@ -1,4 +1,4 @@
-﻿@page "{TopicId:Guid}"
+﻿@page  "/topic/{TopicId:Guid}/session/create"
 @model CreateModel
 @{
     ViewData["Title"] = "Create Session";
@@ -124,6 +124,13 @@
                                 class="btn btn-primary">
                             Save
                         </button>
+                        <a id="cancel-button"
+                           asp-page="/topic/session/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.TopicId"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
                     </div>
                 </div>
             </form>

@@ -1,4 +1,4 @@
-﻿@page  "{id:Guid}"
+﻿@page  "/topic/{id:Guid}/sessions/create"
 @model SequenceModel
 @{
     ViewData["Title"] = "Create Sessions by Sequence";
@@ -92,6 +92,14 @@
                                 class="btn btn-primary">
                             Create
                         </button>
+                        <a id="cancel-button"
+                           asp-page="/topic/session/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+
                     </div>
                 </div>
             </div>

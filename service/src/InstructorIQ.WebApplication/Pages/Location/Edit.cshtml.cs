@@ -4,14 +4,17 @@ using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Location
 {
-    public class EditModel : EntityEditModelBase<LocationUpdateModel>
+    [Authorize(Policy = UserPolicies.AdministratorPolicy)]
+    public class EditModel : EntityIdentifierModelBase<LocationUpdateModel>
     {
         public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)

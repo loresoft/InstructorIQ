@@ -7,6 +7,8 @@ namespace InstructorIQ.Core.Multitenancy
 {
     public interface ITenantResolver<TTenant>
     {
+        Task<TenantContext<TTenant>> ResolveAsync();
+
         Task<TenantContext<TTenant>> ResolveAsync(HttpContext context);
     }
 }

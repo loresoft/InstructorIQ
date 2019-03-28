@@ -14,10 +14,11 @@ namespace InstructorIQ.Core.Multitenancy
 {
     public class TenantModelResolver : ITenantResolver<TenantReadModel>
     {
-        public TenantModelResolver(IMediator mediator, ILoggerFactory loggerFactory, UserClaimManager userClaimManager)
+        public TenantModelResolver(IMediator mediator, ILoggerFactory loggerFactory, UserClaimManager userClaimManager, IHttpContextAccessor httpContextAccessor)
         {
             Mediator = mediator;
             UserClaimManager = userClaimManager;
+            HttpContextAccessor = httpContextAccessor;
             Logger = loggerFactory.CreateLogger(GetType());
         }
 
@@ -27,8 +28,18 @@ namespace InstructorIQ.Core.Multitenancy
 
         protected IMediator Mediator { get; }
 
+        protected IHttpContextAccessor HttpContextAccessor { get; }
+
+        public async Task<TenantContext<TenantReadModel>> ResolveAsync()
+        {
+            return await ResolveAsync(HttpContextAccessor.HttpContext);
+        }
+
         public async Task<TenantContext<TenantReadModel>> ResolveAsync(HttpContext context)
         {
+            if (context == null)
+                return null;
+
             var tenant = await ResolveFromPath(context);
 
             if (tenant == null)

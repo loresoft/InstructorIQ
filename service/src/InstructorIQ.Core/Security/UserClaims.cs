@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Text;
-
-namespace InstructorIQ.Core.Security
+﻿namespace InstructorIQ.Core.Security
 {
-    public  static class UserClaims
+    public static class UserClaims
     {
         public const string Email = "email";
         public const string DisplayName = "display_name";

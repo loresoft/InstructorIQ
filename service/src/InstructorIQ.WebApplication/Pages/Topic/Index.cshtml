@@ -1,4 +1,5 @@
 ﻿@page
+@using InstructorIQ.Core.Services
 @model IndexModel
 @{
     ViewData["Title"] = "Topics";
@@ -32,32 +33,17 @@
                     <div class="row no-gutters">
                         <div class="col-md-3">
                             <select asp-for="Month"
+                                    asp-items="SelectItemFactory.Months()"
                                     class="custom-select custom-select-sm"
                                     onchange="this.form.submit()">
                                 <option value="0"> - Month -</option>
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <select asp-for="Year"
+                                    asp-items="SelectItemFactory.Years()"
                                     class="custom-select custom-select-sm"
                                     onchange="this.form.submit()">
-                                <option value="2017">2017</option>
-                                <option value="2018">2018</option>
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -98,14 +84,14 @@
                     <table class="table table-bordered table-sm m-0">
                         <colgroup>
                             <col style="width: 30px">
-                            <col style="">
-                            <col style="">
+                            <col style="width: 200px">
+                            <col style="width: 200px">
                             <col style="width: 90px">
                             <col style="width: 90px">
                             <col style="width: 90px">
                             <col style="width: 90px">
                         </colgroup>
-                        <thead class="">
+                        <thead>
                             <tr>
                                 <th></th>
                                 <th>
@@ -167,18 +153,28 @@
                                         </div>
                                     </td>
 
-                                    <td>
-                                        <a asp-page="/topic/edit"
+                                    <td class="ellipsis">
+                                        <a asp-page="/topic/view"
                                            asp-route-tenant="@Model.TenantRoute"
                                            asp-route-id="@item.Id"
                                            title="Edit Topic"
                                            class="d-block">@item.Title</a>
                                     </td>
-                                    <td>@item.Description</td>
-                                    <td>@item.CalendarYear</td>
-                                    <td>@item.TargetMonth</td>
-                                    <td>@item.SessionCount</td>
-                                    <td>@item.Updated.ToString("MM/dd/yyyy")</td>
+                                    <td class="ellipsis">
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @item.CalendarYear
+                                    </td>
+                                    <td>
+                                        @item.TargetMonth
+                                    </td>
+                                    <td>
+                                        @item.SessionCount
+                                    </td>
+                                    <td>
+                                        @item.Updated.ToString("MM/dd/yyyy")
+                                    </td>
                                 </tr>
                             }
                         </tbody>
