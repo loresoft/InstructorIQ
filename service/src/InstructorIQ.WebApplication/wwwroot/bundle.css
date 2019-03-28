@@ -15226,6 +15226,20 @@ a.text-dark:hover, a.text-dark:focus {
     position: relative;
 }
 
+.monthly-date-table {
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    empty-cells: show;
+}
+
+.monthly-attendee,
+.monthly-topic,
+.monthly-label,
+.monthly-data {
+    width: 220px;
+}
+
 .monthly-attendee {
     background-color: #6F6F6F;
     border: 1px solid #6F6F6F;
@@ -15280,7 +15294,7 @@ a.text-dark:hover, a.text-dark:focus {
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
     position: absolute;
-    top: 130px;
+    top: 120px;
     left: -16px;
     width: 60px;
 }
@@ -15354,12 +15368,14 @@ a.text-dark:hover, a.text-dark:focus {
         font-size: 90%;
         padding: .20rem;
         text-align: center;
+        width: 220px;
     }
 
     .year-month-table .year-date-container {
         border: 1px solid #6F6F6F;
         padding: .20rem;
         text-align: center;
+        width: 220px;
     }
 
     .year-month-table .year-date-table .year-date-group {

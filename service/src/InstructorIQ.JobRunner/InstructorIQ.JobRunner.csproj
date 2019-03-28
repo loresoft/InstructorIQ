@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HangFire.Core" Version="1.6.23" />
-    <PackageReference Include="HangFire.SqlServer" Version="1.6.23" />
+    <PackageReference Include="HangFire.Core" Version="1.6.24" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.6.24" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.124" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.124" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />
