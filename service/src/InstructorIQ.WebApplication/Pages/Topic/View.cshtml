@@ -1,4 +1,4 @@
-﻿@page  "{id:Guid}"
+﻿@page  "/topic/{id:Guid}"
 @using InstructorIQ.Core.Security
 @model ViewModel
 @{
@@ -34,14 +34,12 @@
         <div class="form-control-view">
             @Model.Entity.LeadInstructorName
         </div>
-
     </div>
     <div class="form-group col-md-3">
         <label>Calendar Year</label>
         <div class="form-control-view">
             @Model.Entity.CalendarYear
         </div>
-
     </div>
     <div class="form-group col-md-3">
         <label>Target Month</label>

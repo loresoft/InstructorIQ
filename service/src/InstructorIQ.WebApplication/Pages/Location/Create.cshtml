@@ -57,7 +57,7 @@
                     <input asp-for="Entity.AddressLine1"
                            type="text"
                            class="form-control"
-                           placeholder="AddressLine1" />
+                           placeholder="Address" />
                     <span asp-validation-for="Entity.AddressLine1" class="text-danger"></span>
                 </div>
                 <div class="form-row">
@@ -73,7 +73,7 @@
                         <label asp-for="Entity.StateProvince">State</label>
                         <select asp-for="Entity.StateProvince"
                                 class="form-control">
-                            <option value=""></option>
+                            <option value="">- State -</option>
                             <option value="AL">AL - Alabama</option>
                             <option value="AK">AK - Alaska</option>
                             <option value="AZ">AZ - Arizona</option>
@@ -133,7 +133,7 @@
                         <input asp-for="Entity.PostalCode"
                                type="text"
                                class="form-control"
-                               placeholder="PostalCode" />
+                               placeholder="Postal Code" />
                         <span asp-validation-for="Entity.PostalCode" class="text-danger"></span>
                     </div>
                 </div>

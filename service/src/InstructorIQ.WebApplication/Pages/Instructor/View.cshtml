@@ -1,0 +1,95 @@
+﻿@page  "/instructor/{id:Guid}"
+@using InstructorIQ.Core.Security
+@model ViewModel
+@{
+    ViewData["Title"] = $"Instructor {Model.Entity.DisplayName}";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/instructor/index"
+                   asp-route-tenant="@Model.TenantRoute">Instructors</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">View Instructor</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-chalkboard-teacher"></i> Instructor
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label>Display Name <required /></label>
+                <div class="form-control-view">
+                    @Model.Entity.DisplayName
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>First Name </label>
+                    <div class="form-control-view">
+                        @Model.Entity.GivenName
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Last Name </label>
+                    <div class="form-control-view">
+                        @Model.Entity.FamilyName
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Job Title </label>
+                <div class="form-control-view">
+                    @Model.Entity.JobTitle
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email Address </label>
+                <div class="form-control-view">
+                    @Model.Entity.EmailAddress
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Mobile Phone </label>
+                    <div class="form-control-view">
+                        @Model.Entity.MobilePhone
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Business Phone </label>
+                    <div class="form-control-view">
+                        @Model.Entity.BusinessPhone
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3"
+                 authorize-policy="@UserPolicies.AdministratorPolicy">
+                <div class="col">
+                    <a id="edit-button"
+                       asp-page="/instructor/edit"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id"
+                       class="btn btn-primary">
+                        Edit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

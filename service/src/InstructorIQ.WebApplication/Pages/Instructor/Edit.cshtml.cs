@@ -49,7 +49,7 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
 
             ShowAlert("Successfully saved instructor");
 
-            return RedirectToPage("/Instructor/Edit", new { id = result.Id, tenant = TenantRoute });
+            return RedirectToPage("/Instructor/View", new { id = result.Id, tenant = TenantRoute });
         }
 
         public async Task<IActionResult> OnPostDeleteEntity()

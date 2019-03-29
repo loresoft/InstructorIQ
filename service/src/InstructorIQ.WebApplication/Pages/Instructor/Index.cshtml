@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/instructors"
 @using InstructorIQ.Core.Security
 @model IndexModel
 @{
@@ -110,7 +110,7 @@
                         {
                             <tr>
                                 <td>
-                                    <a asp-page="/instructor/edit"
+                                    <a asp-page="/instructor/view"
                                        asp-route-tenant="@Model.TenantRoute"
                                        asp-route-id="@item.Id"
                                        title="Edit Instructor"
