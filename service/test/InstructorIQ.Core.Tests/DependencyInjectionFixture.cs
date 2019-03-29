@@ -1,5 +1,7 @@
 ﻿using System;
 using InstructorIQ.Core.Data;
+using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
 using KickStart;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +24,13 @@ namespace InstructorIQ.Core.Tests
             services.AddSingleton(p => configuration);
             services.AddLogging();
             services.AddOptions();
+
+            services.AddTransient<ITenant<TenantReadModel>>(provider => new TenantValue<TenantReadModel>(new TenantReadModel
+            {
+                Id = Data.Constants.Tenant.Test,
+                Slug = "Test",
+                Name = "Test"
+            }));
 
             services.KickStart(config => config
                 .IncludeAssemblyFor<InstructorIQContext>()
