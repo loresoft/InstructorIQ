@@ -19,7 +19,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGet(string returnUrl = null)
+        public async Task<IActionResult> OnGet(string returnUrl = null, string tenant = null)
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
@@ -27,7 +27,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
             if (returnUrl != null)
                 return LocalRedirect(returnUrl);
 
-            return Page();
+            return RedirectToPage("/Index", new { tenant });
         }
     }
 }

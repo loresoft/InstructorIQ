@@ -28,11 +28,8 @@ namespace InstructorIQ.Core.Domain.Handlers
 
         protected override async Task<IReadOnlyCollection<SessionReadModel>> Process(SessionTopicQuery message, CancellationToken cancellationToken)
         {
-            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
-
             var query = DataContext.Sessions
                 .AsNoTracking()
-                .Where(q => q.TenantId == tenantId)
                 .Where(s => message.TopicIds.Contains(s.TopicId));
 
             var result = await query

@@ -30,6 +30,11 @@
     position: relative;
 }
 
+.monthly-date-container {
+    padding: 0;
+    border-top: 1px solid #6F6F6F;
+}
+
 .monthly-date-table {
     width: 100%;
     background-color: transparent;

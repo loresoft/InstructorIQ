@@ -23,7 +23,7 @@
         <div class="card-header">
             <i class="fas fa-th-list mr-2"
                aria-hidden="true"></i> Groups
-            <div class="btn-toolbar float-right">
+            <div class="float-right">
                 <form id="group-search-form"
                       name="group-search-form"
                       role="form"
@@ -46,10 +46,6 @@
                         </div>
                     </div>
                 </form>
-                <a asp-page="/group/create"
-                   asp-route-tenant="@Model.TenantRoute"
-                   title="Add New Group"
-                   class="btn btn-sm btn-primary">Add</a>
             </div>
         </div>
 

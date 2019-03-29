@@ -24,7 +24,7 @@
         <div class="card-header">
             <i class="fas fa-th-list mr-2"
                aria-hidden="true"></i> Locations
-            <div class="btn-toolbar float-right">
+            <div class="float-right">
                 <form id="location-search-form"
                       name="location-search-form"
                       role="form"
@@ -47,10 +47,6 @@
                         </div>
                     </div>
                 </form>
-                <a asp-page="/location/create"
-                   asp-route-tenant="@Model.TenantRoute"
-                   title="Add New Location"
-                   class="btn btn-sm btn-primary">Add</a>
             </div>
         </div>
 
