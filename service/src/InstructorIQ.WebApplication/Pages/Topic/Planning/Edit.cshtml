@@ -1,0 +1,54 @@
+﻿@page  "/topic/{id:Guid}/planning/edit"
+@model EditModel
+@{
+    ViewData["Title"] = $"Topic {Model.Entity.Title}";
+    ViewData["TopicTitle"] = $" - {Model.Entity.Title}";
+    ViewData["TopicTab"] = "Planning";
+
+    Layout = "_TopicLayout";
+}
+
+<form id="planning-form"
+      name="planning-form"
+      role="form"
+      method="post">
+
+    <input type="hidden" asp-for="Entity.Title"/>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Entity.LessonPlan">Lesson Plan</label>
+        <textarea asp-for="Entity.LessonPlan"
+                  rows="5"
+                  class="form-control"></textarea>
+        <span asp-validation-for="Entity.LessonPlan" class="text-danger"></span>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <button id="save-button"
+                    type="submit"
+                    class="btn btn-primary">
+                Save
+            </button>
+            <a id="cancel-button"
+               asp-page="/topic/planning/view"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-id="@Model.Id"
+               class="btn btn-secondary">
+                Cancel
+            </a>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(function () {
+            var planEditor = new SimpleMDE({
+                 element: document.getElementById("@Html.IdFor(p => p.Entity.LessonPlan)")
+            });
+        });
+    </script>
+}

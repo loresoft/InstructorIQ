@@ -44,24 +44,22 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="sessionId">The value to filter by.</param>
         /// <param name="instructorId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> BySessionIdInstructorId(this IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> queryable, Guid sessionId, Guid instructorId)
+        public static IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> ByInstructorId(this IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> queryable, Guid instructorId)
         {
-            return queryable.Where(q => q.SessionId == sessionId
-                && q.InstructorId == instructorId);
+            return queryable.Where(q => q.InstructorId == instructorId);
         }
 
         /// <summary>
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="instructorId">The value to filter by.</param>
+        /// <param name="instructorRoleId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> ByInstructorId(this IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> queryable, Guid instructorId)
+        public static IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> ByInstructorRoleId(this IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> queryable, Guid? instructorRoleId)
         {
-            return queryable.Where(q => q.InstructorId == instructorId);
+            return queryable.Where(q => (q.InstructorRoleId == instructorRoleId || (instructorRoleId == null && q.InstructorRoleId == null)));
         }
 
         /// <summary>
@@ -75,7 +73,22 @@ namespace InstructorIQ.Core.Data.Queries
             return queryable.Where(q => q.SessionId == sessionId);
         }
 
-        #endregion
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="sessionId">The value to filter by.</param>
+        /// <param name="instructorId">The value to filter by.</param>
+        /// <param name="instructorRoleId">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> BySessionIdInstructorIdInstructorRoleId(this IQueryable<InstructorIQ.Core.Data.Entities.SessionInstructor> queryable, Guid sessionId, Guid instructorId, Guid? instructorRoleId)
+        {
+            return queryable.Where(q => q.SessionId == sessionId
+                && q.InstructorId == instructorId
+                    && (q.InstructorRoleId == instructorRoleId || (instructorRoleId == null && q.InstructorRoleId == null)));
+            }
+
+            #endregion
 
     }
 }

@@ -22,92 +22,12 @@ namespace InstructorIQ.Core.Data
 
         #region Generated Properties
         /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Tenant"/>.
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent"/>.
         /// </summary>
         /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Tenant"/>.
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent"/>.
         /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Tenant> Tenants { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.TenantUserRole> TenantUserRoles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Instructor"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Instructor"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Instructor> Instructors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Topic"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Topic"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Topic> Topics { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Invite"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Invite"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Invite> Invites { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InviteRole"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InviteRole"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.InviteRole> InviteRoles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Notification"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Notification"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Notification> Notifications { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.HistoryRecord> HistoryRecords { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Session"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Session"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Session> Sessions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Group> Groups { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Location> Locations { get; set; }
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.AuthenticationEvent> AuthenticationEvents { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery"/>.
@@ -126,6 +46,78 @@ namespace InstructorIQ.Core.Data
         public virtual DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> EmailTemplates { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Group"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Group> Groups { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.HistoryRecord> HistoryRecords { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InstructorRole"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InstructorRole"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.InstructorRole> InstructorRoles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Instructor"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Instructor"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Instructor> Instructors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InviteRole"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InviteRole"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.InviteRole> InviteRoles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Invite"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Invite"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Invite> Invites { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Location> Locations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.NotificationRecipient"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.NotificationRecipient"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.NotificationRecipient> NotificationRecipients { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Notification"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Notification"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Notification> Notifications { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.RefreshToken"/>.
         /// </summary>
         /// <value>
@@ -142,20 +134,52 @@ namespace InstructorIQ.Core.Data
         public virtual DbSet<InstructorIQ.Core.Data.Entities.SessionInstructor> SessionInstructors { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.NotificationRecipient"/>.
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber"/>.
         /// </summary>
         /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.NotificationRecipient"/>.
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber"/>.
         /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.NotificationRecipient> NotificationRecipients { get; set; }
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.SessionReferenceNumber> SessionReferenceNumbers { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent"/>.
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Session"/>.
         /// </summary>
         /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent"/>.
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Session"/>.
         /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.AuthenticationEvent> AuthenticationEvents { get; set; }
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Session> Sessions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Template"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Template"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Template> Templates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Tenant"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Tenant"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Tenant> Tenants { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.TenantUserRole> TenantUserRoles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Topic"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Topic"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Topic> Topics { get; set; }
 
         #endregion
 
@@ -168,23 +192,26 @@ namespace InstructorIQ.Core.Data
             base.OnModelCreating(modelBuilder);
 
             #region Generated Configuration
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TenantMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TenantUserRoleMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TopicMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteRoleMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.HistoryRecordMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LocationMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.AuthenticationEventMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailDeliveryMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailTemplateMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.HistoryRecordMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorRoleMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteRoleMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LocationMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationRecipientMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.RefreshTokenMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionInstructorMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationRecipientMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.AuthenticationEventMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionReferenceNumberMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TemplateMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TenantMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TenantUserRoleMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.TopicMap());
             #endregion
 
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.RoleMap());

@@ -101,6 +101,9 @@
     <Build Include="Identity\UserToken.sql" />
     <Build Include="Views\SessionCalendar.sql" />
     <Build Include="Tables\TenantUserRole.sql" />
+    <Build Include="Tables\InstructorRole.sql" />
+    <Build Include="Tables\Template.sql" />
+    <Build Include="Tables\SessionReferenceNumber.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

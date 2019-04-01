@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace InstructorIQ.WebApplication.Pages.Instructor
 {
     [Authorize]
-    public class IndexModel : EntityListModelBase<InstructorReadModel>
+    public class IndexModel : EntityPagedModelBase<InstructorReadModel>
     {
         public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)

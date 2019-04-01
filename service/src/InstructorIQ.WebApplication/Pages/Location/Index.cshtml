@@ -98,7 +98,7 @@
                     <tbody>
                         @foreach (var item in Model.Items)
                         {
-                            <tr repeat.for="location of result.data">
+                            <tr>
                                 <td>
                                     <a asp-page="/location/edit"
                                        asp-route-tenant="@Model.TenantRoute"

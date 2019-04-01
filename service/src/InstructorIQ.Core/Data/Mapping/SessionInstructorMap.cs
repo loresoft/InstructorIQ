@@ -40,11 +40,20 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("InstructorId")
                 .HasColumnType("uniqueidentifier");
 
+            builder.Property(t => t.InstructorRoleId)
+                .HasColumnName("InstructorRoleId")
+                .HasColumnType("uniqueidentifier");
+
             // relationships
             builder.HasOne(t => t.Instructor)
                 .WithMany(t => t.SessionInstructors)
                 .HasForeignKey(d => d.InstructorId)
                 .HasConstraintName("FK_SessionInstructor_Instructor_InstructorId");
+
+            builder.HasOne(t => t.InstructorRole)
+                .WithMany(t => t.SessionInstructors)
+                .HasForeignKey(d => d.InstructorRoleId)
+                .HasConstraintName("FK_SessionInstructor_InstructorRole_InstructorRoleId");
 
             builder.HasOne(t => t.Session)
                 .WithMany(t => t.SessionInstructors)

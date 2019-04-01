@@ -45,14 +45,6 @@ namespace InstructorIQ.Core.Data.Entities
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'Objectives'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'Objectives'.
-        /// </value>
-        public string Objectives { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value representing column 'TenantId'.
         /// </summary>
         /// <value>
@@ -67,6 +59,22 @@ namespace InstructorIQ.Core.Data.Entities
         /// The property value representing column 'LeadInstructorId'.
         /// </value>
         public Guid? LeadInstructorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'LessonPlan'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'LessonPlan'.
+        /// </value>
+        public string LessonPlan { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Notes'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Notes'.
+        /// </value>
+        public string Notes { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'IsRequired'.
@@ -144,6 +152,14 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Session" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Session" />.
+        /// </value>
+        public virtual ICollection<Session> Sessions { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Instructor" />.
         /// </summary>
         /// <value>
@@ -160,14 +176,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="TenantId" />
         public virtual Tenant Tenant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Session" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Session" />.
-        /// </value>
-        public virtual ICollection<Session> Sessions { get; set; }
 
         #endregion
 

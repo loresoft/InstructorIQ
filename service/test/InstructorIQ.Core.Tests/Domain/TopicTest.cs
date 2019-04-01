@@ -54,7 +54,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Title", Value = "TEST" }
             };
-            var listQuery = new EntityListQuery<TopicReadModel>(entityQuery, MockPrincipal.Default);
+            var listQuery = new EntityPagedQuery<TopicReadModel>(entityQuery, MockPrincipal.Default);
 
             var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
             listResult.Should().NotBeNull();

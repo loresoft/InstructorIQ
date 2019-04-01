@@ -13,6 +13,17 @@ namespace InstructorIQ.Core.Data.Queries
     {
         #region Generated Extensions
         /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="calendarYear">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Topic> ByCalendarYear(this IQueryable<InstructorIQ.Core.Data.Entities.Topic> queryable, short calendarYear)
+        {
+            return queryable.Where(q => q.CalendarYear == calendarYear);
+        }
+
+        /// <summary>
         /// Gets an instance by the primary key.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
@@ -44,11 +55,11 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="calendarYear">The value to filter by.</param>
+        /// <param name="leadInstructorId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.Topic> ByCalendarYear(this IQueryable<InstructorIQ.Core.Data.Entities.Topic> queryable, short calendarYear)
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Topic> ByLeadInstructorId(this IQueryable<InstructorIQ.Core.Data.Entities.Topic> queryable, Guid? leadInstructorId)
         {
-            return queryable.Where(q => q.CalendarYear == calendarYear);
+            return queryable.Where(q => (q.LeadInstructorId == leadInstructorId || (leadInstructorId == null && q.LeadInstructorId == null)));
         }
 
         /// <summary>
@@ -71,17 +82,6 @@ namespace InstructorIQ.Core.Data.Queries
         public static IQueryable<InstructorIQ.Core.Data.Entities.Topic> ByTitle(this IQueryable<InstructorIQ.Core.Data.Entities.Topic> queryable, string title)
         {
             return queryable.Where(q => q.Title == title);
-        }
-
-        /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="leadInstructorId">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.Topic> ByLeadInstructorId(this IQueryable<InstructorIQ.Core.Data.Entities.Topic> queryable, Guid? leadInstructorId)
-        {
-            return queryable.Where(q => (q.LeadInstructorId == leadInstructorId || (leadInstructorId == null && q.LeadInstructorId == null)));
         }
 
         #endregion

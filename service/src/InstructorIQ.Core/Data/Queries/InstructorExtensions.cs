@@ -13,6 +13,17 @@ namespace InstructorIQ.Core.Data.Queries
     {
         #region Generated Extensions
         /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="emailAddress">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Instructor> ByEmailAddress(this IQueryable<InstructorIQ.Core.Data.Entities.Instructor> queryable, string emailAddress)
+        {
+            return queryable.Where(q => (q.EmailAddress == emailAddress || (emailAddress == null && q.EmailAddress == null)));
+        }
+
+        /// <summary>
         /// Gets an instance by the primary key.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
@@ -38,17 +49,6 @@ namespace InstructorIQ.Core.Data.Queries
                 return dbSet.FindAsync(id);
 
             return queryable.FirstOrDefaultAsync(q => q.Id == id);
-        }
-
-        /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="emailAddress">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.Instructor> ByEmailAddress(this IQueryable<InstructorIQ.Core.Data.Entities.Instructor> queryable, string emailAddress)
-        {
-            return queryable.Where(q => (q.EmailAddress == emailAddress || (emailAddress == null && q.EmailAddress == null)));
         }
 
         /// <summary>

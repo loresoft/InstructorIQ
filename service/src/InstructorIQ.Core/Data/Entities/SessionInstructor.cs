@@ -43,6 +43,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         public Guid InstructorId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the property value representing column 'InstructorRoleId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'InstructorRoleId'.
+        /// </value>
+        public Guid? InstructorRoleId { get; set; }
+
         #endregion
 
         #region Generated Relationships
@@ -54,6 +62,15 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="InstructorId" />
         public virtual Instructor Instructor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="InstructorRole" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="InstructorRole" />.
+        /// </value>
+        /// <seealso cref="InstructorRoleId" />
+        public virtual InstructorRole InstructorRole { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Session" />.

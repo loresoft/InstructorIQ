@@ -10,9 +10,9 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Models
 {
-    public abstract class EntityListModelBase<TEntity> : MediatorModelBase
+    public abstract class EntityPagedModelBase<TEntity> : MediatorModelBase
     {
-        protected EntityListModelBase(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        protected EntityPagedModelBase(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
             Items = new List<TEntity>();
@@ -39,7 +39,7 @@ namespace InstructorIQ.WebApplication.Models
         public virtual async Task<IActionResult> OnGetAsync()
         {
             var query = CreateQuery();
-            var command = new EntityListQuery<TEntity>(query, User);
+            var command = new EntityPagedQuery<TEntity>(query, User);
 
             var result = await Mediator.Send(command);
             Total = result.Total;

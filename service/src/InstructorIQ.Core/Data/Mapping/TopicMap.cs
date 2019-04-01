@@ -40,10 +40,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Description")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.Objectives)
-                .HasColumnName("Objectives")
-                .HasColumnType("nvarchar(max)");
-
             builder.Property(t => t.TenantId)
                 .IsRequired()
                 .HasColumnName("TenantId")
@@ -52,6 +48,14 @@ namespace InstructorIQ.Core.Data.Mapping
             builder.Property(t => t.LeadInstructorId)
                 .HasColumnName("LeadInstructorId")
                 .HasColumnType("uniqueidentifier");
+
+            builder.Property(t => t.LessonPlan)
+                .HasColumnName("LessonPlan")
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property(t => t.Notes)
+                .HasColumnName("Notes")
+                .HasColumnType("nvarchar(max)");
 
             builder.Property(t => t.IsRequired)
                 .IsRequired()

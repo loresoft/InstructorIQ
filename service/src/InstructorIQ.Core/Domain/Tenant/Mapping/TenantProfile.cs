@@ -9,7 +9,7 @@ namespace InstructorIQ.Core.Domain.Mapping
     /// <summary>
     /// Mapper class for entity <see cref="Tenant"/> .
     /// </summary>
-    public partial class TenantProfile
+    public class TenantProfile
         : Profile
     {
         /// <summary>
@@ -25,7 +25,8 @@ namespace InstructorIQ.Core.Domain.Mapping
             CreateMap<Tenant, TenantReadModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
 
-            CreateMap<TenantReadModel, TenantUpdateModel>();
+            CreateMap<Tenant, TenantUpdateModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
         }
 
     }

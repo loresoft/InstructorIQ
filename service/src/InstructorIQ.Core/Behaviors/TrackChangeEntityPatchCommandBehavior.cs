@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Commands;
@@ -8,7 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Behaviors
 {
-    public class TrackChangeEntityPatchCommandBehavior<TKey, TReadModel> : PipelineBehaviorBase<EntityPatchCommand<TKey, TReadModel>, TReadModel>
+    public class TrackChangeEntityPatchCommandBehavior<TKey, TReadModel>
+        : PipelineBehaviorBase<EntityPatchCommand<TKey, TReadModel>, TReadModel>
     {
         public TrackChangeEntityPatchCommandBehavior(ILoggerFactory loggerFactory) : base(loggerFactory)
         {

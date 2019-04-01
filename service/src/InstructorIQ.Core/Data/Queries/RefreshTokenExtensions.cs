@@ -41,17 +41,6 @@ namespace InstructorIQ.Core.Data.Queries
         }
 
         /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="userName">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> ByUserName(this IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> queryable, string userName)
-        {
-            return queryable.Where(q => q.UserName == userName);
-        }
-
-        /// <summary>
         /// Gets an instance of <see cref="T:InstructorIQ.Core.Data.Entities.RefreshToken"/> by using a unique index.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
@@ -71,6 +60,17 @@ namespace InstructorIQ.Core.Data.Queries
         public static Task<InstructorIQ.Core.Data.Entities.RefreshToken> GetByTokenHashedAsync(this IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> queryable, string tokenHashed)
         {
             return queryable.FirstOrDefaultAsync(q => q.TokenHashed == tokenHashed);
+        }
+
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="userName">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> ByUserName(this IQueryable<InstructorIQ.Core.Data.Entities.RefreshToken> queryable, string userName)
+        {
+            return queryable.Where(q => q.UserName == userName);
         }
 
         #endregion

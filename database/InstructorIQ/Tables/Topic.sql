@@ -4,11 +4,13 @@
     [Title] NVARCHAR(256) NOT NULL,
 
     [Description] NVARCHAR(MAX) NULL,
-    [Objectives] NVARCHAR(MAX) NULL,
 
     [TenantId] UNIQUEIDENTIFIER NOT NULL,
 
     [LeadInstructorId] UNIQUEIDENTIFIER NULL,
+
+    [LessonPlan] NVARCHAR(MAX) NULL,
+    [Notes] NVARCHAR(MAX) NULL,
 
     [IsRequired] BIT NOT NULL CONSTRAINT [DF_Topic_IsRequired] DEFAULT (0),
     [IsPublished] BIT NOT NULL CONSTRAINT [DF_Topic_IsPublished] DEFAULT (0),

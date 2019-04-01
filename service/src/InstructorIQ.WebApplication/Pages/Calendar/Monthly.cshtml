@@ -1,4 +1,4 @@
-﻿@page "{year:int?}/{month:int?}"
+﻿@page "/calendar/monthly/{year:int?}/{month:int?}"
 @using System.Globalization
 @using InstructorIQ.Core.Services
 @using NaturalSort.Extension
@@ -169,7 +169,7 @@
         function changeDate() {
             var year = $('#@Html.IdFor(p => p.Year)').val();
             var month = $('#@Html.IdFor(p => p.Month)').val();
-            var url = '/@Model.TenantRoute/Calendar/Monthly/' + year + '/' + month;
+            var url = '/@Model.TenantRoute/calendar/monthly/' + year + '/' + month;
             window.location.href = url;
         }
     </script>

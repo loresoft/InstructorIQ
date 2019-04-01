@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Location
 {
-    public class IndexModel : EntityListModelBase<LocationReadModel>
+    public class IndexModel : EntityPagedModelBase<LocationReadModel>
     {
         public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)

@@ -29,14 +29,6 @@ namespace InstructorIQ.Core.Domain.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'Objectives'.
-        /// </summary>
-        /// <value>
-        /// The property value for 'Objectives'.
-        /// </value>
-        public string Objectives { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value for 'TenantId'.
         /// </summary>
         /// <value>
@@ -51,6 +43,22 @@ namespace InstructorIQ.Core.Domain.Models
         /// The property value for 'LeadInstructorId'.
         /// </value>
         public Guid? LeadInstructorId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'LessonPlan'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'LessonPlan'.
+        /// </value>
+        public string LessonPlan { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'Notes'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'Notes'.
+        /// </value>
+        public string Notes { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'IsRequired'.

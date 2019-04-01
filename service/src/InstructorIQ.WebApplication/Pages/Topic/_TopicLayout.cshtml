@@ -32,15 +32,23 @@
                 <li class="nav-item">
                     <a id="topic-edit-tab"
                        class="nav-link @(ViewBag.TopicTab == "General" ? "active": "")"
-                       title="Edit Topic"
+                       title="View Topic"
                        asp-page="/topic/view"
                        asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">General</a>
                 </li>
                 <li class="nav-item">
+                    <a id="topic-planning-tab"
+                       class="nav-link @(ViewBag.TopicTab == "Planning" ? "active": "")"
+                       title="Topic Planning"
+                       asp-page="/topic/planning/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">Planning</a>
+                </li>
+                <li class="nav-item">
                     <a id="topic-sessions-tab"
                        class="nav-link @(ViewBag.TopicTab == "Sessions" ? "active": "")"
-                       title="Edit Sessions"
+                       title="Topic Sessions"
                        asp-page="/topic/session/index"
                        asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">Sessions</a>
@@ -88,3 +96,7 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

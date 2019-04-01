@@ -110,7 +110,7 @@
                     </div>
                 </li>
 
-                <!-- Administrative  Menu -->
+                <!-- Administrative Menu -->
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue"
                     authorize-policy="@UserPolicies.AdministratorPolicy">
@@ -132,22 +132,42 @@
                            class="dropdown-item"
                            asp-page="/group/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Groups</a>
-                        <div class="dropdown-divider"
-                             authorize-policy="@UserPolicies.GlobalPolicy"></div>
+                        <a id="navbarAdministrativeTemplateLink"
+                           class="dropdown-item"
+                           asp-page="/template/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Templates</a>
+                    </div>
+                </li>
+                <!-- Global Menu -->
+                <li class="nav-item dropdown"
+                    authorize-policy="@UserPolicies.GlobalAdministratorPolicy">
+                    <a id="navbarDropdownGlobalAdministrative"
+                       href="#"
+                       class="nav-link dropdown-toggle"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        Global
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdownAdministrative">
+                        <a id="navbarAdministrativeTenantLink"
+                           class="dropdown-item"
+                           asp-page="/global/tenant/index">Tenants</a>
 
                     </div>
                 </li>
             </ul>
 
             @*<form class="form-inline mt-2 mt-md-0 d-none d-xl-block"
-                  include-if="@Tenant.HasValue">
-                <input id="navbarSearchInput"
-                       class="form-control mr-sm-2"
-                       type="text"
-                       placeholder="Search"
-                       aria-label="Search"
-                       style="background: transparent;">
-            </form>*@
+                      include-if="@Tenant.HasValue">
+                    <input id="navbarSearchInput"
+                           class="form-control mr-sm-2"
+                           type="text"
+                           placeholder="Search"
+                           aria-label="Search"
+                           style="background: transparent;">
+                </form>*@
 
             <!-- User Menu -->
             <ul class="navbar-nav"

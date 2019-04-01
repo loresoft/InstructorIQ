@@ -54,7 +54,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
-            var listQuery = new EntityListQuery<TenantReadModel>(entityQuery, MockPrincipal.Default);
+            var listQuery = new EntityPagedQuery<TenantReadModel>(entityQuery, MockPrincipal.Default);
 
             var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
             listResult.Should().NotBeNull();
@@ -122,7 +122,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
-            var command = new EntityListQuery<TenantReadModel>(query, MockPrincipal.Default);
+            var command = new EntityPagedQuery<TenantReadModel>(query, MockPrincipal.Default);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();

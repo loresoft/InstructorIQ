@@ -51,7 +51,6 @@ namespace InstructorIQ.WebApplication.Pages.Topic
                 nameof(Entity),
                 p => p.Title,
                 p => p.Description,
-                p => p.Objectives,
                 p => p.CalendarYear,
                 p => p.TargetMonth,
                 p => p.LeadInstructorId,

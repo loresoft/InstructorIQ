@@ -1,4 +1,4 @@
-﻿@page  "/group/{id:Guid}/edit"
+﻿@page "/group/{id:Guid}/edit"
 @model EditModel
 @{
     ViewData["Title"] = $"Edit Group {Model.Entity.Name}";
@@ -9,7 +9,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a asp-page="/Index" asp-route-tenant="@Model.TenantRoute">Home</a>
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
             </li>
             <li class="breadcrumb-item">
                 <a asp-page="/group/index"

@@ -17,12 +17,14 @@ namespace InstructorIQ.Core.Data.Entities
             #region Generated Constructor
             TenantUserRoles = new HashSet<TenantUserRole>();
             Instructors = new HashSet<Instructor>();
-            Topics = new HashSet<Topic>();
             Invites = new HashSet<Invite>();
             Sessions = new HashSet<Session>();
             EmailDeliveries = new HashSet<EmailDelivery>();
+            InstructorRoles = new HashSet<InstructorRole>();
             EmailTemplates = new HashSet<EmailTemplate>();
             Locations = new HashSet<Location>();
+            Topics = new HashSet<Topic>();
+            Templates = new HashSet<Template>();
             Groups = new HashSet<Group>();
             #endregion
         }
@@ -160,14 +162,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Instructor> Instructors { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Topic" />.
-        /// </value>
-        public virtual ICollection<Topic> Topics { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Invite" />.
         /// </summary>
         /// <value>
@@ -192,6 +186,14 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<EmailDelivery> EmailDeliveries { get; set; }
 
         /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="InstructorRole" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="InstructorRole" />.
+        /// </value>
+        public virtual ICollection<InstructorRole> InstructorRoles { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="EmailTemplate" />.
         /// </summary>
         /// <value>
@@ -206,6 +208,22 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Location" />.
         /// </value>
         public virtual ICollection<Location> Locations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Topic" />.
+        /// </value>
+        public virtual ICollection<Topic> Topics { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Template" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Template" />.
+        /// </value>
+        public virtual ICollection<Template> Templates { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Group" />.

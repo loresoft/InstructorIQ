@@ -1,0 +1,112 @@
+﻿@page "/template/{id:Guid}/edit"
+@using InstructorIQ.Core.Services
+@model EditModel
+@{
+    ViewData["Title"] = $"Edit Template {Model.Entity.Name}";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/template/index"
+                   asp-route-tenant="@Model.TenantRoute">Templates</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Template</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="far fa-file-alt mr-2"
+               aria-hidden="true"></i> Template
+        </div>
+        <div class="card-body">
+            <form id="template-form"
+                  name="template-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label asp-for="Entity.Name">Name <required /></label>
+                        <input asp-for="Entity.Name"
+                               type="text"
+                               class="form-control"
+                               placeholder="Name" />
+                        <span asp-validation-for="Entity.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Entity.TemplateType">Template Type <required /></label>
+                        <select asp-for="Entity.TemplateType"
+                                asp-items="SelectItemFactory.TemplateTypes()"
+                                class="custom-select"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.Description">Description</label>
+                    <textarea asp-for="Entity.Description"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Description"></textarea>
+                    <span asp-validation-for="Entity.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.TemplateBody">Template Body</label>
+                    <textarea asp-for="Entity.TemplateBody"
+                              rows="10"
+                              class="form-control"
+                              placeholder="Template Body"></textarea>
+                    <span asp-validation-for="Entity.TemplateBody" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/template/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col">
+                        <confirm-button id="delete-button"
+                                        class="btn btn-danger fa-pull-right"
+                                        asp-page-handler="DeleteEntity"
+                                        modal-button="Delete"
+                                        modal-color="danger"
+                                        modal-text="Are you sure you want to delete this?">
+                            Delete
+                        </confirm-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            var templateEditor = new SimpleMDE({
+                element: document.getElementById("@Html.IdFor(p => p.Entity.TemplateBody)")
+            });
+        });
+    </script>
+}

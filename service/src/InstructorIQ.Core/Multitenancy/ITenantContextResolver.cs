@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace InstructorIQ.Core.Multitenancy
 {
-    public interface ITenantResolver<TTenant>
+    public interface ITenantContextResolver<TTenant>
     {
         Task<TenantContext<TTenant>> ResolveAsync();
 

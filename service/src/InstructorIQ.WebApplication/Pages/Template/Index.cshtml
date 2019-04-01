@@ -1,0 +1,140 @@
+﻿@page "/templates"
+@model IndexModel
+@{
+    ViewData["Title"] = "Templates";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Templates</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-th-list mr-2"
+               aria-hidden="true"></i> Groups
+            <div class="float-right">
+                <form id="group-search-form"
+                      name="group-search-form"
+                      role="form"
+                      method="get">
+                    <div class="input-group input-group-sm mr-2">
+                        <input type="hidden"
+                               name="s"
+                               value="@Model.Sort" />
+                        <input type="text"
+                               name="q"
+                               value="@Model.Query"
+                               class="form-control"
+                               placeholder="Search" />
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-outline-secondary"
+                                    type="submit">
+                                <i class="fas fa-search"
+                                   aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm m-0">
+                    <colgroup>
+                        <col style="">
+                        <col style="">
+                        <col style="width: 90px">
+                        <col style="width: 90px">
+                    </colgroup>
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <header asp-route-q="@Model.Query"
+                                        sort-by="Name"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Name">
+                                    Name
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-route-q="@Model.Query"
+                                        sort-by="Description"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Description">
+                                    Description
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-route-q="@Model.Query"
+                                        sort-by="TemplateType"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Template Type">
+                                    Type
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-route-q="@Model.Query"
+                                        sort-by="Updated"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Updated">
+                                    Updated
+                                </header>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-page="/template/edit"
+                                       asp-route-tenant="@Model.TenantRoute"
+                                       asp-route-id="@item.Id"
+                                       title="Edit Template"
+                                       class="d-block">@item.Name</a>
+                                </td>
+                                <td>@item.Description</td>
+                                <td>@item.TemplateType</td>
+                                <td>@item.Updated.ToString("MM/dd/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer p-0">
+            <div class="row">
+                <div class="col">
+                    <a asp-page="/template/create"
+                       asp-route-tenant="@Model.TenantRoute"
+                       title="Add New Template"
+                       class="btn btn-primary m-3">Add Template</a>
+                </div>
+                <div class="col">
+                    <pagination current-page="@Model.PageNumber"
+                                page-size="@Model.PageSize"
+                                total-items="@Model.Total"
+                                asp-route-z="@Model.PageSize"
+                                asp-route-s="@Model.Sort"
+                                asp-route-q="@Model.Query"
+                                class="justify-content-end m-3" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

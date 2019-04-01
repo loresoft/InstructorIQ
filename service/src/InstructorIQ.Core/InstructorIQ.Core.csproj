@@ -6,9 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFrameworkCore.CommandQuery" Version="1.0.0.12" />
+    <PackageReference Include="EntityFrameworkCore.CommandQuery" Version="2.0.0.16" />
     <PackageReference Include="Handlebars.Net" Version="1.10.1" />
-    <PackageReference Include="HangFire.Core" Version="1.6.24" />
+    <PackageReference Include="HangFire.Core" Version="1.7.0" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.124" />
     <PackageReference Include="MailKit" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />

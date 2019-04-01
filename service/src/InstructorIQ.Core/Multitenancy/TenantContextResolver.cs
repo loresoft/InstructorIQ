@@ -12,9 +12,9 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Multitenancy
 {
-    public class TenantModelResolver : ITenantResolver<TenantReadModel>
+    public class TenantContextResolver : ITenantContextResolver<TenantReadModel>
     {
-        public TenantModelResolver(IMediator mediator, ILoggerFactory loggerFactory, UserClaimManager userClaimManager, IHttpContextAccessor httpContextAccessor)
+        public TenantContextResolver(IMediator mediator, ILoggerFactory loggerFactory, UserClaimManager userClaimManager, IHttpContextAccessor httpContextAccessor)
         {
             Mediator = mediator;
             UserClaimManager = userClaimManager;

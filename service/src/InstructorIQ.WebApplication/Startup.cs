@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using EntityFrameworkCore.CommandQuery.Definitions;
 using Exceptionless;
 using FluentValidation.AspNetCore;
 using InstructorIQ.Core.Data;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
@@ -74,7 +76,7 @@ namespace InstructorIQ.WebApplication
                 .AddEntityFrameworkStores<InstructorIQContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMultitenancy<TenantReadModel, TenantModelResolver>();
+            services.AddMultitenancy<TenantReadModel, TenantContextResolver>();
 
             services.AddResponseCompression(options =>
             {
@@ -106,6 +108,7 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/Location");
                     options.Conventions.AddFolderTenantRoute("/Session");
                     options.Conventions.AddFolderTenantRoute("/Topic");
+                    options.Conventions.AddFolderTenantRoute("/Template");
                     options.Conventions.AddFolderTenantRoute("/User");
                 })
                 .AddFluentValidation();
@@ -128,7 +131,7 @@ namespace InstructorIQ.WebApplication
                     )
                 );
                 options.AddPolicy(
-                    UserPolicies.GlobalPolicy,
+                    UserPolicies.GlobalAdministratorPolicy,
                     policy => policy.RequireRole(
                         Core.Data.Constants.Role.GlobalAdministrator
                     )

@@ -9,7 +9,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a asp-page="/Index" asp-route-tenant="@Model.TenantRoute">Home</a>
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
             </li>
             <li class="breadcrumb-item active"
                 aria-current="page">Groups</li>
@@ -97,7 +98,7 @@
                     <tbody>
                         @foreach (var item in Model.Items)
                         {
-                            <tr repeat.for="group of result.data">
+                            <tr>
                                 <td>
                                     <a asp-page="/group/edit"
                                        asp-route-tenant="@Model.TenantRoute"

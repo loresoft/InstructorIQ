@@ -8,13 +8,13 @@ namespace InstructorIQ.Core.Multitenancy
     public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMultitenancy<TTenant, TResolver>(this IServiceCollection services)
-            where TResolver : class, ITenantResolver<TTenant>
+            where TResolver : class, ITenantContextResolver<TTenant>
             where TTenant : class
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
 
-            services.AddScoped<ITenantResolver<TTenant>, TResolver>();
+            services.AddScoped<ITenantContextResolver<TTenant>, TResolver>();
 
             // No longer registered by default
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

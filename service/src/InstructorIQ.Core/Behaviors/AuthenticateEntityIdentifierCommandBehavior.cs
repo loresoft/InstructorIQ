@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Behaviors;
 using EntityFrameworkCore.CommandQuery.Commands;
@@ -8,7 +7,8 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Behaviors
 {
-    public class AuthenticateEntityIdentifierCommandBehavior<TKey, TReadModel> : PipelineBehaviorBase<EntityIdentifierCommand<TKey, TReadModel>, TReadModel>
+    public class AuthenticateEntityIdentifierCommandBehavior<TKey, TReadModel>
+        : PipelineBehaviorBase<EntityIdentifierCommand<TKey, TReadModel>, TReadModel>
     {
         public AuthenticateEntityIdentifierCommandBehavior(ILoggerFactory loggerFactory) : base(loggerFactory)
         {

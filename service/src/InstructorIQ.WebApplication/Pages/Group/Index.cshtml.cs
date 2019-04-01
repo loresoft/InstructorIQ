@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Group
 {
-    public class IndexModel : EntityListModelBase<GroupReadModel>
+    public class IndexModel : EntityPagedModelBase<GroupReadModel>
     {
 
         public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)

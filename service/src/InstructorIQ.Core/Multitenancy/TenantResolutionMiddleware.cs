@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Multitenancy
@@ -23,17 +22,17 @@ namespace InstructorIQ.Core.Multitenancy
             _logger = loggerFactory.CreateLogger<TenantResolutionMiddleware<TTenant>>();
         }
 
-        public async Task Invoke(HttpContext context, ITenantResolver<TTenant> tenantResolver)
+        public async Task Invoke(HttpContext context, ITenantContextResolver<TTenant> tenantContextResolver)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            if (tenantResolver == null)
-                throw new ArgumentNullException(nameof(tenantResolver));
+            if (tenantContextResolver == null)
+                throw new ArgumentNullException(nameof(tenantContextResolver));
 
-            _logger.LogDebug("Resolving TenantContext using {loggerType}.", tenantResolver.GetType().Name);
+            _logger.LogDebug("Resolving TenantContext using {loggerType}.", tenantContextResolver.GetType().Name);
 
-            var tenantContext = await tenantResolver.ResolveAsync(context);
+            var tenantContext = await tenantContextResolver.ResolveAsync(context);
 
             if (tenantContext != null)
             {

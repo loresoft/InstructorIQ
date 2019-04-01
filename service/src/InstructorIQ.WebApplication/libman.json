@@ -87,6 +87,14 @@
       "files": [
         "select2-bootstrap.css"
       ]
+    },
+    {
+      "library": "simplemde@1.11.2",
+      "destination": "wwwroot/lib/simplemde/",
+      "files": [
+        "simplemde.min.js",
+        "simplemde.min.css"
+      ]
     }
   ]
 }

@@ -8,9 +8,14 @@ namespace InstructorIQ.Core.Domain.Models
     /// <summary>
     /// View Model class
     /// </summary>
-    public partial class TenantCreateModel
+    public class TenantCreateModel
         : EntityCreateModel<Guid>
     {
+        public TenantCreateModel()
+        {
+            TimeZone = "Central Standard Time";
+        }
+
         #region Generated Properties
         /// <summary>
         /// Gets or sets the property value for 'Name'.
