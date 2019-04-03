@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.SqlServer;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Options;
-using InstructorIQ.Core.Runner;
 using KickStart;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
 namespace InstructorIQ.JobRunner
 {
-    public class Program
+    public static class Program
     {
-        static int Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
@@ -29,40 +31,60 @@ namespace InstructorIQ.JobRunner
             {
                 Log.Information("Starting JobRunner host");
 
-                var enviromentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-                var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .AddJsonFile($"appsettings.{enviromentName}.json", true);
+                var host = new HostBuilder()
+                    .ConfigureHostConfiguration((config) =>
+                    {
+                        config.AddEnvironmentVariables();
+                    })
+                    .ConfigureAppConfiguration((hostContext, builder) =>
+                    {
+                        builder
+                            .AddJsonFile("appsettings.json")
+                            .AddJsonFile($"appsettings.{hostContext.HostingEnvironment}.json", true);
+                    })
+                    .ConfigureServices((hostContext, services) =>
+                    {
+                        services.AddOptions();
+                        services.AddSingleton(p => hostContext.Configuration);
 
-                var configuration = builder.Build();
+                        services.KickStart(config => config
+                            .IncludeAssemblyFor<InstructorIQContext>()
+                            .Data(ConfigurationServiceModule.ConfigurationKey, hostContext.Configuration)
+                            .Data("hostProcess", "runner")
+                            .UseAutoMapper()
+                            .UseStartupTask()
+                        );
 
-                var services = new ServiceCollection();
-                services.AddSingleton(p => configuration);
-                services.AddLogging(b => b.AddSerilog());
-                services.AddOptions();
+                        services.Configure<HostOptions>(option =>
+                        {
+                            option.ShutdownTimeout = TimeSpan.FromSeconds(60);
+                        });
 
-                services.KickStart(config => config
-                    .IncludeAssemblyFor<InstructorIQContext>()
-                    .Data(ConfigurationServiceModule.ConfigurationKey, configuration)
-                    .Data("hostProcess", "runner")
-                    .UseAutoMapper()
-                    .UseStartupTask()
-                );
+                        // hangfire options
+                        services.TryAddSingleton(new SqlServerStorageOptions());
+                        services.TryAddSingleton(new BackgroundJobServerOptions
+                        {
+                            StopTimeout = TimeSpan.FromSeconds(15),
+                            ShutdownTimeout = TimeSpan.FromSeconds(30),
+                            WorkerCount = hostContext.HostingEnvironment.IsDevelopment() ? 1 : 4
+                        });
 
-                var connectionString = configuration.GetConnectionString("InstructorIQ");
-                var storageOptions = new SqlServerStorageOptions();
+                        var connectionString = hostContext.Configuration.GetConnectionString("InstructorIQ");
+                        services.AddHangfire((provider, configuration) => configuration
+                            .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                            .UseSimpleAssemblyNameTypeSerializer()
+                            .UseSqlServerStorage(
+                                connectionString,
+                                provider.GetRequiredService<SqlServerStorageOptions>())
+                            );
 
-                GlobalConfiguration.Configuration.UseSqlServerStorage(connectionString, storageOptions);
-
-                var serverOptions = new BackgroundJobServerOptions();
-
-                using (var webJobHost = new WebJobHost())
-                using (var backgroundJobServer = new BackgroundJobServer(serverOptions))
-                {
-                    webJobHost.RunAndBlock();
-                }
+                        services.AddHostedService<RecurringJobsService>();
+                        services.AddHangfireServer();
+                    })
+                    .UseSerilog();
 
 
+                await host.RunConsoleAsync();
                 return 0;
             }
             catch (Exception ex)

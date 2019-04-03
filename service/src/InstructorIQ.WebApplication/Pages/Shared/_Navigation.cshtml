@@ -153,8 +153,14 @@
                          aria-labelledby="navbarDropdownAdministrative">
                         <a id="navbarAdministrativeTenantLink"
                            class="dropdown-item"
-                           asp-page="/global/tenant/index">Tenants</a>
-
+                           asp-page="/global/tenant/index">Manage Tenants</a>
+                        <a id="navbarAdministrativeUserLink"
+                           class="dropdown-item"
+                           asp-page="/global/user/index">Manage Users</a>
+                        <div class="dropdown-divider"></div>
+                        <a id="navbarAdministrativeHangfireLink"
+                           class="dropdown-item"
+                           href="/hangfire">Hangfire Dashboard</a>
                     </div>
                 </li>
             </ul>

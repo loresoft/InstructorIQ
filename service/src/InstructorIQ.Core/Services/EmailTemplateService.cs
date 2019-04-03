@@ -77,7 +77,10 @@ namespace InstructorIQ.Core.Services
                 emailDelivery.MimeMessage = memoryStream.ToArray();
             }
 
+            emailDelivery.NextAttempt = DateTimeOffset.UtcNow;
+
             await _dataContext.EmailDeliveries.AddAsync(emailDelivery).ConfigureAwait(false);
+
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
         }
 

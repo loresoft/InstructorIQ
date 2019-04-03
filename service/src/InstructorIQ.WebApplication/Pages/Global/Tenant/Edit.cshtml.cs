@@ -49,7 +49,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.Tenant
 
             ShowAlert("Successfully saved tenant");
 
-            return RedirectToPage("/Global/Tenant/Edit", new { id = result.Id, tenant = TenantRoute });
+            return RedirectToPage("/Global/Tenant/Edit", new { id = result.Id });
         }
 
         public async Task<IActionResult> OnPostDeleteEntity()
@@ -59,7 +59,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.Tenant
 
             ShowAlert("Successfully deleted tenant");
 
-            return RedirectToPage("/Global/Tenant/Index", new { tenant = TenantRoute });
+            return RedirectToPage("/Global/Tenant/Index");
 
         }
 

@@ -113,6 +113,11 @@ namespace InstructorIQ.Core.Extensions
             return items.Select(item => new IndexedValue<TValue>(index++, item));
         }
 
+        public static IQueryable<T> Paginate<T>(this IQueryable<T> query, int pageNumber, int pageSize)
+        {
+            int skip = Math.Max(pageSize * (pageNumber - 1), 0);
+            return query.Skip(skip).Take(pageSize);
+        }
 
         public class IndexedValue<T>
         {

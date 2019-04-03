@@ -1,14 +1,16 @@
 using System;
 using System.Linq;
-using EntityFrameworkCore.CommandQuery.Definitions;
 using Exceptionless;
 using FluentValidation.AspNetCore;
+using Hangfire;
+using Hangfire.SqlServer;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
+using InstructorIQ.WebApplication.Security;
 using KickStart;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -137,6 +139,19 @@ namespace InstructorIQ.WebApplication
                     )
                 );
             });
+
+            // hangfire options
+            services.TryAddSingleton(new SqlServerStorageOptions());
+
+            var connectionString = Configuration.GetConnectionString("InstructorIQ");
+            services.AddHangfire((provider, configuration) => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseSqlServerStorage(
+                    connectionString,
+                    provider.GetRequiredService<SqlServerStorageOptions>())
+                );
+
         }
 
 
@@ -177,9 +192,16 @@ namespace InstructorIQ.WebApplication
 
             app.UseAuthentication();
 
+            app.UseHangfireDashboard(options: new DashboardOptions
+            {
+                Authorization = new[] { new DashboardAuthorization() }
+            });
+
+
             app.UseMultitenancy<TenantReadModel>();
 
             app.UseMvc();
+
         }
     }
 }

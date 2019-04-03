@@ -18,7 +18,11 @@ namespace InstructorIQ.WebApplication.Pages.Account
         public ResetPasswordModel(UserManager<Core.Data.Entities.User> userManager)
         {
             _userManager = userManager;
+            Input = new InputModel();
         }
+
+        [BindProperty(SupportsGet = true)]
+        public string Code { get; set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -38,19 +42,14 @@ namespace InstructorIQ.WebApplication.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
-            public string Code { get; set; }
         }
 
-        public IActionResult OnGet(string code = null)
+        public IActionResult OnGet()
         {
-            if (code == null)
+            if (Code == null)
                 return BadRequest("A code must be supplied for password reset.");
 
-            Input = new InputModel
-            {
-                Code = code
-            };
+            
             return Page();
         }
 
@@ -68,7 +67,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 return Page();
             }
 
-            var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
+            var result = await _userManager.ResetPasswordAsync(user, Code, Input.Password);
             if (result.Succeeded)
                 return RedirectToPage("./ResetPasswordConfirmation");
 
