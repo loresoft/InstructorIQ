@@ -9,31 +9,27 @@
     <div class="card">
         <div class="card-header">
             <i class="fas fa-user mr-2"></i> Profile
+
+            <ul class="nav nav-tabs card-header-tabs float-right">
+                <li class="nav-item">
+                    <a id="user-profile-tab"
+                       title="Profile"
+                       class="nav-link @(ViewBag.Title == "Profile" ? "active" : "")"
+                       asp-page="/user/profile"
+                       asp-route-tenant="@Model.TenantRoute">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a id="user-password-tab"
+                       title="Password"
+                       class="nav-link @(ViewBag.Title == "Password" ? "active" : "")"
+                       asp-page="/user/password"
+                       asp-route-tenant="@Model.TenantRoute">Password</a>
+                </li>
+            </ul>
+
         </div>
         <div class="card-body">
-            <div class="tab-container">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a id="user-profile-tab"
-                           title="Profile"
-                           class="nav-link @(ViewBag.Title == "Profile" ? "active" : "")"
-                           asp-page="/user/profile"
-                           asp-route-tenant="@Model.TenantRoute">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="user-password-tab"
-                           title="Password"
-                           class="nav-link @(ViewBag.Title == "Password" ? "active" : "")"
-                           asp-page="/user/password"
-                           asp-route-tenant="@Model.TenantRoute">Password</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active">
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
+            @RenderBody()
         </div>
     </div>
 </div>

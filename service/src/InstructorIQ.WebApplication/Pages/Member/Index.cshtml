@@ -1,0 +1,126 @@
+﻿@page "/members"
+@model InstructorIQ.WebApplication.Pages.Member.IndexModel
+@{
+    ViewData["Title"] = "Members";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Members</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-th-list mr-2"
+               aria-hidden="true"></i> Members
+            <div class="float-right">
+                <form id="member-search-form"
+                      name="member-search-form"
+                      role="form"
+                      method="get">
+                    <div class="input-group input-group-sm mr-2">
+                        <input type="hidden"
+                               name="s"
+                               value="@Model.Sort" />
+                        <input type="text"
+                               name="q"
+                               value="@Model.Query"
+                               class="form-control"
+                               placeholder="Search" />
+                        <div class="input-group-append">
+                            <button class="btn btn-sm btn-outline-secondary"
+                                    type="submit">
+                                <i class="fas fa-search"
+                                   aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm m-0">
+                    <colgroup>
+                        <col style="">
+                        <col style="">
+                        <col style="width: 90px">
+                        <col style="width: 90px">
+                    </colgroup>
+                    <thead class="">
+                        <tr>
+                            <th>
+                                <header asp-route-q="@Model.Query"
+                                        sort-by="DisplayName"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Name">
+                                    Name
+                                </header>
+                            </th>
+                            <th>
+                                <header asp-route-q="@Model.Query"
+                                        sort-by="Email"
+                                        sort-current="@Model.Sort"
+                                        title="Sort by Email">
+                                    Email
+                                </header>
+                            </th>
+                            <th>Lockout</th>
+                            <th>Failed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-page="/member/edit"
+                                       asp-route-id="@item.Id"
+                                       asp-route-tenant="@Model.TenantRoute"
+                                       title="Edit Member"
+                                       class="d-block">@item.DisplayName</a>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>@item.LockoutEnd.HasValue</td>
+                                <td>@item.AccessFailedCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer p-0">
+            <div class="row">
+                <div class="col">
+                    <a asp-page="/member/invite"
+                       asp-route-tenant="@Model.TenantRoute"
+                       title="Add New Member"
+                       class="btn btn-primary m-3">Add Member</a>
+                </div>
+                <div class="col">
+                    <pagination current-page="@Model.PageNumber"
+                                page-size="@Model.PageSize"
+                                total-items="@Model.Total"
+                                asp-route-z="@Model.PageSize"
+                                asp-route-s="@Model.Sort"
+                                asp-route-q="@Model.Query"
+                                class="justify-content-end m-3" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -108,6 +108,7 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/Group");
                     options.Conventions.AddFolderTenantRoute("/Instructor");
                     options.Conventions.AddFolderTenantRoute("/Location");
+                    options.Conventions.AddFolderTenantRoute("/Member");
                     options.Conventions.AddFolderTenantRoute("/Session");
                     options.Conventions.AddFolderTenantRoute("/Topic");
                     options.Conventions.AddFolderTenantRoute("/Template");

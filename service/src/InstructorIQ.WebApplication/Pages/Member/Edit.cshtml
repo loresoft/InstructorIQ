@@ -1,0 +1,125 @@
+﻿@page "/member/{id}/edit"
+@model InstructorIQ.WebApplication.Pages.Member.EditModel
+@{
+    ViewData["Title"] = $"Edit {Model.Entity.DisplayName}";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/member/index"
+                   asp-route-tenant="@Model.TenantRoute">Members</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Member</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-map-marker-alt mr-2"
+               aria-hidden="true"></i> Member
+        </div>
+        <div class="card-body">
+            <form id="member-form"
+                  name="member-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Entity.DisplayName">Display Name <required /></label>
+                    <input asp-for="Entity.DisplayName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Display Name">
+                    <span asp-validation-for="Entity.DisplayName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.Email">Email Address <required /></label>
+                    <input asp-for="Entity.Email"
+                           type="email"
+                           class="form-control"
+                           placeholder="Email Address">
+                    <span asp-validation-for="Entity.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.PhoneNumber">Phone Number</label>
+                    <input asp-for="Entity.PhoneNumber"
+                           class="form-control"
+                           placeholder="Phone Number" />
+                    <span asp-validation-for="Entity.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <fieldset class="border p-2">
+                    <legend class="w-auto pr-2 pl-2">Roles</legend>
+                    <input type="hidden"
+                           asp-for="Membership.TenantId" />
+                    <input type="hidden"
+                           asp-for="Membership.UserName" />
+
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="Membership.IsMember"
+                               type="checkbox"
+                               class="custom-control-input">
+                        <label asp-for="Membership.IsMember"
+                               class="custom-control-label">Member</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="Membership.IsInstructor"
+                               type="checkbox"
+                               class="custom-control-input">
+                        <label asp-for="Membership.IsInstructor"
+                               class="custom-control-label">Instructor</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="Membership.IsAdministrator"
+                               type="checkbox"
+                               class="custom-control-input">
+                        <label asp-for="Membership.IsAdministrator"
+                               class="custom-control-label">Administrator</label>
+                    </div>
+
+                </fieldset>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/member/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#member-form").dirty({
+                preventLeaving: true
+            });
+        });
+    </script>
+}
