@@ -22,6 +22,9 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
         [BindProperty(SupportsGet = true)]
         public string Id { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string TenantId { get; set; }
+
         [BindProperty]
         public InputModel Input { get; set; }
 

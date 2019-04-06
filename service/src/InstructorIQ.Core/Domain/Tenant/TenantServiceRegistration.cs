@@ -24,6 +24,12 @@ namespace InstructorIQ.Core.Domain
 
             services.TryAddTransient<IRequestHandler<TenantSlugQuery, TenantReadModel>, TenantSlugQueryHandler>();
             services.AddTransient<IPipelineBehavior<TenantSlugQuery, TenantReadModel>, MemoryCacheQueryBehavior<TenantSlugQuery, TenantReadModel>>();
+
+            services.TryAddTransient<IRequestHandler<TenantDropdownQuery, IReadOnlyCollection<TenantDropdownModel>>, TenantDropdownQueryHandler>();
+
+            services.TryAddTransient<IRequestHandler<TenantMembershipQuery, TenantMembershipModel>, TenantMembershipQueryHandler>();
+            services.TryAddTransient<IRequestHandler<TenantMembershipCommand, TenantMembershipModel>, TenantMembershipCommandHandler>();
+
         }
     }
 }

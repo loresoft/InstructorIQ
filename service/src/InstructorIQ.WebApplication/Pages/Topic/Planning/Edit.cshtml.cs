@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EntityFrameworkCore.CommandQuery.Commands;
 using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
@@ -16,6 +18,34 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
         public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
+        }
+
+        [BindProperty(SupportsGet = true)]
+        public Guid? TemplateId { get; set; }
+
+        public IReadOnlyCollection<TemplateDropdownModel> Templates { get; set; }
+
+        public override async Task<IActionResult> OnGetAsync()
+        {
+            var loadTask = base.OnGetAsync();
+            var loadTemplatesTask = LoadTemplates();
+            var loadTemplateTask = LoadTemplate();
+
+            // load all in parallel
+            await Task.WhenAll(
+              loadTask,
+              loadTemplatesTask,
+              loadTemplateTask
+            );
+
+            Templates = loadTemplatesTask.Result;
+
+            // apply template
+            var template = loadTemplateTask.Result;
+            if (template != null)
+                Entity.LessonPlan = template.TemplateBody;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -43,5 +73,23 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
             return RedirectToPage("/Topic/Planning/View", new { id = result.Id, tenant = TenantRoute });
         }
 
+        private async Task<TemplateReadModel> LoadTemplate()
+        {
+            if (TemplateId == null)
+                return await Task.FromResult<TemplateReadModel>(null);
+
+            var command = new EntityIdentifierQuery<Guid, TemplateReadModel>(TemplateId.Value, User);
+            var result = await Mediator.Send(command);
+
+            return result;
+        }
+
+        private async Task<IReadOnlyCollection<TemplateDropdownModel>> LoadTemplates()
+        {
+            var dropdownQuery = new TemplateDropdownQuery(User, Core.Data.Constants.TemplateType.LessonPlan);
+            var templates = await Mediator.Send(dropdownQuery);
+
+            return templates;
+        }
     }
 }

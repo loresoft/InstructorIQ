@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using InstructorIQ.Core.Data.Constants;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InstructorIQ.Core.Services
@@ -61,7 +62,7 @@ namespace InstructorIQ.Core.Services
         {
             var values = new List<SelectListItem>
             {
-                new SelectListItem("Lesson Plan", "LessonPlan"),
+                new SelectListItem("Lesson Plan", TemplateType.LessonPlan),
             };
 
             return values;

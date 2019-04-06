@@ -105,7 +105,13 @@
     <script>
         $(function () {
             var templateEditor = new SimpleMDE({
-                element: document.getElementById("@Html.IdFor(p => p.Entity.TemplateBody)")
+                element: document.getElementById("@Html.IdFor(p => p.Entity.TemplateBody)"),
+                hideIcons: ['side-by-side', 'fullscreen'],
+                spellChecker: false
+            });
+
+            $("#template-form").dirty({
+                preventLeaving: true
             });
         });
     </script>

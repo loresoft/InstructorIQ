@@ -95,6 +95,14 @@
         "simplemde.min.js",
         "simplemde.min.css"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "jquery.dirty@0.7.2",
+      "destination": "wwwroot/lib/jquery.dirty/",
+      "files": [
+        "dist/jquery.dirty.min.js"
+      ]
     }
   ]
 }

@@ -1,0 +1,72 @@
+﻿@page "/global/user/{id}/membership"
+@model InstructorIQ.WebApplication.Pages.Global.User.MembershipModel
+@{
+    ViewData["Title"] = $"User {Model.Entity.DisplayName}"; ;
+    ViewData["CurrentUser"] = $" - {Model.Entity.DisplayName}";
+    ViewData["UserTab"] = "Membership";
+
+    Layout = "_UserLayout";
+}
+
+<form id="tenant-form"
+      name="tenant-form"
+      role="form"
+      method="get">
+
+    <div class="form-group">
+        <label asp-for="TenantId">Tenant</label>
+        <select asp-for="TenantId"
+                asp-items="@Model.Tenants"
+                class="custom-select"
+                onchange="this.form.submit()">
+            <option value="">- Select -</option>
+        </select>
+        <span asp-validation-for="TenantId" class="text-danger"></span>
+    </div>
+</form>
+
+<form id="membership-form"
+      name="membership-form"
+      role="form"
+      method="post">
+
+    <input type="hidden"
+           asp-for="Membership.TenantId" />
+    <input type="hidden"
+           asp-for="Membership.UserName" />
+
+    <div class="custom-control custom-checkbox">
+        <input asp-for="Membership.IsMember"
+               type="checkbox"
+               class="custom-control-input">
+        <label asp-for="Membership.IsMember"
+               class="custom-control-label">Member</label>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+        <input asp-for="Membership.IsInstructor"
+               type="checkbox"
+               class="custom-control-input">
+        <label asp-for="Membership.IsInstructor"
+               class="custom-control-label">Instructor</label>
+    </div>
+
+    <div class="custom-control custom-checkbox">
+        <input asp-for="Membership.IsAdministrator"
+               type="checkbox"
+               class="custom-control-input">
+        <label asp-for="Membership.IsAdministrator"
+               class="custom-control-label">Administrator</label>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col">
+            <button id="save-button"
+                    type="submit"
+                    class="btn btn-primary">
+                Save
+            </button>
+        </div>
+    </div>
+
+</form>

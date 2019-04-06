@@ -163,6 +163,10 @@
             $('input[data-target]').copyValue();
 
             $('#AdditionalInstructors').select2();
+
+            $("#session-form").dirty({
+                preventLeaving: true
+            });
         });
     </script>
 }

@@ -157,6 +157,10 @@
     <script>
         $(function () {
             $('input[data-target]').copyValue();
+
+            $("#bulk-session-form").dirty({
+                preventLeaving: true
+            });
         });
     </script>
 }

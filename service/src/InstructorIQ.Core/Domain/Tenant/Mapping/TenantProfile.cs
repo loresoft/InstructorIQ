@@ -27,6 +27,11 @@ namespace InstructorIQ.Core.Domain.Mapping
 
             CreateMap<Tenant, TenantUpdateModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+
+            CreateMap<Tenant, TenantDropdownModel>()
+                .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))
+                .ForMember(d => d.Text, opt => opt.MapFrom(s => s.Name));
+
         }
 
     }

@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/global/user/index">Users</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit User</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-user mr-2"
+               aria-hidden="true"></i> User @ViewBag.CurrentUser
+
+            <ul class="nav nav-tabs card-header-tabs float-right">
+                <li class="nav-item">
+                    <a id="topic-edit-tab"
+                       class="nav-link @(ViewBag.UserTab == "General" ? "active": "")"
+                       title="Edit User"
+                       asp-page="/Global/User/Edit"
+                       asp-route-id="@Model.Id"
+                       asp-route-tenantId="@Model.TenantId">General</a>
+                </li>
+                <li class="nav-item">
+                    <a id="topic-planning-tab"
+                       class="nav-link @(ViewBag.UserTab == "Membership" ? "active": "")"
+                       title="Edit User Membership"
+                       asp-page="/Global/User/Membership"
+                       asp-route-id="@Model.Id"
+                       asp-route-tenantId="@Model.TenantId">Membership</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

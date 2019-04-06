@@ -13,18 +13,44 @@
       role="form"
       method="post">
 
-    <input type="hidden" asp-for="Entity.Title"/>
+    <input type="hidden" asp-for="Entity.Title" />
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
         <label asp-for="Entity.LessonPlan">Lesson Plan</label>
+
+        <div class="dropdown fa-pull-right">
+            <button class="btn btn-link dropdown-toggle"
+                    type="button"
+                    id="templateMenuButton"
+                    title="Use Template"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                Template
+            </button>
+            <div class="dropdown-menu"
+                 aria-labelledby="templateMenuButton">
+                @foreach (var template in Model.Templates)
+                {
+                    <a asp-page="/Topic/Planning/Edit"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id"
+                       asp-route-templateid="@template.Value"
+                       title="Use Template @template.Text"
+                       class="dropdown-item">
+                        @template.Text
+                    </a>
+                }
+            </div>
+        </div>
+
         <textarea asp-for="Entity.LessonPlan"
                   rows="5"
                   class="form-control"></textarea>
         <span asp-validation-for="Entity.LessonPlan" class="text-danger"></span>
     </div>
-
     <div class="row mt-3">
         <div class="col">
             <button id="save-button"
@@ -47,7 +73,13 @@
     <script>
         $(function () {
             var planEditor = new SimpleMDE({
-                 element: document.getElementById("@Html.IdFor(p => p.Entity.LessonPlan)")
+                 element: document.getElementById("@Html.IdFor(p => p.Entity.LessonPlan)"),
+                hideIcons: ['side-by-side', 'fullscreen'],
+                spellChecker: false
+            });
+
+            $("#planning-form").dirty({
+                preventLeaving: true
             });
         });
     </script>

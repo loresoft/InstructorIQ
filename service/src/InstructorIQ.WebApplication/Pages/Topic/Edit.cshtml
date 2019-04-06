@@ -99,4 +99,18 @@
 </form>
 
 
+@section Scripts {
+    <script>
+        $(function () {
+            var descriptionEditor = new SimpleMDE({
+                element: document.getElementById("@Html.IdFor(p => p.Entity.Description)"),
+                hideIcons: ['side-by-side', 'fullscreen'],
+                spellChecker: false
+            });
 
+            $("#topic-form").dirty({
+                preventLeaving: true
+            });
+        });
+    </script>
+}

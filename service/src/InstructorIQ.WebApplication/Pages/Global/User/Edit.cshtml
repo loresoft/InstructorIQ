@@ -1,85 +1,78 @@
 ﻿@page "/global/user/{id}/edit"
 @model InstructorIQ.WebApplication.Pages.Global.User.EditModel
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = $"User {Model.Input.DisplayName}"; ;
+    ViewData["CurrentUser"] = $" - {Model.Input.DisplayName}";
+    ViewData["UserTab"] = "General";
+
+    Layout = "_UserLayout";
 }
 
-<div class="container">
+    <form id="user-form"
+          name="user-form"
+          role="form"
+          method="post">
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a asp-page="/Index">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a asp-page="/global/user/index">Users</a>
-            </li>
-            <li class="breadcrumb-item active"
-                aria-current="page">Edit User</li>
-        </ol>
-    </nav>
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-    <alert type="@TempData[" alert.type"]"
-           message="@TempData[" alert.message"]" />
-
-    <div class="card mb-5">
-        <div class="card-header">
-            <i class="fas fa-user mr-2"
-               aria-hidden="true"></i> User
+        <div class="form-group">
+            <label asp-for="Input.DisplayName">Display Name <required /></label>
+            <input asp-for="Input.DisplayName"
+                   type="text"
+                   class="form-control"
+                   placeholder="Display Name">
+            <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
         </div>
-        <div class="card-body">
-            <form id="user-form"
-                  name="user-form"
-                  role="form"
-                  method="post">
-
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-                <div class="form-group">
-                    <label asp-for="Input.DisplayName">Display Name <required /></label>
-                    <input asp-for="Input.DisplayName"
-                           type="text"
-                           class="form-control"
-                           placeholder="Display Name">
-                    <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Input.Email">Email Address <required /></label>
-                    <input asp-for="Input.Email"
-                           type="email"
-                           class="form-control"
-                           placeholder="Email Address">
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <button id="save-button"
-                                type="submit"
-                                class="btn btn-primary">
-                            Save
-                        </button>
-                        <a id="cancel-button"
-                           asp-page="/Global/User/Index"
-                           class="btn btn-secondary">
-                            Cancel
-                        </a>
-                    </div>
-                    <div class="col">
-                        <confirm-button id="delete-button"
-                                        class="btn btn-danger fa-pull-right"
-                                        asp-page-handler="DeleteUser"
-                                        modal-button="Delete"
-                                        modal-color="danger"
-                                        modal-text="Are you sure you want to delete this?">
-                            Delete
-                        </confirm-button>
-                    </div>
-                </div>
-            </form>
+        <div class="form-group">
+            <label asp-for="Input.Email">Email Address <required /></label>
+            <input asp-for="Input.Email"
+                   type="email"
+                   class="form-control"
+                   placeholder="Email Address">
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
-    </div>
-</div>
+        <div class="form-group">
+            <label asp-for="Input.PhoneNumber">Phone Number</label>
+            <input asp-for="Input.PhoneNumber"
+                   class="form-control"
+                   placeholder="Phone Number" />
+            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+        </div>
 
 
+        <div class="row">
+            <div class="col">
+                <button id="save-button"
+                        type="submit"
+                        class="btn btn-primary">
+                    Save
+                </button>
+                <a id="cancel-button"
+                   asp-page="/Global/User/Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
+            <div class="col">
+                <confirm-button id="delete-button"
+                                class="btn btn-danger fa-pull-right"
+                                asp-page-handler="DeleteUser"
+                                modal-button="Delete"
+                                modal-color="danger"
+                                modal-text="Are you sure you want to delete this?">
+                    Delete
+                </confirm-button>
+            </div>
+        </div>
+    </form>
 
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#user-form").dirty({
+                preventLeaving: true
+            });
+        });
+    </script>
+}

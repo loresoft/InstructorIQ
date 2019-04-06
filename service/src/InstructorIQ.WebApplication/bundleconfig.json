@@ -10,6 +10,7 @@
       "wwwroot/lib/moment/moment.js",
       "wwwroot/lib/select2/js/select2.js",
       "wwwroot/lib/simplemde/simplemde.min.js",
+      "wwwroot/lib/jquery.dirty/dist/jquery.dirty.min.js",
       "wwwroot/js/copyValue.js",
       "wwwroot/js/site.js"
     ],

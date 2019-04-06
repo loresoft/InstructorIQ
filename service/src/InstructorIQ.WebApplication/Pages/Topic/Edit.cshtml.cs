@@ -28,9 +28,16 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
         public override async Task<IActionResult> OnGetAsync()
         {
-            await base.OnGetAsync();
+            var loadTask = base.OnGetAsync();
+            var loadInstructorsTask = LoadInstructors();
 
-            Instructors = await LoadInstructors();
+            // load all in parallel
+            await Task.WhenAll(
+              loadTask,
+              loadInstructorsTask
+            );
+
+            Instructors = loadInstructorsTask.Result;
 
             return Page();
         }
