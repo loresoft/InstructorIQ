@@ -6,12 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -25,9 +25,9 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
         }
 
-        protected override async Task<TenantUserModel> Process(TenantUserResolveCommand message, CancellationToken cancellationToken)
+        protected override async Task<TenantUserModel> Process(TenantUserResolveCommand request, CancellationToken cancellationToken)
         {
-            var user = message.User;
+            var user = request.User;
             var tenant = await GetTenant(user, cancellationToken);
             var roles = await GetRoles(user, tenant, cancellationToken);
 

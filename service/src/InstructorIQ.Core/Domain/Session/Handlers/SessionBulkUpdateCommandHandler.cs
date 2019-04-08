@@ -3,11 +3,12 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Models;
+using MediatR.CommandQuery;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -20,10 +21,10 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionBulkUpdateCommand message, CancellationToken cancellationToken)
+        protected override async Task<CommandCompleteModel> Process(SessionBulkUpdateCommand request, CancellationToken cancellationToken)
         {
-            foreach (var updateModel in message.Models)
-                await UpdateSession(updateModel, message.Principal?.Identity?.Name);
+            foreach (var updateModel in request.Models)
+                await UpdateSession(updateModel, request.Principal?.Identity?.Name);
 
             return new CommandCompleteModel();
         }

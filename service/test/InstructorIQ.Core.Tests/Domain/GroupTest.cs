@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
 using FluentAssertions;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using MediatR;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,11 +35,11 @@ namespace InstructorIQ.Core.Tests.Domain
                 TenantId = Data.Constants.Tenant.Test
             };
 
-            var createCommand = new EntityCreateCommand<GroupCreateModel, GroupReadModel>(createModel, MockPrincipal.Default);
+            var createCommand = new EntityCreateCommand<GroupCreateModel, GroupReadModel>(MockPrincipal.Default, createModel);
             var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
             createResult.Should().NotBeNull();
 
-            var identifierQuery = new EntityIdentifierQuery<Guid, GroupReadModel>(createResult.Id, MockPrincipal.Default);
+            var identifierQuery = new EntityIdentifierQuery<Guid, GroupReadModel>(MockPrincipal.Default, createResult.Id);
             var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
             identifierResult.Should().NotBeNull();
             identifierResult.Name.Should().Be(createModel.Name);
@@ -50,7 +50,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Name", Value = "Group", Operator = "StartsWith" }
             };
-            var listQuery = new EntityPagedQuery<GroupReadModel>(entityQuery, MockPrincipal.Default);
+            var listQuery = new EntityPagedQuery<GroupReadModel>(MockPrincipal.Default, entityQuery);
 
             var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
             listResult.Should().NotBeNull();
@@ -63,7 +63,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 value = "Patch Update"
             });
 
-            var patchCommand = new EntityPatchCommand<Guid, GroupReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
+            var patchCommand = new EntityPatchCommand<Guid, GroupReadModel>(MockPrincipal.Default, createResult.Id, patchModel);
             var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
             patchResult.Should().NotBeNull();
             patchResult.Description.Should().Be("Patch Update");
@@ -76,12 +76,12 @@ namespace InstructorIQ.Core.Tests.Domain
                 RowVersion = patchResult.RowVersion
             };
 
-            var updateCommand = new EntityUpdateCommand<Guid, GroupUpdateModel, GroupReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
+            var updateCommand = new EntityUpdateCommand<Guid, GroupUpdateModel, GroupReadModel>(MockPrincipal.Default, createResult.Id, updateModel);
             var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
             updateResult.Should().NotBeNull();
             updateResult.Description.Should().Be("Update Command");
 
-            var deleteCommand = new EntityDeleteCommand<Guid, GroupReadModel>(createResult.Id, MockPrincipal.Default);
+            var deleteCommand = new EntityDeleteCommand<Guid, GroupReadModel>(MockPrincipal.Default, createResult.Id);
             var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
             deleteResult.Should().NotBeNull();
             deleteResult.Id.Should().Be(createResult.Id);
@@ -98,7 +98,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Name", Value = "Group", Operator = "StartsWith" }
             };
-            var command = new EntityPagedQuery<GroupReadModel>(query, MockPrincipal.Default);
+            var command = new EntityPagedQuery<GroupReadModel>(MockPrincipal.Default, query);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();

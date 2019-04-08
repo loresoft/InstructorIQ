@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;

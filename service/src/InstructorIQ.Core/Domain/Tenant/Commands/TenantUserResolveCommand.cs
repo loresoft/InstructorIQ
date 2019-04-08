@@ -1,5 +1,5 @@
 ﻿using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 

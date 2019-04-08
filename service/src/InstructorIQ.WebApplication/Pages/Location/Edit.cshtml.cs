@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -26,7 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, LocationUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, LocationUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -43,7 +43,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
                 p => p.PostalCode
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, LocationUpdateModel, LocationReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, LocationUpdateModel, LocationReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved location");
@@ -53,7 +53,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, LocationReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, LocationReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted location");

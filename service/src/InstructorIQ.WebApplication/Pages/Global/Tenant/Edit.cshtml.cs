@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -26,7 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.Tenant
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, TenantUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, TenantUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -44,7 +44,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.Tenant
                 p => p.DomainName
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, TenantUpdateModel, TenantReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, TenantUpdateModel, TenantReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved tenant");
@@ -54,7 +54,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.Tenant
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, TenantReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, TenantReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted tenant");

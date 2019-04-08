@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Definitions;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Definitions;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 
 // ReSharper disable once CheckNamespace
@@ -30,6 +30,11 @@ namespace InstructorIQ.Core.Domain.Queries
         DateTimeOffset? ICacheQueryResult.AbsoluteExpiration()
         {
             return DateTimeOffset.UtcNow.Add(TimeSpan.FromMinutes(30));
+        }
+
+        bool ICacheQueryResult.IsCacheable()
+        {
+            return true;
         }
     }
 }

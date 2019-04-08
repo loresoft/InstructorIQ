@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Definitions;
+using MediatR.CommandQuery.Definitions;
 using KickStart.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;

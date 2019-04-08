@@ -14,8 +14,8 @@
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
-    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2022" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.0" />
+    <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2027" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.2.2" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.0" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.0" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.124" />

@@ -4,12 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Security;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -26,16 +26,16 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<IReadOnlyCollection<TemplateDropdownModel>> Process(TemplateDropdownQuery message, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<TemplateDropdownModel>> Process(TemplateDropdownQuery request, CancellationToken cancellationToken)
         {
-            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
+            var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
 
             var query = DataContext.Templates
                 .AsNoTracking()
                 .Where(q => q.TenantId == tenantId);
 
-            if (message.TemplateType.HasValue())
-                query = query.Where(q => q.TemplateType == message.TemplateType);
+            if (request.TemplateType.HasValue())
+                query = query.Where(q => q.TemplateType == request.TemplateType);
 
             var result = await query
                 .OrderBy(q => q.Name)

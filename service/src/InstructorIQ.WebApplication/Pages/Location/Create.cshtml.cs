@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -39,7 +39,7 @@ namespace InstructorIQ.WebApplication.Pages.Location
                 p => p.PostalCode
             );
 
-            var command = new EntityCreateCommand<LocationCreateModel, LocationReadModel>(createModel, User);
+            var command = new EntityCreateCommand<LocationCreateModel, LocationReadModel>(User, createModel);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created location");

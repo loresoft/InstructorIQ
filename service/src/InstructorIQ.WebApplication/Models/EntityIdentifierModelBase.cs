@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using MediatR;
@@ -27,7 +27,7 @@ namespace InstructorIQ.WebApplication.Models
 
         public virtual async Task<IActionResult> OnGetAsync()
         {
-            var command = new EntityIdentifierQuery<Guid, TModel>(Id, User);
+            var command = new EntityIdentifierQuery<Guid, TModel>(User, Id);
 
             var result = await Mediator.Send(command);
             if (result == null)

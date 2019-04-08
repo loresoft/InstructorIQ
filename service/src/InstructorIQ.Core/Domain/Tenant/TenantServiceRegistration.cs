@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Behaviors;
+using MediatR.CommandQuery.Behaviors;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Handlers;

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Definitions;
 using InstructorIQ.Core.Behaviors;
 using InstructorIQ.Core.Data;
 using KickStart.DependencyInjection;
 using MediatR;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Definitions;
+using MediatR.CommandQuery.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Domain

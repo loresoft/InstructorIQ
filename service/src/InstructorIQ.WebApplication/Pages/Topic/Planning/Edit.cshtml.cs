@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
@@ -53,7 +53,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, TopicUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, TopicUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -65,7 +65,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
                 p => p.LessonPlan
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved topic");
@@ -78,7 +78,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
             if (TemplateId == null)
                 return await Task.FromResult<TemplateReadModel>(null);
 
-            var command = new EntityIdentifierQuery<Guid, TemplateReadModel>(TemplateId.Value, User);
+            var command = new EntityIdentifierQuery<Guid, TemplateReadModel>(User, TemplateId.Value);
             var result = await Mediator.Send(command);
 
             return result;

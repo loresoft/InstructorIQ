@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using InstructorIQ.Core.Data.Constants;
 using InstructorIQ.Core.Domain;
+using MediatR.CommandQuery;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 

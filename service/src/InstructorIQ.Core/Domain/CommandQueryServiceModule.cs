@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
-using EntityFrameworkCore.CommandQuery;
+﻿using System.Collections.Generic;
+using InstructorIQ.Core.Data;
 using KickStart.DependencyInjection;
+using MediatR.CommandQuery.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Domain
@@ -11,7 +10,9 @@ namespace InstructorIQ.Core.Domain
     {
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
-            services.AddCommandQueryForAssembly<CommandQueryServiceModule>();
+            services.AddMediator();
+            services.AddMapper();
+            services.AddValidatorsFromAssembly<InstructorIQContext>();
         }
     }
 }

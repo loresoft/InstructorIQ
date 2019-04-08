@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
@@ -80,7 +80,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, SessionUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, SessionUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -99,7 +99,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
                 p => p.LeadInstructorId
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, SessionUpdateModel, SessionReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, SessionUpdateModel, SessionReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             var instructorCommand = new SessionInstructorUpdateCommand(User, Id, AdditionalInstructors);
@@ -112,7 +112,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, SessionReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, SessionReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted topic");
@@ -123,7 +123,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         private async Task<TopicReadModel> LoadTopic()
         {
-            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(TopicId, User);
+            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(User, TopicId);
             var result = await Mediator.Send(command);
 
             return result;

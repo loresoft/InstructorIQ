@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Behaviors;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Handlers;
-using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using MediatR;
+using MediatR.CommandQuery.Behaviors;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
+using MediatR.CommandQuery.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

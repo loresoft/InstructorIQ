@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using DataGenerator;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using FluentAssertions;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
@@ -38,12 +38,12 @@ namespace InstructorIQ.Core.Tests.Domain
             createModel.Slug = "Test" + DateTime.Now.Ticks;
             createModel.TimeZone = "Central Standard Time";
 
-            var createCommand = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(createModel, MockPrincipal.Default);
+            var createCommand = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(MockPrincipal.Default, createModel);
             var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
             createResult.Should().NotBeNull();
 
             // Get Entity by Key
-            var identifierQuery = new EntityIdentifierQuery<Guid, TenantReadModel>(createResult.Id, MockPrincipal.Default);
+            var identifierQuery = new EntityIdentifierQuery<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id);
             var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
             identifierResult.Should().NotBeNull();
             identifierResult.Name.Should().Be(createModel.Name);
@@ -54,7 +54,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
-            var listQuery = new EntityPagedQuery<TenantReadModel>(entityQuery, MockPrincipal.Default);
+            var listQuery = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, entityQuery);
 
             var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
             listResult.Should().NotBeNull();
@@ -68,7 +68,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 value = "Patch Update"
             });
 
-            var patchCommand = new EntityPatchCommand<Guid, TenantReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
+            var patchCommand = new EntityPatchCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id, patchModel);
             var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
             patchResult.Should().NotBeNull();
             patchResult.Description.Should().Be("Patch Update");
@@ -77,13 +77,13 @@ namespace InstructorIQ.Core.Tests.Domain
             var updateModel = mapper.Map<TenantUpdateModel>(patchResult);
             updateModel.Description = "Update Command";
 
-            var updateCommand = new EntityUpdateCommand<Guid, TenantUpdateModel, TenantReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
+            var updateCommand = new EntityUpdateCommand<Guid, TenantUpdateModel, TenantReadModel>(MockPrincipal.Default, createResult.Id, updateModel);
             var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
             updateResult.Should().NotBeNull();
             updateResult.Description.Should().Be("Update Command");
 
             // Delete Entity
-            var deleteCommand = new EntityDeleteCommand<Guid, TenantReadModel>(createResult.Id, MockPrincipal.Default);
+            var deleteCommand = new EntityDeleteCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id);
             var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
             deleteResult.Should().NotBeNull();
             deleteResult.Id.Should().Be(createResult.Id);
@@ -104,7 +104,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 TimeZone = "Central Standard Time"
             };
 
-            var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(createModel, MockPrincipal.Default);
+            var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(MockPrincipal.Default, createModel);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();
@@ -122,7 +122,7 @@ namespace InstructorIQ.Core.Tests.Domain
                 Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
-            var command = new EntityPagedQuery<TenantReadModel>(query, MockPrincipal.Default);
+            var command = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, query);
 
             var result = await mediator.Send(command).ConfigureAwait(false);
             result.Should().NotBeNull();

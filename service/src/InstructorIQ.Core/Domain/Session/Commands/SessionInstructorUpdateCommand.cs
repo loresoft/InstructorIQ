@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Models;
 
 namespace InstructorIQ.Core.Domain.Commands

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Definitions;
-using EntityFrameworkCore.CommandQuery.Models;
+using MediatR.CommandQuery.Definitions;
+using MediatR.CommandQuery.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models

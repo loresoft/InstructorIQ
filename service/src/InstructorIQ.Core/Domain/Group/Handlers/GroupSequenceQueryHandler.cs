@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Security;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NaturalSort.Extension;
@@ -28,9 +28,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<IReadOnlyCollection<GroupSequenceModel>> Process(GroupSequenceQuery message, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<GroupSequenceModel>> Process(GroupSequenceQuery request, CancellationToken cancellationToken)
         {
-            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
+            var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
 
             var groups = await DataContext.Groups
                 .AsNoTracking()

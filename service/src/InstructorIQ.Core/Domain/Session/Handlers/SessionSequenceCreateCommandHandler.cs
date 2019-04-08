@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NaturalSort.Extension;
@@ -26,21 +26,21 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionSequenceCreateCommand message, CancellationToken cancellationToken)
+        protected override async Task<CommandCompleteModel> Process(SessionSequenceCreateCommand request, CancellationToken cancellationToken)
         {
-            var tenantId = _userClaimManager.GetRequiredTenantId(message.Principal);
-            var identityName = message.Principal?.Identity?.Name;
+            var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
+            var identityName = request.Principal?.Identity?.Name;
 
             // load topic
             var topics = await DataContext.Topics
                 .Where(g => g.TenantId == tenantId)
-                .Where(g => message.TopicIds.Contains(g.Id))
+                .Where(g => request.TopicIds.Contains(g.Id))
                 .ToListAsync(cancellationToken);
 
             // load groups by sequence
             var groups = await DataContext.Groups
                 .Where(g => g.TenantId == tenantId)
-                .Where(g => message.Sequences.Contains(g.Sequence))
+                .Where(g => request.Sequences.Contains(g.Sequence))
                 .ToListAsync(cancellationToken);
 
             var orderedGroups = groups

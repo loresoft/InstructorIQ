@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -26,7 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, GroupUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, GroupUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -40,7 +40,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
                 p => p.Sequence
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, GroupUpdateModel, GroupReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, GroupUpdateModel, GroupReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved group");
@@ -50,7 +50,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, GroupReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, GroupReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted group");

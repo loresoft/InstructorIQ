@@ -4,12 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EntityFrameworkCore.CommandQuery.Extensions;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
-using InstructorIQ.Core.Security;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -18,19 +16,16 @@ namespace InstructorIQ.Core.Domain.Handlers
 {
     public class SessionTopicQueryHandler : DataContextHandlerBase<InstructorIQContext, SessionTopicQuery, IReadOnlyCollection<SessionReadModel>>
     {
-        private readonly UserClaimManager _userClaimManager;
-
-        public SessionTopicQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager)
+        public SessionTopicQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
-            _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<IReadOnlyCollection<SessionReadModel>> Process(SessionTopicQuery message, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<SessionReadModel>> Process(SessionTopicQuery request, CancellationToken cancellationToken)
         {
             var query = DataContext.Sessions
                 .AsNoTracking()
-                .Where(s => message.TopicIds.Contains(s.TopicId));
+                .Where(s => request.TopicIds.Contains(s.TopicId));
 
             var result = await query
                 .ProjectTo<SessionReadModel>(Mapper.ConfigurationProvider)

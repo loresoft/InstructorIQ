@@ -9,6 +9,7 @@ using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using MediatR.CommandQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using MimeKit;

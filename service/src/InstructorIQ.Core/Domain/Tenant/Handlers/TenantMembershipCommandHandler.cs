@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -19,9 +19,9 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
         }
 
-        protected override async Task<TenantMembershipModel> Process(TenantMembershipCommand message, CancellationToken cancellationToken)
+        protected override async Task<TenantMembershipModel> Process(TenantMembershipCommand request, CancellationToken cancellationToken)
         {
-            var membership = message.Membership;
+            var membership = request.Membership;
             var tenantId = membership.TenantId;
             string userName = membership.UserName;
 

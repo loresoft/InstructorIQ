@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -26,7 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, InstructorUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, InstructorUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -44,7 +44,7 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
                 p => p.BusinessPhone
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, InstructorUpdateModel, InstructorReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, InstructorUpdateModel, InstructorReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved instructor");
@@ -54,7 +54,7 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, InstructorReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, InstructorReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted instructor");

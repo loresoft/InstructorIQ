@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using MediatR;
+using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -39,7 +38,7 @@ namespace InstructorIQ.WebApplication.Models
         public virtual async Task<IActionResult> OnGetAsync()
         {
             var query = CreateQuery();
-            var command = new EntityPagedQuery<TEntity>(query, User);
+            var command = new EntityPagedQuery<TEntity>(User, query);
 
             var result = await Mediator.Send(command);
             Total = result.Total;

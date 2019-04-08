@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Definitions;
+using MediatR.CommandQuery.Definitions;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 

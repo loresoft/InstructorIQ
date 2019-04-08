@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -37,7 +37,7 @@ namespace InstructorIQ.WebApplication.Pages.Template
                 p => p.TemplateType
             );
 
-            var command = new EntityCreateCommand<TemplateCreateModel, TemplateReadModel>(createModel, User);
+            var command = new EntityCreateCommand<TemplateCreateModel, TemplateReadModel>(User, createModel);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created template");

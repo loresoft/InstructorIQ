@@ -5,11 +5,12 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Models;
+using MediatR.CommandQuery;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -22,20 +23,20 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionInstructorUpdateCommand message, CancellationToken cancellationToken)
+        protected override async Task<CommandCompleteModel> Process(SessionInstructorUpdateCommand request, CancellationToken cancellationToken)
         {
-            var sessionId = message.SessionId;
+            var sessionId = request.SessionId;
             var session = await DataContext.Sessions.FindAsync(sessionId);
             if (session == null)
                 throw new DomainException(HttpStatusCode.NotFound, $"Session with id '{sessionId}' not found.");
 
-            var identityName = message.Principal?.Identity?.Name;
+            var identityName = request.Principal?.Identity?.Name;
 
             var existingInstructors = await DataContext.SessionInstructors
                 .Where(s => s.SessionId == sessionId)
                 .ToListAsync(cancellationToken);
 
-            var updatedInstructors = message.Instructors;
+            var updatedInstructors = request.Instructors;
 
             AddInstructors(existingInstructors, updatedInstructors, sessionId);
             RemoveInstructors(existingInstructors, updatedInstructors, sessionId);

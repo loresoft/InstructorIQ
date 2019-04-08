@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -40,7 +40,7 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
                 p => p.BusinessPhone
             );
 
-            var command = new EntityCreateCommand<InstructorCreateModel, InstructorReadModel>(createModel, User);
+            var command = new EntityCreateCommand<InstructorCreateModel, InstructorReadModel>(User, createModel);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created instructor");

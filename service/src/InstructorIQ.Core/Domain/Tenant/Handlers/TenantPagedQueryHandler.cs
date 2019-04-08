@@ -8,7 +8,6 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.Queries;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using MediatR.CommandQuery.Extensions;
 using MediatR.CommandQuery.Queries;
@@ -17,26 +16,29 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class MemberPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, MemberPagedQuery, EntityPagedResult<MemberReadModel>>
+    public class TenantPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, EntityPagedQuery<TenantReadModel>, EntityPagedResult<TenantReadModel>>
     {
-        public MemberPagedQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
-            : base(loggerFactory, dataContext, mapper)
+        public TenantPagedQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper) : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<EntityPagedResult<MemberReadModel>> Process(MemberPagedQuery request, CancellationToken cancellationToken)
+        protected override async Task<EntityPagedResult<TenantReadModel>> Process(EntityPagedQuery<TenantReadModel> request, CancellationToken cancellationToken)
         {
             var entityQuery = request.Query;
+            var userName = request.Principal.Identity.Name;
+            bool isGlobalAdministrator = request.Principal.IsInRole(Data.Constants.Role.GlobalAdministrator);
 
-            // users that are members for tenent
-            var query = from c in DataContext.Users
-                        where
-                        (
-                            from t in DataContext.TenantUserRoles
-                            where t.TenantId == request.TenantId
-                            select t.UserName
-                        ).Contains(c.UserName)
-                        select c;
+            // tenents that current user are members for
+            var query = isGlobalAdministrator
+                ? DataContext.Tenants
+                : from t in DataContext.Tenants
+                  where
+                  (
+                      from r in DataContext.TenantUserRoles
+                      where r.UserName == userName
+                      select r.TenantId
+                  ).Contains(t.Id)
+                  select t;
 
 
             // build query from filter
@@ -48,7 +50,6 @@ namespace InstructorIQ.Core.Domain.Handlers
             if (!string.IsNullOrEmpty(entityQuery.Query))
                 query = query.Where(entityQuery.Query);
 
-
             // get total for query
             var total = await query
                 .CountAsync(cancellationToken)
@@ -56,22 +57,21 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             // short circuit if total is zero
             if (total == 0)
-                return new EntityPagedResult<MemberReadModel> { Data = new List<MemberReadModel>() };
+                return new EntityPagedResult<TenantReadModel> { Data = new List<TenantReadModel>() };
 
             // page the query and convert to read model
             var result = await query
                 .Sort(entityQuery.Sort)
                 .Page(entityQuery.Page, entityQuery.PageSize)
-                .ProjectTo<MemberReadModel>(Mapper.ConfigurationProvider)
+                .ProjectTo<TenantReadModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            return new EntityPagedResult<MemberReadModel>
+            return new EntityPagedResult<TenantReadModel>
             {
                 Total = total,
                 Data = result.AsReadOnly()
             };
-
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
@@ -84,7 +84,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
                 p => p.LeadInstructorId
             );
 
-            var command = new EntityCreateCommand<SessionCreateModel, SessionReadModel>(createModel, User);
+            var command = new EntityCreateCommand<SessionCreateModel, SessionReadModel>(User, createModel);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created topic session");
@@ -95,7 +95,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         private async Task<TopicReadModel> LoadTopic()
         {
-            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(TopicId, User);
+            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(User, TopicId);
             var result = await Mediator.Send(command);
 
             return result;

@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFrameworkCore.CommandQuery" Version="2.0.0.16" />
     <PackageReference Include="Handlebars.Net" Version="1.10.1" />
     <PackageReference Include="HangFire.Core" Version="1.7.0" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.124" />
     <PackageReference Include="MailKit" Version="2.1.3" />
+    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="3.0.0.21" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.0" />

@@ -1,4 +1,4 @@
-using EntityFrameworkCore.CommandQuery.Definitions;
+using MediatR.CommandQuery.Definitions;
 using Microsoft.AspNetCore.Identity;
 using System;
 

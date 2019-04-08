@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
@@ -106,7 +106,7 @@ namespace InstructorIQ.WebApplication.Pages.Session
 
         private async Task<IReadOnlyCollection<TopicReadModel>> LoadTopics()
         {
-            var command = new EntityIdentifiersQuery<Guid, TopicReadModel>(TopicIds, User);
+            var command = new EntityIdentifiersQuery<Guid, TopicReadModel>(User, TopicIds);
             var result = await Mediator.Send(command);
 
             return result;

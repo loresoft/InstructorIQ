@@ -2,10 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
+using MediatR.CommandQuery;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +14,6 @@ namespace InstructorIQ.Core.Domain.Handlers
 {
     public class MemberUpdateCommandHandler
         : EntityDataContextHandlerBase<InstructorIQContext, Data.Entities.User, Guid, MemberReadModel, EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>, MemberReadModel>
-
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
 
@@ -23,16 +23,16 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userManager = userManager;
         }
 
-        protected override async Task<MemberReadModel> Process(EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel> message, CancellationToken cancellationToken)
+        protected override async Task<MemberReadModel> Process(EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel> request, CancellationToken cancellationToken)
         {
-            var id = message.Id;
-            var model = message.Model;
+            var id = request.Id;
+            var model = request.Model;
 
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
                 return null;
 
-            bool isGlobalAdministrator = message.Principal.IsInRole(Data.Constants.Role.GlobalAdministrator);
+            bool isGlobalAdministrator = request.Principal.IsInRole(Data.Constants.Role.GlobalAdministrator);
 
             await UpdateEmail(id, model, user);
             await UpdatePhoneNumber(id, model, user);

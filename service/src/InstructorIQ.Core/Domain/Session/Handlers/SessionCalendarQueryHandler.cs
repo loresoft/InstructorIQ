@@ -5,11 +5,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Security;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -26,27 +26,27 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<IReadOnlyCollection<SessionCalendarModel>> Process(SessionCalendarQuery message, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<SessionCalendarModel>> Process(SessionCalendarQuery request, CancellationToken cancellationToken)
         {
             DateTime startDate;
             DateTime endDate;
 
             // if month send, then select only one month
-            if (message.Month.HasValue)
+            if (request.Month.HasValue)
             {
-                startDate = new DateTime(message.Year, message.Month.Value, 1);
+                startDate = new DateTime(request.Year, request.Month.Value, 1);
                 endDate = startDate.AddMonths(1);
             }
             // if no month, select whole year
             else
             {
-                startDate = new DateTime(message.Year, 1, 1);
+                startDate = new DateTime(request.Year, 1, 1);
                 endDate = startDate.AddYears(1);
             }
 
             var query = DataContext.Sessions
                 .AsNoTracking()
-                .Where(q => q.TenantId == message.TenantId)
+                .Where(q => q.TenantId == request.TenantId)
                 .Where(q => q.StartDate >= startDate && q.StartDate < endDate)
                 .OrderBy(q => q.StartDate)
                 .ThenBy(q => q.StartTime);

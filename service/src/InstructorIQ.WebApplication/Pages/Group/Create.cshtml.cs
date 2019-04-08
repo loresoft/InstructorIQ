@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -36,7 +36,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
                 p => p.Sequence
             );
 
-            var command = new EntityCreateCommand<GroupCreateModel, GroupReadModel>(createModel, User);
+            var command = new EntityCreateCommand<GroupCreateModel, GroupReadModel>(User, createModel);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created group");

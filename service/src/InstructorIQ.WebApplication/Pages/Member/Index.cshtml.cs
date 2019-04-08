@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
@@ -48,7 +48,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
         public async Task<IActionResult> OnGetAsync()
         {
             var query = CreateQuery();
-            var command = new MemberPagedQuery(query, Tenant.Value.Id, User);
+            var command = new MemberPagedQuery(User, query, Tenant.Value.Id);
 
             var result = await Mediator.Send(command);
             Total = result.Total;

@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Behaviors;
-using EntityFrameworkCore.CommandQuery.Commands;
 using MediatR;
+using MediatR.CommandQuery.Behaviors;
+using MediatR.CommandQuery.Commands;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Behaviors

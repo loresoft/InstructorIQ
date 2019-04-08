@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -19,17 +19,17 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
         }
 
-        protected override async Task<TenantMembershipModel> Process(TenantMembershipQuery message, CancellationToken cancellationToken)
+        protected override async Task<TenantMembershipModel> Process(TenantMembershipQuery request, CancellationToken cancellationToken)
         {
             var membership = new TenantMembershipModel
             {
-                TenantId = message.TenantId,
-                UserName = message.UserName
+                TenantId = request.TenantId,
+                UserName = request.UserName
             };
 
             var roles = await DataContext.TenantUserRoles
                 .AsNoTracking()
-                .Where(q => q.TenantId == message.TenantId && q.UserName == message.UserName)
+                .Where(q => q.TenantId == request.TenantId && q.UserName == request.UserName)
                 .Select(q => q.RoleName)
                 .ToListAsync(cancellationToken);
 

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.CommandQuery.Definitions;
+using MediatR.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {

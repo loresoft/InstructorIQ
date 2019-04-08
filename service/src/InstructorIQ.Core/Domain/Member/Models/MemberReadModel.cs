@@ -1,5 +1,5 @@
 ﻿using System;
-using EntityFrameworkCore.CommandQuery.Definitions;
+using MediatR.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Domain.Models
 {

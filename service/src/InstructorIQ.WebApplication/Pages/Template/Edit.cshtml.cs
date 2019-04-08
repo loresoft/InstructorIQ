@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -26,7 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Template
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, TemplateUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, TemplateUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -41,7 +41,7 @@ namespace InstructorIQ.WebApplication.Pages.Template
                 p => p.TemplateType
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, TemplateUpdateModel, TemplateReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, TemplateUpdateModel, TemplateReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved template");
@@ -51,7 +51,7 @@ namespace InstructorIQ.WebApplication.Pages.Template
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, TemplateReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, TemplateReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted template");

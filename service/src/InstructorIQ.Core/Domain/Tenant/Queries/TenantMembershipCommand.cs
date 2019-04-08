@@ -1,5 +1,5 @@
 ﻿using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 
 // ReSharper disable once CheckNamespace

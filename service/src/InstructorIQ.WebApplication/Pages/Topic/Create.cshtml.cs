@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
+using MediatR.CommandQuery.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
@@ -36,7 +36,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
                 p => p.CalendarYear
             );
 
-            var command = new EntityCreateCommand<TopicCreateModel, TopicReadModel>(createModel, User);
+            var command = new EntityCreateCommand<TopicCreateModel, TopicReadModel>(User, createModel);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created topic");

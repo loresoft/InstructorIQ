@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EntityFrameworkCore.CommandQuery.Commands;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
@@ -40,7 +40,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             if (!ModelState.IsValid)
                 return Page();
 
-            var readCommand = new EntityIdentifierQuery<Guid, MemberUpdateModel>(Id, User);
+            var readCommand = new EntityIdentifierQuery<Guid, MemberUpdateModel>(User, Id);
             var updateModel = await Mediator.Send(readCommand);
             if (updateModel == null)
                 return NotFound();
@@ -54,7 +54,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
                 p => p.PhoneNumber
             );
 
-            var updateCommand = new EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>(Id, updateModel, User);
+            var updateCommand = new EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>(User, Id, updateModel);
             var updateResult = await Mediator.Send(updateCommand);
 
             // make sure correct user and tenant
@@ -71,7 +71,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
         public async Task<IActionResult> OnPostDeleteEntity()
         {
-            var command = new EntityDeleteCommand<Guid, LocationReadModel>(Id, User);
+            var command = new EntityDeleteCommand<Guid, LocationReadModel>(User, Id);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully deleted member");

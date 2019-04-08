@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Security.Principal;
-using EntityFrameworkCore.CommandQuery.Queries;
+using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 
 namespace InstructorIQ.Core.Domain.Queries
 {
     public class MemberPagedQuery : EntityPagedQuery<MemberReadModel>
     {
-        public MemberPagedQuery(EntityQuery query, Guid tenantId, IPrincipal principal) : base(query, principal)
+        public MemberPagedQuery(IPrincipal principal, EntityQuery query, Guid tenantId) : base(principal, query)
         {
             TenantId = tenantId;
         }

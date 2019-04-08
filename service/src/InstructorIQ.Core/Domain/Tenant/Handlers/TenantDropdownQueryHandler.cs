@@ -4,10 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using EntityFrameworkCore.CommandQuery.Handlers;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +21,7 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
         }
 
-        protected override async Task<IReadOnlyCollection<TenantDropdownModel>> Process(TenantDropdownQuery message, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<TenantDropdownModel>> Process(TenantDropdownQuery request, CancellationToken cancellationToken)
         {
             var result = await DataContext.Tenants
                 .AsNoTracking()

@@ -1,4 +1,4 @@
-﻿using EntityFrameworkCore.CommandQuery.Queries;
+﻿using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
