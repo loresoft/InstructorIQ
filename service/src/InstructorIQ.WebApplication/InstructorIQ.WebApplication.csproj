@@ -5,6 +5,7 @@
     <NoWarn>1591</NoWarn>
     <UserSecretsId>903022c7-65a9-40cf-8939-9a3388f50b0f</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
