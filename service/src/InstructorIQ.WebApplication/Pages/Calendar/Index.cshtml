@@ -1,0 +1,70 @@
+﻿@page
+@model InstructorIQ.WebApplication.Pages.Calendar.IndexModel
+@{
+    ViewData["Title"] = "Calendar";
+}
+<div class="container">
+    <div id="full-calendar">
+
+    </div>
+</div>
+
+@section Head {
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@@fullcalendar/core@4.0.2/main.min.css"
+          integrity="sha256-Vsnkpn7sp6GxFo25vp+vpMPQYqxysSE8QJQyb48a3y8="
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@@fullcalendar/daygrid@4.0.1/main.min.css"
+          integrity="sha256-RwkKY4caoWw45ako4ZOJLAkhcfQwnt1QHqdrP0FRHj0="
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@@fullcalendar/timegrid@4.0.1/main.min.css"
+          integrity="sha256-gubep3zKMnaTplhaL7BTC49c8Vo3KBrtUETOQB1IFVE="
+          crossorigin="anonymous">
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/@@fullcalendar/list@4.0.1/main.min.css" 
+          integrity="sha256-DKcJjKv7ABuZ0ykex6ohHJ8OHfldGBllXwTjj66dKCg=" 
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@@fullcalendar/bootstrap@4.0.1/main.min.css" 
+          integrity="sha256-gJXvhT6O+uoeWrDQ/dNbSjxxX/rZU0boI29FgDKotTA=" 
+          crossorigin="anonymous">
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/@@fullcalendar/core@4.0.2/main.min.js"
+            integrity="sha256-Oj9aQv2B188xPiNBtYLeuIegK8rtAl7QnuWW6yf4J6o="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@fullcalendar/daygrid@4.0.1/main.min.js"
+            integrity="sha256-LNsuta0tVOHHpWWY/0TWZhp1wV2yinqJfueQgIDZWLw="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@fullcalendar/timegrid@4.0.1/main.min.js"
+            integrity="sha256-g159UTCYsDJTZmlAumOxGuBJj1tAj3WXRALb+8zXQIA="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@fullcalendar/list@4.0.1/main.min.js" 
+            integrity="sha256-Ay8uARunHO/EMTOOeRrPBkWIxn/1YHcokSs8FpY/HIs=" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@fullcalendar/bootstrap@4.0.1/main.min.js" 
+            integrity="sha256-rOJmJQv0Q9REzah+uRED2iFzRuzNRdwMA4kCHTh7Q64=" 
+            crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            var url = '/api/event/@Model.Tenant.Value.Id/';
+            var calendarEl = document.getElementById('full-calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'timeGridWeek',
+                plugins: ['dayGrid', 'timeGrid', 'list', 'bootstrap'],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                  },
+                events: url,
+                themeSystem: 'bootstrap',
+            });
+            calendar.render();
+        });
+    </script>
+}

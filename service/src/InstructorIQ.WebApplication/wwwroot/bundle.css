@@ -15403,6 +15403,11 @@ a.text-dark:hover, a.text-dark:focus {
         padding: .20rem;
     }
 
+.fc-event.event-required,
+.event-required .fc-event-dot {
+    background-color: #990000;
+}
+
 #error-page {
     position: relative;
     height: 100vh;

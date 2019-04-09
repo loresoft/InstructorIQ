@@ -44,6 +44,11 @@
                     </a>
                     <div class="dropdown-menu"
                          aria-labelledby="navbarDropdownCalendar">
+                        <a id="navbarInteractiveCalendarLink"
+                           class="dropdown-item"
+                           asp-page="/calendar/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Calendar</a>
+                        <div class="dropdown-divider"></div>
                         <a id="navbarMonthlyCalendarLink"
                            class="dropdown-item"
                            asp-page="/calendar/monthly"

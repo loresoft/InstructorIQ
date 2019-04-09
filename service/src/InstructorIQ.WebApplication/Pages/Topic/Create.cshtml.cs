@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace InstructorIQ.WebApplication.Pages.Topic
 {
@@ -17,7 +18,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
         public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
-
+            Entity.CalendarYear = (short)DateTime.Now.Year;
         }
 
         public async Task<IActionResult> OnPostAsync()

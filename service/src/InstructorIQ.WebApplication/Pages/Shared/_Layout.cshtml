@@ -11,6 +11,7 @@
     <environment exclude="Development">
         <link rel="stylesheet" href="~/bundle.min.css" asp-append-version="true" />
     </environment>
+    @RenderSection("Head", required: false)
 </head>
 <body>
     <header>

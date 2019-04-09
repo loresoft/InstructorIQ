@@ -199,3 +199,8 @@
         text-align: center;
         padding: .20rem;
     }
+
+.fc-event.event-required,
+.event-required .fc-event-dot {
+    background-color: #990000;
+}

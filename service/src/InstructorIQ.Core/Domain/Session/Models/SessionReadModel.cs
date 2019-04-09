@@ -96,6 +96,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string TenantName { get; set; }
 
+        public string TenantTimeZone { get; set; }
+
         public string LocationName { get; set; }
 
         public string GroupName { get; set; }
@@ -104,5 +106,6 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string TopicTitle { get; set; }
 
+        public bool IsRequired { get; set; }
     }
 }

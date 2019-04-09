@@ -26,7 +26,9 @@ namespace InstructorIQ.Core.Domain.Mapping
             CreateMap<Session, SessionReadModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
                 .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
+                .ForMember(d => d.IsRequired, opt => opt.MapFrom(s => s.Topic.IsRequired))
                 .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name))
+                .ForMember(d => d.TenantTimeZone, opt => opt.MapFrom(s => s.Tenant.TimeZone))
                 .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Location.Name))
                 .ForMember(d => d.GroupName, opt => opt.MapFrom(s => s.Group.Name))
                 .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName));

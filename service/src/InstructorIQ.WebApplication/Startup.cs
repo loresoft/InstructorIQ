@@ -7,6 +7,7 @@ using Hangfire.SqlServer;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
@@ -115,6 +116,8 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/User");
                 })
                 .AddFluentValidation();
+
+            services.AddUrlHelper();
 
             services.AddAuthorization(options =>
             {
