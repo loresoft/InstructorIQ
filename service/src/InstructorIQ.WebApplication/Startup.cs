@@ -77,7 +77,8 @@ namespace InstructorIQ.WebApplication
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<InstructorIQContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddPasswordlessLoginTokenProvider();
 
             services.AddMultitenancy<TenantReadModel, TenantContextResolver>();
 

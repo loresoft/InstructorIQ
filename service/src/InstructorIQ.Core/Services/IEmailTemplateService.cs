@@ -6,5 +6,6 @@ namespace InstructorIQ.Core.Services
     public interface IEmailTemplateService
     {
         Task<bool> SendResetPasswordEmail(UserResetPasswordEmail resetPassword);
+        Task<bool> SendPasswordlessLoginEmail(UserPasswordlessEmail loginEmail);
     }
 }

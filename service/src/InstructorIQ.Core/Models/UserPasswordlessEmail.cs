@@ -1,12 +1,11 @@
-﻿using System;
-using InstructorIQ.Core.Models;
+﻿using InstructorIQ.Core.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
-    public class UserResetPasswordEmail : EmailModelBase
+    public class UserPasswordlessEmail : EmailModelBase
     {
-        public string ResetLink { get; set; }
+        public string LoginLink { get; set; }
 
         public UserAgentModel UserAgent { get; set; }
     }

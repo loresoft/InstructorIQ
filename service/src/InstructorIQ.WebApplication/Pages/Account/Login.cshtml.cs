@@ -29,6 +29,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
+        [BindProperty(SupportsGet = true)]
         public string ReturnUrl { get; set; }
 
         [TempData]
@@ -48,27 +49,25 @@ namespace InstructorIQ.WebApplication.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task OnGetAsync()
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl = returnUrl ?? Url.Content("~/");
+            ReturnUrl = ReturnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             var authenticationSchemes = await _signInManager.GetExternalAuthenticationSchemesAsync();
             ExternalLogins = authenticationSchemes.ToList();
-
-            ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            ReturnUrl = ReturnUrl ?? Url.Content("~/");
 
             if (!ModelState.IsValid)
                 return Page();
@@ -77,7 +76,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
             if (result.Succeeded)
             {
                 _logger.LogInformation("User logged in.");
-                return LocalRedirect(returnUrl);
+                return LocalRedirect(ReturnUrl);
             }
 
             if (result.IsLockedOut)

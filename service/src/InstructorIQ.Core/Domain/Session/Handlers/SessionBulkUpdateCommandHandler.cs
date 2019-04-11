@@ -6,9 +6,9 @@ using AutoMapper;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Models;
 using MediatR.CommandQuery;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
+using MediatR.CommandQuery.Models;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace

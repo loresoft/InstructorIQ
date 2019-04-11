@@ -8,9 +8,9 @@ using AutoMapper;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
-using InstructorIQ.Core.Models;
 using MediatR.CommandQuery;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
+using MediatR.CommandQuery.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
-using InstructorIQ.Core.Models;
 using MediatR;
+using MediatR.CommandQuery.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace

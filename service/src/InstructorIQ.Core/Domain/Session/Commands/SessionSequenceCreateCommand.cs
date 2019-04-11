@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using MediatR.CommandQuery.Commands;
-using InstructorIQ.Core.Models;
+using MediatR.CommandQuery.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands

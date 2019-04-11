@@ -6,7 +6,6 @@ using HandlebarsDotNet;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
-using InstructorIQ.Core.Domain;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using MediatR.CommandQuery;
@@ -32,13 +31,31 @@ namespace InstructorIQ.Core.Services
         {
             var emailTemplate = await GetEmailTemplate(Templates.ResetPassword).ConfigureAwait(false);
 
+            await SendTemplate(emailTemplate, resetPassword).ConfigureAwait(false);
+
+            return true;
+        }
+
+
+        public async Task<bool> SendPasswordlessLoginEmail(UserPasswordlessEmail loginEmail)
+        {
+            var emailTemplate = await GetEmailTemplate(Templates.PasswordlessLogin).ConfigureAwait(false);
+
+            await SendTemplate(emailTemplate, loginEmail).ConfigureAwait(false);
+
+            return true;
+        }
+
+        private async Task SendTemplate<TModel>(EmailTemplate emailTemplate, TModel emailModel)
+            where TModel : EmailModelBase
+        {
             var subjectTemplate = Handlebars.Compile(emailTemplate.Subject);
             var htmlBodyTemplate = Handlebars.Compile(emailTemplate.HtmlBody);
             var textBodyTemplate = Handlebars.Compile(emailTemplate.TextBody);
 
-            var subject = subjectTemplate(resetPassword);
-            var htmlBody = htmlBodyTemplate(resetPassword);
-            var textBody = textBodyTemplate(resetPassword);
+            var subject = subjectTemplate(emailModel);
+            var htmlBody = htmlBodyTemplate(emailModel);
+            var textBody = textBodyTemplate(emailModel);
 
             var message = new MimeMessage();
             message.Headers.Add("X-Mailer-Machine", Environment.MachineName);
@@ -51,7 +68,7 @@ namespace InstructorIQ.Core.Services
             if (emailTemplate.ReplyToAddress.HasValue())
                 message.ReplyTo.Add(new MailboxAddress(emailTemplate.ReplyToName, emailTemplate.ReplyToAddress));
 
-            message.To.Add(new MailboxAddress(resetPassword.DisplayName, resetPassword.EmailAddress));
+            message.To.Add(new MailboxAddress(emailModel.DisplayName, emailModel.EmailAddress));
 
             var builder = new BodyBuilder();
             builder.TextBody = textBody;
@@ -60,10 +77,7 @@ namespace InstructorIQ.Core.Services
             message.Body = builder.ToMessageBody();
 
             await WriteEmailDelivery(message).ConfigureAwait(false);
-
-            return true;
         }
-
 
         private async Task WriteEmailDelivery(MimeMessage message)
         {
@@ -106,9 +120,11 @@ namespace InstructorIQ.Core.Services
             return emailTemplate;
         }
 
+
         public static class Templates
         {
             public const string ResetPassword = "reset-password";
+            public const string PasswordlessLogin = "passwordless-login";
         }
     }
 }
