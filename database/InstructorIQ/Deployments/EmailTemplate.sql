@@ -20,13 +20,18 @@ For security, this request was received from a {{ UserAgent.OperatingSystem }} d
         '<!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Reset Password for InstructorIQ</title>
 </head>
-<body style="font-family: Arial; font-size: 12px;">
+<body style="font-family: Arial, ''Helvetica Neue'', Helvetica, sans-serif; font-size: 16px;">
 <div>
-    <p>You recently requested to reset your password for your InstructorIQ account. Please follow the link below to reset your password</p>
-    <p><a href="{{ ResetLink }}">Follow this link to reset your password.</a></p>
-    <p>For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a password reset, please ignore this email.</p>
-    <p style="font-family: Arial; font-size: 10px;">
+    <p style="font-size: 16px; line-height: 1.5em; ">You recently requested to reset your password for your InstructorIQ account. Please follow the link below to reset your password</p>
+    <p style="margin: 2em .5em"><a style="background-color: #2e8a96; color: white; padding: 1em 1.5em; text-decoration: none;" href="{{ ResetLink }}">Reset your password</a></p>
+    <p style="font-size: 16px; line-height: 1.5em; ">Note: Your reset link will expire in 24 hours and can only be used one time.</p>
+    <p style="font-size: 16px; line-height: 1.5em; ">For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a password reset, please ignore this email.</p>
+    <hr>
+    <p style="font-size: 10px;">
         If you’re having trouble with the link above, copy and paste the URL below into your web browser.<br />
         <br />
         {{ ResetLink }}<br />
@@ -43,25 +48,29 @@ For security, this request was received from a {{ UserAgent.OperatingSystem }} d
         'InstructorIQ', 
         NULL, 
         NULL, 
-        'Login for InstructorIQ', 
-        'You recently requested a login link for your InstructorIQ account. Please follow the link below to automaticly login to your account.
+        'Login Link for InstructorIQ', 
+        'You recently requested a login link for your InstructorIQ account. Please follow the link below to automatically login to your account.
 
 {{ LoginLink }}
 
-Note: Your login link will expire in 15 minutes, and can only be used one time.
+Note: Your login link will expire in 4 hours, and can only be used one time.
 
 For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a login link, please ignore this email.', 
         '<!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Login Link for InstructorIQ</title>
 </head>
-<body style="font-family: Arial; font-size: 12px;">
+<body style="font-family: Arial, ''Helvetica Neue'', Helvetica, sans-serif; font-size: 16px;">
 <div>
-    <p>You recently requested a login link for your InstructorIQ account. Please follow the link below to automaticly login to your account.</p>
-    <p><a href="{{ LoginLink }}">Login to InstructorIQ</a></p>
-    <p>Note: Your login link will expire in 15 minutes and can only be used one time.</p>
-    <p>For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a login link, please ignore this email.</p>
-    <p style="font-family: Arial; font-size: 10px;">
+    <p style="font-size: 16px; line-height: 1.5em; ">You recently requested a login link for your InstructorIQ account. Please follow the link below to automatically login to your account.</p>
+    <p style="margin: 2em .5em"><a style="background-color: #2e8a96; color: white; padding: 1em 1.5em; text-decoration: none;" href="{{ LoginLink }}">Login to InstructorIQ</a></p>
+    <p style="font-size: 16px; line-height: 1.5em; ">Note: Your login link will expire in 4 hours and can only be used one time.</p>
+    <p style="font-size: 16px; line-height: 1.5em; ">For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a login link, please ignore this email.</p>
+    <hr>
+    <p style="font-size: 10px;">
         If you’re having trouble with the link above, copy and paste the URL below into your web browser.<br />
         <br />
         {{ LoginLink }}<br />

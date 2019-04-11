@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using HandlebarsDotNet;
+using Hangfire;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
@@ -25,8 +27,7 @@ namespace InstructorIQ.Core.Services
             _dataContext = dataContext;
             _cache = cache;
         }
-
-
+        
         public async Task<bool> SendResetPasswordEmail(UserResetPasswordEmail resetPassword)
         {
             var emailTemplate = await GetEmailTemplate(Templates.ResetPassword).ConfigureAwait(false);
@@ -35,8 +36,7 @@ namespace InstructorIQ.Core.Services
 
             return true;
         }
-
-
+        
         public async Task<bool> SendPasswordlessLoginEmail(UserPasswordlessEmail loginEmail)
         {
             var emailTemplate = await GetEmailTemplate(Templates.PasswordlessLogin).ConfigureAwait(false);
@@ -45,6 +45,7 @@ namespace InstructorIQ.Core.Services
 
             return true;
         }
+
 
         private async Task SendTemplate<TModel>(EmailTemplate emailTemplate, TModel emailModel)
             where TModel : EmailModelBase
@@ -77,6 +78,9 @@ namespace InstructorIQ.Core.Services
             message.Body = builder.ToMessageBody();
 
             await WriteEmailDelivery(message).ConfigureAwait(false);
+
+            // trigger email job
+            BackgroundJob.Enqueue<IEmailDeliveryService>(emailService => emailService.ProcessEmailQueueAsync(CancellationToken.None));
         }
 
         private async Task WriteEmailDelivery(MimeMessage message)

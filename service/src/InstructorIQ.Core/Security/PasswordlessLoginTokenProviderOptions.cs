@@ -8,7 +8,7 @@ namespace InstructorIQ.Core.Security
         public PasswordlessLoginTokenProviderOptions()
         {
             Name = PasswordlessLoginToken.ProviderName;
-            TokenLifespan = TimeSpan.FromMinutes(15);
+            TokenLifespan = TimeSpan.FromHours(4);
         }
     }
 }
