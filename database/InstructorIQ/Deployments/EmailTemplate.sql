@@ -27,7 +27,21 @@ For security, this request was received from a {{ UserAgent.OperatingSystem }} d
 <body style="font-family: Arial, ''Helvetica Neue'', Helvetica, sans-serif; font-size: 16px;">
 <div>
     <p style="font-size: 16px; line-height: 1.5em; ">You recently requested to reset your password for your InstructorIQ account. Please follow the link below to reset your password</p>
-    <p style="margin: 2em .5em"><a style="background-color: #2e8a96; color: white; padding: 1em 1.5em; text-decoration: none;" href="{{ ResetLink }}">Reset your password</a></p>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td bgcolor="#2e8a96">
+                            <a href="{{ ResetLink }}" target="_blank" style="padding:8px 12px;border:1px solid #2e8a96;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fff;text-decoration:none;font-weight:700;display:inline-block;">
+                                Reset your password             
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
     <p style="font-size: 16px; line-height: 1.5em; ">Note: Your reset link will expire in 24 hours and can only be used one time.</p>
     <p style="font-size: 16px; line-height: 1.5em; ">For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a password reset, please ignore this email.</p>
     <hr>
@@ -66,7 +80,21 @@ For security, this request was received from a {{ UserAgent.OperatingSystem }} d
 <body style="font-family: Arial, ''Helvetica Neue'', Helvetica, sans-serif; font-size: 16px;">
 <div>
     <p style="font-size: 16px; line-height: 1.5em; ">You recently requested a login link for your InstructorIQ account. Please follow the link below to automatically login to your account.</p>
-    <p style="margin: 2em .5em"><a style="background-color: #2e8a96; color: white; padding: 1em 1.5em; text-decoration: none;" href="{{ LoginLink }}">Login to InstructorIQ</a></p>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <table cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td bgcolor="#2e8a96">
+                            <a href="{{ LoginLink }}" target="_blank" style="padding:8px 12px;border:1px solid #2e8a96;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fff;text-decoration:none;font-weight:700;display:inline-block;">
+                                Login to InstructorIQ             
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
     <p style="font-size: 16px; line-height: 1.5em; ">Note: Your login link will expire in 4 hours and can only be used one time.</p>
     <p style="font-size: 16px; line-height: 1.5em; ">For security, this request was received from a {{ UserAgent.OperatingSystem }} device using {{ UserAgent.Browser }}. If you did not request a login link, please ignore this email.</p>
     <hr>
