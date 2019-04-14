@@ -8,6 +8,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.Queries;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using MediatR.CommandQuery.Extensions;
 using MediatR.CommandQuery.Queries;
@@ -16,19 +17,19 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class TenantPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, EntityPagedQuery<TenantReadModel>, EntityPagedResult<TenantReadModel>>
+    public class TenantPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, TenantPagedQuery, TenantPagedResult>
     {
         public TenantPagedQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper) : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<EntityPagedResult<TenantReadModel>> Process(EntityPagedQuery<TenantReadModel> request, CancellationToken cancellationToken)
+        protected override async Task<TenantPagedResult> Process(TenantPagedQuery request, CancellationToken cancellationToken)
         {
             var entityQuery = request.Query;
             var userName = request.Principal.Identity.Name;
             bool isGlobalAdministrator = request.Principal.IsInRole(Data.Constants.Role.GlobalAdministrator);
 
-            // tenents that current user are members for
+            // tenants that current user are members for
             var query = isGlobalAdministrator
                 ? DataContext.Tenants
                 : from t in DataContext.Tenants
@@ -57,7 +58,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             // short circuit if total is zero
             if (total == 0)
-                return new EntityPagedResult<TenantReadModel> { Data = new List<TenantReadModel>() };
+                return new TenantPagedResult { Data = new List<TenantReadModel>() };
 
             // page the query and convert to read model
             var result = await query
@@ -67,7 +68,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            return new EntityPagedResult<TenantReadModel>
+            return new TenantPagedResult
             {
                 Total = total,
                 Data = result.AsReadOnly()

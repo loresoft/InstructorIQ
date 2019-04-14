@@ -114,7 +114,7 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/Session");
                     options.Conventions.AddFolderTenantRoute("/Topic");
                     options.Conventions.AddFolderTenantRoute("/Template");
-                    options.Conventions.AddFolderTenantRoute("/User");
+                    options.Conventions.AddFolderTenantRoute("/User", false);
                 })
                 .AddFluentValidation();
 

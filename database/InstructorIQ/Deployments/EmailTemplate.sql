@@ -33,8 +33,8 @@ For security, this request was received from a {{ UserAgent.OperatingSystem }} d
                 <table cellspacing="0" cellpadding="0">
                     <tr>
                         <td bgcolor="#2e8a96">
-                            <a href="{{ ResetLink }}" target="_blank" style="padding:8px 12px;border:1px solid #2e8a96;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fff;text-decoration:none;font-weight:700;display:inline-block;">
-                                Reset your password             
+                            <a href="{{ ResetLink }}" target="_blank" style="padding:8px 12px;border:1px solid #2e8a96;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fff !important;text-decoration:none;font-weight:700;display:inline-block;">
+                                <strong style="color:#fff !important">Reset your password</strong>
                             </a>
                         </td>
                     </tr>
@@ -86,8 +86,8 @@ For security, this request was received from a {{ UserAgent.OperatingSystem }} d
                 <table cellspacing="0" cellpadding="0">
                     <tr>
                         <td bgcolor="#2e8a96">
-                            <a href="{{ LoginLink }}" target="_blank" style="padding:8px 12px;border:1px solid #2e8a96;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fff;text-decoration:none;font-weight:700;display:inline-block;">
-                                Login to InstructorIQ             
+                            <a href="{{ LoginLink }}" target="_blank" style="padding:8px 12px;border:1px solid #2e8a96;font-family:Helvetica,Arial,sans-serif;font-size:14px;color:#fff !important;text-decoration:none;font-weight:700;display:inline-block;">
+                                <strong style="color:#fff !important">Login to InstructorIQ</strong>
                             </a>
                         </td>
                     </tr>

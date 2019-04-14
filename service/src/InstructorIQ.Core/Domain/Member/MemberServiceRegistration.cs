@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using InstructorIQ.Core.Data;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
@@ -23,6 +24,9 @@ namespace InstructorIQ.Core.Domain
 
             services.TryAddTransient<IRequestHandler<EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>, MemberReadModel>, MemberUpdateCommandHandler>();
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>, MemberReadModel>, ValidateEntityModelCommandBehavior<MemberUpdateModel, MemberReadModel>>();
+
+
+            services.TryAddTransient<IRequestHandler<MemberChangeTenantCommand, MemberReadModel>, MemberChangeTenantCommandHandler>();
         }
     }
 }
