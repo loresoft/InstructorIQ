@@ -15408,6 +15408,27 @@ a.text-dark:hover, a.text-dark:focus {
     background-color: #990000;
 }
 
+.summary {
+    font-family: Calibri, sans-serif;
+}
+.summary-section {
+    color: #2F5496;
+    font-size: 14pt;
+    font-weight: 700;
+    margin: 0.67em 0;
+}
+
+.summary-cell {
+    border: 1px solid #000;
+    padding: 4px 8px;
+    min-width: 120px;
+}
+
+.summary-detail-section {
+    font-size: 12pt;
+    font-weight: 700;
+    margin: 0.67em 0;
+}
 #error-page {
     position: relative;
     height: 100vh;

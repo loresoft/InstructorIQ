@@ -7,7 +7,7 @@
 @inject ITenant<TenantReadModel> Tenant
 
 <nav id="navbar-main"
-     class="navbar navbar-expand-md navbar-light fixed-top navbar-default">
+     class="navbar navbar-expand-lg navbar-light fixed-top navbar-default">
     <div class="container-fluid">
         <a class="navbar-brand"
            asp-page="/index"
@@ -112,6 +112,26 @@
                            authorize-policy="@UserPolicies.AdministratorPolicy"
                            asp-page="/instructor/create"
                            asp-route-tenant="@Tenant.Value?.Slug">Add Instructor</a>
+                    </div>
+                </li>
+
+                <!-- Reports Menu -->
+                <li class="nav-item dropdown"
+                    include-if="@Tenant.HasValue">
+                    <a id="navbarDropdownReports"
+                       class="nav-link dropdown-toggle"
+                       href="#"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        Reports
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbarDropdownReports">
+                        <a id="navbarSummaryReportLink"
+                           class="dropdown-item"
+                           asp-page="/report/summary"
+                           asp-route-tenant="@Tenant.Value?.Slug">Daily Summary</a>
                     </div>
                 </li>
 

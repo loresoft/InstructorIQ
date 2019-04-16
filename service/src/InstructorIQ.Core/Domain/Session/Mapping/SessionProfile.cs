@@ -36,6 +36,7 @@ namespace InstructorIQ.Core.Domain.Mapping
             CreateMap<Session, SessionCalendarModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
                 .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
+                .ForMember(d => d.TopicDescription, opt => opt.MapFrom(s => s.Topic.Description))
                 .ForMember(d => d.IsRequired, opt => opt.MapFrom(s => s.Topic.IsRequired))
                 .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name))
                 .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Location.Name))

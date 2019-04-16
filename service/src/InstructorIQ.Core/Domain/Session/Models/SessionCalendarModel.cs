@@ -7,6 +7,8 @@ namespace InstructorIQ.Core.Domain.Models
 {
     public class SessionCalendarModel : SessionReadModel
     {
+        public string TopicDescription { get; set; }
+
         public List<string> AdditionalInstructors { get; set; } = new List<string>();
     }
 }
