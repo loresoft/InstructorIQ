@@ -17,13 +17,13 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class TenantPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, TenantPagedQuery, TenantPagedResult>
+    public class TenantPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, TenantPagedQuery, EntityPagedResult<TenantReadModel>>
     {
         public TenantPagedQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper) : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<TenantPagedResult> Process(TenantPagedQuery request, CancellationToken cancellationToken)
+        protected override async Task<EntityPagedResult<TenantReadModel>> Process(TenantPagedQuery request, CancellationToken cancellationToken)
         {
             var entityQuery = request.Query;
             var userName = request.Principal.Identity.Name;
@@ -58,7 +58,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             // short circuit if total is zero
             if (total == 0)
-                return new TenantPagedResult { Data = new List<TenantReadModel>() };
+                return new EntityPagedResult<TenantReadModel> { Data = new List<TenantReadModel>() };
 
             // page the query and convert to read model
             var result = await query
@@ -68,7 +68,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            return new TenantPagedResult
+            return new EntityPagedResult<TenantReadModel>
             {
                 Total = total,
                 Data = result.AsReadOnly()

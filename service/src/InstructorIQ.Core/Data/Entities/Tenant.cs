@@ -15,17 +15,18 @@ namespace InstructorIQ.Core.Data.Entities
         public Tenant()
         {
             #region Generated Constructor
-            TenantUserRoles = new HashSet<TenantUserRole>();
+            Discussions = new HashSet<Discussion>();
+            EmailDeliveries = new HashSet<EmailDelivery>();
+            EmailTemplates = new HashSet<EmailTemplate>();
+            Groups = new HashSet<Group>();
+            InstructorRoles = new HashSet<InstructorRole>();
             Instructors = new HashSet<Instructor>();
             Invites = new HashSet<Invite>();
-            Sessions = new HashSet<Session>();
-            EmailDeliveries = new HashSet<EmailDelivery>();
-            InstructorRoles = new HashSet<InstructorRole>();
-            EmailTemplates = new HashSet<EmailTemplate>();
             Locations = new HashSet<Location>();
-            Topics = new HashSet<Topic>();
+            Sessions = new HashSet<Session>();
             Templates = new HashSet<Template>();
-            Groups = new HashSet<Group>();
+            TenantUserRoles = new HashSet<TenantUserRole>();
+            Topics = new HashSet<Topic>();
             #endregion
         }
 
@@ -146,12 +147,44 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="TenantUserRole" />.
+        /// Gets or sets the navigation collection for entity <see cref="Discussion" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="TenantUserRole" />.
+        /// The the navigation collection for entity <see cref="Discussion" />.
         /// </value>
-        public virtual ICollection<TenantUserRole> TenantUserRoles { get; set; }
+        public virtual ICollection<Discussion> Discussions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="EmailDelivery" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="EmailDelivery" />.
+        /// </value>
+        public virtual ICollection<EmailDelivery> EmailDeliveries { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="EmailTemplate" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="EmailTemplate" />.
+        /// </value>
+        public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Group" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Group" />.
+        /// </value>
+        public virtual ICollection<Group> Groups { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="InstructorRole" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="InstructorRole" />.
+        /// </value>
+        public virtual ICollection<InstructorRole> InstructorRoles { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
@@ -170,38 +203,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Invite> Invites { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Session" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Session" />.
-        /// </value>
-        public virtual ICollection<Session> Sessions { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="EmailDelivery" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="EmailDelivery" />.
-        /// </value>
-        public virtual ICollection<EmailDelivery> EmailDeliveries { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="InstructorRole" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="InstructorRole" />.
-        /// </value>
-        public virtual ICollection<InstructorRole> InstructorRoles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="EmailTemplate" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="EmailTemplate" />.
-        /// </value>
-        public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Location" />.
         /// </summary>
         /// <value>
@@ -210,12 +211,12 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Location> Locations { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
+        /// Gets or sets the navigation collection for entity <see cref="Session" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="Topic" />.
+        /// The the navigation collection for entity <see cref="Session" />.
         /// </value>
-        public virtual ICollection<Topic> Topics { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Template" />.
@@ -226,12 +227,20 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Template> Templates { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Group" />.
+        /// Gets or sets the navigation collection for entity <see cref="TenantUserRole" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="Group" />.
+        /// The the navigation collection for entity <see cref="TenantUserRole" />.
         /// </value>
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<TenantUserRole> TenantUserRoles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Topic" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Topic" />.
+        /// </value>
+        public virtual ICollection<Topic> Topics { get; set; }
 
         #endregion
 

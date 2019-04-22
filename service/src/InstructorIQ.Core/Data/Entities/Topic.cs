@@ -15,6 +15,7 @@ namespace InstructorIQ.Core.Data.Entities
         public Topic()
         {
             #region Generated Constructor
+            Discussions = new HashSet<Discussion>();
             Sessions = new HashSet<Session>();
             #endregion
         }
@@ -152,12 +153,12 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Session" />.
+        /// Gets or sets the navigation collection for entity <see cref="Discussion" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="Session" />.
+        /// The the navigation collection for entity <see cref="Discussion" />.
         /// </value>
-        public virtual ICollection<Session> Sessions { get; set; }
+        public virtual ICollection<Discussion> Discussions { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Instructor" />.
@@ -167,6 +168,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         /// <seealso cref="LeadInstructorId" />
         public virtual Instructor LeadInstructor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Session" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Session" />.
+        /// </value>
+        public virtual ICollection<Session> Sessions { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Tenant" />.

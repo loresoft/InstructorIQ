@@ -7,6 +7,7 @@ using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using MediatR;
 using MediatR.CommandQuery.Behaviors;
+using MediatR.CommandQuery.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -30,7 +31,8 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<TenantMembershipQuery, TenantMembershipModel>, TenantMembershipQueryHandler>();
             services.TryAddTransient<IRequestHandler<TenantMembershipCommand, TenantMembershipModel>, TenantMembershipCommandHandler>();
 
-            services.TryAddTransient<IRequestHandler<TenantPagedQuery, TenantPagedResult>, TenantPagedQueryHandler>();
+            services.TryAddTransient<IRequestHandler<TenantPagedQuery, EntityPagedResult<TenantReadModel>>, TenantPagedQueryHandler>();
+
         }
     }
 }

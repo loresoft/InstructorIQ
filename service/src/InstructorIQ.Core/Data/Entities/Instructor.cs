@@ -15,9 +15,9 @@ namespace InstructorIQ.Core.Data.Entities
         public Instructor()
         {
             #region Generated Constructor
-            SessionInstructors = new HashSet<SessionInstructor>();
             LeadSessions = new HashSet<Session>();
             LeadTopics = new HashSet<Topic>();
+            SessionInstructors = new HashSet<SessionInstructor>();
             #endregion
         }
 
@@ -146,23 +146,6 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="Tenant" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="Tenant" />.
-        /// </value>
-        /// <seealso cref="TenantId" />
-        public virtual Tenant Tenant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="SessionInstructor" />.
-        /// </value>
-        public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Session" />.
         /// </summary>
         /// <value>
@@ -177,6 +160,23 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Topic" />.
         /// </value>
         public virtual ICollection<Topic> LeadTopics { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="SessionInstructor" />.
+        /// </value>
+        public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Tenant" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Tenant" />.
+        /// </value>
+        /// <seealso cref="TenantId" />
+        public virtual Tenant Tenant { get; set; }
 
         #endregion
 

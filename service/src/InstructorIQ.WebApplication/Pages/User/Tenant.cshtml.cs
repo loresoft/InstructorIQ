@@ -32,7 +32,7 @@ namespace InstructorIQ.WebApplication.Pages.User
             var query = CreateQuery();
             var command = new TenantPagedQuery(User, query);
 
-            var result = await Mediator.Send<TenantPagedResult>(command);
+            var result = await Mediator.Send<EntityPagedResult<TenantReadModel>>(command);
             Total = result.Total;
             Items = result.Data;
 

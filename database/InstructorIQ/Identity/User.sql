@@ -12,7 +12,14 @@
     [PhoneNumber] NVARCHAR(MAX) NULL,
     [PhoneNumberConfirmed] BIT NOT NULL CONSTRAINT [DF_User_PhoneNumberConfirmed] DEFAULT (0),
 
+    [GivenName] nvarchar(256) NULL,
+    [MiddleName] nvarchar(256) NULL,
+    [FamilyName] nvarchar(256) NULL,
+
     [DisplayName] NVARCHAR(256) NOT NULL,
+
+    [JobTitle] nvarchar(256) NULL,
+
     [LastTenantId] UNIQUEIDENTIFIER NULL,
     [IsGlobalAdministrator] BIT NOT NULL CONSTRAINT [DF_User_IsGlobalAdministrator] DEFAULT (0),
 

@@ -6,11 +6,24 @@
     [InstructorId] UNIQUEIDENTIFIER NOT NULL,
     [InstructorRoleId] UNIQUEIDENTIFIER NULL,
 
+    [PeriodStart] DATETIME2 GENERATED ALWAYS AS ROW START HIDDEN NOT NULL CONSTRAINT [DF_SessionInstructor_PeriodStart] DEFAULT (SYSUTCDATETIME()),
+    [PeriodEnd] DATETIME2 GENERATED ALWAYS AS ROW END HIDDEN NOT NULL CONSTRAINT [DF_SessionInstructor_PeriodEnd] DEFAULT ('9999-12-31 23:59:59.9999999'), 
+    PERIOD FOR SYSTEM_TIME ([PeriodStart], [PeriodEnd]),
+
     CONSTRAINT [PK_SessionInstructor] PRIMARY KEY NONCLUSTERED ([Id] ASC),
     CONSTRAINT [FK_SessionInstructor_Session_SessionId] FOREIGN KEY ([SessionId]) REFERENCES [IQ].[Session]([Id]),
     CONSTRAINT [FK_SessionInstructor_Instructor_InstructorId] FOREIGN KEY ([InstructorId]) REFERENCES [IQ].[Instructor]([Id]),
     CONSTRAINT [FK_SessionInstructor_InstructorRole_InstructorRoleId] FOREIGN KEY ([InstructorRoleId]) REFERENCES [IQ].[InstructorRole]([Id]),
 )
+WITH 
+(
+    SYSTEM_VERSIONING = ON 
+    (
+        HISTORY_TABLE = [History].[SessionInstructor],
+        HISTORY_RETENTION_PERIOD = 1 YEARS,
+        DATA_CONSISTENCY_CHECK = ON
+    )
+);
 
 GO
 CREATE CLUSTERED INDEX [IX_SessionInstructor_SessionId_InstructorId]

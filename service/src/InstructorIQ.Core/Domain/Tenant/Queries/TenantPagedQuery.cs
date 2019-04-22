@@ -6,7 +6,7 @@ using MediatR;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries
 {
-    public class TenantPagedQuery : EntityPagedQuery<TemplateReadModel>, IRequest<TenantPagedResult>
+    public class TenantPagedQuery : EntityPagedQuery<TenantReadModel>
     {
         public TenantPagedQuery(IPrincipal principal, EntityQuery query) : base(principal, query)
         {
