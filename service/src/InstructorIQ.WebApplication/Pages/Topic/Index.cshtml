@@ -85,7 +85,6 @@
                             <col style="width: 90px">
                             <col style="width: 90px">
                             <col style="width: 90px">
-                            <col style="width: 90px">
                         </colgroup>
                         <thead>
                             <tr>
@@ -123,14 +122,6 @@
                                     </header>
                                 </th>
                                 <th>Sessions</th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="Updated"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Updated">
-                                        Updated
-                                    </header>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -168,9 +159,6 @@
                                     <td>
                                         @item.SessionCount
                                     </td>
-                                    <td>
-                                        @item.Updated.ToString("MM/dd/yyyy")
-                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -180,7 +168,8 @@
 
             <div class="card-footer p-0">
                 <div class="row">
-                    <div class="col" authorize-policy="@UserPolicies.AdministratorPolicy">
+                    <div class="col-md-6" 
+                         authorize-policy="@UserPolicies.AdministratorPolicy">
                         <a asp-page="/topic/create"
                            asp-route-tenant="@Model.TenantRoute"
                            title="Add New Topic"
@@ -211,7 +200,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-md-6">
                         <pagination current-page="@Model.PageNumber"
                                     page-size="@Model.PageSize"
                                     total-items="@Model.Total"

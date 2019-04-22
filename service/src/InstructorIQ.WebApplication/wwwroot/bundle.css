@@ -15217,6 +15217,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .monthly-table {
     width: 100%;
+    min-width: 600px;
     margin-bottom: 1rem;
     background-color: transparent;
     border-collapse: collapse;
@@ -15258,7 +15259,7 @@ a.text-dark:hover, a.text-dark:focus {
     color: #FFF;
     font-weight: 600;
     font-size: 90%;
-    padding: .20rem;
+    padding: .15rem .20rem;
     text-align: center;
 }
 
@@ -15280,7 +15281,7 @@ a.text-dark:hover, a.text-dark:focus {
     font-weight: 600;
     font-size: 90%;
     border: 1px solid #6F6F6F;
-    padding: .20rem;
+    padding: .15rem .20rem;
     text-align: center;
 }
 
@@ -15327,6 +15328,10 @@ a.text-dark:hover, a.text-dark:focus {
     border-bottom: 1px solid #6F6F6F;
     vertical-align: top;
     height: 20px;
+}
+
+.year-month-table {
+    min-width: 600px;
 }
 
 .year-month-table,
@@ -15394,7 +15399,7 @@ a.text-dark:hover, a.text-dark:focus {
         text-align: center;
         text-decoration: underline;
         padding: .20rem;
-        font-size: 70%;
+        font-size: 80%;
     }
 
     .year-month-table .year-date-table .year-date-topic {

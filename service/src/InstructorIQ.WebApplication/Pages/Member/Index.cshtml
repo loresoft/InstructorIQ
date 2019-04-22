@@ -104,13 +104,13 @@
 
         <div class="card-footer p-0">
             <div class="row">
-                <div class="col">
+                <div class="col-md-6">
                     <a asp-page="/member/invite"
                        asp-route-tenant="@Model.TenantRoute"
                        title="Add New Member"
                        class="btn btn-primary m-3">Add Member</a>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                     <pagination current-page="@Model.PageNumber"
                                 page-size="@Model.PageSize"
                                 total-items="@Model.Total"

@@ -13,34 +13,35 @@
 }
 
 <div class="container">
-    <div class="row m-3 d-print-none">
-        <div class="col text-right">
+    <div class="row no-gutters mb-3 d-print-none">
+        <div class="col">
             <a class="btn btn-outline-secondary"
-               style="width: 110px"
+               title="Previous Month"
                asp-route-tenant="@Model.TenantRoute"
                asp-route-month="@previousDate.Month"
-               asp-route-year="@previousDate.Year">Previous</a>
+               asp-route-year="@previousDate.Year">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="btn btn-outline-secondary"
+               title="Next Month"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-month="@nextDate.Month"
+               asp-route-year="@nextDate.Year">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+
         </div>
         <div class="col">
             <select asp-for="Month"
                     asp-items="SelectItemFactory.Months()"
                     class="custom-select"
-                    onchange="changeDate()">
-            </select>
+                    onchange="changeDate()"></select>
         </div>
         <div class="col">
             <select asp-for="Year"
                     asp-items="SelectItemFactory.Years()"
                     class="custom-select"
-                    onchange="changeDate()">
-            </select>
-        </div>
-        <div class="col">
-            <a class="btn btn-outline-secondary"
-               style="width: 110px"
-               asp-route-tenant="@Model.TenantRoute"
-               asp-route-month="@nextDate.Month"
-               asp-route-year="@nextDate.Year">Next</a>
+                    onchange="changeDate()"></select>
         </div>
     </div>
     <div class="d-none d-print-block">
@@ -51,119 +52,121 @@
             @currentMonth @Model.Year
         </div>
     </div>
-    <table class="monthly-table">
-        @foreach (var grouping in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate ?? DateTime.MinValue))
-        {
-            var sortedGroups = grouping
-                .OrderBy(i => i.StartTime)
-                .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
-                .ToList();
+    <div class="table-responsive">
+        <table class="monthly-table">
+            @foreach (var grouping in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate ?? DateTime.MinValue))
+            {
+                var sortedGroups = grouping
+                    .OrderBy(i => i.StartTime)
+                    .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                    .ToList();
 
-            <tbody>
-                <tr>
-                    <td class="monthly-date">
-                        <span class="vertical-text">@grouping.Key.ToString("d-MMM")</span>
-                    </td>
-                    <td class="monthly-date-container">
-                        <table class="monthly-date-table">
-                            <tbody>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-attendee">
-                                            <span class="fa-pull-left ml-2"><small>@c?.StartTime?.ToString(@"hh\:mm")</small> </span>
-                                            <span class="fa-pull-right mr-2"><small>@c?.EndTime?.ToString(@"hh\:mm")</small></span>
-                                            <a asp-page="/topic/session/view"
-                                               asp-route-topicid="@c.TopicId"
-                                               asp-route-tenant="@Model.TenantRoute"
-                                               asp-route-id="@c.Id"
-                                               title="View @c.GroupName Session">
-                                                @c.GroupName
-                                            </a>
-                                        </td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-topic">
-                                            <a asp-page="/topic/view"
-                                               asp-route-tenant="@Model.TenantRoute"
-                                               asp-route-id="@c.TopicId"
-                                               title="View @c.TopicTitle Topic">
-                                                @c.TopicTitle
-                                            </a>
-                                            @if (c.IsRequired)
-                                            {
-                                                <span class="required">Required</span>
-                                            }
-                                        </td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-label">Location</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-data">@c.LocationName</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-label">Lead Instructor</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-data">@c.LeadInstructorName</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-label">Additional Instructors</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-data">
-                                            @foreach (var i in c.AdditionalInstructors.OrderBy(x => x))
-                                            {
-                                                @i
-                                                <br />
-                                            }
-                                        </td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-label">Notes</td>
-                                    }
-                                </tr>
-                                <tr>
-                                    @foreach (var c in sortedGroups)
-                                    {
-                                        <td class="monthly-data">@c.Note</td>
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        }
+                <tbody>
+                    <tr>
+                        <td class="monthly-date">
+                            <span class="vertical-text">@grouping.Key.ToString("d-MMM")</span>
+                        </td>
+                        <td class="monthly-date-container">
+                            <table class="monthly-date-table">
+                                <tbody>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-attendee">
+                                                <a asp-page="/topic/session/view"
+                                                   asp-route-topicid="@c.TopicId"
+                                                   asp-route-tenant="@Model.TenantRoute"
+                                                   asp-route-id="@c.Id"
+                                                   title="View @c.GroupName Session">
+                                                    @c.GroupName
+                                                </a>
+                                                <div style="line-height: 10px">
+                                                    <small>@c?.StartTime?.ToString(@"hh\:mm") - @c?.EndTime?.ToString(@"hh\:mm")</small>
+                                                </div>
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-topic">
+                                                <a asp-page="/topic/view"
+                                                   asp-route-tenant="@Model.TenantRoute"
+                                                   asp-route-id="@c.TopicId"
+                                                   title="View @c.TopicTitle Topic">
+                                                    @c.TopicTitle
+                                                </a>
+                                                @if (c.IsRequired)
+                                                {
+                                                    <span class="required">Required</span>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-label">Location</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-data">@c.LocationName</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-label">Lead Instructor</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-data">@c.LeadInstructorName</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-label">Additional Instructors</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-data">
+                                                @foreach (var i in c.AdditionalInstructors.OrderBy(x => x))
+                                                {
+                                                    @i
+                                                    <br />
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-label">Notes</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var c in sortedGroups)
+                                        {
+                                            <td class="monthly-data">@c.Note</td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            }
 
-    </table>
+        </table>
+    </div>
 </div>
-
 @section Scripts {
     <script>
         function changeDate() {

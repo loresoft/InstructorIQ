@@ -13,24 +13,25 @@
 
 <div class="container">
     <div class="row m-3 d-print-none">
-        <div class="col text-right">
+        <div class="col">
             <a class="btn btn-outline-secondary"
-               style="width: 110px"
+               title="Previous Year"
                asp-route-tenant="@Model.TenantRoute"
-               asp-route-year="@previousDate.Year">Previous</a>
+               asp-route-year="@previousDate.Year">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="btn btn-outline-secondary"
+               title="Next Year"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-year="@nextDate.Year">
+                <i class="fas fa-chevron-right"></i>
+            </a>
         </div>
         <div class="col">
             <select asp-for="Year"
                     asp-items="SelectItemFactory.Years()"
                     class="custom-select"
-                    onchange="changeDate()">
-            </select>
-        </div>
-        <div class="col">
-            <a class="btn btn-outline-secondary"
-               style="width: 110px"
-               asp-route-tenant="@Model.TenantRoute"
-               asp-route-year="@nextDate.Year">Next</a>
+                    onchange="changeDate()"></select>
         </div>
     </div>
 
@@ -43,84 +44,91 @@
         </div>
     </div>
 
-    @foreach (var monthGroup in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate?.Month ?? 0))
-    {
-        var month = monthGroup.Select(m => m.StartDate?.Month).FirstOrDefault();
-        if (!month.HasValue)
+    <div class="table-responsive">
+
+        @foreach (var monthGroup in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate?.Month ?? 0))
         {
-            continue;
+            var month = monthGroup.Select(m => m.StartDate?.Month).FirstOrDefault();
+            if (!month.HasValue)
+            {
+                continue;
+            }
+
+            var currentMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Value);
+            var dayGroups = monthGroup.GroupBy(g => g.StartDate ?? DateTime.MinValue).ToList();
+            var dayCount = dayGroups.Count();
+
+            <table class="year-month-table">
+                <tbody>
+                    <tr>
+                        <td colspan="@dayCount"
+                            class="year-month-header">
+                            <a asp-page="/calendar/monthly"
+                               asp-route-tenant="@Model.TenantRoute"
+                               asp-route-year="@Model.Year"
+                               asp-route-month="@month"
+                               title="View @currentMonth Calendar">
+                                @currentMonth
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        @foreach (var dayGroup in dayGroups)
+                        {
+                            <td class="year-date-header">
+                                @dayGroup.Key.ToString("d-MMM")
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @foreach (var dayGroup in dayGroups)
+                        {
+                            var sortedDay = dayGroup
+                                .OrderBy(i => i.StartTime)
+                                .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                                .ToList();
+
+                            <td class="year-date-container">
+                                <table class="year-date-table">
+                                    <tbody>
+                                        @foreach (var session in sortedDay)
+                                        {
+                                            <tr>
+                                                <td class="year-date-group">
+                                                    <a asp-page="/topic/session/view"
+                                                       asp-route-tenant="@Model.TenantRoute"
+                                                       asp-route-topicid="@session.TopicId"
+                                                       asp-route-id="@session.Id"
+                                                       title="View @session.GroupName Session">
+                                                        @session.GroupName
+                                                    </a>
+                                                    <div style="line-height: 10px;">
+                                                        <small>@session?.StartTime?.ToString(@"hh\:mm") - @session?.EndTime?.ToString(@"hh\:mm")</small>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="year-date-topic @(session.IsRequired ? "required" : "")">
+                                                    <a asp-page="/topic/view"
+                                                       asp-route-tenant="@Model.TenantRoute"
+                                                       asp-route-id="@session.TopicId"
+                                                       title="View @session.TopicTitle Topic">
+                                                        @session.TopicTitle
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
         }
 
-        var currentMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Value);
-        var dayGroups = monthGroup.GroupBy(g => g.StartDate ?? DateTime.MinValue).ToList();
-        var dayCount = dayGroups.Count();
-
-        <table class="year-month-table">
-            <tbody>
-                <tr>
-                    <td colspan="@dayCount"
-                        class="year-month-header">
-                        <a asp-page="/calendar/monthly"
-                           asp-route-tenant="@Model.TenantRoute"
-                           asp-route-year="@Model.Year"
-                           asp-route-month="@month"
-                           title="View @currentMonth Calendar">
-                            @currentMonth
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-
-                    @foreach (var dayGroup in dayGroups)
-                    {
-                        <td class="year-date-header">
-                            @dayGroup.Key.ToString("d-MMM")
-                        </td>
-                    }
-                </tr>
-                <tr>
-                    @foreach (var dayGroup in dayGroups)
-                    {
-                        var sortedDay = dayGroup
-                            .OrderBy(i => i.StartTime)
-                            .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
-                            .ToList();
-
-                        <td class="year-date-container">
-                            <table class="year-date-table">
-                                <tbody>
-                                    @foreach (var session in sortedDay)
-                                    {
-                                        <tr>
-                                            <td class="year-date-group">
-                                                <a asp-page="/topic/session/view"
-                                                   asp-route-tenant="@Model.TenantRoute"
-                                                   asp-route-topicid="@session.TopicId"
-                                                   asp-route-id="@session.Id"
-                                                   title="View @session.GroupName Session">
-                                                    @session.GroupName
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="year-date-topic @(session.IsRequired ? "required" : "")">
-                                                <a asp-page="/topic/view"
-                                                   asp-route-tenant="@Model.TenantRoute"
-                                                   asp-route-id="@session.TopicId"
-                                                   title="View @session.TopicTitle Topic">
-                                                    @session.TopicTitle
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </td>
-                    }
-                </tr>
-            </tbody>
-        </table>
-    }
+    </div>
 </div>
 
 @section Scripts {

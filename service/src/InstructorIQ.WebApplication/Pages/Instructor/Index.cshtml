@@ -59,7 +59,6 @@
                         <col style="">
                         <col style="">
                         <col style="">
-                        <col style="width: 90px">
                     </colgroup>
                     <thead class="">
                         <tr>
@@ -95,14 +94,6 @@
                                     Email
                                 </header>
                             </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="Updated"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Updated">
-                                    Updated
-                                </header>
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,7 +110,6 @@
                                 <td>@item.FamilyName</td>
                                 <td>@item.GivenName</td>
                                 <td>@item.EmailAddress</td>
-                                <td>@item.Updated.ToString("MM/dd/yyyy")</td>
                             </tr>
                         }
                     </tbody>
@@ -129,13 +119,14 @@
 
         <div class="card-footer p-0">
             <div class="row">
-                <div class="col" authorize-policy="@UserPolicies.AdministratorPolicy">
+                <div class="col-md-6" 
+                     authorize-policy="@UserPolicies.AdministratorPolicy">
                     <a asp-page="/instructor/create"
                        asp-route-tenant="@Model.TenantRoute"
                        title="Add New Instructor"
                        class="btn btn-primary m-3">Add Instructor</a>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                     <pagination current-page="@Model.PageNumber"
                                 page-size="@Model.PageSize"
                                 total-items="@Model.Total"
