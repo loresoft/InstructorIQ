@@ -7,33 +7,33 @@
 
     Layout = "_TopicLayout";
 }
+<div class="card-body">
+    <form id="planning-form"
+          name="planning-form"
+          role="form"
+          method="post">
 
-<form id="planning-form"
-      name="planning-form"
-      role="form"
-      method="post">
+        <input type="hidden" asp-for="Entity.Title" />
 
-    <input type="hidden" asp-for="Entity.Title" />
+        <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Entity.LessonPlan">Lesson Plan</label>
 
-    <div class="form-group">
-        <label asp-for="Entity.LessonPlan">Lesson Plan</label>
-
-        <div class="dropdown fa-pull-right">
-            <button class="btn btn-link dropdown-toggle"
-                    type="button"
-                    id="templateMenuButton"
-                    title="Use Template"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                Template
-            </button>
-            <div class="dropdown-menu"
-                 aria-labelledby="templateMenuButton">
-                @foreach (var template in Model.Templates)
-                {
+            <div class="dropdown fa-pull-right">
+                <button class="btn btn-link dropdown-toggle"
+                        type="button"
+                        id="templateMenuButton"
+                        title="Use Template"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    Template
+                </button>
+                <div class="dropdown-menu"
+                     aria-labelledby="templateMenuButton">
+                    @foreach (var template in Model.Templates)
+                    {
                     <a asp-page="/Topic/Planning/Edit"
                        asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id"
@@ -42,32 +42,33 @@
                        class="dropdown-item">
                         @template.Text
                     </a>
-                }
+                    }
+                </div>
+            </div>
+
+            <textarea asp-for="Entity.LessonPlan"
+                      rows="5"
+                      class="form-control"></textarea>
+            <span asp-validation-for="Entity.LessonPlan" class="text-danger"></span>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <button id="save-button"
+                        type="submit"
+                        class="btn btn-primary">
+                    Save
+                </button>
+                <a id="cancel-button"
+                   asp-page="/topic/planning/view"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
             </div>
         </div>
-
-        <textarea asp-for="Entity.LessonPlan"
-                  rows="5"
-                  class="form-control"></textarea>
-        <span asp-validation-for="Entity.LessonPlan" class="text-danger"></span>
-    </div>
-    <div class="row mt-3">
-        <div class="col">
-            <button id="save-button"
-                    type="submit"
-                    class="btn btn-primary">
-                Save
-            </button>
-            <a id="cancel-button"
-               asp-page="/topic/planning/view"
-               asp-route-tenant="@Model.TenantRoute"
-               asp-route-id="@Model.Id"
-               class="btn btn-secondary">
-                Cancel
-            </a>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 @section Scripts {
     <script>

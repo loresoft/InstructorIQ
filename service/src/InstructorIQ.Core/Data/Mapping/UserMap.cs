@@ -18,9 +18,29 @@ namespace InstructorIQ.Core.Data.Mapping
         {
             builder.ToTable("User", "Identity");
 
+            builder.Property(t => t.GivenName)
+                .HasColumnName("GivenName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.MiddleName)
+                .HasColumnName("MiddleName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.FamilyName)
+                .HasColumnName("FamilyName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
             builder.Property(t => t.DisplayName)
                 .IsRequired()
                 .HasColumnName("DisplayName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.JobTitle)
+                .HasColumnName("JobTitle")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 

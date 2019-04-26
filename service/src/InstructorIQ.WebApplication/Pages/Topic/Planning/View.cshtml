@@ -8,23 +8,24 @@
 
     Layout = "_TopicLayout";
 }
-
-<div class="form-group">
-    <label>Lesson Plan</label>
-    <div class="form-control-view">
-        <markdown content="Entity.LessonPlan"></markdown>
+<div class="card-body">
+    <div class="form-group">
+        <label>Lesson Plan</label>
+        <div class="form-control-view">
+            <markdown content="Entity.LessonPlan"></markdown>
+        </div>
     </div>
-</div>
 
-<div class="row mt-3"
-     authorize-policy="@UserPolicies.InstructorPolicy">
-    <div class="col">
-        <a id="edit-button"
-           asp-page="/topic/planning/edit"
-           asp-route-tenant="@Model.TenantRoute"
-           asp-route-id="@Model.Id"
-           class="btn btn-primary">
-            Edit
-        </a>
+    <div class="row mt-3"
+         authorize-policy="@UserPolicies.InstructorPolicy">
+        <div class="col">
+            <a id="edit-button"
+               asp-page="/topic/planning/edit"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary">
+                Edit
+            </a>
+        </div>
     </div>
 </div>

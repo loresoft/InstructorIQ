@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using MediatR.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
     /// Entity class representing data for table 'Discussion'.
     /// </summary>
-    public partial class Discussion
+    public partial class Discussion : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveTenant<Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Discussion"/> class.

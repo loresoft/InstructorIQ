@@ -44,7 +44,11 @@ namespace InstructorIQ.Core.Domain.Handlers
         private async Task UpdateModel(Guid id, MemberUpdateModel model, Data.Entities.User user, bool isGlobalAdministrator)
         {
             // update model properties
+            user.GivenName = model.GivenName;
+            user.MiddleName = model.MiddleName;
+            user.FamilyName = model.FamilyName;
             user.DisplayName = model.DisplayName;
+            user.JobTitle = model.JobTitle;
 
             // global admin fields
             if (isGlobalAdministrator)

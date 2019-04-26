@@ -1,0 +1,116 @@
+﻿@page  "/topic/{id:Guid}/discussion"
+@using InstructorIQ.Core.Security
+@model ViewModel
+@{
+    ViewData["Title"] = $"Topic {Model.Topic.Title}";
+    ViewData["TopicTitle"] = $" - {Model.Topic.Title}";
+    ViewData["TopicTab"] = "Discussion";
+
+    Layout = "_TopicLayout";
+}
+<div class="card-body">
+
+    @foreach (var item in Model.Items)
+    {
+    <div id="msg-@item.Id"
+         class="discussion-item">
+        <div class="discussion-header">
+            <div class="discussion-avatar">
+                <gravatar email="@item.EmailAddress"
+                          title="@item.DisplayName"
+                          class="rounded"
+                          size="42"></gravatar>
+            </div>
+            <div class="discussion-metadata">
+                <div class="discussion-username">
+                    @(item.DisplayName ?? item.EmailAddress)
+                </div>
+                <div class="discussion-timestamp">
+                    <a href="#msg-@item.Id"
+                       title="@item.MessageDate.ToString("dddd, MMMM dd, yyyy H:mm")">@item.MessageDate.ToString("MMMM dd, yyyy")</a>
+                </div>
+            </div>
+            <div class="discussion-actions">
+                <div authorize-policy="@UserPolicies.InstructorPolicy"
+                     class="btn-group"
+                     role="group"
+                     aria-label="Basic example">
+                    <a asp-page="/topic/discussion/edit"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-topicid="@Model.Id"
+                       asp-route-id="@item.Id"
+                       class="btn btn-light">
+                        <i class="far fa-edit"></i>
+                    </a>
+                    <a asp-page="/topic/discussion/edit"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-topicid="@Model.Id"
+                       asp-route-id="@item.Id"
+                       class="btn btn-light">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="discussion-content">
+            <markdown content="@item.Message"></markdown>
+        </div>
+    </div>
+    }
+
+    <hr />
+
+    <form id="discussion-form"
+          name="discussion-form"
+          role="form"
+          method="post">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div authorize-policy="@UserPolicies.InstructorPolicy"
+             class="discussion-edit">
+            <div class="discussion-header">
+                <div class="discussion-avatar">
+                    <gravatar email="@User.Identity?.Name"
+                              class="rounded"
+                              title="@Model.DisplayName"
+                              size="42"></gravatar>
+                </div>
+                <div class="discussion-metadata">
+                    <div class="discussion-username">
+                        @Model.DisplayName
+                    </div>
+                </div>
+            </div>
+            <div class="discussion-content">
+                <textarea asp-for="Message"
+                          rows="5"
+                          class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="discussion-actions">
+                <button id="comment-button"
+                        type="submit"
+                        class="btn btn-primary">
+                    Comment
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            var messageEditor = new SimpleMDE({
+                element: document.getElementById("@Html.IdFor(p => p.Message)"),
+                hideIcons: ['side-by-side', 'fullscreen'],
+                spellChecker: false
+            });
+
+            $("#discussion-form").dirty({
+                preventLeaving: true
+            });
+        });
+    </script>
+}

@@ -18,7 +18,15 @@ namespace InstructorIQ.Core.Data.Entities
         {
         }
 
+        public string GivenName { get; set; }
+
+        public string MiddleName { get; set; }
+
+        public string FamilyName { get; set; }
+
         public string DisplayName { get; set; } = string.Empty;
+
+        public string JobTitle { get; set; }
 
         public Guid? LastTenantId { get; set; }
 

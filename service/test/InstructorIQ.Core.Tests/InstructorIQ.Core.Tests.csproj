@@ -17,7 +17,7 @@
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.124" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.124" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="xunit" Version="2.4.1" />

@@ -1,4 +1,5 @@
 ﻿@page "/locations"
+@using Humanizer
 @model IndexModel
 @{
     ViewData["Title"] = "Locations";
@@ -22,7 +23,7 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            <i class="fas fa-th-list mr-2"
+            <i class="fas fa-map-marker-alt mr-2"
                aria-hidden="true"></i> Locations
             <div class="float-right">
                 <form id="location-search-form"
@@ -50,60 +51,26 @@
             </div>
         </div>
 
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-sm m-0">
-                    <colgroup>
-                        <col style="">
-                        <col style="">
-                        <col style="">
-                    </colgroup>
-                    <thead class="">
-                        <tr>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="Name"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Name">
-                                    Name
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="Description"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Description">
-                                    Description
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="AddressLine1"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by AddressLine1">
-                                    Address
-                                </header>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Items)
-                        {
-                            <tr>
-                                <td>
-                                    <a asp-page="/location/edit"
-                                       asp-route-tenant="@Model.TenantRoute"
-                                       asp-route-id="@item.Id"
-                                       title="Edit Location"
-                                       class="d-block">@item.Name</a>
-                                </td>
-                                <td>@item.Description</td>
-                                <td>@item.AddressLine1</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div class="list-group list-group-flush">
+            @foreach (var item in Model.Items)
+            {
+            <a asp-page="/location/edit"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-id="@item.Id"
+               title="Edit @item.Name"
+               class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@item.Name</h5>
+                    <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
+                </div>
+                <p class="mb-1">
+                    @item.Description.Truncate(100)
+                </p>
+                <small class="d-block">
+                    @item.AddressLine1, @item.City @item.StateProvince @item.PostalCode
+                </small>
+            </a>
+            }
         </div>
 
         <div class="card-footer p-0">

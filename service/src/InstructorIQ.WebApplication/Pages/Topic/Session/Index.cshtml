@@ -1,4 +1,5 @@
 ﻿@page  "/topic/{id:Guid}/sessions/"
+@using Humanizer
 @using InstructorIQ.Core.Extensions
 @using InstructorIQ.Core.Security
 @model IndexModel
@@ -10,54 +11,44 @@
     Layout = "_TopicLayout";
 }
 
-<div class="row">
-    <div class="table-responsive">
-        <table class="table table-bordered table-sm m-0">
-            <colgroup>
-                <col style="width: 80px">
-                <col style="width: 90px">
-                <col style="width: 80px">
-                <col style="width: 80px">
-                <col style="">
-                <col style="">
-                <col style="">
-            </colgroup>
-            <thead class="">
-                <tr>
-                    <th></th>
-                    <th>Date</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Group</th>
-                    <th>Location</th>
-                    <th>Instructor</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Items.ToIndexedList())
-                {
-                    <tr>
-                        <td>
-                            <a asp-page="/topic/session/view"
-                               asp-route-tenant="@Model.TenantRoute"
-                               asp-route-topicid="@Model.Id"
-                               asp-route-id="@item.Value.Id"
-                               title="Edit Session"
-                               class="d-block">Session @(item.Index + 1)</a>
-                        </td>
-                        <td>@item.Value.StartDate?.ToString("MM/dd/yyyy")</td>
-                        <td>@item.Value.StartTime?.ToString(@"hh\:mm")</td>
-                        <td>@item.Value.EndTime?.ToString(@"hh\:mm")</td>
-                        <td>@item.Value.GroupName</td>
-                        <td>@item.Value.LocationName</td>
-                        <td>@item.Value.LeadInstructorName</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+<div class="list-group list-group-flush">
+    @foreach (var item in Model.Items)
+    {
+        <a asp-page="/topic/session/view"
+           asp-route-tenant="@Model.TenantRoute"
+           asp-route-topicid="@Model.Id"
+           asp-route-id="@item.Id"
+           title="Edit Session"
+           class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">
+                    @item.TopicTitle@(item.GroupId.HasValue ? " - " : " ")@item.GroupName
+                </h5>
+                <div>
+                    <small class="d-block">
+                        <strong>@item.StartDate?.ToString("MM/dd/yyyy")</strong>
+                    </small>
+                    <small class="d-block">
+                        @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
+                    </small>
+                </div>
+            </div>
+            <div>
+                <small>
+                    <i class="fas fa-map-marker-alt mr-1" 
+                       include-if="@item.LocationId.HasValue"></i>
+                    @item.LocationName
+                
+                    <i class="fas fa-user ml-2 mr-1" 
+                       include-if="@item.LeadInstructorId.HasValue"></i>
+                    <em>@item.LeadInstructorName</em>
+                </small>
+            </div>
+        </a>
+    }
 </div>
-<div class="row mt-2"
+
+<div class="card-body"
      authorize-policy="@UserPolicies.AdministratorPolicy">
     <div class="col">
         <div class="btn-group">

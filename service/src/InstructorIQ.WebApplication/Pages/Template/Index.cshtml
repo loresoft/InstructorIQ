@@ -1,4 +1,5 @@
 ﻿@page "/templates"
+@using Humanizer
 @model IndexModel
 @{
     ViewData["Title"] = "Templates";
@@ -22,11 +23,11 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            <i class="fas fa-th-list mr-2"
-               aria-hidden="true"></i> Groups
+            <i class="far fa-file-alt mr-2"
+               aria-hidden="true"></i> Templates
             <div class="float-right">
-                <form id="group-search-form"
-                      name="group-search-form"
+                <form id="template-search-form"
+                      name="template-search-form"
                       role="form"
                       method="get">
                     <div class="input-group input-group-sm mr-2">
@@ -50,60 +51,21 @@
             </div>
         </div>
 
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-sm m-0">
-                    <colgroup>
-                        <col style="">
-                        <col style="">
-                        <col style="width: 90px">
-                    </colgroup>
-                    <thead class="">
-                        <tr>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="Name"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Name">
-                                    Name
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="Description"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Description">
-                                    Description
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="TemplateType"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Template Type">
-                                    Type
-                                </header>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Items)
-                        {
-                            <tr>
-                                <td>
-                                    <a asp-page="/template/edit"
-                                       asp-route-tenant="@Model.TenantRoute"
-                                       asp-route-id="@item.Id"
-                                       title="Edit Template"
-                                       class="d-block">@item.Name</a>
-                                </td>
-                                <td>@item.Description</td>
-                                <td>@item.TemplateType</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div class="list-group list-group-flush">
+            @foreach (var item in Model.Items)
+            {
+                <a asp-page="/template/edit"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@item.Id"
+                   title="Edit @item.Name"
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@item.Name</h5>
+                        <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
+                    </div>
+                    <p class="m-0">@item.Description.Truncate(100)</p>
+                </a>
+            }
         </div>
 
         <div class="card-footer p-0">

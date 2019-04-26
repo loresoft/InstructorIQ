@@ -9,26 +9,28 @@
     ViewData["Title"] = "Summary";
 }
     <div class="container summary">
-        <div class="row m-3 d-print-none">
-            <div class="col text-right">
+        <div class="row no-gutters mb-3 d-print-none">
+            <div class="col">
                 <a class="btn btn-outline-secondary"
-                   style="width: 110px"
+                   title="Previous Day"
                    asp-page="/report/summary"
                    asp-route-tenant="@Model.TenantRoute"
-                   asp-route-date="@previousDate.ToString("yyyy-MM-dd")">Previous</a>
+                   asp-route-date="@previousDate.ToString("yyyy-MM-dd")">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a class="btn btn-outline-secondary"
+                   title="Next Day"
+                   asp-page="/report/summary"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-date="@nextDate.ToString("yyyy-MM-dd")">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
             </div>
-            <div class="col-md-3">
+            <div class="col">
                 <input asp-for="Date"
                        type="date"
                        class="form-control"
                        onblur="changeDate()" />
-            </div>
-            <div class="col">
-                <a class="btn btn-outline-secondary"
-                   style="width: 110px"
-                   asp-page="/report/summary"
-                   asp-route-tenant="@Model.TenantRoute"
-                   asp-route-date="@nextDate.ToString("yyyy-MM-dd")">Next</a>
             </div>
         </div>
         <h1 class="summary-section">

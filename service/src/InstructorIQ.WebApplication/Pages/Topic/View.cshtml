@@ -8,59 +8,60 @@
 
     Layout = "_TopicLayout";
 }
-
-<div class="form-group">
-    <label>Title</label>
-    <div class="form-control-view">
-        @Model.Entity.Title
-    </div>
-</div>
-<div class="form-group">
-    <label>Description</label>
-    <div class="form-control-view">
-        <markdown content="Entity.Description"></markdown>
-    </div>
-</div>
-
-<div class="form-row">
-    <div class="form-group col-md-6">
-        <label>Lead Instructor</label>
+<div class="card-body">
+    <div class="form-group">
+        <label>Title</label>
         <div class="form-control-view">
-            @Model.Entity.LeadInstructorName
+            @Model.Entity.Title
         </div>
     </div>
-    <div class="form-group col-md-3">
-        <label>Calendar Year</label>
+    <div class="form-group">
+        <label>Description</label>
         <div class="form-control-view">
-            @Model.Entity.CalendarYear
+            <markdown content="Entity.Description"></markdown>
         </div>
     </div>
-    <div class="form-group col-md-3">
-        <label>Target Month</label>
-        <div class="form-control-view">
-            @Model.MonthName
-        </div>
-    </div>
-</div>
 
-<div class="form-row">
-    <div class="form-group col-md-3">
-        <label>Required</label>
-        <div class="form-control-view">
-            @(Model.Entity.IsRequired ? "Yes" : "No")
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Lead Instructor</label>
+            <div class="form-control-view">
+                @Model.Entity.LeadInstructorName
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Calendar Year</label>
+            <div class="form-control-view">
+                @Model.Entity.CalendarYear
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Target Month</label>
+            <div class="form-control-view">
+                @Model.MonthName
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row mt-3"
-     authorize-policy="@UserPolicies.AdministratorPolicy">
-    <div class="col">
-        <a id="edit-button"
-           asp-page="/topic/edit"
-           asp-route-tenant="@Model.TenantRoute"
-           asp-route-id="@Model.Entity.Id"
-           class="btn btn-primary">
-            Edit
-        </a>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            <label>Required</label>
+            <div class="form-control-view">
+                @(Model.Entity.IsRequired ? "Yes" : "No")
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3"
+         authorize-policy="@UserPolicies.AdministratorPolicy">
+        <div class="col">
+            <a id="edit-button"
+               asp-page="/topic/edit"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-id="@Model.Entity.Id"
+               class="btn btn-primary">
+                Edit
+            </a>
+        </div>
     </div>
 </div>

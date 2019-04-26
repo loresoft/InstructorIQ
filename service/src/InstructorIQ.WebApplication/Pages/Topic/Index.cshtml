@@ -1,4 +1,6 @@
 ﻿@page "/topics"
+@using System.Globalization
+@using Humanizer
 @using InstructorIQ.Core.Security
 @using InstructorIQ.Core.Services
 @model IndexModel
@@ -30,7 +32,7 @@
                   method="get">
                 <div class="row no-gutters">
                     <div class="col-md-3">
-                        <i class="fas fa-th-list mr-2"
+                        <i class="fas fa-book-open mr-2"
                            aria-hidden="true"></i> Topics
                     </div>
                     <div class="col-md-2">
@@ -75,100 +77,47 @@
               name="topic-action-form"
               method="post"
               role="form">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-sm m-0">
-                        <colgroup>
-                            <col style="width: 30px">
-                            <col style="width: 200px">
-                            <col style="width: 200px">
-                            <col style="width: 90px">
-                            <col style="width: 90px">
-                            <col style="width: 90px">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="Title"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Title">
-                                        Title
-                                    </header>
-                                </th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="Description"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Description">
-                                        Description
-                                    </header>
-                                </th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="CalendarYear"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Calendar Year">
-                                        Year
-                                    </header>
-                                </th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="TargetMonth"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Target Month">
-                                        Month
-                                    </header>
-                                </th>
-                                <th>Sessions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Items)
-                            {
-                                <tr>
-                                    <td class="text-center">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox"
-                                                   name="Selected"
-                                                   value="@item.Id"
-                                                   class="custom-control-input"
-                                                   id="sequence-@item.Id">
-                                            <label class="custom-control-label"
-                                                   for="sequence-@item.Id"></label>
-                                        </div>
-                                    </td>
+            <div class="list-group list-group-flush">
+                @foreach (var item in Model.Items)
+                {
+                    var itemMonth = item.TargetMonth.HasValue
+                        ? CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.TargetMonth.Value)
+                        : string.Empty;
 
-                                    <td class="ellipsis">
-                                        <a asp-page="/topic/view"
-                                           asp-route-tenant="@Model.TenantRoute"
-                                           asp-route-id="@item.Id"
-                                           title="Edit Topic"
-                                           class="d-block">@item.Title</a>
-                                    </td>
-                                    <td class="ellipsis">
-                                        @item.Description
-                                    </td>
-                                    <td>
-                                        @item.CalendarYear
-                                    </td>
-                                    <td>
-                                        @item.TargetMonth
-                                    </td>
-                                    <td>
-                                        @item.SessionCount
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                <a asp-page="/topic/view"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@item.Id"
+                   title="Edit @item.Title"
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@item.Title</h5>
+                        <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
+                    </div>
+
+                    <p class="mb-1">
+                        @item.Description.Truncate(100)
+                    </p>
+
+                    <div class="d-flex w-100 justify-content-between">
+                        <small class="d-block">Scheduled for @itemMonth @item.CalendarYear with @item.SessionCount sessions</small>
+
+                        <div class="custom-control custom-checkbox"
+                             title="Select">
+                            <input type="checkbox"
+                                   name="Selected"
+                                   value="@item.Id"
+                                   class="custom-control-input"
+                                   id="sequence-@item.Id">
+                            <label class="custom-control-label"
+                                   for="sequence-@item.Id"></label>
+                        </div>
+                    </div>
+                </a>
+                }
             </div>
-
             <div class="card-footer p-0">
                 <div class="row">
-                    <div class="col-md-6" 
+                    <div class="col-md-6"
                          authorize-policy="@UserPolicies.AdministratorPolicy">
                         <a asp-page="/topic/create"
                            asp-route-tenant="@Model.TenantRoute"

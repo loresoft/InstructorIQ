@@ -116,5 +116,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         #endregion
 
+        public string TenantName { get; set; }
+
+        public string TopicTitle { get; }
     }
 }

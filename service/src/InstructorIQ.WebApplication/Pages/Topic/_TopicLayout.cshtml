@@ -28,10 +28,10 @@
             <i class="fas fa-book-open mr-2"
                aria-hidden="true"></i> Topic @ViewBag.TopicTitle
 
-            <ul class="nav nav-tabs card-header-tabs float-right">
+            <ul class="nav nav-tabs card-header-tabs float-right d-none d-lg-flex">
                 <li class="nav-item">
                     <a id="topic-edit-tab"
-                       class="nav-link @(ViewBag.TopicTab == "General" ? "active": "")"
+                       class="nav-link @(ViewBag.TopicTab == "General" ? "active" : "" )"
                        title="View Topic"
                        asp-page="/topic/view"
                        asp-route-tenant="@Model.TenantRoute"
@@ -39,7 +39,7 @@
                 </li>
                 <li class="nav-item">
                     <a id="topic-planning-tab"
-                       class="nav-link @(ViewBag.TopicTab == "Planning" ? "active": "")"
+                       class="nav-link @(ViewBag.TopicTab == "Planning" ? "active" : "" )"
                        title="Topic Planning"
                        asp-page="/topic/planning/view"
                        asp-route-tenant="@Model.TenantRoute"
@@ -47,24 +47,42 @@
                 </li>
                 <li class="nav-item">
                     <a id="topic-sessions-tab"
-                       class="nav-link @(ViewBag.TopicTab == "Sessions" ? "active": "")"
+                       class="nav-link @(ViewBag.TopicTab == "Sessions" ? "active" : "" )"
                        title="Topic Sessions"
                        asp-page="/topic/session/index"
                        asp-route-tenant="@Model.TenantRoute"
                        asp-route-id="@Model.Id">Sessions</a>
                 </li>
+                <li class="nav-item">
+                    <a id="topic-discussion-tab"
+                       class="nav-link @(ViewBag.TopicTab == "Discussion" ? "active" : "" )"
+                       title="Topic Discussion"
+                       asp-page="/topic/discussion/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">Discussion</a>
+                </li>
+                <li class="nav-item">
+                    <a id="topic-history-tab"
+                       class="nav-link @(ViewBag.TopicTab == "History" ? "active" : "" )"
+                       title="Topic Planning"
+                       asp-page="/topic/history/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">History</a>
+                </li>
                 <li class="nav-item dropdown"
                     authorize-policy="@UserPolicies.AdministratorPolicy">
                     <a class="nav-link dropdown-toggle"
-                       href="#" id="actionDropdown"
+                       href="#"
+                       id="action-dropdown-link"
                        role="button"
+                       title="Topic Actions"
                        data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false">
-                        Actions
+
                     </a>
-                    <div class="dropdown-menu"
-                         aria-labelledby="actionDropdown">
+                    <div class="dropdown-menu dropdown-menu-right"
+                         aria-labelledby="action-dropdown-link">
                         <a asp-page="/topic/session/create"
                            asp-route-tenant="@Model.TenantRoute"
                            asp-route-topicid="@Model.Id"
@@ -90,10 +108,60 @@
                     </div>
                 </li>
             </ul>
+
+            <div class="dropdown float-right d-md-flex d-lg-none"
+                 style="margin-right: -10px;">
+                <button type="button"
+                        class="hamburger dropdown-toggle"
+                        id="topic-dropdown-link"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right"
+                     aria-labelledby="topic-dropdown-link">
+
+                    <a id="topic-edit-dropdown"
+                       class="dropdown-item @(ViewBag.TopicTab == "General" ? "active" : "" )"
+                       title="View Topic"
+                       asp-page="/topic/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">General</a>
+
+                    <a id="topic-planning-dropdown"
+                       class="dropdown-item @(ViewBag.TopicTab == "Planning" ? "active" : "" )"
+                       title="Topic Planning"
+                       asp-page="/topic/planning/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">Planning</a>
+
+                    <a id="topic-sessions-dropdown"
+                       class="dropdown-item @(ViewBag.TopicTab == "Sessions" ? "active" : "" )"
+                       title="Topic Sessions"
+                       asp-page="/topic/session/index"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">Sessions</a>
+
+                    <a id="topic-discussion-dropdown"
+                       class="dropdown-item @(ViewBag.TopicTab == "Discussion" ? "active" : "" )"
+                       title="Topic Discussion"
+                       asp-page="/topic/discussion/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">Discussion</a>
+
+                    <a id="topic-history-dropdown"
+                       class="dropdown-item @(ViewBag.TopicTab == "History" ? "active" : "" )"
+                       title="Topic Planning"
+                       asp-page="/topic/history/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@Model.Id">History</a>
+
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            @RenderBody()
-        </div>
+        @RenderBody()
     </div>
 </div>
 

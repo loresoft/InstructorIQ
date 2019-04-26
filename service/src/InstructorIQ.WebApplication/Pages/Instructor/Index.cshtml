@@ -1,4 +1,5 @@
 ﻿@page "/instructors"
+@using Humanizer
 @using InstructorIQ.Core.Security
 @model IndexModel
 @{
@@ -23,103 +24,58 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            <i class="fas fa-th-list mr-2"
-               aria-hidden="true"></i> Groups
-            <div class="float-right">
-                <form id="instructor-search-form"
-                      name="instructor-search-form"
-                      role="form"
-                      method="get">
-                    <div class="input-group input-group-sm mr-2">
-                        <input type="hidden"
-                               name="s"
-                               value="@Model.Sort" />
-                        <input type="text"
-                               name="q"
-                               value="@Model.Query"
-                               class="form-control"
-                               placeholder="Search" />
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-outline-secondary"
-                                    type="submit">
-                                <i class="fas fa-search"
-                                   aria-hidden="true"></i>
-                            </button>
+            <div class="row">
+                <div class="col-sm-6">
+                    <i class="fas fa-chalkboard-teacher mr-2"
+                       aria-hidden="true"></i> Instructors
+                </div>
+                <div class="col-sm-6">
+                    <form id="instructor-search-form"
+                          name="instructor-search-form"
+                          role="form"
+                          method="get">
+                        <div class="input-group input-group-sm mr-2">
+                            <input type="hidden"
+                                   name="s"
+                                   value="@Model.Sort" />
+                            <input type="text"
+                                   name="q"
+                                   value="@Model.Query"
+                                   class="form-control"
+                                   placeholder="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="submit">
+                                    <i class="fas fa-search"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-bordered table-sm m-0">
-                    <colgroup>
-                        <col style="">
-                        <col style="">
-                        <col style="">
-                        <col style="">
-                    </colgroup>
-                    <thead class="">
-                        <tr>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="DisplayName"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Name">
-                                    Name
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="FamilyName"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Last">
-                                    Last
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="GivenName"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by First Name">
-                                    First
-                                </header>
-                            </th>
-                            <th>
-                                <header asp-route-q="@Model.Query"
-                                        sort-by="EmailAddress"
-                                        sort-current="@Model.Sort"
-                                        title="Sort by Email Address">
-                                    Email
-                                </header>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Items)
-                        {
-                            <tr>
-                                <td>
-                                    <a asp-page="/instructor/view"
-                                       asp-route-tenant="@Model.TenantRoute"
-                                       asp-route-id="@item.Id"
-                                       title="Edit Instructor"
-                                       class="d-block">@item.DisplayName</a>
-                                </td>
-                                <td>@item.FamilyName</td>
-                                <td>@item.GivenName</td>
-                                <td>@item.EmailAddress</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div class="list-group list-group-flush">
+            @foreach (var item in Model.Items)
+            {
+            <a asp-page="/instructor/view"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-id="@item.Id"
+               title="Edit @item.DisplayName"
+               class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@item.DisplayName</h5>
+                    <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
+                </div>
+                <small class="d-block">@item.JobTitle</small>
+                <small class="d-block">@item.EmailAddress</small>
+                <small class="d-block">@item.MobilePhone</small>
+            </a>
+            }
         </div>
-
         <div class="card-footer p-0">
             <div class="row">
-                <div class="col-md-6" 
+                <div class="col-md-6"
                      authorize-policy="@UserPolicies.AdministratorPolicy">
                     <a asp-page="/instructor/create"
                        asp-route-tenant="@Model.TenantRoute"

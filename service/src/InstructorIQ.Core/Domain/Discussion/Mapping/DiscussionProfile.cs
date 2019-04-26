@@ -2,13 +2,15 @@ using System;
 using AutoMapper;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Models;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Mapping
 {
     /// <summary>
     /// Mapper class for entity <see cref="Discussion"/> .
     /// </summary>
-    public partial class DiscussionProfile
+    public class DiscussionProfile
         : Profile
     {
         /// <summary>
@@ -16,10 +18,20 @@ namespace InstructorIQ.Core.Domain.Mapping
         /// </summary>
         public DiscussionProfile()
         {
-            CreateMap<InstructorIQ.Core.Data.Entities.Discussion, InstructorIQ.Core.Domain.Models.DiscussionReadModel>();
-            CreateMap<InstructorIQ.Core.Domain.Models.DiscussionCreateModel, InstructorIQ.Core.Data.Entities.Discussion>();
-            CreateMap<InstructorIQ.Core.Data.Entities.Discussion, InstructorIQ.Core.Domain.Models.DiscussionUpdateModel>();
-            CreateMap<InstructorIQ.Core.Domain.Models.DiscussionUpdateModel, InstructorIQ.Core.Data.Entities.Discussion>();
+            CreateMap<DiscussionCreateModel, Discussion>();
+
+            CreateMap<DiscussionUpdateModel, Discussion>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+
+            CreateMap<Discussion, DiscussionReadModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
+                .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
+                .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name));
+
+            CreateMap<Discussion, DiscussionUpdateModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+
+            CreateMap<UserAgentModel, DiscussionCreateModel>();
         }
 
     }

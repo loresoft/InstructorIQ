@@ -21,7 +21,7 @@ namespace InstructorIQ.WebApplication.Models
         public int PageNumber { get; set; } = 1;
 
         [BindProperty(Name = "z", SupportsGet = true)]
-        public int PageSize { get; set; } = 20;
+        public int PageSize { get; set; } = 10;
 
         [BindProperty(Name = "s", SupportsGet = true)]
         public string Sort { get; set; }

@@ -9,12 +9,6 @@ using Microsoft.Extensions.Options;
 
 namespace InstructorIQ.Core.Security
 {
-    public interface IPrincipalTenantResolver
-    {
-        Guid? GetTenantId(IPrincipal principal);
-        Guid GetRequiredTenantId(IPrincipal principal);
-    }
-
     public class UserClaimManager : IPrincipalTenantResolver
     {
         public UserClaimManager(IOptions<IdentityOptions> optionsAccessor)
