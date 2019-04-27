@@ -50,6 +50,9 @@ namespace InstructorIQ.WebApplication.Pages.Member
                 updateModel,
                 nameof(Entity),
                 p => p.DisplayName,
+                p => p.FamilyName,
+                p => p.GivenName,
+                p => p.JobTitle,
                 p => p.Email,
                 p => p.PhoneNumber
             );

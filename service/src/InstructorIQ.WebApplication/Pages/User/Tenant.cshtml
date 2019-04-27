@@ -1,4 +1,5 @@
 ﻿@page "/user/change-tenant"
+@using Humanizer
 @model InstructorIQ.WebApplication.Pages.User.TenantModel
 @{
     ViewData["Title"] = "Change Tenant";
@@ -21,98 +22,62 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            <i class="fas fa-th-list mr-2"
-               aria-hidden="true"></i> Tenants
-            <div class="float-right">
-                <form id="tenant-search-form"
-                      name="tenant-search-form"
-                      role="form"
-                      method="get">
-                    <div class="input-group input-group-sm mr-2">
-                        <input type="hidden"
-                               name="s"
-                               value="@Model.Sort" />
-                        <input type="text"
-                               name="q"
-                               value="@Model.Query"
-                               class="form-control"
-                               placeholder="Search" />
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-outline-secondary"
-                                    type="submit">
-                                <i class="fas fa-search"
-                                   aria-hidden="true"></i>
-                            </button>
+            <form id="tenant-search-form"
+                  name="tenant-search-form"
+                  role="form"
+                  method="get">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <i class="fas fa-building mr-2"
+                           aria-hidden="true"></i> Tenants
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm mr-2">
+                            <input type="hidden"
+                                   name="s"
+                                   value="@Model.Sort" />
+                            <input type="text"
+                                   name="q"
+                                   value="@Model.Query"
+                                   class="form-control"
+                                   placeholder="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="submit">
+                                    <i class="fas fa-search"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
         <form id="change-tenant-form"
               name="change-tenant-form"
               role="form"
               method="post">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-sm m-0">
-                        <colgroup>
-                            <col style="width: 90px">
-                            <col style="">
-                            <col style="">
-                            <col style="">
-                        </colgroup>
-                        <thead class="">
-                            <tr>
-                                <th>
 
-                                </th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="Name"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Name">
-                                        Name
-                                    </header>
-                                </th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="Slug"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Slug">
-                                        Slug
-                                    </header>
-                                </th>
-                                <th>
-                                    <header asp-route-q="@Model.Query"
-                                            sort-by="Description"
-                                            sort-current="@Model.Sort"
-                                            title="Sort by Description">
-                                        Description
-                                    </header>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Items)
-                            {
-                                <tr>
-                                    <td class="text-center">
-                                        <button type="submit"
-                                                asp-route-tenantId="@item.Id"
-                                                asp-page-handler="ChangeTenant"                                       
-                                                class="btn btn-sm btn-secondary">
-                                            Select
-                                        </button>
-                                    </td>
-                                    <td>@item.Name</td>
-                                    <td>@item.Slug</td>
-                                    <td>@item.Description</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+            <div class="list-group list-group-flush">
+                @foreach (var item in Model.Items)
+                {
+                <button type="submit"
+                        asp-route-tenantId="@item.Id"
+                        asp-page-handler="ChangeTenant"
+                        class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@item.Name</h5>
+                        <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
+                    </div>
+                    <p class="mb-1">
+                        @item.Description.Truncate(100)
+                    </p>
+                    <small class="d-block">
+                        <i class="fas fa-external-link-alt"></i> @item.Slug
+                    </small>
+                </button>
+                }
             </div>
 
             <div class="card-footer p-0">

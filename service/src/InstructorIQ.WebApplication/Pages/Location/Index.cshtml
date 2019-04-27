@@ -18,37 +18,41 @@
         </ol>
     </nav>
 
-    <alert type="@TempData["alert.type"]"
-           message="@TempData["alert.message"]" />
+    <alert type="@TempData[" alert.type"]"
+           message="@TempData[" alert.message"]" />
 
     <div class="card mb-5">
         <div class="card-header">
-            <i class="fas fa-map-marker-alt mr-2"
-               aria-hidden="true"></i> Locations
-            <div class="float-right">
-                <form id="location-search-form"
-                      name="location-search-form"
-                      role="form"
-                      method="get">
-                    <div class="input-group input-group-sm mr-2">
-                        <input type="hidden"
-                               name="s"
-                               value="@Model.Sort" />
-                        <input type="text"
-                               name="q"
-                               value="@Model.Query"
-                               class="form-control"
-                               placeholder="Search" />
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-outline-secondary"
-                                    type="submit">
-                                <i class="fas fa-search"
-                                   aria-hidden="true"></i>
-                            </button>
+            <form id="location-search-form"
+                  name="location-search-form"
+                  role="form"
+                  method="get">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <i class="fas fa-map-marker-alt mr-2"
+                           aria-hidden="true"></i> Locations
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm mr-2">
+                            <input type="hidden"
+                                   name="s"
+                                   value="@Model.Sort" />
+                            <input type="text"
+                                   name="q"
+                                   value="@Model.Query"
+                                   class="form-control"
+                                   placeholder="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="submit">
+                                    <i class="fas fa-search"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
         <div class="list-group list-group-flush">

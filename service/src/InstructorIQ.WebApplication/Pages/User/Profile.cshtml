@@ -18,7 +18,7 @@
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="Input.DisplayName">Display Name <required /></label>
                 <input asp-for="Input.DisplayName"
@@ -26,6 +26,32 @@
                        class="form-control"
                        placeholder="Display Name" />
                 <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="Input.GivenName">First Name </label>
+                    <input asp-for="Input.GivenName"
+                           type="text"
+                           class="form-control"
+                           placeholder="First Name" />
+                    <span asp-validation-for="Input.GivenName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Input.FamilyName">Last Name </label>
+                    <input asp-for="Input.FamilyName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Last Name" />
+                    <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.JobTitle">Job Title </label>
+                <input asp-for="Input.JobTitle"
+                       type="text"
+                       class="form-control"
+                       placeholder="Job Title" />
+                <span asp-validation-for="Input.JobTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Email">Email Address <required /></label>
@@ -44,7 +70,7 @@
             </div>
 
         </div>
-        <div class="col">
+        <div class="col-md-6">
             <gravatar email="@User.Identity.Name"
                       class="rounded-circle d-block mx-auto"
                       size="200"></gravatar>

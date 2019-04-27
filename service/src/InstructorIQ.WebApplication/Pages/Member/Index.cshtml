@@ -22,47 +22,51 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            <i class="fas fa-user mr-2"
-               aria-hidden="true"></i> Members
-            <div class="float-right">
-                <form id="member-search-form"
-                      name="member-search-form"
-                      role="form"
-                      method="get">
-                    <div class="input-group input-group-sm mr-2">
-                        <input type="hidden"
-                               name="s"
-                               value="@Model.Sort" />
-                        <input type="text"
-                               name="q"
-                               value="@Model.Query"
-                               class="form-control"
-                               placeholder="Search" />
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-outline-secondary"
-                                    type="submit">
-                                <i class="fas fa-search"
-                                   aria-hidden="true"></i>
-                            </button>
+            <form id="member-search-form"
+                  name="member-search-form"
+                  role="form"
+                  method="get">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <i class="fas fa-user mr-2"
+                           aria-hidden="true"></i> Members
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm mr-2">
+                            <input type="hidden"
+                                   name="s"
+                                   value="@Model.Sort" />
+                            <input type="text"
+                                   name="q"
+                                   value="@Model.Query"
+                                   class="form-control"
+                                   placeholder="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="submit">
+                                    <i class="fas fa-search"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-        
+
         <div class="list-group list-group-flush">
             @foreach (var item in Model.Items)
             {
-                <a asp-page="/member/edit"
-                   asp-route-id="@item.Id"
-                   asp-route-tenant="@Model.TenantRoute"
-                   title="Edit @item.DisplayName"
-                   class="list-group-item list-group-item-action">
-                    <h5 class="mb-1">@item.DisplayName</h5>
-                    <small class="d-block">@item.JobTitle</small>
-                    <small class="d-block">@item.Email</small>
-                    <small class="d-block">@item.PhoneNumber</small>
-                </a>
+            <a asp-page="/member/edit"
+               asp-route-id="@item.Id"
+               asp-route-tenant="@Model.TenantRoute"
+               title="Edit @item.DisplayName"
+               class="list-group-item list-group-item-action">
+                <h5 class="mb-1">@item.DisplayName</h5>
+                <small class="d-block">@item.JobTitle</small>
+                <small class="d-block">@item.Email</small>
+                <small class="d-block">@item.PhoneNumber</small>
+            </a>
             }
         </div>
 

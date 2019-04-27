@@ -44,6 +44,15 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "First Name")]
+            public string GivenName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string FamilyName { get; set; }
+
+            [Display(Name = "Title")]
+            public string JobTitle { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -63,7 +72,10 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             {
                 DisplayName = displayName,
                 Email = email,
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                JobTitle = user.JobTitle,
+                FamilyName = user.FamilyName,
+                GivenName = user.GivenName
             };
 
             return Page();
@@ -78,40 +90,28 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             if (user == null)
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 
-
+            var userId = await _userManager.GetUserIdAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
             {
                 var setEmailResult = await _userManager.SetEmailAsync(user, Input.Email);
-                if (!setEmailResult.Succeeded)
-                {
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
-                }
+                CheckResult(setEmailResult, userId);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-                }
+                CheckResult(setPhoneResult, userId);
             }
 
-            if (Input.DisplayName != user.DisplayName)
-            {
-                user.DisplayName = Input.DisplayName;
-                var updateResult = await _userManager.UpdateAsync(user);
-                if (!updateResult.Succeeded)
-                {
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred updating display name for user with ID '{userId}'.");
-                }
-            }
+            user.DisplayName = Input.DisplayName;
+            user.GivenName = Input.GivenName;
+            user.FamilyName = Input.FamilyName;
+            user.JobTitle = Input.JobTitle;
 
+            var updateResult = await _userManager.UpdateAsync(user);
+            CheckResult(updateResult, userId);
 
             ShowAlert("Successfully saved user");
 
@@ -137,6 +137,14 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
                 ModelState.AddModelError(string.Empty, error.Description);
 
             return Page();
+        }
+
+        private void CheckResult(IdentityResult identityResult, string userId)
+        {
+            if (identityResult.Succeeded)
+                return;
+
+            throw new InvalidOperationException($"Unexpected error occurred updating user with ID '{userId}'.");
         }
 
         protected void ShowAlert(string message, string type = "success")

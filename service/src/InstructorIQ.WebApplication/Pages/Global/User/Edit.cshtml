@@ -23,6 +23,33 @@
                    placeholder="Display Name">
             <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Input.GivenName">First Name </label>
+                <input asp-for="Input.GivenName"
+                       type="text"
+                       class="form-control"
+                       placeholder="First Name" />
+                <span asp-validation-for="Input.GivenName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Input.FamilyName">Last Name </label>
+                <input asp-for="Input.FamilyName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Last Name" />
+                <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Input.JobTitle">Job Title </label>
+            <input asp-for="Input.JobTitle"
+                   type="text"
+                   class="form-control"
+                   placeholder="Job Title" />
+            <span asp-validation-for="Input.JobTitle" class="text-danger"></span>
+        </div>
+
         <div class="form-group">
             <label asp-for="Input.Email">Email Address <required /></label>
             <input asp-for="Input.Email"
