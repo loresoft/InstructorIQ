@@ -22,7 +22,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
         [BindProperty(Name = "s", SupportsGet = true)]
         public string Sort { get; set; }
 
-        public IReadOnlyCollection<SessionReadModel> Items { get; set; }
+        public IReadOnlyCollection<SessionCalendarModel> Items { get; set; }
 
         public override async Task<IActionResult> OnGetAsync()
         {

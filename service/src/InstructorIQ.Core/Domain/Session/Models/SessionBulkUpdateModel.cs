@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MediatR.CommandQuery.Definitions;
 
 // ReSharper disable once CheckNamespace
@@ -27,5 +28,7 @@ namespace InstructorIQ.Core.Domain.Models
         public string TopicTitle { get; set; }
 
         public string Note { get; set; }
+
+        public List<Guid> AdditionalInstructors { get; set; }
     }
 }

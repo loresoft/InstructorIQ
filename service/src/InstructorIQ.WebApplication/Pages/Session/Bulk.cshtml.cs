@@ -83,6 +83,7 @@ namespace InstructorIQ.WebApplication.Pages.Session
                     LeadInstructorId = i.LeadInstructorId,
                     LocationId = i.LocationId,
                     Note = i.Note,
+                    AdditionalInstructors = i.AdditionalInstructors.Select(s => s.InstructorId).ToList(),
                     TopicId = i.TopicId,
                     TopicTitle = i.TopicTitle
                 })
@@ -112,7 +113,7 @@ namespace InstructorIQ.WebApplication.Pages.Session
             return result;
         }
 
-        private async Task<IReadOnlyCollection<SessionReadModel>> LoadSessions()
+        private async Task<IReadOnlyCollection<SessionCalendarModel>> LoadSessions()
         {
             var query = new SessionTopicQuery(User, TopicIds);
             var items = await Mediator.Send(query);

@@ -8,7 +8,7 @@ using InstructorIQ.Core.Domain.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries
 {
-    public class SessionTopicQuery : PrincipalQueryBase<IReadOnlyCollection<SessionReadModel>>
+    public class SessionTopicQuery : PrincipalQueryBase<IReadOnlyCollection<SessionCalendarModel>>
     {
 
         public SessionTopicQuery(IPrincipal principal, Guid topicId) : base(principal)

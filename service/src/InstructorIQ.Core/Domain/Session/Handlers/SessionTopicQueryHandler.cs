@@ -14,21 +14,21 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SessionTopicQueryHandler : DataContextHandlerBase<InstructorIQContext, SessionTopicQuery, IReadOnlyCollection<SessionReadModel>>
+    public class SessionTopicQueryHandler : DataContextHandlerBase<InstructorIQContext, SessionTopicQuery, IReadOnlyCollection<SessionCalendarModel>>
     {
         public SessionTopicQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<IReadOnlyCollection<SessionReadModel>> Process(SessionTopicQuery request, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyCollection<SessionCalendarModel>> Process(SessionTopicQuery request, CancellationToken cancellationToken)
         {
             var query = DataContext.Sessions
                 .AsNoTracking()
                 .Where(s => request.TopicIds.Contains(s.TopicId));
 
             var result = await query
-                .ProjectTo<SessionReadModel>(Mapper.ConfigurationProvider)
+                .ProjectTo<SessionCalendarModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return result;

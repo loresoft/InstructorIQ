@@ -137,9 +137,9 @@
                                         @foreach (var c in sortedGroups)
                                         {
                                             <td class="monthly-data">
-                                                @foreach (var i in c.AdditionalInstructors.OrderBy(x => x))
+                                                @foreach (var i in c.AdditionalInstructors.OrderBy(x => x.DisplayName))
                                                 {
-                                                    @i
+                                                    @i.DisplayName
                                                     <br />
                                                 }
                                             </td>

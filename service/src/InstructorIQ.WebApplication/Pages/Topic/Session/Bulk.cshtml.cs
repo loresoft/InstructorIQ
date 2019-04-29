@@ -66,6 +66,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
             // convert to bulk update
             Sessions = loadSessionsTask.Result
+                .OrderBy(s => s.StartDate)
+                .ThenBy(s => s.StartTime)
                 .Select(i => new SessionBulkUpdateModel
                 {
                     Id = i.Id,
@@ -76,7 +78,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
                     GroupId = i.GroupId,
                     LeadInstructorId = i.LeadInstructorId,
                     LocationId = i.LocationId,
-                    Note = i.Note
+                    Note = i.Note,
+                    AdditionalInstructors = i.AdditionalInstructors.Select(s => s.InstructorId).ToList()
                 })
                 .ToList();
 
@@ -105,7 +108,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             return result;
         }
 
-        private async Task<IReadOnlyCollection<SessionReadModel>> LoadSessions()
+        private async Task<IReadOnlyCollection<SessionCalendarModel>> LoadSessions()
         {
             var query = new SessionTopicQuery(User, Id);
             var items = await Mediator.Send(query);

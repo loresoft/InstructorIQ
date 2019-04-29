@@ -1,5 +1,6 @@
 using System;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
     public class SessionInstructorModel
