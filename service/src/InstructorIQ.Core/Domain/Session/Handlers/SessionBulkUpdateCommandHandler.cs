@@ -59,7 +59,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 .Where(s => s.SessionId == sessionId)
                 .ToListAsync();
 
-            var updatedInstructors = updateModel.AdditionalInstructors;
+            var updatedInstructors = updateModel.AdditionalInstructors ?? new List<Guid>();
 
             AddInstructors(existingInstructors, updatedInstructors, sessionId);
             RemoveInstructors(existingInstructors, updatedInstructors, sessionId);
