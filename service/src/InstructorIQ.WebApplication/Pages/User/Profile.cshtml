@@ -2,6 +2,8 @@
 @model InstructorIQ.WebApplication.Pages.User.ProfileModel
 @{
     ViewData["Title"] = "Profile";
+    ViewData["UserTab"] = "Profile";
+
     Layout = "_UserLayout";
 }
 
@@ -74,8 +76,9 @@
             <gravatar email="@User.Identity.Name"
                       class="rounded-circle d-block mx-auto"
                       size="200"></gravatar>
-            <p class="caption center-block text-center">
-                You can change your picture at <a class="external" href="http://gravatar.com/" target="_blank">Gravatar.com</a>
+            <p class="text-center">
+                You can change your picture at <a href="http://gravatar.com/" 
+                                                  target="_blank">Gravatar.com</a>
             </p>
         </div>
     </div>

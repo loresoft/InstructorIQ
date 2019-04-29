@@ -36,7 +36,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 .Where(s => s.SessionId == sessionId)
                 .ToListAsync(cancellationToken);
 
-            var updatedInstructors = request.Instructors;
+            var updatedInstructors = request.Instructors ?? new List<Guid>();
 
             AddInstructors(existingInstructors, updatedInstructors, sessionId);
             RemoveInstructors(existingInstructors, updatedInstructors, sessionId);

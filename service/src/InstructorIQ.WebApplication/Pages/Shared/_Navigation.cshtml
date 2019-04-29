@@ -196,16 +196,6 @@
                 </li>
             </ul>
 
-            @*<form class="form-inline mt-2 mt-md-0 d-none d-xl-block"
-                      include-if="@Tenant.HasValue">
-                    <input id="navbarSearchInput"
-                           class="form-control mr-sm-2"
-                           type="text"
-                           placeholder="Search"
-                           aria-label="Search"
-                           style="background: transparent;">
-                </form>*@
-
             <!-- User Menu -->
             <ul class="navbar-nav"
                 style="margin-right: 15px;">
@@ -227,14 +217,12 @@
                              aria-labelledby="navbarDropdownUser">
                             <a id="navbarIdentityProfile"
                                class="dropdown-item"
-                               asp-page="/user/profile"
-                               asp-route-tenant="@Tenant.Value?.Slug">
+                               asp-page="/user/profile">
                                 <i class="fas fa-user"></i> Update Profile
                             </a>
                             <a id="navbarIdentityProfile"
                                class="dropdown-item"
-                               asp-page="/user/password"
-                               asp-route-tenant="@Tenant.Value?.Slug">
+                               asp-page="/user/password">
                                 <i class="fas fa-lock"></i> Change Password
                             </a>
                             <div class="dropdown-divider"></div>
@@ -246,8 +234,7 @@
                             <div class="dropdown-divider"></div>
                             <a id="navbarIdentityLogout"
                                class="dropdown-item"
-                               asp-page="/account/logout"
-                               asp-route-tenant="@Tenant.Value?.Slug">
+                               asp-page="/account/logout">
                                 <i class="fas fa-power-off"></i> Logout
                             </a>
                         </div>

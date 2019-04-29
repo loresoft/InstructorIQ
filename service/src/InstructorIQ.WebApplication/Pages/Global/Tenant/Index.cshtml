@@ -78,19 +78,19 @@
 
         <div class="card-footer p-0">
             <div class="row">
-                <div class="col">
+                <div class="col-md-6">
                     <a asp-page="/global/tenant/create"
                        title="Add New Tenant"
                        class="btn btn-primary m-3">Add Tenant</a>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                     <pagination current-page="@Model.PageNumber"
                                 page-size="@Model.PageSize"
                                 total-items="@Model.Total"
                                 asp-route-z="@Model.PageSize"
                                 asp-route-s="@Model.Sort"
                                 asp-route-q="@Model.Query"
-                                class="justify-content-end m-3" />
+                                class="justify-content-md-end m-3" />
                 </div>
             </div>
         </div>
