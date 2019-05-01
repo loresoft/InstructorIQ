@@ -182,11 +182,12 @@ namespace InstructorIQ.WebApplication
             app.UseExceptionless(options.Value.ExceptionlessKey);
             app.UseSecurityHeaders();
             app.UseResponseCompression();
-            app.UseHttpsRedirection();
 
             app.UseRewriter(new RewriteOptions()
                 .Add(new RedirectToNonWwwRule(308))
+                .AddRedirectToHttpsPermanent()
             );
+            app.UseHttpsRedirection();
 
             app.UseStaticFiles(new StaticFileOptions
             {
