@@ -65,7 +65,7 @@
                 <button type="submit"
                         asp-route-tenantId="@item.Id"
                         asp-page-handler="ChangeTenant"
-                        class="list-group-item list-group-item-action">
+                        class="list-group-item list-group-item-action @(item.Id == Model.Tenant?.Value?.Id ? "active" : "")">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">@item.Name</h5>
                         <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
