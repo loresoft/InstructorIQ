@@ -1,10 +1,182 @@
 ﻿@page
+@using InstructorIQ.Core.Domain.Models
+@using InstructorIQ.Core.Multitenancy
+@using InstructorIQ.Core.Security
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
+@inject ITenant<TenantReadModel> Tenant
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Training calendar management.</p>
+<div class="container">
+    <div class="jumbotron">
+        <div class="text-center">
+            @if (Tenant.HasValue)
+            {
+                <h2>@Tenant.Value.Name</h2>
+            }
+            else
+            {
+                <h2>Welcome</h2>
+            }
+
+            <p class="lead">Training calendar management.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="far fa-calendar-alt" 
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Calendars</h3>
+                    <p>
+                        View training calendar by month or year.
+                    </p>
+                    <ul include-if="@Tenant.HasValue">
+                        <li>
+                            <a id="home-calendar-link"
+                               asp-page="/calendar/monthly"
+                               asp-route-tenant="@Tenant.Value?.Slug">Monthly Calendar</a>
+                        </li>
+                        <li>
+                            <a id="home-yearly-link"
+                               asp-page="/calendar/yearly"
+                               asp-route-tenant="@Tenant.Value?.Slug">Yearly Calendar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-book-open"
+                       aria-hidden="true"></i> 
+                </div>
+                <div class="feature-body">
+                    <h3>Topics</h3>
+                    <p>
+                        Training topic planning details. Details include lesson plan, instructor discussions and topic sessions.
+                    </p>
+                    <ul include-if="@Tenant.HasValue">
+                        <li>
+                            <a id="home-topic-link"
+                               asp-page="/topic/index"
+                               asp-route-tenant="@Tenant.Value?.Slug">View Topics</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-chalkboard-teacher"
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Instructors</h3>
+                    <p>
+                        Maintain a list of instructors with contact information.  Instructors can participate in topic discussions and edit lesson plans.
+                    </p>
+                    <ul include-if="@Tenant.HasValue" authorize>
+                        <li>
+                            <a id="home-instructor-link"
+                               asp-page="/instructor/index"
+                               asp-route-tenant="@Tenant.Value?.Slug">View Instructors</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-cogs" 
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Workflow</h3>
+                    <p>
+                        Notify instructors of upcoming classes. Track change to topics over time.  <em>Coming Soon ...</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="far fa-check-square"
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Attendance</h3>
+                    <p>
+                        Track student attendance for training classes. <em>Coming Soon ...</em>
+                    </p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Locations</h3>
+                    <p>
+                        Track locations for training classes. Administrators can add or edit location data.
+                    </p>
+                    <ul include-if="@Tenant.HasValue"
+                        authorize-policy="@UserPolicies.AdministratorPolicy">
+                        <li>
+                            <a id="home-location-link"
+                               asp-page="/location/index"
+                               asp-route-tenant="@Tenant.Value?.Slug">Manage Locations</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="fas fa-users"
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Groups</h3>
+                    <p>
+                        Group of students that the topic is for. Administrators can add or edit group names.
+                    </p>
+                    <ul include-if="@Tenant.HasValue"
+                        authorize-policy="@UserPolicies.AdministratorPolicy">
+                        <li>
+                            <a id="home-group-link"
+                               asp-page="/group/index"
+                               asp-route-tenant="@Tenant.Value?.Slug">Manage Groups</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">
+                    <i class="far fa-file-alt"
+                       aria-hidden="true"></i>
+                </div>
+                <div class="feature-body">
+                    <h3>Templates</h3>
+                    <p>
+                        Create lesson plan templates to speed topic planning. Administrators can add or edit templates.
+                    </p>
+                    <ul include-if="@Tenant.HasValue"
+                        authorize-policy="@UserPolicies.AdministratorPolicy">
+                        <li>
+                            <a id="home-template-link"
+                               asp-page="/template/index"
+                               asp-route-tenant="@Tenant.Value?.Slug">Manage Templates</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>
+

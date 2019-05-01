@@ -15827,3 +15827,21 @@ a.sort-by.descending:after {
 .hamburger::after {
     display: none !important;
 }
+
+.feature {
+    display: table;
+}
+
+    .feature > * {
+        display: table-cell;
+    }
+
+.feature-icon {
+    font-size: 20px;
+    width: 1%;
+    padding-right: 10px;
+}
+
+.feature-body h3 {
+    font-size: 1.3rem;
+}
