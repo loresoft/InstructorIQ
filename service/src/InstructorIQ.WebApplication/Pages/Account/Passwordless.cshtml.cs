@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace InstructorIQ.WebApplication.Pages.Account
 {
@@ -19,11 +21,13 @@ namespace InstructorIQ.WebApplication.Pages.Account
         private readonly UserManager<Core.Data.Entities.User> _userManager;
         private readonly IEmailTemplateService _templateService;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IOptions<PasswordlessLoginTokenProviderOptions> _passwordlessOptions;
 
-        public PasswordlessModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, ILogger<LoginModel> logger)
+        public PasswordlessModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, ILogger<LoginModel> logger, IOptions<PasswordlessLoginTokenProviderOptions> passwordlessOptions)
         {
             _userManager = userManager;
             _logger = logger;
+            _passwordlessOptions = passwordlessOptions;
             _templateService = templateService;
         }
 
@@ -64,7 +68,6 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 return Page();
             }
 
-
             var token = await _userManager.GenerateUserTokenAsync(
                 user, PasswordlessLoginToken.ProviderName, PasswordlessLoginToken.TokenPurpose);
 
@@ -74,14 +77,15 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 values: new { id = user.Id, token, returnUrl = ReturnUrl },
                 protocol: Request.Scheme);
 
-            var userAgent = Request.UserAgent();
             var model = new UserPasswordlessEmail
             {
                 DisplayName = user.DisplayName,
                 EmailAddress = user.Email,
-                LoginLink = loginLink,
-                UserAgent = userAgent
+                Link = loginLink,
+                ExpireHours = (int) _passwordlessOptions.Value.TokenLifespan.TotalHours
             };
+            Request.ReadUserAgent(model);
+
             var result = await _templateService.SendPasswordlessLoginEmail(model);
 
             return RedirectToPage("./PasswordlessConfirmation");

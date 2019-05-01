@@ -1,12 +1,9 @@
-﻿using InstructorIQ.Core.Models;
+﻿using System;
 
-// ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Models
+namespace InstructorIQ.Core.Models
 {
     public class UserPasswordlessEmail : EmailModelBase
     {
-        public string LoginLink { get; set; }
-
-        public UserAgentModel UserAgent { get; set; }
+        public int ExpireHours { get; set; } = 4;
     }
 }

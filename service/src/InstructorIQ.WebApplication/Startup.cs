@@ -11,6 +11,7 @@ using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
+using InstructorIQ.WebApplication.Rewrite;
 using InstructorIQ.WebApplication.Security;
 using KickStart;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -181,6 +183,11 @@ namespace InstructorIQ.WebApplication
             app.UseSecurityHeaders();
             app.UseResponseCompression();
             app.UseHttpsRedirection();
+
+            app.UseRewriter(new RewriteOptions()
+                .Add(new RedirectToNonWwwRule(308))
+            );
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = context =>

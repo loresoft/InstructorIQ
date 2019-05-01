@@ -82,7 +82,6 @@
     <Build Include="Tables\RefreshToken.sql" />
     <Build Include="Tables\EmailTemplate.sql" />
     <Build Include="Tables\EmailDelivery.sql" />
-    <None Include="Deployments\EmailTemplate.sql" />
     <Build Include="Tables\Datasweep.sql" />
     <Build Include="Tables\AuthenticationEvent.sql" />
     <Build Include="Tables\HistoryRecord.sql" />
@@ -111,6 +110,7 @@
     <Build Include="Types\IdentifierTableType.sql" />
     <Build Include="Schema\History.sql" />
     <Build Include="Tables\Discussion.sql" />
+    <Build Include="Tables\LinkToken.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

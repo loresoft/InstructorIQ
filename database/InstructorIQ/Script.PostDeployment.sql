@@ -9,7 +9,6 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]
 --------------------------------------------------------------------------------------
 */
-:r .\Deployments\EmailTemplate.sql
 :r .\Deployments\User.sql
 :r .\Deployments\Role.sql
 :r .\Deployments\Tenant.sql

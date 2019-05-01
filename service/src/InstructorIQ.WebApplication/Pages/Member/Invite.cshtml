@@ -1,8 +1,77 @@
-﻿@page
+﻿@page "/member/invite"
 @model InstructorIQ.WebApplication.Pages.Member.InviteModel
 @{
-    ViewData["Title"] = "Invite";
+    ViewData["Title"] = "Invite Member";
 }
 
-<h1>Invite</h1>
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/member/index"
+                   asp-route-tenant="@Model.TenantRoute">Members</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Member</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="fas fa-user mr-2"
+               aria-hidden="true"></i> Member
+        </div>
+        <div class="card-body">
+            <form id="member-form"
+                  name="member-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Input.DisplayName">Display Name <required /></label>
+                    <input asp-for="Input.DisplayName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Display Name">
+                    <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Email">Email Address <required /></label>
+                    <input asp-for="Input.Email"
+                           type="email"
+                           class="form-control"
+                           placeholder="Email Address">
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button id="send-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Send Invite
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/member/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 

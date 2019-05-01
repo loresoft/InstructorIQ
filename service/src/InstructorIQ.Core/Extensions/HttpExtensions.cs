@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using InstructorIQ.Core.Models;
 using Microsoft.AspNetCore.Http;
 using UAParser;
@@ -9,12 +7,19 @@ namespace InstructorIQ.Core.Extensions
 {
     public static class HttpExtensions
     {
-        public static UserAgentModel UserAgent(this HttpRequest httpRequest)
+        public static IUserAgentModel ReadUserAgent(this HttpRequest httpRequest)
         {
             var model = new UserAgentModel();
+            return ReadUserAgent(httpRequest, model);
+        }
 
+        public static IUserAgentModel ReadUserAgent(this HttpRequest httpRequest, IUserAgentModel model)
+        {
             if (httpRequest == null)
                 return model;
+
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
 
             model.IpAddress = httpRequest.HttpContext.Connection.RemoteIpAddress.ToString();
             model.UserAgent = httpRequest.Headers["User-Agent"].ToString();

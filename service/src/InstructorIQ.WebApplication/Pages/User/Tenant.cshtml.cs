@@ -20,7 +20,7 @@ namespace InstructorIQ.WebApplication.Pages.User
         private readonly SignInManager<Core.Data.Entities.User> _signInManager;
         private readonly UserManager<Core.Data.Entities.User> _userManager;
 
-        public TenantModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, SignInManager<Core.Data.Entities.User> signInManager, UserManager<Core.Data.Entities.User> userManager) 
+        public TenantModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, SignInManager<Core.Data.Entities.User> signInManager, UserManager<Core.Data.Entities.User> userManager)
             : base(tenant, mediator, loggerFactory)
         {
             _signInManager = signInManager;
@@ -41,15 +41,19 @@ namespace InstructorIQ.WebApplication.Pages.User
 
         public async Task<IActionResult> OnPostChangeTenant(Guid tenantId)
         {
-            var command = new MemberChangeTenantCommand(User, tenantId);
-            var result = await Mediator.Send(command);
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 
+            // change tenant id
+            user.LastTenantId = tenantId;
+
+            var identityResult = await _userManager.UpdateAsync(user);
+            if (!identityResult.Succeeded)
+                throw new InvalidOperationException($"Unexpected error occurred updating user with ID '{_userManager.GetUserId(User)}'.");
+
             await _signInManager.RefreshSignInAsync(user);
-            
+
             return RedirectToPage("/Index");
         }
 

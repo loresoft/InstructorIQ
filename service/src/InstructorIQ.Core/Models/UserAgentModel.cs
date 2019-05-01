@@ -2,7 +2,7 @@
 
 namespace InstructorIQ.Core.Models
 {
-    public class UserAgentModel
+    public class UserAgentModel : IUserAgentModel
     {
         public string UserAgent { get; set; }
 

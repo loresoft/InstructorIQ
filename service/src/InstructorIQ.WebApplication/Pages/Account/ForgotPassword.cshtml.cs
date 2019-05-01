@@ -2,11 +2,14 @@
 using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Models;
+using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 
 namespace InstructorIQ.WebApplication.Pages.Account
 {
@@ -15,11 +18,13 @@ namespace InstructorIQ.WebApplication.Pages.Account
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
         private readonly IEmailTemplateService _templateService;
+        private readonly IOptions<DataProtectionTokenProviderOptions> _tokenOptions;
 
-        public ForgotPasswordModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService)
+        public ForgotPasswordModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, IOptions<DataProtectionTokenProviderOptions> tokenOptions)
         {
             _userManager = userManager;
             _templateService = templateService;
+            _tokenOptions = tokenOptions;
         }
 
         [BindProperty]
@@ -51,14 +56,15 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 values: new { code },
                 protocol: Request.Scheme);
 
-            var userAgent = Request.UserAgent();
             var model = new UserResetPasswordEmail
             {
                 DisplayName = user.DisplayName,
                 EmailAddress = user.Email,
-                ResetLink = resetLink,
-                UserAgent = userAgent
+                Link = resetLink,
+                ExpireHours = (int)_tokenOptions.Value.TokenLifespan.TotalHours
             };
+            Request.ReadUserAgent(model);
+
             var result = await _templateService.SendResetPasswordEmail(model);
 
             return RedirectToPage("./ForgotPasswordConfirmation");

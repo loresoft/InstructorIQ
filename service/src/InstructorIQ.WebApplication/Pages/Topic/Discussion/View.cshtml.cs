@@ -75,7 +75,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Discussion
                 Message = Message
             };
 
-            var userAgent = Request.UserAgent();
+            var userAgent = Request.ReadUserAgent();
             Mapper.Map(userAgent, createModel);
 
             var command = new EntityCreateCommand<DiscussionCreateModel, DiscussionReadModel>(User, createModel);

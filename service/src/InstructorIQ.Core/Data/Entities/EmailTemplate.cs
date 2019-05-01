@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using InstructorIQ.Core.Services;
 using MediatR.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
@@ -7,7 +8,7 @@ namespace InstructorIQ.Core.Data.Entities
     /// <summary>
     /// Entity class representing data for table 'EmailTemplate'.
     /// </summary>
-    public partial class EmailTemplate : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
+    public class EmailTemplate : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IEmailTemplate
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailTemplate"/> class.
