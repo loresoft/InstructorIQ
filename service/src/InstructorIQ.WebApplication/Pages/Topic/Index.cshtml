@@ -117,36 +117,37 @@
             </div>
             <div class="card-footer p-0">
                 <div class="row">
-                    <div class="col-md-6"
-                         authorize-policy="@UserPolicies.AdministratorPolicy">
-                        <a asp-page="/topic/create"
-                           asp-route-tenant="@Model.TenantRoute"
-                           title="Add New Topic"
-                           class="btn btn-primary m-3">Add Topic</a>
+                    <div class="col-md-6">
+                        <div authorize-policy="@UserPolicies.AdministratorPolicy">
+                            <a asp-page="/topic/create"
+                               asp-route-tenant="@Model.TenantRoute"
+                               title="Add New Topic"
+                               class="btn btn-primary m-3">Add Topic</a>
 
-                        <button type="button"
-                                class="btn btn-secondary dropdown-toggle"
-                                id="actionDropdown"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false">
-                            Actions
-                        </button>
-                        <div class="dropdown-menu"
-                             aria-labelledby="actionDropdown">
-                            <button type="submit"
-                                    asp-page-handler="AddGroups"
-                                    title="Add Sessions for Groups"
-                                    class="dropdown-item">
-                                Add Sessions for Groups
+                            <button type="button"
+                                    class="btn btn-secondary dropdown-toggle"
+                                    id="actionDropdown"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false">
+                                Actions
                             </button>
-                            <div class="dropdown-divider"></div>
-                            <button type="submit"
-                                    asp-page-handler="BulkEdit"
-                                    title="Bulk Edit Sessions"
-                                    class="dropdown-item">
-                                Bulk Edit Sessions
-                            </button>
+                            <div class="dropdown-menu"
+                                 aria-labelledby="actionDropdown">
+                                <button type="submit"
+                                        asp-page-handler="AddGroups"
+                                        title="Add Sessions for Groups"
+                                        class="dropdown-item">
+                                    Add Sessions for Groups
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button type="submit"
+                                        asp-page-handler="BulkEdit"
+                                        title="Bulk Edit Sessions"
+                                        class="dropdown-item">
+                                    Bulk Edit Sessions
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
