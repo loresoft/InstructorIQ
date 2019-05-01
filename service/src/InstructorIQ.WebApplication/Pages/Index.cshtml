@@ -4,7 +4,7 @@
 @using InstructorIQ.Core.Security
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = Tenant.HasValue ? Tenant.Value.Name : "Home";
 }
 @inject ITenant<TenantReadModel> Tenant
 
