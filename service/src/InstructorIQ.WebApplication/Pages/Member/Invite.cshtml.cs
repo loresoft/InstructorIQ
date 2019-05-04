@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
@@ -57,7 +59,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
             ShowAlert("Successfully sent invite email");
 
-            return RedirectToPage("/Member/Edit", new { id = user.Id });
+            return RedirectToPage("/Member/Index", new { tenant = TenantRoute });
         }
 
         private async Task<Core.Data.Entities.User> GetOrCreateUser()
@@ -82,7 +84,6 @@ namespace InstructorIQ.WebApplication.Pages.Member
                 ModelState.AddModelError(string.Empty, error.Description);
 
             return null;
-
         }
 
         private async Task UpdateMembership(Core.Data.Entities.User user)
@@ -102,15 +103,14 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
         private async Task SendInvite(Core.Data.Entities.User user)
         {
-            var returnUrl = Url.Content("~/");
 
-            var token = await _userManager.GenerateUserTokenAsync(
-                user, PasswordlessLoginToken.ProviderName, PasswordlessLoginToken.TokenPurpose);
+            var token = _userManager.GenerateNewAuthenticatorKey();
+            await CreateLinkToken(user, token);
 
             var loginLink = Url.Page(
-                "/Account/LoginCallback",
+                "/Account/Link",
                 pageHandler: null,
-                values: new { id = user.Id, token, returnUrl },
+                values: new { token },
                 protocol: Request.Scheme);
 
             var model = new UserInviteEmail
@@ -118,10 +118,28 @@ namespace InstructorIQ.WebApplication.Pages.Member
                 DisplayName = user.DisplayName,
                 EmailAddress = user.Email,
                 Link = loginLink,
+                TenantName = Tenant.Value.Name
             };
             Request.ReadUserAgent(model);
 
             await _templateService.SendUserInviteEmail(model);
         }
+
+        private async Task CreateLinkToken(Core.Data.Entities.User user, string token)
+        {
+            var returnUrl = Url.Content("~/");
+
+            var createModel = new LinkTokenCreateModel
+            {
+                Expires = DateTimeOffset.UtcNow.Add(TimeSpan.FromDays(30)),
+                Url = returnUrl,
+                UserName = user.UserName,
+                TenantId = Tenant.Value.Id
+            };
+
+            var createCommand = new LinkTokenCreateCommand(User, createModel, token);
+            var linkToken = await Mediator.Send(createCommand);
+        }
+
     }
 }

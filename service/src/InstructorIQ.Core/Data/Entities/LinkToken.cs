@@ -1,18 +1,17 @@
 using System;
 using System.Collections.Generic;
-using MediatR.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
-    /// Entity class representing data for table 'RefreshToken'.
+    /// Entity class representing data for table 'LinkToken'.
     /// </summary>
-    public partial class RefreshToken : IHaveIdentifier<Guid>
+    public partial class LinkToken
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RefreshToken"/> class.
+        /// Initializes a new instance of the <see cref="LinkToken"/> class.
         /// </summary>
-        public RefreshToken()
+        public LinkToken()
         {
             #region Generated Constructor
             #endregion
@@ -44,20 +43,20 @@ namespace InstructorIQ.Core.Data.Entities
         public string UserName { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'ClientId'.
+        /// Gets or sets the property value representing column 'Url'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'ClientId'.
+        /// The property value representing column 'Url'.
         /// </value>
-        public string ClientId { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'ProtectedTicket'.
+        /// Gets or sets the property value representing column 'TenantId'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'ProtectedTicket'.
+        /// The property value representing column 'TenantId'.
         /// </value>
-        public string ProtectedTicket { get; set; }
+        public Guid? TenantId { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Issued'.
@@ -78,6 +77,15 @@ namespace InstructorIQ.Core.Data.Entities
         #endregion
 
         #region Generated Relationships
+        /// <summary>
+        /// Gets or sets the navigation property for entity <see cref="Tenant" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation property for entity <see cref="Tenant" />.
+        /// </value>
+        /// <seealso cref="TenantId" />
+        public virtual Tenant Tenant { get; set; }
+
         #endregion
 
     }

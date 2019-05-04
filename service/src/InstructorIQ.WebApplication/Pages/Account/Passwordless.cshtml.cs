@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,16 +21,18 @@ namespace InstructorIQ.WebApplication.Pages.Account
     [AllowAnonymous]
     public class PasswordlessModel : PageModel
     {
+        private readonly IMediator _mediator;
         private readonly UserManager<Core.Data.Entities.User> _userManager;
         private readonly IEmailTemplateService _templateService;
         private readonly ILogger<LoginModel> _logger;
         private readonly IOptions<PasswordlessLoginTokenProviderOptions> _passwordlessOptions;
 
-        public PasswordlessModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, ILogger<LoginModel> logger, IOptions<PasswordlessLoginTokenProviderOptions> passwordlessOptions)
+        public PasswordlessModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, ILogger<LoginModel> logger, IOptions<PasswordlessLoginTokenProviderOptions> passwordlessOptions, IMediator mediator)
         {
             _userManager = userManager;
             _logger = logger;
             _passwordlessOptions = passwordlessOptions;
+            _mediator = mediator;
             _templateService = templateService;
         }
 
@@ -37,8 +42,6 @@ namespace InstructorIQ.WebApplication.Pages.Account
         [BindProperty(SupportsGet = true)]
         public string ReturnUrl { get; set; }
 
-        [TempData]
-        public string ErrorMessage { get; set; }
 
         public class InputModel
         {
@@ -68,13 +71,21 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 return Page();
             }
 
-            var token = await _userManager.GenerateUserTokenAsync(
-                user, PasswordlessLoginToken.ProviderName, PasswordlessLoginToken.TokenPurpose);
+            var token = _userManager.GenerateNewAuthenticatorKey();
 
+            await CreateLinkToken(user, token);
+
+            await SendEmail(user, token);
+
+            return RedirectToPage("./PasswordlessConfirmation");
+        }
+
+        private async Task SendEmail(Core.Data.Entities.User user, string token)
+        {
             var loginLink = Url.Page(
-                "/Account/LoginCallback",
+                "/Account/Link",
                 pageHandler: null,
-                values: new { id = user.Id, token, returnUrl = ReturnUrl },
+                values: new {token},
                 protocol: Request.Scheme);
 
             var model = new UserPasswordlessEmail
@@ -87,9 +98,19 @@ namespace InstructorIQ.WebApplication.Pages.Account
             Request.ReadUserAgent(model);
 
             var result = await _templateService.SendPasswordlessLoginEmail(model);
-
-            return RedirectToPage("./PasswordlessConfirmation");
         }
 
+        private async Task CreateLinkToken(Core.Data.Entities.User user, string token)
+        {
+            var createModel = new LinkTokenCreateModel
+            {
+                Expires = DateTimeOffset.UtcNow.Add(_passwordlessOptions.Value.TokenLifespan),
+                Url = ReturnUrl,
+                UserName = user.UserName
+            };
+
+            var createCommand = new LinkTokenCreateCommand(User, createModel, token);
+            var linkToken = await _mediator.Send(createCommand);
+        }
     }
 }

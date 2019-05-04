@@ -8,154 +8,159 @@
 
     ViewData["Title"] = "Summary";
 }
-    <div class="container summary">
-        <div class="row no-gutters mb-3 d-print-none">
-            <div class="col">
-                <a class="btn btn-outline-secondary"
-                   title="Previous Day"
-                   asp-page="/report/summary"
-                   asp-route-tenant="@Model.TenantRoute"
-                   asp-route-date="@previousDate.ToString("yyyy-MM-dd")">
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-                <a class="btn btn-outline-secondary"
-                   title="Next Day"
-                   asp-page="/report/summary"
-                   asp-route-tenant="@Model.TenantRoute"
-                   asp-route-date="@nextDate.ToString("yyyy-MM-dd")">
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </div>
-            <div class="col">
-                <input asp-for="Date"
-                       type="date"
-                       class="form-control"
-                       onblur="changeDate()" />
-            </div>
+<div class="container summary">
+    <div class="row no-gutters mb-3 d-print-none">
+        <div class="col">
+            <a class="btn btn-outline-secondary"
+               title="Previous Day"
+               asp-page="/report/summary"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-date="@previousDate.ToString("yyyy-MM-dd")">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="btn btn-outline-secondary"
+               title="Next Day"
+               asp-page="/report/summary"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-date="@nextDate.ToString("yyyy-MM-dd")">
+                <i class="fas fa-chevron-right"></i>
+            </a>
         </div>
-        <h1 class="summary-section">
-            Summary for @Model.Date.ToString("MMMM dd")
-        </h1>
-        <table style="border-collapse: collapse;"
-               include-if="@Model.Items.Count > 0">
-            <thead>
+        <div class="col">
+            <input asp-for="Date"
+                   type="date"
+                   class="form-control"
+                   onblur="changeDate()" />
+        </div>
+    </div>
+    <h1 class="summary-section">
+        Summary for @Model.Date.ToString("MMMM dd")
+    </h1>
+    <table style="border-collapse: collapse;"
+           include-if="@Model.Items.Count > 0">
+        <thead>
+            <tr>
+                <th class="summary-cell">
+                    Station / Squad
+                </th>
+                <th class="summary-cell">
+                    Topic
+                </th>
+                <th class="summary-cell">
+                    Location
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
                 <tr>
-                    <th class="summary-cell">
-                        Station / Squad
-                    </th>
-                    <th class="summary-cell">
-                        Topic
-                    </th>
-                    <th class="summary-cell">
-                        Location
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Items)
-                {
-                    <tr>
-                        <td class="summary-cell">
-                            @item.GroupName
-                        </td>
-                        <td class="summary-cell">
-                            @if (item.IsRequired)
-                            {
-                                <span class="required">@item.TopicTitle *</span>
-                            }
-                            else
-                            {
-                                @item.TopicTitle
-                            }
-                        </td>
-                        <td class="summary-cell">
-                            @item.LocationName
-                        </td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot include-if="Model.Items.Any(i => i.IsRequired)">
-                <tr>
-                    <td colspan="3"
-                        style="border: 0 none;">
-                        <small class="required">* Required</small>
+                    <td class="summary-cell">
+                        @item.GroupName
+                    </td>
+                    <td class="summary-cell">
+                        @if (item.IsRequired)
+                        {
+                            <span class="required">@item.TopicTitle *</span>
+                        }
+                        else
+                        {
+                            @item.TopicTitle
+                        }
+                    </td>
+                    <td class="summary-cell">
+                        @item.LocationName
                     </td>
                 </tr>
-            </tfoot>
-        </table>
-        <h1 class="summary-section">
-            Response
-        </h1>
-        <p>&nbsp;</p>
-        <h1 class="summary-section">
-            Topic Details
-        </h1>
-        @foreach (var group in Model.Items.OrderBy(g => g.TopicTitle).GroupBy(g => g.TopicId))
+            }
+        </tbody>
+        <tfoot include-if="Model.Items.Any(i => i.IsRequired)">
+            <tr>
+                <td colspan="3"
+                    style="border: 0 none;">
+                    <small class="required">* Required</small>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h1 class="summary-section">
+        Response
+    </h1>
+
+    <p>&nbsp;</p>
+    <h1 class="summary-section">
+        Topic Details
+    </h1>
+    @foreach (var group in Model.Items.OrderBy(g => g.TopicTitle).GroupBy(g => g.TopicId))
+    {
+        var item = group.FirstOrDefault();
+        <h3 class="summary-detail-section">
+            @item.TopicTitle
+        </h3>
+
+        <markdown content="@item.TopicDescription"></markdown>
+
+    }
+
+    <p include-if="@Model.Items.Count == 0">&nbsp;</p>
+
+    <h1 class="summary-section">
+        Notes
+    </h1>
+
+    <p>&nbsp;</p>
+
+    <h1 class="summary-section">
+        Links
+    </h1>
+    <ul>
+        <li>
+            <a asp-protocol="@Model.HttpContext.Request.Scheme"
+               asp-host="@Model.HttpContext.Request.Host"
+               asp-page="/calendar/monthly"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-year="@Model.Date.Year"
+               asp-route-month="@Model.Date.Month">
+                @Model.Date.Year @Model.MonthName Training Calendar
+            </a>
+        </li>
+        @if (Model.ShowNextMonth())
         {
-            var item = group.FirstOrDefault();
-            <h3 class="summary-detail-section">
-                @item.TopicTitle
-            </h3>
-
-            <markdown content="@item.TopicDescription"></markdown>
-        }
-        <p include-if="@Model.Items.Count == 0">&nbsp;</p>
-
-        <h1 class="summary-section">
-            Notes
-        </h1>
-        <p>&nbsp;</p>
-
-        <h1 class="summary-section">
-            Links
-        </h1>
-        <ul>
             <li>
                 <a asp-protocol="@Model.HttpContext.Request.Scheme"
                    asp-host="@Model.HttpContext.Request.Host"
                    asp-page="/calendar/monthly"
                    asp-route-tenant="@Model.TenantRoute"
-                   asp-route-year="@Model.Date.Year"
-                   asp-route-month="@Model.Date.Month">
-                    @Model.Date.Year @Model.MonthName Training Calendar
+                   asp-route-year="@Model.NextMonth.Year"
+                   asp-route-month="@Model.NextMonth.Month">
+                    @Model.NextMonth.Year @Model.NextMonthName Training Calendar
                 </a>
             </li>
-            @if (Model.ShowNextMonth())
-            {
-                <li>
-                    <a asp-protocol="@Model.HttpContext.Request.Scheme"
-                       asp-host="@Model.HttpContext.Request.Host"
-                       asp-page="/calendar/monthly"
-                       asp-route-tenant="@Model.TenantRoute"
-                       asp-route-year="@Model.NextMonth.Year"
-                       asp-route-month="@Model.NextMonth.Month">
-                        @Model.NextMonth.Year @Model.NextMonthName Training Calendar
-                    </a>
-                </li>
-            }
+        }
+        <li>
+            <a asp-protocol="@Model.HttpContext.Request.Scheme"
+               asp-host="@Model.HttpContext.Request.Host"
+               asp-page="/calendar/yearly"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-year="@Model.Date.Year">
+                @Model.Date.Year Yearly Training Calendar
+            </a>
+        </li>
+        @if (Model.ShowNextYear())
+        {
             <li>
                 <a asp-protocol="@Model.HttpContext.Request.Scheme"
                    asp-host="@Model.HttpContext.Request.Host"
                    asp-page="/calendar/yearly"
                    asp-route-tenant="@Model.TenantRoute"
-                   asp-route-year="@Model.Date.Year">
-                    @Model.Date.Year Yearly Training Calendar
+                   asp-route-year="@Model.NextYear.Year">
+                    @Model.NextYear.Year Yearly Training Calendar
                 </a>
             </li>
-            @if (Model.ShowNextYear())
-            {
-                <li>
-                    <a asp-protocol="@Model.HttpContext.Request.Scheme"
-                       asp-host="@Model.HttpContext.Request.Host"
-                       asp-page="/calendar/yearly"
-                       asp-route-tenant="@Model.TenantRoute"
-                       asp-route-year="@Model.NextYear.Year">
-                        @Model.NextYear.Year Yearly Training Calendar
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
+        }
+    </ul>
+</div>
 
 @section Scripts {
     <script>

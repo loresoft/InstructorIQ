@@ -22,6 +22,7 @@ namespace InstructorIQ.Core.Data.Entities
             InstructorRoles = new HashSet<InstructorRole>();
             Instructors = new HashSet<Instructor>();
             Invites = new HashSet<Invite>();
+            LinkTokens = new HashSet<LinkToken>();
             Locations = new HashSet<Location>();
             Sessions = new HashSet<Session>();
             Templates = new HashSet<Template>();
@@ -201,6 +202,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Invite" />.
         /// </value>
         public virtual ICollection<Invite> Invites { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="LinkToken" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="LinkToken" />.
+        /// </value>
+        public virtual ICollection<LinkToken> LinkTokens { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Location" />.

@@ -102,6 +102,14 @@ namespace InstructorIQ.Core.Data
         public virtual DbSet<InstructorIQ.Core.Data.Entities.Invite> Invites { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.LinkToken"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.LinkToken"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.LinkToken> LinkTokens { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
         /// </summary>
         /// <value>
@@ -210,6 +218,7 @@ namespace InstructorIQ.Core.Data
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorRoleMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteRoleMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LinkTokenMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LocationMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationRecipientMap());

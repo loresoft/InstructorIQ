@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -280,5 +281,18 @@ namespace InstructorIQ.Core.Extensions
             return sb;
         }
 
+
+        public static string ComputeHash(this string value)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(value);
+            byte[] hashBytes;
+
+            using (var sha = new SHA512Managed())
+                hashBytes = sha.ComputeHash(bytes);
+
+            var hash = Convert.ToBase64String(hashBytes);
+
+            return hash;
+        }
     }
 }

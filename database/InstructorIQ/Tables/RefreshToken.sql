@@ -2,7 +2,7 @@
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_RefreshToken_Id] DEFAULT (NEWSEQUENTIALID()),
 
-    [TokenHashed] NVARCHAR(256) NOT NULL,
+    [TokenHash] NVARCHAR(256) NOT NULL,
 
     [UserName] NVARCHAR(256) NOT NULL,
 
@@ -20,5 +20,5 @@ CREATE INDEX [IX_RefreshToken_UserName]
     ON [IQ].[RefreshToken] ([UserName])
 
 GO
-CREATE UNIQUE INDEX [UX_RefreshToken_TokenHashed]
-    ON [IQ].[RefreshToken] ([TokenHashed])
+CREATE UNIQUE INDEX [UX_RefreshToken_TokenHash]
+    ON [IQ].[RefreshToken] ([TokenHash])

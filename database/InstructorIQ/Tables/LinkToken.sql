@@ -2,12 +2,12 @@
 (
     [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_LinkToken_Id] DEFAULT (NEWSEQUENTIALID()),
 
-    [TokenHashed] NVARCHAR(256) NOT NULL,
+    [TokenHash] NVARCHAR(256) NOT NULL,
 
     [UserName] NVARCHAR(256) NOT NULL,
     [Url] NVARCHAR(MAX) NOT NULL,
 
-    [TenantId] UNIQUEIDENTIFIER NOT NULL,
+    [TenantId] UNIQUEIDENTIFIER NULL,
 
     [Issued] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_LinkToken_Issued] DEFAULT (SYSUTCDATETIME()),
     [Expires] DATETIMEOFFSET NULL,
@@ -21,5 +21,5 @@ CREATE INDEX [IX_LinkToken_UserName]
     ON [IQ].[LinkToken] ([UserName])
 
 GO
-CREATE UNIQUE INDEX [UX_LinkToken_TokenHashed]
-    ON [IQ].[LinkToken] ([TokenHashed])
+CREATE UNIQUE INDEX [UX_LinkToken_TokenHash]
+    ON [IQ].[LinkToken] ([TokenHash])

@@ -1,8 +1,14 @@
-﻿@page
+﻿@page "/account/link/{token}"
 @model InstructorIQ.WebApplication.Pages.Account.LinkModel
 @{
     ViewData["Title"] = "Link";
+    Layout = "_DangerLayout";
 }
 
-<h1>Link</h1>
+@section Header {
+    <i class="fas fa-exclamation-triangle"></i> Link Failed
+}
 
+<p>
+    Your link either expired or was invalid.  Please try again.
+</p>
