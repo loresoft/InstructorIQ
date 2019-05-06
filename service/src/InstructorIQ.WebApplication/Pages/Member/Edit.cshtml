@@ -123,7 +123,7 @@
                 </fieldset>
 
                 <div class="row mt-3">
-                    <div class="col">
+                    <div class="col-md-6">
                         <button id="save-button"
                                 type="submit"
                                 class="btn btn-primary">
@@ -135,6 +135,16 @@
                            class="btn btn-secondary">
                             Cancel
                         </a>
+                    </div>
+                    <div class="col-md-6">
+                        <confirm-button id="invite-button"
+                                        class="btn btn-secondary fa-pull-right"
+                                        asp-page-handler="SendInvite"
+                                        modal-button="Invite"
+                                        modal-color="primary"
+                                        modal-text="Are you sure you want to send member an invite email?">
+                            Invite
+                        </confirm-button>
                     </div>
                 </div>
             </form>

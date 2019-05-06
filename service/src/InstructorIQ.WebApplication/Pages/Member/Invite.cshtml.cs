@@ -7,7 +7,6 @@ using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
-using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
