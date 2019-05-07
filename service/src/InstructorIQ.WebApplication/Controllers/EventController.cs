@@ -31,20 +31,25 @@ namespace InstructorIQ.WebApplication.Controllers
 
 
         [HttpGet("ical/{tenant}")]
-        public async Task<IActionResult> Get(CancellationToken cancellationToken, string tenant)
+        public async Task<IActionResult> Get(CancellationToken cancellationToken, string tenant, DateTimeOffset? start, DateTimeOffset? end)
         {
             var query = new TenantSlugQuery(User, tenant);
             var tenantModel = await Mediator.Send(query);
             var tenantId = tenantModel.Id;
-            var start = DateTimeOffset.UtcNow.Subtract(TimeSpan.FromDays(60));
-            var end = start.AddYears(1);
 
-            var command = new EventRangeQuery(User, tenantId, start, end);
+            if (start == null)
+                start = DateTimeOffset.UtcNow.Subtract(TimeSpan.FromDays(60));
+
+            if (end == null)
+                end = start.Value.AddYears(1);
+
+            var command = new EventRangeQuery(User, tenantId, start.Value, end.Value);
             var events = await Mediator.Send(command, cancellationToken);
 
 
             var calendar = new Ical.Net.Calendar();
             calendar.Method = "PUBLISH";
+            calendar.AddTimeZone(tenantModel.TimeZone);
 
             foreach (var e in events)
             {
@@ -57,13 +62,13 @@ namespace InstructorIQ.WebApplication.Controllers
                 calendarEvent.Categories.Add("Training");
 
                 if (e.Start.HasValue)
-                    calendarEvent.Start = new CalDateTime(e.Start.Value.DateTime);
+                    calendarEvent.Start = new CalDateTime(e.Start.Value.UtcDateTime);
 
                 if (e.End.HasValue)
-                    calendarEvent.End = new CalDateTime(e.End.Value.DateTime);
+                    calendarEvent.End = new CalDateTime(e.End.Value.UtcDateTime);
 
-                calendarEvent.LastModified = new CalDateTime(e.Modified.DateTime);
-                
+                calendarEvent.LastModified = new CalDateTime(e.Modified.UtcDateTime);
+
                 calendar.Events.Add(calendarEvent);
             }
 
