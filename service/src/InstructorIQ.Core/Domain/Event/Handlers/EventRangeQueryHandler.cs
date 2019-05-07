@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,22 +15,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
     public class EventRangeQueryHandler : DataContextHandlerBase<InstructorIQContext, EventRangeQuery, IReadOnlyCollection<EventReadModel>>
     {
         private readonly IUrlHelper _urlHelper;
-        private readonly ITenant<TenantReadModel> _tenant;
 
-        public EventRangeQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, IUrlHelper urlHelper, ITenant<TenantReadModel> tenant)
+        public EventRangeQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, IUrlHelper urlHelper)
             : base(loggerFactory, dataContext, mapper)
         {
             _urlHelper = urlHelper;
-            _tenant = tenant;
         }
 
         protected override async Task<IReadOnlyCollection<EventReadModel>> Process(EventRangeQuery request, CancellationToken cancellationToken)
         {
+            var tenant = await DataContext.Tenants
+                .FindAsync(request.TenantId)
+                .ConfigureAwait(false);
+
             var query = DataContext.Sessions
                 .AsNoTracking()
                 .Where(q => q.TenantId == request.TenantId)
@@ -51,8 +55,11 @@ namespace InstructorIQ.Core.Domain.Handlers
                 eventModel.Id = session.Id.ToString();
                 eventModel.AllDay = false;
                 eventModel.Editable = false;
+                eventModel.Required = session.IsRequired;
 
                 eventModel.Title = $"{session.TopicTitle} - {session.GroupName}";
+                eventModel.Description = session.TopicDescription;
+                eventModel.Location = session.LocationName;
 
                 if (session.IsRequired)
                 {
@@ -68,15 +75,14 @@ namespace InstructorIQ.Core.Domain.Handlers
                 var endDate = DateTimeFactory.Create(session.EndDate, session.EndTime, session.TenantTimeZone);
                 eventModel.End = endDate?.ToUniversalTime();
 
-                var tenant = _tenant?.Value?.Slug ?? string.Empty;
-
+                eventModel.Modified = session.Updated;
+                
                 var url = _urlHelper.Page(
-                    "/topic/session/view",
+                    "/topic/view",
                     values: new
                     {
-                        tenant,
-                        topicId = session.TopicId,
-                        id = session.Id
+                        tenant = tenant.Slug,
+                        id = session.TopicId
                     }
                 );
 
