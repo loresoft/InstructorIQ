@@ -15,7 +15,10 @@
     @foreach (var item in Model.Items)
     {
         var instructors = new HashSet<string>();
-        instructors.Add(item.LeadInstructorName);
+        if (item.LeadInstructorName.HasValue())
+        {
+            instructors.Add(item.LeadInstructorName);
+        }
         foreach (var instructor in item.AdditionalInstructors)
         {
             instructors.Add(instructor.DisplayName);
@@ -31,9 +34,9 @@
                 <h5 class="mb-1">
                     @item.TopicTitle@(item.GroupId.HasValue ? " - " : " ")@item.GroupName
                 </h5>
-                <div>
+                <div class="d-none d-md-block">
                     <small class="d-block">
-                        <strong>@item.StartDate?.ToString("MM/dd/yyyy")</strong>
+                        <strong>@item.StartDate?.ToString("MMMM dd")</strong>
                     </small>
                     <small class="d-block">
                         @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
@@ -41,13 +44,19 @@
                 </div>
             </div>
             <div>
-                <small>
-                    <i class="fas fa-map-marker-alt mr-1" 
-                       include-if="@item.LocationId.HasValue"></i>
+                <small class="d-block d-md-none mr-2 mb-1">
+                    <i class="fas fa-clock mr-1"></i>
+                    @item.StartDate?.ToString("MMM dd")
+                    @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
+                </small>
+                <small class="d-block d-md-inline mr-2 mb-1"
+                       include-if="@item.LocationId.HasValue">
+                    <i class="fas fa-map-marker-alt mr-1"></i>
                     @item.LocationName
-                
-                    <i class="fas fa-user ml-2 mr-1" 
-                       include-if="@instructors.Count > 0"></i>
+                </small>
+                <small class="d-block d-md-inline mr-2 mb-1"
+                       include-if="@instructors.Count > 0">
+                    <i class="fas fa-user mr-1"></i>
                     <em>@instructors.ToDelimitedString("; ")</em>
                 </small>
             </div>
