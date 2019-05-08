@@ -4,7 +4,7 @@
 @using NaturalSort.Extension
 @model MonthlyModel
 @{
-    var currentMonth = @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month);
+    var currentMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month);
     var currentDate = new DateTime(Model.Year, Model.Month, 1);
     var previousDate = currentDate.AddMonths(-1);
     var nextDate = currentDate.AddMonths(1);

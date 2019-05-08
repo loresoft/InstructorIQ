@@ -1,0 +1,159 @@
+﻿@page "/calendar/embed/{year:int?}/{month:int?}"
+@using System.Globalization
+@using InstructorIQ.Core.Extensions
+@using NaturalSort.Extension
+@model InstructorIQ.WebApplication.Pages.Calendar.EmbedModel
+@{
+    Layout = null;
+
+    var currentMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month);
+    var currentDate = new DateTime(Model.Year, Model.Month, 1);
+    var previousDate = currentDate.AddMonths(-1);
+    var nextDate = currentDate.AddMonths(1);
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - InstructorIQ</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" asp-append-version="true">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
+    <link rel="manifest" href="/site.webmanifest" asp-append-version="true">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" asp-append-version="true">
+
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/bundle.css" asp-append-version="true" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/bundle.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body class="embed-body m-0">
+
+    <nav class="navbar fixed-top py-0">
+        <a class="navbar-brand">@currentMonth @Model.Year Calendar</a>
+        <form class="form-inline">
+            <div class="btn-group btn-group-sm" role="group">
+                <a class="btn btn-sm btn-light"
+                   title="Previous Month"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-month="@previousDate.Month"
+                   asp-route-year="@previousDate.Year">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a class="btn btn-sm btn-light"
+                   title="Next Month"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-month="@nextDate.Month"
+                   asp-route-year="@nextDate.Year">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </form>
+    </nav>
+
+
+    <div class="embed-calendar">
+
+        @foreach (var grouping in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate ?? DateTime.MinValue))
+        {
+            var sortedGroups = grouping
+                .OrderBy(i => i.StartTime)
+                .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                .ToList();
+
+
+            <div class="embed-day">
+                <div class="embed-day-label">
+                    @grouping.Key.ToString("dddd, MMMM dd, yyyy")
+                </div>
+                @foreach (var c in sortedGroups)
+                {
+                    var instructors = new HashSet<string>();
+                    if (c.LeadInstructorName.HasValue())
+                    {
+                        instructors.Add(c.LeadInstructorName);
+                    }
+                    foreach (var instructor in c.AdditionalInstructors)
+                    {
+                        instructors.Add(instructor.DisplayName);
+                    }
+
+                    <div class="embed-event" id="event-@c.Id">
+                        <div class="embed-wrapper">
+                            <a data-toggle="collapse" href="#event-detail-@c.Id" class="d-block">
+                                <span class="embed-time" alt="Thu, May 2, 7:15pm – 10:00pm" title="@c.StartDate?.ToString("dddd, MMMM dd"), @c.StartTime?.ToString(@"hh\:mm") – @c.EndDate?.ToString(@"hh\:mm")">@c.StartTime?.ToString(@"hh\:mm")</span>
+                                <span class="embed-title @(c.IsRequired ? "required" : "")">@c.TopicTitle - @c.GroupName</span>
+                            </a>
+                        </div>
+                        <div class="collapse embed-detail" id="event-detail-@c.Id">
+                            <small class="d-block d-md-inline mr-2 mb-1"
+                                   include-if="@c.StartDate.HasValue">
+                                <i class="fas fa-clock"
+                                   style="width: 14px;"></i>
+                                @c.StartDate?.ToString("MMM dd"),
+                                @c.StartTime?.ToString(@"hh\:mm")@(c.EndTime.HasValue ? " - " : " ")@c.EndTime?.ToString(@"hh\:mm")
+                            </small>
+                            <small class="d-block d-md-inline mr-2 mb-1"
+                                   include-if="@c.LocationId.HasValue">
+                                <i class="fas fa-map-marker-alt"
+                                   style="width: 14px;"></i>
+                                @c.LocationName
+                            </small>
+                            <small class="d-block d-lg-inline mr-2 mb-1"
+                                   include-if="@instructors.Count > 0">
+                                <i class="fas fa-user"
+                                   style="width: 14px;"></i>
+                                <em>@instructors.ToDelimitedString("; ")</em>
+                            </small>
+                            <small class="d-block mr-2 mb-1">
+                                <i class="fas fa-external-link-alt"
+                                   style="width: 14px;"></i>
+                                <a asp-page="/topic/view"
+                                   asp-route-tenant="@Model.TenantRoute"
+                                   asp-route-id="@c.TopicId"
+                                   class="ml-1"
+                                   target="_blank"
+                                   title="View @c.TopicTitle Topic">
+                                    more details »
+                                </a>
+                            </small>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="embed-day mt-1"
+             include-if="Model.Items.Count == 0">
+            <div class="embed-event p-4 text-center">
+                <em>No sessions for this month</em>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center">
+        @Model.Tenant.Value?.Name
+    </div>
+
+    <environment include="Development">
+        <script src="~/bundle.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/bundle.min.js" asp-append-version="true">
+        </script>
+    </environment>
+
+</body>
+</html>

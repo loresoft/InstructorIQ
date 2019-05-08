@@ -209,3 +209,58 @@
 .event-required .fc-event-dot {
     background-color: #990000;
 }
+
+.embed-body {
+    padding-top: 2.1rem;
+}
+
+    .embed-body > .navbar {
+        background-color: #6F6F6F;
+        color: #FFF;
+    }
+
+.embed-calendar {
+    padding: .5em;
+    width: 100%;
+    background-color: #c0c0c0;
+}
+
+.embed-day {
+}
+
+.embed-event {
+    background-color: #FFF;
+    border: 1px solid #c0c0c0;
+    color: #000;
+}
+
+.embed-day-label {
+    font-weight: 600;
+}
+
+.embed-wrapper {
+    padding: .25em;
+}
+
+    .embed-wrapper a:link,
+    .embed-wrapper a:visited,
+    .embed-wrapper a:hover,
+    .embed-wrapper a:active {
+        color: #000;
+        text-decoration: none;
+    }
+
+.embed-time {
+    margin-right: 1em;
+}
+
+.embed-title {
+}
+
+.embed-detail {
+    padding: .25em .75em;
+}
+
+    .embed-detail i {
+        width: 14px
+    }

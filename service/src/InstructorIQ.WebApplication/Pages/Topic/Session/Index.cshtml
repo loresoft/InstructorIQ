@@ -44,19 +44,23 @@
                 </div>
             </div>
             <div>
-                <small class="d-block d-md-none mr-2 mb-1">
-                    <i class="fas fa-clock mr-1"></i>
+                <small class="d-block d-md-none mr-2 mb-1"
+                       include-if="@item.StartDate.HasValue">
+                    <i class="fas fa-clock"
+                       style="width: 14px;"></i>
                     @item.StartDate?.ToString("MMM dd")
                     @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
                 </small>
                 <small class="d-block d-md-inline mr-2 mb-1"
                        include-if="@item.LocationId.HasValue">
-                    <i class="fas fa-map-marker-alt mr-1"></i>
+                    <i class="fas fa-map-marker-alt"
+                       style="width: 14px;"></i>
                     @item.LocationName
                 </small>
                 <small class="d-block d-md-inline mr-2 mb-1"
                        include-if="@instructors.Count > 0">
-                    <i class="fas fa-user mr-1"></i>
+                    <i class="fas fa-user"
+                       style="width: 14px;"></i>
                     <em>@instructors.ToDelimitedString("; ")</em>
                 </small>
             </div>

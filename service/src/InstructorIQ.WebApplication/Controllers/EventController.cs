@@ -30,7 +30,7 @@ namespace InstructorIQ.WebApplication.Controllers
         }
 
 
-        [HttpGet("ical/{tenant}")]
+        [HttpGet("ical/{tenant}", Name = "event-subscribe")]
         public async Task<IActionResult> Get(CancellationToken cancellationToken, string tenant, DateTimeOffset? start, DateTimeOffset? end)
         {
             var query = new TenantSlugQuery(User, tenant);
@@ -41,7 +41,7 @@ namespace InstructorIQ.WebApplication.Controllers
                 start = DateTimeOffset.UtcNow.Subtract(TimeSpan.FromDays(60));
 
             if (end == null)
-                end = start.Value.AddYears(1);
+                end = start.Value.AddMonths(6);
 
             var command = new EventRangeQuery(User, tenantId, start.Value, end.Value);
             var events = await Mediator.Send(command, cancellationToken);

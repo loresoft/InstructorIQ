@@ -1,0 +1,40 @@
+﻿@page
+@model InstructorIQ.WebApplication.Pages.Calendar.SubscribeModel
+@{
+    ViewData["Title"] = "Subscribe";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Subscribe</li>
+        </ol>
+    </nav>
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="far fa-calendar-check mr-2"
+               aria-hidden="true"></i> Calendar Subscribe
+        </div>
+        <div class="card-body">
+            <p>
+                Subscribing to the below iCalendar feed allows you to view upcoming training sessions in many popular calendaring programs. To subscribe, simply import the iCalendar feed using the link below.
+            </p>
+
+            <p>
+                NOTE: The .ics file contains the next 4 months of published training sessions each time it is loaded. Scheduling data is updated in real time, so you must configure your calendaring program to check for updates periodically.
+            </p>
+
+            <a asp-route="event-subscribe"
+               asp-protocol="@Model.Request.Scheme"
+               asp-host="@Model.Request.Host"
+               asp-route-tenant="@Model.TenantRoute">@Url.RouteUrl("event-subscribe", new { tenant = Model.TenantRoute }, Model.Request.Scheme, Model.Request.Host.ToString())</a>
+        </div>
+    </div>
+</div>
