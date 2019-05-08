@@ -180,7 +180,22 @@ namespace InstructorIQ.WebApplication
             var options = app.ApplicationServices.GetService<IOptions<HostingConfiguration>>();
 
             app.UseExceptionless(options.Value.ExceptionlessKey);
-            app.UseSecurityHeaders();
+
+
+            var policyCollection = new HeaderPolicyCollection()
+                .AddXssProtectionBlock()
+                .AddContentTypeOptionsNoSniff()
+                .AddStrictTransportSecurityMaxAge()
+                .AddReferrerPolicyStrictOriginWhenCrossOrigin()
+                .RemoveServerHeader()
+                .AddContentSecurityPolicy(builder =>
+                {
+                    builder.AddObjectSrc().None();
+                    builder.AddFormAction().Self();
+                });
+
+            app.UseSecurityHeaders(policyCollection);
+
             app.UseResponseCompression();
 
             app.UseRewriter(new RewriteOptions()
