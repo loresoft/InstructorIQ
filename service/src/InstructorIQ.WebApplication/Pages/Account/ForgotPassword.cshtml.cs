@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
-using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -48,6 +46,11 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 ModelState.AddModelError("Input.Email", "Email address not registered.");
                 return Page();
             }
+
+            // fix issue where imported uses have null security stamp
+            var securityStamp = await _userManager.GetSecurityStampAsync(user);
+            if (securityStamp.IsNullOrEmpty())
+                await _userManager.UpdateSecurityStampAsync(user);
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
             var resetLink = Url.Page(

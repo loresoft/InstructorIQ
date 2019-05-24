@@ -70,6 +70,21 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(50)")
                 .HasMaxLength(50);
 
+            builder.Property(t => t.ContactName)
+                .HasColumnName("ContactName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.ContactEmail)
+                .HasColumnName("ContactEmail")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.ContactPhone)
+                .HasColumnName("ContactPhone")
+                .HasColumnType("nvarchar(50)")
+                .HasMaxLength(50);
+
             builder.Property(t => t.Latitude)
                 .HasColumnName("Latitude")
                 .HasColumnType("decimal(20, 10)");

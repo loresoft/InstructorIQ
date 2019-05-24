@@ -93,6 +93,30 @@ namespace InstructorIQ.Core.Data.Entities
         public string PostalCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'ContactName'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'ContactName'.
+        /// </value>
+        public string ContactName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'ContactEmail'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'ContactEmail'.
+        /// </value>
+        public string ContactEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'ContactPhone'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'ContactPhone'.
+        /// </value>
+        public string ContactPhone { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'Latitude'.
         /// </summary>
         /// <value>

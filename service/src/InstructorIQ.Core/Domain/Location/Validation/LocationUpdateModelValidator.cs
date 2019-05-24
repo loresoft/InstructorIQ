@@ -25,6 +25,9 @@ namespace InstructorIQ.Core.Domain.Validation
             RuleFor(p => p.City).MaximumLength(150);
             RuleFor(p => p.StateProvince).MaximumLength(150);
             RuleFor(p => p.PostalCode).MaximumLength(50);
+            RuleFor(p => p.ContactName).MaximumLength(256);
+            RuleFor(p => p.ContactEmail).MaximumLength(256);
+            RuleFor(p => p.ContactPhone).MaximumLength(50);
             #endregion
         }
 

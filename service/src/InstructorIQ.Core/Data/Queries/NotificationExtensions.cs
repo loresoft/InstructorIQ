@@ -40,6 +40,28 @@ namespace InstructorIQ.Core.Data.Queries
             return queryable.FirstOrDefaultAsync(q => q.Id == id);
         }
 
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="tenantId">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Notification> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.Notification> queryable, Guid tenantId)
+        {
+            return queryable.Where(q => q.TenantId == tenantId);
+        }
+
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
+        /// <param name="userName">The value to filter by.</param>
+        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
+        public static IQueryable<InstructorIQ.Core.Data.Entities.Notification> ByUserName(this IQueryable<InstructorIQ.Core.Data.Entities.Notification> queryable, string userName)
+        {
+            return queryable.Where(q => q.UserName == userName);
+        }
+
         #endregion
 
     }

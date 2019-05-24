@@ -71,6 +71,11 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 return Page();
             }
 
+            // fix issue where imported uses have null security stamp
+            var securityStamp = await _userManager.GetSecurityStampAsync(user);
+            if (securityStamp.IsNullOrEmpty())
+                await _userManager.UpdateSecurityStampAsync(user);
+
             var token = _userManager.GenerateNewAuthenticatorKey();
 
             await CreateLinkToken(user, token);

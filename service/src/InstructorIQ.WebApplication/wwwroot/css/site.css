@@ -253,3 +253,12 @@ a.sort-by.descending:after {
 .feature-body h3 {
     font-size: 1.3rem;
 }
+
+.nav-link .badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: 0;
+    font-size: .6rem;
+}

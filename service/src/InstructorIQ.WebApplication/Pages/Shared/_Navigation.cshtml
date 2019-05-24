@@ -21,20 +21,20 @@
         <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
-                data-target="#navbarCollapse"
-                aria-controls="navbarCollapse"
+                data-target="#navbar-main-menu"
+                aria-controls="navbar-main-menu"
                 aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse"
-             id="navbarCollapse">
+             id="navbar-main-menu">
             <ul class="navbar-nav mr-auto">
                 <!-- Calendar Menu -->
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue">
-                    <a id="navbarDropdownCalendar"
+                    <a id="navbar-dropdown-calendar"
                        class="nav-link dropdown-toggle"
                        href="#"
                        data-toggle="dropdown"
@@ -43,21 +43,21 @@
                         Calendar
                     </a>
                     <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownCalendar">
-                        <a id="navbarMonthlyCalendarLink"
+                         aria-labelledby="navbar-dropdown-calendar">
+                        <a id="navbar-monthly-calendar-link"
                            class="dropdown-item"
                            asp-page="/calendar/monthly"
                            asp-route-tenant="@Tenant.Value?.Slug">Monthly Calendar</a>
-                        <a id="navbarYearlyCalendarLink"
+                        <a id="navbar-yearly-calendar-link"
                            class="dropdown-item"
                            asp-page="/calendar/yearly"
                            asp-route-tenant="@Tenant.Value?.Slug">Yearly Calendar</a>
                         <div class="dropdown-divider"></div>
-                        <a id="navbarInteractiveCalendarLink"
+                        <a id="navbar-interactive-calendar-link"
                            class="dropdown-item"
                            asp-page="/calendar/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Calendar</a>
-                        <a id="navbarSubscribeCalendarLink"
+                        <a id="navbar-subscribe-calendar-link"
                            class="dropdown-item"
                            asp-page="/calendar/subscribe"
                            asp-route-tenant="@Tenant.Value?.Slug">Subscribe</a>
@@ -67,7 +67,7 @@
                 <!-- Topic Menu -->
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue">
-                    <a id="navbarDropdownTopic"
+                    <a id="navbar-dropdown-topic"
                        class="nav-link dropdown-toggle"
                        href="#"
                        data-toggle="dropdown"
@@ -76,14 +76,14 @@
                         Topics
                     </a>
                     <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownTopic">
-                        <a id="navbarViewTopicLink"
+                         aria-labelledby="navbar-dropdown-topic">
+                        <a id="navbar-view-topic-link"
                            class="dropdown-item"
                            asp-page="/topic/index"
                            asp-route-tenant="@Tenant.Value?.Slug">View Topics</a>
                         <div class="dropdown-divider"
                              authorize-policy="@UserPolicies.AdministratorPolicy"></div>
-                        <a id="navbarCreateTopicLink"
+                        <a id="navbar-create-topic-link"
                            class="dropdown-item"
                            authorize-policy="@UserPolicies.AdministratorPolicy"
                            asp-page="/topic/create"
@@ -95,7 +95,7 @@
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue"
                     authorize>
-                    <a id="navbarDropdownInstructors"
+                    <a id="navbar-dropdown-instructors"
                        class="nav-link dropdown-toggle"
                        href="#"
                        data-toggle="dropdown"
@@ -104,14 +104,14 @@
                         Instructors
                     </a>
                     <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownInstructors">
-                        <a id="navbarViewInstructorsLink"
+                         aria-labelledby="navbar-dropdown-instructors">
+                        <a id="navbar-view-instructors-link"
                            class="dropdown-item"
                            asp-page="/instructor/index"
                            asp-route-tenant="@Tenant.Value?.Slug">View Instructors</a>
                         <div class="dropdown-divider"
                              authorize-policy="@UserPolicies.AdministratorPolicy"></div>
-                        <a id="navbarCreateInstructorLink"
+                        <a id="navbar-create-instructor-link"
                            class="dropdown-item"
                            authorize-policy="@UserPolicies.AdministratorPolicy"
                            asp-page="/instructor/create"
@@ -122,7 +122,7 @@
                 <!-- Reports Menu -->
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue">
-                    <a id="navbarDropdownReports"
+                    <a id="navbar-dropdown-reports"
                        class="nav-link dropdown-toggle"
                        href="#"
                        data-toggle="dropdown"
@@ -131,8 +131,8 @@
                         Reports
                     </a>
                     <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownReports">
-                        <a id="navbarSummaryReportLink"
+                         aria-labelledby="navbar-dropdown-reports">
+                        <a id="navbar-summary-report-link"
                            class="dropdown-item"
                            asp-page="/report/summary"
                            asp-route-tenant="@Tenant.Value?.Slug">Daily Summary</a>
@@ -143,7 +143,7 @@
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue"
                     authorize-policy="@UserPolicies.AdministratorPolicy">
-                    <a id="navbarDropdownAdministrative"
+                    <a id="navbar-dropdown-administrative"
                        href="#"
                        class="nav-link dropdown-toggle"
                        data-toggle="dropdown"
@@ -152,21 +152,21 @@
                         Administrative
                     </a>
                     <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownAdministrative">
-                        <a id="navbarAdministrativeLocationsLink"
+                         aria-labelledby="navbar-dropdown-administrative">
+                        <a id="navbar-administrative-locations-link"
                            class="dropdown-item"
                            asp-page="/location/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Locations</a>
-                        <a id="navbarAdministrativeGroupsLink"
+                        <a id="navbar-administrative-groups-link"
                            class="dropdown-item"
                            asp-page="/group/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Groups</a>
-                        <a id="navbarAdministrativeTemplateLink"
+                        <a id="navbar-administrative-template-link"
                            class="dropdown-item"
                            asp-page="/template/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Templates</a>
                         <div class="dropdown-divider"></div>
-                        <a id="navbarAdministrativeMemberLink"
+                        <a id="navbar-administrative-member-link"
                            class="dropdown-item"
                            asp-page="/member/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Members</a>
@@ -176,7 +176,7 @@
                 <!-- Global Menu -->
                 <li class="nav-item dropdown"
                     authorize-policy="@UserPolicies.GlobalAdministratorPolicy">
-                    <a id="navbarDropdownGlobalAdministrative"
+                    <a id="navbar-dropdown-global-administrative"
                        href="#"
                        class="nav-link dropdown-toggle"
                        data-toggle="dropdown"
@@ -185,15 +185,15 @@
                         Global
                     </a>
                     <div class="dropdown-menu"
-                         aria-labelledby="navbarDropdownAdministrative">
-                        <a id="navbarAdministrativeTenantLink"
+                         aria-labelledby="navbar-dropdown-global-administrative">
+                        <a id="navbar-administrative-tenant-link"
                            class="dropdown-item"
                            asp-page="/global/tenant/index">Manage Tenants</a>
-                        <a id="navbarAdministrativeUserLink"
+                        <a id="navbar-administrative-user-link"
                            class="dropdown-item"
                            asp-page="/global/user/index">Manage Users</a>
                         <div class="dropdown-divider"></div>
-                        <a id="navbarAdministrativeHangfireLink"
+                        <a id="navbar-administrative-hangfire-link"
                            class="dropdown-item"
                            href="/hangfire">Hangfire Dashboard</a>
                     </div>
@@ -205,8 +205,19 @@
                 style="margin-right: 15px;">
                 @if (SignInManager.IsSignedIn(User))
                 {
+                    <li class="nav-item">
+                        <a id="navbar-dropdown-notification"
+                           class="nav-link position-relative"
+                           asp-page="/user/notification">
+                            <i id="navbar-notification-icon" 
+                               class="far fa-bell"></i>
+                            <span id="navbar-notification-count" 
+                                  style="display: none;"
+                                  class="badge badge-info border border-light">0</span>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdownUser"
+                        <a id="navbar-dropdown-user"
                            href="#"
                            class="nav-link dropdown-toggle"
                            data-toggle="dropdown"
@@ -215,28 +226,28 @@
                             <gravatar email="@User.Identity.Name"
                                       class="rounded-circle"
                                       size="24"></gravatar>
-                            <span id="navbarIdentityUsername">@UserClaimManager.GetDisplayName(User)</span>
+                            <span id="navbar-identity-username">@UserClaimManager.GetDisplayName(User)</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"
-                             aria-labelledby="navbarDropdownUser">
-                            <a id="navbarIdentityProfile"
+                             aria-labelledby="navbar-dropdown-user">
+                            <a id="navbar-identity-profile-link"
                                class="dropdown-item"
                                asp-page="/user/profile">
                                 <i class="fas fa-user"></i> Update Profile
                             </a>
-                            <a id="navbarIdentityProfile"
+                            <a id="navbar-identity-profile-link"
                                class="dropdown-item"
                                asp-page="/user/password">
                                 <i class="fas fa-lock"></i> Change Password
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a id="navbarIdentityProfile"
+                            <a id="navbar-identity-profile-link"
                                class="dropdown-item"
                                asp-page="/user/tenant">
                                 <i class="fas fa-building"></i> Change Tenant
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a id="navbarIdentityLogout"
+                            <a id="navbar-identity-logout-link"
                                class="dropdown-item"
                                asp-page="/account/logout">
                                 <i class="fas fa-power-off"></i> Logout
@@ -247,7 +258,8 @@
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link"
+                        <a id="navbar-identity-login-link" 
+                           class="nav-link"
                            asp-page="/account/login"
                            asp-route-tenant="@Tenant.Value?.Slug">
                             Login
@@ -259,4 +271,4 @@
         </div>
     </div>
 </nav>
-
+ 

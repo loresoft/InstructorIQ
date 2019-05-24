@@ -89,6 +89,34 @@
                         <span asp-validation-for="Entity.PostalCode" class="text-danger"></span>
                     </div>
                 </div>
+                <hr/>
+                <div class="form-group">
+                    <label asp-for="Entity.ContactName">Contact Name</label>
+                    <input asp-for="Entity.ContactName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Contact Name" />
+                    <span asp-validation-for="Entity.ContactName" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.ContactEmail">Contact Email</label>
+                        <input asp-for="Entity.ContactEmail"
+                               type="email"
+                               class="form-control"
+                               placeholder="Contact Email" />
+                        <span asp-validation-for="Entity.ContactEmail" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.ContactPhone">Contact Phone </label>
+                        <input asp-for="Entity.ContactPhone"
+                               type="tel"
+                               class="form-control"
+                               placeholder="Contact Phone" />
+                        <span asp-validation-for="Entity.ContactPhone" class="text-danger"></span>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col">
                         <button id="save-button"

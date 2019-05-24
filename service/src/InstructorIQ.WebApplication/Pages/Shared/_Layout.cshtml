@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - InstructorIQ</title>
-    
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" asp-append-version="true">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
@@ -42,5 +42,53 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+        var refreshTimer;
+        var loadCount = 0;
+        var unreadUrl = '/api/notification/unread/';
+
+        function loadNotification() {
+            loadCount++;
+
+            // only run refresh 50x
+            if (loadCount > 50)
+                clearInterval(refreshTimer);
+
+            $.getJSON(unreadUrl)
+                .done(function (json) {
+                    var count = json.count;
+
+                    if (count > 0) {
+                        $('#navbar-notification-icon')
+                            .removeClass('far')
+                            .addClass('fas');
+
+                        $('#navbar-notification-count')
+                            .html(count)
+                            .show();
+                    } else {
+                        $('#navbar-notification-icon')
+                            .removeClass('fas')
+                            .addClass('far');
+
+                        $('#navbar-notification-count')
+                            .html(count)
+                            .hide();
+                    }
+                });
+        }
+
+        $(function () {
+            if ($('#navbar-notification-count').length) {
+                refreshTimer = setInterval(function () {
+                    loadNotification();
+                }, 15000);
+
+                loadNotification();
+            }
+        });
+    </script>
+
 </body>
 </html>

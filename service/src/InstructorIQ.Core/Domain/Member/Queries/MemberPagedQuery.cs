@@ -3,6 +3,7 @@ using System.Security.Principal;
 using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries
 {
     public class MemberPagedQuery : EntityPagedQuery<MemberReadModel>
@@ -12,6 +13,6 @@ namespace InstructorIQ.Core.Domain.Queries
             TenantId = tenantId;
         }
 
-        public Guid TenantId { get; set; }
+        public Guid TenantId { get; }
     }
 }

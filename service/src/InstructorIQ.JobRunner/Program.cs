@@ -32,6 +32,7 @@ namespace InstructorIQ.JobRunner
                 Log.Information("Starting JobRunner host");
 
                 var host = new HostBuilder()
+                    .UseEnvironment(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production")
                     .ConfigureHostConfiguration((config) =>
                     {
                         config.AddEnvironmentVariables();
@@ -41,6 +42,11 @@ namespace InstructorIQ.JobRunner
                         builder
                             .AddJsonFile("appsettings.json")
                             .AddJsonFile($"appsettings.{hostContext.HostingEnvironment}.json", true);
+
+                        if (hostContext.HostingEnvironment.IsDevelopment())
+                        {
+                            builder.AddUserSecrets("903022c7-65a9-40cf-8939-9a3388f50b0f");
+                        }
                     })
                     .ConfigureServices((hostContext, services) =>
                     {

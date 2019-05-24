@@ -40,13 +40,19 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("Message")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.CorrelationType)
-                .HasColumnName("CorrelationType")
+            builder.Property(t => t.UserName)
+                .IsRequired()
+                .HasColumnName("UserName")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
-            builder.Property(t => t.CorrelationId)
-                .HasColumnName("CorrelationId")
+            builder.Property(t => t.Read)
+                .HasColumnName("Read")
+                .HasColumnType("datetimeoffset");
+
+            builder.Property(t => t.TenantId)
+                .IsRequired()
+                .HasColumnName("TenantId")
                 .HasColumnType("uniqueidentifier");
 
             builder.Property(t => t.Created)
@@ -79,6 +85,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
 
             // relationships
+            builder.HasOne(t => t.Tenant)
+                .WithMany(t => t.Notifications)
+                .HasForeignKey(d => d.TenantId)
+                .HasConstraintName("FK_Notification_Tenant_TenantId");
+
             #endregion
         }
 

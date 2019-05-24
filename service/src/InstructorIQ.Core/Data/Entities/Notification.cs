@@ -15,7 +15,6 @@ namespace InstructorIQ.Core.Data.Entities
         public Notification()
         {
             #region Generated Constructor
-            NotificationRecipients = new HashSet<NotificationRecipient>();
             #endregion
         }
 
@@ -45,20 +44,28 @@ namespace InstructorIQ.Core.Data.Entities
         public string Message { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'CorrelationType'.
+        /// Gets or sets the property value representing column 'UserName'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'CorrelationType'.
+        /// The property value representing column 'UserName'.
         /// </value>
-        public string CorrelationType { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'CorrelationId'.
+        /// Gets or sets the property value representing column 'Read'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'CorrelationId'.
+        /// The property value representing column 'Read'.
         /// </value>
-        public Guid? CorrelationId { get; set; }
+        public DateTimeOffset? Read { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'TenantId'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'TenantId'.
+        /// </value>
+        public Guid TenantId { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Created'.
@@ -104,12 +111,13 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="NotificationRecipient" />.
+        /// Gets or sets the navigation property for entity <see cref="Tenant" />.
         /// </summary>
         /// <value>
-        /// The the navigation collection for entity <see cref="NotificationRecipient" />.
+        /// The the navigation property for entity <see cref="Tenant" />.
         /// </value>
-        public virtual ICollection<NotificationRecipient> NotificationRecipients { get; set; }
+        /// <seealso cref="TenantId" />
+        public virtual Tenant Tenant { get; set; }
 
         #endregion
 

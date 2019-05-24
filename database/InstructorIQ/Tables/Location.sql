@@ -11,6 +11,10 @@
     [StateProvince]  nvarchar(150) NULL,
     [PostalCode] nvarchar(50) NULL,
 
+    [ContactName] NVARCHAR(256) NULL,
+    [ContactEmail] nvarchar(256) NULL,
+    [ContactPhone] nvarchar(50) NULL,
+
     [Latitude] decimal(20,10) NULL,
     [Longitude] decimal(20,10) NULL,
 

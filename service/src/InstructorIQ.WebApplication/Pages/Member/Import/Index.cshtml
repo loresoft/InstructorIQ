@@ -1,0 +1,96 @@
+﻿@page "/members/import"
+@model InstructorIQ.WebApplication.Pages.Member.Import.IndexModel
+@{
+    ViewData["Title"] = "Members Import";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/member/index"
+                   asp-route-tenant="@Model.TenantRoute">Members</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Member Import</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <form id="import-form"
+          name="import-form"
+          role="form"
+          method="post"
+          enctype="multipart/form-data">
+        <div class="card mb-5">
+            <div class="card-header">
+                <i class="fas fa-upload mr-2"
+                   aria-hidden="true"></i> Member Import
+            </div>
+
+            <div class="card-body">
+                <p>
+                    To import users, select a CSV file to upload. The first row must be column headers.
+                </p>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="custom-file">
+                    <input type="file"
+                           asp-for="Upload"
+                           class="custom-file-input"
+                           accept=".csv">
+                    <label class="custom-file-label"
+                           for="@Html.IdFor(m=> m.Upload)">Choose file</label>
+
+                    <span asp-validation-for="Upload" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Upload
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/member/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $('.custom-file input').change(function (e) {
+            var files = [];
+            for (var i = 0; i < $(this)[0].files.length; i++) {
+                files.push($(this)[0].files[i].name);
+            }
+            $(this).next('.custom-file-label').html(files.join(', '));
+        });
+
+    </script>    
+}
+
+

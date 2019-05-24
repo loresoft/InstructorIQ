@@ -21,13 +21,13 @@
 
     <div class="card mb-5">
         <div class="card-header">
-            <form id="tenant-search-form"
-                  name="tenant-search-form"
+            <form id="member-search-form"
+                  name="member-search-form"
                   role="form"
                   method="get">
                 <div class="row">
                     <div class="col-sm-4">
-                        <i class="fas fa-th-list mr-2"
+                        <i class="fas fa-user mr-2"
                            aria-hidden="true"></i> Users
                     </div>
                     <div class="col-sm-8">
@@ -58,9 +58,24 @@
                title="Edit @item.DisplayName"
                class="list-group-item list-group-item-action">
                 <h5 class="mb-1">@item.DisplayName</h5>
-                <small class="d-block">@item.JobTitle</small>
-                <small class="d-block">@item.Email</small>
-                <small class="d-block">@item.PhoneNumber</small>
+                <small class="d-block d-md-inline mr-2 mb-1" 
+                       exclude-if="@string.IsNullOrEmpty(item.JobTitle)">
+                    <i class="fas fa-id-badge"
+                       style="width: 14px;"></i>
+                    @item.JobTitle
+                </small>
+                <small class="d-block d-md-inline mr-2 mb-1"
+                       exclude-if="@string.IsNullOrEmpty(item.Email)">
+                    <i class="fas fa-envelope"
+                       style="width: 14px;"></i>
+                    @item.Email
+                </small>
+                <small class="d-block d-md-inline mr-2 mb-1"
+                       exclude-if="@string.IsNullOrEmpty(item.PhoneNumber)">
+                    <i class="fas fa-phone"
+                       style="width: 14px;"></i>
+                    @item.PhoneNumber
+                </small>
             </a>
             }
         </div>

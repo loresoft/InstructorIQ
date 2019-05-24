@@ -26,6 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             : base(tenant, mediator, loggerFactory)
         {
             _userManager = userManager;
+            Sort = "DisplayName";
         }
 
         [BindProperty(Name = "p", SupportsGet = true)]

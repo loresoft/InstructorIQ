@@ -1,0 +1,23 @@
+﻿CREATE TABLE [IQ].[ImportJob]
+(
+    [Id] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [DF_ImportJob_Id] DEFAULT (NEWSEQUENTIALID()),
+    [Type] NVARCHAR(100) NOT NULL,
+
+    [TenantId] UNIQUEIDENTIFIER NOT NULL,
+
+    [MappingJson] NVARCHAR(MAX) NULL,
+    [StorageFile] NVARCHAR(MAX) NULL,
+
+    [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_ImportJob_Created] DEFAULT (SYSUTCDATETIME()),
+    [CreatedBy] NVARCHAR(100) NULL,
+    [Updated] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_ImportJob_Updated] DEFAULT (SYSUTCDATETIME()),
+    [UpdatedBy] NVARCHAR(100) NULL,
+    [RowVersion] ROWVERSION NOT NULL,
+
+    CONSTRAINT [PK_ImportJob] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_ImportJob_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
+)
+
+GO
+CREATE INDEX [IX_ImportJob_TenantId]
+ON [IQ].[ImportJob] ([TenantId])

@@ -77,6 +77,30 @@ namespace InstructorIQ.Core.Domain.Models
         public string PostalCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'ContactName'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'ContactName'.
+        /// </value>
+        public string ContactName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'ContactEmail'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'ContactEmail'.
+        /// </value>
+        public string ContactEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'ContactPhone'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'ContactPhone'.
+        /// </value>
+        public string ContactPhone { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'Latitude'.
         /// </summary>
         /// <value>

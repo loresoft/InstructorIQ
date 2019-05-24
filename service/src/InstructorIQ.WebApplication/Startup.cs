@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -206,6 +207,13 @@ namespace InstructorIQ.WebApplication
 
             app.UseStaticFiles(new StaticFileOptions
             {
+                ContentTypeProvider = new FileExtensionContentTypeProvider
+                {
+                    Mappings =
+                    {
+                        [".webmanifest"] = "application/manifest+json"
+                    }
+                },
                 OnPrepareResponse = context =>
                 {
                     var headers = context.Context.Response.GetTypedHeaders();

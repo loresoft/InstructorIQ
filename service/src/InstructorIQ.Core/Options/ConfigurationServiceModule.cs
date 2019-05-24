@@ -21,6 +21,7 @@ namespace InstructorIQ.Core.Options
             services.Configure<HostingConfiguration>(configuration.GetSection("Hosting"));
             services.Configure<SmtpConfiguration>(configuration.GetSection("Smtp"));
             services.Configure<PrincipalConfiguration>(configuration.GetSection("Principal"));
+            services.Configure<StorageConfiguration>(configuration.GetSection("Storage"));
         }
     }
 }

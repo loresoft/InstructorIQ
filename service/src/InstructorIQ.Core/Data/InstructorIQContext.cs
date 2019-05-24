@@ -70,6 +70,14 @@ namespace InstructorIQ.Core.Data
         public virtual DbSet<InstructorIQ.Core.Data.Entities.HistoryRecord> HistoryRecords { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.ImportJob"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.ImportJob"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.ImportJob> ImportJobs { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InstructorRole"/>.
         /// </summary>
         /// <value>
@@ -86,22 +94,6 @@ namespace InstructorIQ.Core.Data
         public virtual DbSet<InstructorIQ.Core.Data.Entities.Instructor> Instructors { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InviteRole"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.InviteRole"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.InviteRole> InviteRoles { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Invite"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Invite"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.Invite> Invites { get; set; }
-
-        /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.LinkToken"/>.
         /// </summary>
         /// <value>
@@ -116,14 +108,6 @@ namespace InstructorIQ.Core.Data
         /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Location"/>.
         /// </value>
         public virtual DbSet<InstructorIQ.Core.Data.Entities.Location> Locations { get; set; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.NotificationRecipient"/>.
-        /// </summary>
-        /// <value>
-        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.NotificationRecipient"/>.
-        /// </value>
-        public virtual DbSet<InstructorIQ.Core.Data.Entities.NotificationRecipient> NotificationRecipients { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Notification"/>.
@@ -214,14 +198,12 @@ namespace InstructorIQ.Core.Data
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailTemplateMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.GroupMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.HistoryRecordMap());
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.ImportJobMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InstructorRoleMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.InviteRoleMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LinkTokenMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.LocationMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationMap());
-            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.NotificationRecipientMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.RefreshTokenMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionInstructorMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.SessionMap());

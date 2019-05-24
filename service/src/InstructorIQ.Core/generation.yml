@@ -33,9 +33,8 @@ model:
     directory: '{Project.Directory}\Domain\{Entity.Name}\Models'
     exclude:
       entities:
+        - 'ImportJob'
         - 'InviteUser'
-        - 'Notification'
-        - 'NotificationRecipient'
         - 'RefreshToken'
         - 'SessionInstructor'
         - 'SessionReferenceNumber'

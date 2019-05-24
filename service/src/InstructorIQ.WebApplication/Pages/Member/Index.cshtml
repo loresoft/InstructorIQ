@@ -63,9 +63,24 @@
                title="Edit @item.DisplayName"
                class="list-group-item list-group-item-action">
                 <h5 class="mb-1">@item.DisplayName</h5>
-                <small class="d-block">@item.JobTitle</small>
-                <small class="d-block">@item.Email</small>
-                <small class="d-block">@item.PhoneNumber</small>
+                <small class="d-block d-md-inline mr-2 mb-1" 
+                       exclude-if="@string.IsNullOrEmpty(item.JobTitle)">
+                    <i class="fas fa-id-badge"
+                       style="width: 14px;"></i>
+                    @item.JobTitle
+                </small>
+                <small class="d-block d-md-inline mr-2 mb-1"
+                       exclude-if="@string.IsNullOrEmpty(item.Email)">
+                    <i class="fas fa-envelope"
+                       style="width: 14px;"></i>
+                    @item.Email
+                </small>
+                <small class="d-block d-md-inline mr-2 mb-1"
+                       exclude-if="@string.IsNullOrEmpty(item.PhoneNumber)">
+                    <i class="fas fa-phone"
+                       style="width: 14px;"></i>
+                    @item.PhoneNumber
+                </small>
             </a>
             }
         </div>
@@ -77,6 +92,26 @@
                        asp-route-tenant="@Model.TenantRoute"
                        title="Invite New Member"
                        class="btn btn-primary m-3">Invite Member</a>
+                    
+                    <button type="button"
+                            class="btn btn-secondary dropdown-toggle"
+                            id="actionDropdown"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        Actions
+                    </button>
+                    <div class="dropdown-menu"
+                         aria-labelledby="actionDropdown">
+                        <a asp-page="/member/import/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           title="Import Member"
+                           class="dropdown-item">Import Members</a>
+                        <a asp-page="/member/export"
+                           asp-route-tenant="@Model.TenantRoute"
+                           title="Export Members"
+                           class="dropdown-item">Export Members</a>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <pagination current-page="@Model.PageNumber"

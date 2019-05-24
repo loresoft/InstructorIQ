@@ -13,6 +13,7 @@ using MediatR.CommandQuery.Queries;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain
 {
     public class MemberServiceRegistration : DomainServiceRegistrationBase
@@ -21,12 +22,17 @@ namespace InstructorIQ.Core.Domain
         {
             services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<Guid, MemberUpdateModel>, MemberUpdateModel>, EntityIdentifierQueryHandler<InstructorIQContext, Data.Entities.User, Guid, MemberUpdateModel>>();
             services.TryAddTransient<IRequestHandler<MemberPagedQuery, EntityPagedResult<MemberReadModel>>, MemberPagedQueryHandler>();
+            services.TryAddTransient<IRequestHandler<MemberExportQuery, IReadOnlyCollection<MemberImportModel>>, MemberExportQueryHandler>();
 
             services.TryAddTransient<IRequestHandler<EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>, MemberReadModel>, MemberUpdateCommandHandler>();
             services.AddTransient<IPipelineBehavior<EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>, MemberReadModel>, ValidateEntityModelCommandBehavior<MemberUpdateModel, MemberReadModel>>();
 
 
             services.TryAddTransient<IRequestHandler<MemberChangeTenantCommand, MemberReadModel>, MemberChangeTenantCommandHandler>();
+
+            services.TryAddTransient<IRequestHandler<MemberImportJobQuery, MemberImportJobModel>, MemberImportJobQueryHandler>();
+            services.TryAddTransient<IRequestHandler<MemberImportUploadCommand, MemberImportJobModel>, MemberImportUploadCommandHandler>();
+            services.TryAddTransient<IRequestHandler<MemberImportProcessCommand, MemberImportJobModel>, MemberImportProcessCommandHandler>();
         }
     }
 }

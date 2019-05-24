@@ -1,0 +1,141 @@
+﻿@page "/members/import/{id}/mapping"
+@model InstructorIQ.WebApplication.Pages.Member.Import.MappingModel
+@{
+    ViewData["Title"] = "Mapping";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/member/index"
+                   asp-route-tenant="@Model.TenantRoute">Members</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Import Mapping</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <form id="import-form"
+          name="import-form"
+          role="form"
+          method="post"
+          enctype="multipart/form-data">
+        <div class="card mb-5">
+            <div class="card-header">
+                <i class="fas fa-upload mr-2"
+                   aria-hidden="true"></i> Member Import Mapping
+            </div>
+
+            <div class="card-body">
+                <p>
+                    Map Columns to import
+                </p>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input type="hidden" asp-for="Import.Id" />
+                <input type="hidden" asp-for="Import.Name" />
+                
+                @for (int i = 0; i < Model.Headers.Count; i++)
+                {
+                    <input type="hidden" asp-for="Import.Headers[i]" />
+                }
+                
+
+                <div class="form-group">
+                    <label asp-for="Import.EmailMapping">Email Address:</label>
+                    <select asp-for="Import.EmailMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.EmailMapping" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Import.DisplayNameMapping">Display Name:</label>
+                    <select asp-for="Import.DisplayNameMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.DisplayNameMapping" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Import.GivenNameMapping">First Name:</label>
+                    <select asp-for="Import.GivenNameMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.GivenNameMapping" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Import.FamilyNameMapping">Last Name:</label>
+                    <select asp-for="Import.FamilyNameMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.FamilyNameMapping" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Import.JobTitleMapping">Job Title:</label>
+                    <select asp-for="Import.JobTitleMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.JobTitleMapping" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Import.PhoneNumberMapping">Phone Number:</label>
+                    <select asp-for="Import.PhoneNumberMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.PhoneNumberMapping" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary">
+                            Process
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/member/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+

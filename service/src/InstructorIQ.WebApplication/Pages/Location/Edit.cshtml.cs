@@ -40,7 +40,10 @@ namespace InstructorIQ.WebApplication.Pages.Location
                 p => p.AddressLine1,
                 p => p.City,
                 p => p.StateProvince,
-                p => p.PostalCode
+                p => p.PostalCode,
+                p => p.ContactName,
+                p => p.ContactEmail,
+                p => p.ContactPhone
             );
 
             var updateCommand = new EntityUpdateCommand<Guid, LocationUpdateModel, LocationReadModel>(User, Id, updateModel);

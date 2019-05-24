@@ -15,6 +15,7 @@ using MediatR.CommandQuery.Queries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
     public class MemberPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, MemberPagedQuery, EntityPagedResult<MemberReadModel>>
@@ -28,7 +29,7 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
             var entityQuery = request.Query;
 
-            // users that are members for tenent
+            // users that are members for tenant
             var query = from c in DataContext.Users
                         where
                         (

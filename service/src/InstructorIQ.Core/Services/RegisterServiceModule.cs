@@ -11,9 +11,12 @@ namespace InstructorIQ.Core.Services
     {
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
-            services.TryAddScoped<IEmailTemplateService, EmailTemplateService>();
-            services.TryAddScoped<IEmailDeliveryService, EmailDeliveryService>();
-            services.TryAddScoped<ITenantResolver<Guid>, TenantResolver>();
+            services.TryAddTransient<IEmailTemplateService, EmailTemplateService>();
+            services.TryAddTransient<IEmailDeliveryService, EmailDeliveryService>();
+            services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();
+            services.TryAddTransient<IImportProcessService, ImportProcessService>();
+
+            services.TryAddSingleton<IStorageService, StorageService>();
         }
     }
 }

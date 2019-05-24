@@ -86,10 +86,7 @@
     <Build Include="Tables\AuthenticationEvent.sql" />
     <Build Include="Tables\HistoryRecord.sql" />
     <Build Include="Schema\IQ.sql" />
-    <Build Include="Tables\Invite.sql" />
-    <Build Include="Tables\InviteRole.sql" />
     <Build Include="Tables\Notification.sql" />
-    <Build Include="Tables\NotificationRecipient.sql" />
     <Build Include="Procedures\GetNextEmailDelivery.sql" />
     <Build Include="Schema\Identity.sql" />
     <Build Include="Identity\Role.sql" />
@@ -111,6 +108,8 @@
     <Build Include="Schema\History.sql" />
     <Build Include="Tables\Discussion.sql" />
     <Build Include="Tables\LinkToken.sql" />
+    <Build Include="Tables\ImportJob.sql" />
+    <Build Include="Procedures\EnsureInstructorUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

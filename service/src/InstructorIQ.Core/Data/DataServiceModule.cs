@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlClient;
+using FluentCommand;
 using InstructorIQ.Core.Options;
 using KickStart.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +24,9 @@ namespace InstructorIQ.Core.Data
             services.AddDbContext<InstructorIQContext>(options => options
                 .UseSqlServer(connectionString)
             );
+
+            services.TryAddSingleton<IDataConfiguration>(s => new DataConfiguration(SqlClientFactory.Instance, connectionString));
+            services.TryAddTransient<IDataSession, DataSession>();
         }
     }
 }

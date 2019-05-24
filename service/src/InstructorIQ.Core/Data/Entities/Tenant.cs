@@ -19,11 +19,12 @@ namespace InstructorIQ.Core.Data.Entities
             EmailDeliveries = new HashSet<EmailDelivery>();
             EmailTemplates = new HashSet<EmailTemplate>();
             Groups = new HashSet<Group>();
+            ImportJobs = new HashSet<ImportJob>();
             InstructorRoles = new HashSet<InstructorRole>();
             Instructors = new HashSet<Instructor>();
-            Invites = new HashSet<Invite>();
             LinkTokens = new HashSet<LinkToken>();
             Locations = new HashSet<Location>();
+            Notifications = new HashSet<Notification>();
             Sessions = new HashSet<Session>();
             Templates = new HashSet<Template>();
             TenantUserRoles = new HashSet<TenantUserRole>();
@@ -180,6 +181,14 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Group> Groups { get; set; }
 
         /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="ImportJob" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="ImportJob" />.
+        /// </value>
+        public virtual ICollection<ImportJob> ImportJobs { get; set; }
+
+        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="InstructorRole" />.
         /// </summary>
         /// <value>
@@ -196,14 +205,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Instructor> Instructors { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Invite" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Invite" />.
-        /// </value>
-        public virtual ICollection<Invite> Invites { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="LinkToken" />.
         /// </summary>
         /// <value>
@@ -218,6 +219,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Location" />.
         /// </value>
         public virtual ICollection<Location> Locations { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Notification" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Notification" />.
+        /// </value>
+        public virtual ICollection<Notification> Notifications { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Session" />.

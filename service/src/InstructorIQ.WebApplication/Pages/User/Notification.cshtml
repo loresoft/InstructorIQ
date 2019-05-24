@@ -1,0 +1,108 @@
+﻿@page "/user/notification"
+@using Humanizer
+@model InstructorIQ.WebApplication.Pages.User.NotificationModel
+@{
+    ViewData["Title"] = "Notification";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index">Home</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Notifications</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <form id="tenant-search-form"
+                  name="tenant-search-form"
+                  role="form"
+                  method="get">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <i class="fas fa-bell mr-2"
+                           aria-hidden="true"></i> Notifications
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm mr-2">
+                            <input type="hidden"
+                                   name="s"
+                                   value="@Model.Sort" />
+                            <input type="text"
+                                   name="q"
+                                   value="@Model.Query"
+                                   class="form-control"
+                                   placeholder="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="submit">
+                                    <i class="fas fa-search"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <form id="notification-form"
+              name="notification-form"
+              role="form"
+              method="post">
+
+            <div class="list-group list-group-flush">
+                @foreach (var item in Model.Items)
+                {
+                    <button type="submit"
+                            asp-route-notificationId="@item.Id"
+                            asp-route-read="@item.Read.HasValue"
+                            asp-page-handler="MarkRead"
+                            class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="@(item.Read.HasValue ? "": "font-weight-bold")">
+                                <markdown content="@item.Message"></markdown>
+                            </div>
+                            <div class="d-none d-md-block text-nowrap">
+                                <small title="Sent on @item.Created.ToString()">
+                                    @item.Created.ToLocalTime().Humanize()
+                                </small>
+                            </div>
+                        </div>
+                        <div>
+                            <small title="Sent on @item.Created.ToString()"
+                                   class="d-block d-md-none mr-2 mb-1">
+                                @item.Created.ToLocalTime().Humanize()
+                            </small>
+                        </div>
+                    </button>
+                }
+            </div>
+
+            <div class="card-footer p-0">
+                <div class="row">
+                    <div class="col text-center">
+                        <pagination current-page="@Model.PageNumber"
+                                    page-size="@Model.PageSize"
+                                    total-items="@Model.Total"
+                                    asp-route-z="@Model.PageSize"
+                                    asp-route-s="@Model.Sort"
+                                    asp-route-q="@Model.Query"
+                                    class="justify-content-md-end m-3" />
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
