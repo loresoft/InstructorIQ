@@ -21,7 +21,7 @@ BEGIN
 			[JobTitle],
 			[EmailAddress] as [Email],
 			[MobilePhone] as [PhoneNumber],
-			TRIM([GivenName] + ' ' + [FamilyName]) AS [DisplayName],
+			LTRIM(RTRIM([GivenName] + ' ' + [FamilyName])) AS [DisplayName],
 			[TenantId]
 		FROM [IQ].[Instructor]
 		WHERE [Id] = @instructorId
