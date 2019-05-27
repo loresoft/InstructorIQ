@@ -17,8 +17,8 @@
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
     <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2027" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.2" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.7.2" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.3" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.3" />
     <PackageReference Include="Humanizer" Version="2.6.2" />
     <PackageReference Include="Ical.Net" Version="4.1.11" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.125" />

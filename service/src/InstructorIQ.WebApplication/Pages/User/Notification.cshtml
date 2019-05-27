@@ -85,6 +85,16 @@
                         </div>
                     </button>
                 }
+
+                @if (Model.Items.Count == 0)
+                {
+                    <a href="#" 
+                       class="list-group-item list-group-item-action">
+                        <div class="text-muted p-3 text-center">
+                            No notifications yet
+                        </div>
+                    </a>
+                }
             </div>
 
             <div class="card-footer p-0">
