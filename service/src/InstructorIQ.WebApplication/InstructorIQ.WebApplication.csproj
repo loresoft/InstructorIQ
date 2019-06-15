@@ -23,6 +23,7 @@
     <PackageReference Include="Ical.Net" Version="4.1.11" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.125" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.125" />
+    <PackageReference Include="KickStart.EntityChange" Version="7.0.0.126" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />

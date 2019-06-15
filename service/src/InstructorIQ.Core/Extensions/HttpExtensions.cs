@@ -30,7 +30,7 @@ namespace InstructorIQ.Core.Extensions
             var uaParser = Parser.GetDefault();
             var clientInfo = uaParser.Parse(model.UserAgent);
 
-            model.Browser = clientInfo.UserAgent.Family;
+            model.Browser = clientInfo.UA.Family;
             model.DeviceBrand = clientInfo.Device.Brand;
             model.DeviceFamily = clientInfo.Device.Family;
             model.DeviceModel = clientInfo.Device.Model;

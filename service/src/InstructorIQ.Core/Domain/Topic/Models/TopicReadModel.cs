@@ -1,4 +1,5 @@
 using System;
+using InstructorIQ.Core.Definitions;
 using MediatR.CommandQuery.Definitions;
 using MediatR.CommandQuery.Models;
 
@@ -9,7 +10,7 @@ namespace InstructorIQ.Core.Domain.Models
     /// View Model class
     /// </summary>
     public class TopicReadModel
-        : EntityReadModel<Guid>, IHaveTenant<Guid>
+        : EntityReadModel<Guid>, IHaveTenant<Guid>, ITrackHistory
     {
         #region Generated Properties
         /// <summary>
@@ -91,6 +92,22 @@ namespace InstructorIQ.Core.Domain.Models
         /// The property value for 'TargetMonth'.
         /// </value>
         public short? TargetMonth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'PeriodStart'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'PeriodStart'.
+        /// </value>
+        public DateTime PeriodStart { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'PeriodEnd'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'PeriodEnd'.
+        /// </value>
+        public DateTime PeriodEnd { get; set; }
 
         #endregion
 

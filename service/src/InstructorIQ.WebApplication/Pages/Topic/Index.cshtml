@@ -91,7 +91,9 @@
                    class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">@item.Title</h5>
-                        <small title="Updated on @item.Updated.ToString()">@item.Updated.ToLocalTime().Humanize()</small>
+                        <small title="Updated on @item.Updated.ToString("dddd, dd MMMM yyyy HH:mm")">
+                            @item.Updated.ToLocalTime().Humanize()
+                        </small>
                     </div>
 
                     <p class="mb-1">

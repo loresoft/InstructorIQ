@@ -97,11 +97,11 @@
       ]
     },
     {
-      "provider": "jsdelivr",
+      "provider": "unpkg",
       "library": "jquery.dirty@0.7.2",
       "destination": "wwwroot/lib/jquery.dirty/",
       "files": [
-        "dist/jquery.dirty.min.js"
+        "dist/jquery.dirty.js"
       ]
     }
   ]

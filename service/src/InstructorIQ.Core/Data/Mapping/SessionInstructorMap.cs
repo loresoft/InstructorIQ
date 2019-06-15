@@ -44,6 +44,18 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("InstructorRoleId")
                 .HasColumnType("uniqueidentifier");
 
+            builder.Property(t => t.PeriodStart)
+                .IsRequired()
+                .HasColumnName("PeriodStart")
+                .HasColumnType("datetime2")
+                .HasDefaultValueSql("(sysutcdatetime())");
+
+            builder.Property(t => t.PeriodEnd)
+                .IsRequired()
+                .HasColumnName("PeriodEnd")
+                .HasColumnType("datetime2")
+                .HasDefaultValueSql("('9999-12-31 23:59:59.9999999')");
+
             // relationships
             builder.HasOne(t => t.Instructor)
                 .WithMany(t => t.SessionInstructors)
@@ -61,6 +73,12 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasConstraintName("FK_SessionInstructor_Session_SessionId");
 
             #endregion
+
+            builder.Property(t => t.PeriodStart)
+                .ValueGeneratedOnAddOrUpdate();
+
+            builder.Property(t => t.PeriodEnd)
+                .ValueGeneratedOnAddOrUpdate();
         }
 
     }

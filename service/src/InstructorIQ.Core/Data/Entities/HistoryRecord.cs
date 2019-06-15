@@ -116,12 +116,12 @@ namespace InstructorIQ.Core.Data.Entities
         public string OriginalValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'OriginalFormated'.
+        /// Gets or sets the property value representing column 'OriginalFormatted'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'OriginalFormated'.
+        /// The property value representing column 'OriginalFormatted'.
         /// </value>
-        public string OriginalFormated { get; set; }
+        public string OriginalFormatted { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'OriginalType'.
@@ -140,12 +140,12 @@ namespace InstructorIQ.Core.Data.Entities
         public string CurrentValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'CurrentFormated'.
+        /// Gets or sets the property value representing column 'CurrentFormatted'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'CurrentFormated'.
+        /// The property value representing column 'CurrentFormatted'.
         /// </value>
-        public string CurrentFormated { get; set; }
+        public string CurrentFormatted { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'CurrentType'.

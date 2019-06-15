@@ -92,6 +92,22 @@ namespace InstructorIQ.Core.Domain.Models
         /// </value>
         public Guid? LeadInstructorId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the property value for 'PeriodStart'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'PeriodStart'.
+        /// </value>
+        public DateTime PeriodStart { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'PeriodEnd'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'PeriodEnd'.
+        /// </value>
+        public DateTime PeriodEnd { get; set; }
+
         #endregion
 
     }

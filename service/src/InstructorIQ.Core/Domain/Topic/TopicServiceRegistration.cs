@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using InstructorIQ.Core.Data.Entities;
+using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.Queries;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain
@@ -13,6 +17,8 @@ namespace InstructorIQ.Core.Domain
         {
             RegisterEntityQuery<Guid, Topic, TopicReadModel>(services);
             RegisterEntityCommand<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
+
+            services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<Core.Models.HistoryRecord>>, TopicHistoryQueryHandler>();
         }
     }
 }

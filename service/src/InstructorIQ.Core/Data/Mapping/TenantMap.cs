@@ -102,8 +102,26 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("rowversion")
                 .ValueGeneratedOnAddOrUpdate();
 
+            builder.Property(t => t.PeriodStart)
+                .IsRequired()
+                .HasColumnName("PeriodStart")
+                .HasColumnType("datetime2")
+                .HasDefaultValueSql("(sysutcdatetime())");
+
+            builder.Property(t => t.PeriodEnd)
+                .IsRequired()
+                .HasColumnName("PeriodEnd")
+                .HasColumnType("datetime2")
+                .HasDefaultValueSql("('9999-12-31 23:59:59.9999999')");
+
             // relationships
             #endregion
+
+            builder.Property(t => t.PeriodStart)
+                .ValueGeneratedOnAddOrUpdate();
+
+            builder.Property(t => t.PeriodEnd)
+                .ValueGeneratedOnAddOrUpdate();
         }
 
     }

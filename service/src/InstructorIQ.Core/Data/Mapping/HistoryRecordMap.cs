@@ -85,8 +85,8 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("OriginalValue")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.OriginalFormated)
-                .HasColumnName("OriginalFormated")
+            builder.Property(t => t.OriginalFormatted)
+                .HasColumnName("OriginalFormatted")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
@@ -99,8 +99,8 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("CurrentValue")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property(t => t.CurrentFormated)
-                .HasColumnName("CurrentFormated")
+            builder.Property(t => t.CurrentFormatted)
+                .HasColumnName("CurrentFormatted")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 

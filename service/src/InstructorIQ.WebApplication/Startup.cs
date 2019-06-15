@@ -49,6 +49,7 @@ namespace InstructorIQ.WebApplication
                 .Data(ConfigurationServiceModule.ConfigurationKey, Configuration)
                 .Data("hostProcess", "web")
                 .UseAutoMapper()
+                .UseEntityChange()
                 .UseStartupTask()
             );
 

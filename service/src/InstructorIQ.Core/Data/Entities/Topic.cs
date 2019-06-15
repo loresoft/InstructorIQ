@@ -149,6 +149,22 @@ namespace InstructorIQ.Core.Data.Entities
         /// </value>
         public Byte[] RowVersion { get; set; }
 
+        /// <summary>
+        /// Gets or sets the property value representing column 'PeriodStart'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'PeriodStart'.
+        /// </value>
+        public DateTime PeriodStart { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'PeriodEnd'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'PeriodEnd'.
+        /// </value>
+        public DateTime PeriodEnd { get; set; }
+
         #endregion
 
         #region Generated Relationships

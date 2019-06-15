@@ -26,3 +26,38 @@ BEGIN
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('0d011dd0-9de5-4b36-8969-3a1c0473ad55')
 END
+
+IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = '19f72c77-d546-42e2-8eab-9ec8df275dd3')
+BEGIN
+    PRINT 'Ensure Instrutor Role'
+
+    MERGE [IQ].[TenantUserRole] WITH (ROWLOCK) AS D
+	USING 
+	(
+		SELECT
+			[EmailAddress] AS [UserName],
+			[TenantId]
+		FROM [IQ].[Instructor]
+		WHERE [EmailAddress] IS NOT NULL
+	)
+	AS S
+		ON D.[UserName] = S.[UserName] 
+			AND D.[TenantId] = S.[TenantId]
+			AND D.[RoleName] = 'Instructor'
+	WHEN NOT MATCHED THEN
+		INSERT
+		(
+			[TenantId],
+			[UserName],
+			[RoleName]
+		)
+		VALUES
+		(
+			S.[TenantId],
+			S.[UserName],
+			'Instructor'
+		);
+
+    INSERT [dbo].[Datasweep] ([Id])
+    VALUES ('19f72c77-d546-42e2-8eab-9ec8df275dd3')
+END

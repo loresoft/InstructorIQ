@@ -17,11 +17,11 @@
     [Operation] NVARCHAR(100) NULL,
 
     [OriginalValue] NVARCHAR(MAX) NULL,
-    [OriginalFormated] NVARCHAR(256) NULL,
+    [OriginalFormatted] NVARCHAR(256) NULL,
     [OriginalType] NVARCHAR(256) NULL,
 
     [CurrentValue] NVARCHAR(MAX) NULL,
-    [CurrentFormated] NVARCHAR(256) NULL,
+    [CurrentFormatted] NVARCHAR(256) NULL,
     [CurrentType] NVARCHAR(256) NULL,
 
     [Created] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_HistoryRecord_Created] DEFAULT (SYSUTCDATETIME()),

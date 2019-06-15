@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using EntityChange;
+using InstructorIQ.Core.Domain.Services;
 using MediatR.CommandQuery.Definitions;
 using KickStart.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +17,12 @@ namespace InstructorIQ.Core.Services
             services.TryAddTransient<IEmailDeliveryService, EmailDeliveryService>();
             services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();
             services.TryAddTransient<IImportProcessService, ImportProcessService>();
+            services.TryAddTransient<IHistoryService, HistoryService>();
 
             services.TryAddSingleton<IStorageService, StorageService>();
+            services.TryAddSingleton<IEntityComparer, EntityComparer>();
+
+
         }
     }
 }

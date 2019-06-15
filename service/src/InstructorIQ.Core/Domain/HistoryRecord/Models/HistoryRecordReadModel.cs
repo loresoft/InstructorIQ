@@ -101,12 +101,12 @@ namespace InstructorIQ.Core.Domain.Models
         public string OriginalValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'OriginalFormated'.
+        /// Gets or sets the property value for 'OriginalFormatted'.
         /// </summary>
         /// <value>
-        /// The property value for 'OriginalFormated'.
+        /// The property value for 'OriginalFormatted'.
         /// </value>
-        public string OriginalFormated { get; set; }
+        public string OriginalFormatted { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'OriginalType'.
@@ -125,12 +125,12 @@ namespace InstructorIQ.Core.Domain.Models
         public string CurrentValue { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'CurrentFormated'.
+        /// Gets or sets the property value for 'CurrentFormatted'.
         /// </summary>
         /// <value>
-        /// The property value for 'CurrentFormated'.
+        /// The property value for 'CurrentFormatted'.
         /// </value>
-        public string CurrentFormated { get; set; }
+        public string CurrentFormatted { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'CurrentType'.

@@ -1,4 +1,7 @@
 ﻿@page "/topic/{id:Guid}/history"
+@using EntityChange
+@using FluentCommand.Extensions
+@using Humanizer
 @model ViewModel
 @{
     ViewData["Title"] = $"Topic {Model.Entity.Title}";
@@ -7,8 +10,50 @@
 
     Layout = "_TopicLayout";
 }
-<div class="card-body">
-    <h1>History</h1>
-
-    <p>Coming Soon ...</p>
+<div class="list-group list-group-flush">
+    @foreach (var item in Model.History)
+    {
+        <a href="@Model.ComputeUrl(item)"
+           title="View Change"
+           class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="mb-1">
+                    <gravatar email="@item.ChangedBy"
+                              size="24"></gravatar>
+                    @item.ChangedBy
+                </div>
+                <small class="mt-1" title="@item.Changed.ToString("dddd, dd MMMM yyyy HH:mm")">
+                    @item.Changed.ToLocalTime().Humanize()
+                </small>
+            </div>
+            <p class="mb-1 mt-2">
+                @if (item.Operation == "Add")
+                {
+                    <span class="text-muted">
+                        Added @item.Entity <span class="text-dark font-weight-bold">@item.Description</span>
+                    </span>
+                }
+                else if (item.Operation == "Remove")
+                {
+                    <span class="text-muted">
+                        Removed @item.Entity <span class="text-dark font-weight-bold">@item.Description</span>
+                    </span>
+                }
+                else
+                {
+                    <span class="text-muted">
+                        Changed @item.Entity <span class="text-dark font-weight-bold">@item.DisplayName</span>
+                        <span>from <span class="text-dark font-weight-bold">@(item.OriginalFormatted.HasValue() ? item.OriginalFormatted.Truncate(70) : "-none-")</span></span>
+                        <span>to <span class="text-dark font-weight-bold">@(item.CurrentFormatted.HasValue() ? item.CurrentFormatted.Truncate(70) : "-none-")</span></span>
+                    </span>
+                }
+            </p>
+        </a>
+    }
+    @if (!Model.History.Any())
+    {
+        <div class="list-group-item">
+            <p class="text-center font-italic">No Data</p>
+        </div>
+    }
 </div>
