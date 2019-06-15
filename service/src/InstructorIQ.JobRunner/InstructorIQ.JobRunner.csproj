@@ -21,8 +21,9 @@
   <ItemGroup>
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.3" />
     <PackageReference Include="HangFire.SqlServer" Version="1.7.3" />
-    <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.125" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.125" />
+    <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.126" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.126" />
+    <PackageReference Include="KickStart.EntityChange" Version="7.0.0.126" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
