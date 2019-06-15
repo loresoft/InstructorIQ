@@ -32,6 +32,8 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.Text, opt => opt.MapFrom(s => s.Name));
 
+            CreateMap<TenantReadModel, TenantUpdateModel>();
+
         }
 
     }
