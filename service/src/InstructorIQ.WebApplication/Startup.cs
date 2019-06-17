@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using Exceptionless;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
@@ -178,11 +177,6 @@ namespace InstructorIQ.WebApplication
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
-            var options = app.ApplicationServices.GetService<IOptions<HostingConfiguration>>();
-
-            app.UseExceptionless(options.Value.ExceptionlessKey);
-
 
             var policyCollection = new HeaderPolicyCollection()
                 .AddXssProtectionBlock()

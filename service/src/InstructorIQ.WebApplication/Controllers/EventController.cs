@@ -2,14 +2,12 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Exceptionless.Models;
 using Ical.Net.CalendarComponents;
 using Ical.Net.DataTypes;
 using Ical.Net.Serialization;
 using InstructorIQ.Core.Domain.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
 
 namespace InstructorIQ.WebApplication.Controllers
 {
