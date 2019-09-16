@@ -7,7 +7,7 @@ environment:
 configuration: Release
 
 services:
-  - mssql2016
+  - mssql2017
 
 init:
   - git config --global core.autocrlf true
@@ -19,11 +19,7 @@ test: off
 
 artifacts:
   - path: 'build\*.zip'
-    name: Archive
-  - path: 'build\InstructorIQ.Website.*.zip'
     name: Website
-  - path: 'build\*.nupkg'
-    name: Deploy
   - path: 'build\database\*.dacpac'
     name: Database
 

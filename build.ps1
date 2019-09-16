@@ -32,9 +32,4 @@ Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\App_
 # zip package
 Write-Host "*** Zip Packages ***"
 Compress-Archive -Path $buildDirectory\website\* -DestinationPath $buildDirectory\InstructorIQ.Website.$version.zip
-Compress-Archive -Path $buildDirectory\database\* -DestinationPath $buildDirectory\InstructorIQ.Database.$version.zip
 
-# deployment package
-Write-Host "*** Deployment Packages ***"
-& nuget pack $workingDirectory\deploy\InstructorIQ.Website.Deploy.nuspec -BasePath $workingDirectory -Version $version -OutputDirectory $buildDirectory -NoPackageAnalysis
-& nuget pack $workingDirectory\deploy\InstructorIQ.Database.Deploy.nuspec -BasePath $workingDirectory -Version $version -OutputDirectory $buildDirectory -NoPackageAnalysis
