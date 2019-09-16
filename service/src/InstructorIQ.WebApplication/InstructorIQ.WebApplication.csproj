@@ -13,25 +13,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.3" />
-    <PackageReference Include="Hangfire.SqlServer" Version="1.7.3" />
-    <PackageReference Include="Humanizer" Version="2.6.2" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.6" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.6" />
+    <PackageReference Include="Humanizer" Version="2.7.2" />
     <PackageReference Include="Ical.Net" Version="4.1.11" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.126" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.126" />
     <PackageReference Include="KickStart.EntityChange" Version="7.0.0.126" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.48" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.0.76" />
     <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.9.0" />
-    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.0.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.0.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.0.4" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />

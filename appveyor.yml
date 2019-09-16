@@ -1,5 +1,5 @@
 version: 1.0.0.{build}
-os: Visual Studio 2017
+os: Visual Studio 2019
 
 environment:
   nodejs_version: "10.3.0"
@@ -24,18 +24,12 @@ test: off
 artifacts:
   - path: 'build\*.zip'
     name: Archive
+  - path: 'build\InstructorIQ.Website.*.zip'
+    name: Website
   - path: 'build\*.nupkg'
     name: Deploy
   - path: 'build\database\*.dacpac'
     name: Database
-
-deploy:
-  - provider: Environment
-    name: Octopus
-  - provider: SqlDatabase
-    artifact: Database
-    connection_string: 'Server=(local)\SQL2016;Database=InstructorIQ;Integrated security=SSPI;'
-    block_on_possible_data_loss: false
 
 after_deploy:
   - cmd: dotnet test service\test\InstructorIQ.Core.Tests\InstructorIQ.Core.Tests.csproj

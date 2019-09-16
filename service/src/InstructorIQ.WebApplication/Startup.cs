@@ -24,7 +24,6 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 

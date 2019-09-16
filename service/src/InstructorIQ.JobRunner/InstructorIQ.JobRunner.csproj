@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.3" />
-    <PackageReference Include="HangFire.SqlServer" Version="1.7.3" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.6" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.7.6" />
     <PackageReference Include="KickStart.AutoMapper" Version="7.0.0.126" />
     <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.126" />
     <PackageReference Include="KickStart.EntityChange" Version="7.0.0.126" />
@@ -30,8 +30,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="2.0.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.4" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="3.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
