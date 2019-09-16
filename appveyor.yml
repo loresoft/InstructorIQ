@@ -2,7 +2,6 @@ version: 1.0.0.{build}
 os: Visual Studio 2019
 
 environment:
-  nodejs_version: "10.3.0"
   ASPNETCORE_ENVIRONMENT: appveyor
 
 configuration: Release
@@ -12,9 +11,6 @@ services:
 
 init:
   - git config --global core.autocrlf true
-
-install:
-  - ps: Install-Product node $env:nodejs_version
 
 build_script:
   - ps: ./build.ps1
