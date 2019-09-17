@@ -14,7 +14,7 @@ init:
 
 dotnet_csproj:
   patch: true
-  file: 'version.props'
+  file: 'service\version.props'
   version: '{version}'
   package_version: '{version}'
   assembly_version: '{version}'
