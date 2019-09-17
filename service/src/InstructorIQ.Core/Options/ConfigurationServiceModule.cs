@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using KickStart.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,9 +16,7 @@ namespace InstructorIQ.Core.Options
             if (!(configurationData is IConfiguration configuration))
                 return;
 
-            services.Configure<HostingConfiguration>(configuration.GetSection("Hosting"));
             services.Configure<SmtpConfiguration>(configuration.GetSection("Smtp"));
-            services.Configure<PrincipalConfiguration>(configuration.GetSection("Principal"));
             services.Configure<StorageConfiguration>(configuration.GetSection("Storage"));
         }
     }
