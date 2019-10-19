@@ -21,8 +21,9 @@ namespace InstructorIQ.Core.Data
 
             var connectionString = configuration.GetConnectionString("InstructorIQ");
 
-            services.AddDbContext<InstructorIQContext>(options => options
-                .UseSqlServer(connectionString)
+            services.AddDbContext<InstructorIQContext>(
+                options => options.UseSqlServer(connectionString), 
+                ServiceLifetime.Transient
             );
 
             services.TryAddSingleton<IDataConfiguration>(s => new DataConfiguration(SqlClientFactory.Instance, connectionString));

@@ -10,6 +10,7 @@ using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
     public class SessionInstructorQueryHandler : DataContextHandlerBase<InstructorIQContext, SessionInstructorQuery, IReadOnlyCollection<SessionInstructorModel>>
