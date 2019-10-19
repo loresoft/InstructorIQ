@@ -37,7 +37,6 @@ namespace InstructorIQ.Core.Tests
                 .IncludeAssemblyFor<DependencyInjectionFixture>()
                 .Data(ConfigurationServiceModule.ConfigurationKey, configuration)
                 .Data("hostProcess", "test")
-                .UseAutoMapper()
                 .UseStartupTask()
             );
         }

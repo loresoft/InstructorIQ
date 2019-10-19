@@ -43,12 +43,13 @@ namespace InstructorIQ.Core.Data.Queries
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="id">The value to filter by.</param>
         /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Session"/> or null if not found.</returns>
-        public static Task<InstructorIQ.Core.Data.Entities.Session> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid id)
+        public static ValueTask<InstructorIQ.Core.Data.Entities.Session> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid id)
         {
             if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Session> dbSet)
                 return dbSet.FindAsync(id);
 
-            return queryable.FirstOrDefaultAsync(q => q.Id == id);
+            var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
+            return new ValueTask<InstructorIQ.Core.Data.Entities.Session>(task);
         }
 
         /// <summary>

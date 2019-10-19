@@ -57,7 +57,6 @@ namespace InstructorIQ.JobRunner
                             .IncludeAssemblyFor<InstructorIQContext>()
                             .Data(ConfigurationServiceModule.ConfigurationKey, hostContext.Configuration)
                             .Data("hostProcess", "runner")
-                            .UseAutoMapper()
                             .UseStartupTask()
                         );
 

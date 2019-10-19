@@ -2,6 +2,7 @@
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
@@ -18,18 +19,16 @@ namespace InstructorIQ.WebApplication
                 .WriteTo.Debug()
                 .WriteTo.LiterateConsole()
                 .WriteTo.RollingFile("log-{Date}.txt", LogEventLevel.Debug)
-                .WriteTo.ApplicationInsights(TelemetryConfiguration.Active, TelemetryConverter.Traces)
+                .WriteTo.ApplicationInsights(TelemetryConfiguration.CreateDefault(), TelemetryConverter.Traces)
                 .CreateLogger();
 
             try
             {
                 Log.Information("Starting web host");
 
-
-                var host = WebHost
+                var host = Host
                     .CreateDefaultBuilder(args)
-                    .UseStartup<Startup>()
-                    .UseApplicationInsights()
+                    .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
                     .UseSerilog()
                     .Build();
 

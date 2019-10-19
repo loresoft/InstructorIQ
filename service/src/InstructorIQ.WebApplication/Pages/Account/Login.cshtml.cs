@@ -56,7 +56,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            ReturnUrl = ReturnUrl ?? Url.Content("~/");
+            ReturnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
@@ -67,7 +67,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
 
         public async Task<IActionResult> OnPostAsync()
         {
-            ReturnUrl = ReturnUrl ?? Url.Content("~/");
+            ReturnUrl ??= Url.Content("~/");
 
             if (!ModelState.IsValid)
                 return Page();

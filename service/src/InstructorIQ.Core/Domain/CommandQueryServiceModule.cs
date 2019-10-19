@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AutoMapper;
 using InstructorIQ.Core.Data;
 using KickStart.DependencyInjection;
 using MediatR.CommandQuery.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace InstructorIQ.Core.Domain
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
             services.AddMediator();
-            services.AddMapper();
+            services.AddAutoMapper(typeof(InstructorIQContext).Assembly);
             services.AddValidatorsFromAssembly<InstructorIQContext>();
         }
     }

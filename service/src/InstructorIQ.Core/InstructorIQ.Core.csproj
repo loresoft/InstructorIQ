@@ -2,7 +2,7 @@
   <Import Project="..\..\version.props" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <NoWarn>1591</NoWarn>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
@@ -16,28 +16,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="CsvHelper" Version="12.1.2" />
     <PackageReference Include="EntityChange" Version="3.0.0.30" />
     <PackageReference Include="FluentCommand.SqlServer" Version="3.0.0.49" />
     <PackageReference Include="Handlebars.Net" Version="1.10.1" />
     <PackageReference Include="HangFire.Core" Version="1.7.6" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="7.0.0.126" />
-    <PackageReference Include="MailKit" Version="2.3.1.6" />
-    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="3.0.0.22" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.129" />
+    <PackageReference Include="MailKit" Version="2.3.2" />
+    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="4.0.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.0.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.0.0" />
     <PackageReference Include="NaturalSort.Extension" Version="2.1.0" />
-    <PackageReference Include="UAParser" Version="3.1.41" />
-    <PackageReference Include="YamlDotNet" Version="6.1.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\Location\Services\" />
+    <PackageReference Include="UAParser" Version="3.1.43" />
+    <PackageReference Include="YamlDotNet" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

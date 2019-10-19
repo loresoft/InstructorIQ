@@ -40,7 +40,7 @@ namespace InstructorIQ.Core.Services
 
             // Get first
             var emailDelivery = await _context.EmailDeliveries
-                .FromSql("[IQ].[GetNextEmailDelivery]")
+                .FromSqlRaw("[IQ].[GetNextEmailDelivery]")
                 .FirstOrDefaultAsync(cancellationToken);
 
             while (emailDelivery != null)
@@ -48,7 +48,7 @@ namespace InstructorIQ.Core.Services
                 await ProcessEmail(emailDelivery, cancellationToken).ConfigureAwait(false);
 
                 emailDelivery = await _context.EmailDeliveries
-                    .FromSql("[IQ].[GetNextEmailDelivery]")
+                    .FromSqlRaw("[IQ].[GetNextEmailDelivery]")
                     .FirstOrDefaultAsync(cancellationToken);
             }
         }

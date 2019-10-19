@@ -5,6 +5,7 @@ using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
+using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using MediatR;
@@ -25,13 +26,13 @@ namespace InstructorIQ.WebApplication.Pages.Account
         private readonly UserManager<Core.Data.Entities.User> _userManager;
         private readonly IEmailTemplateService _templateService;
         private readonly ILogger<LoginModel> _logger;
-        private readonly IOptions<PasswordlessLoginTokenProviderOptions> _passwordlessOptions;
+        private readonly IOptions<SecurityOptions> _securityOptions;
 
-        public PasswordlessModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, ILogger<LoginModel> logger, IOptions<PasswordlessLoginTokenProviderOptions> passwordlessOptions, IMediator mediator)
+        public PasswordlessModel(UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService, ILogger<LoginModel> logger, IOptions<SecurityOptions> securityOptions, IMediator mediator)
         {
             _userManager = userManager;
             _logger = logger;
-            _passwordlessOptions = passwordlessOptions;
+            _securityOptions = securityOptions;
             _mediator = mediator;
             _templateService = templateService;
         }
@@ -98,7 +99,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
                 DisplayName = user.DisplayName,
                 EmailAddress = user.Email,
                 Link = loginLink,
-                ExpireHours = (int) _passwordlessOptions.Value.TokenLifespan.TotalHours
+                ExpireHours = (int) _securityOptions.Value.PasswordlessTokenLifespan.TotalHours
             };
             Request.ReadUserAgent(model);
 
@@ -109,7 +110,7 @@ namespace InstructorIQ.WebApplication.Pages.Account
         {
             var createModel = new LinkTokenCreateModel
             {
-                Expires = DateTimeOffset.UtcNow.Add(_passwordlessOptions.Value.TokenLifespan),
+                Expires = DateTimeOffset.UtcNow.Add(_securityOptions.Value.PasswordlessTokenLifespan),
                 Url = ReturnUrl,
                 UserName = user.UserName
             };

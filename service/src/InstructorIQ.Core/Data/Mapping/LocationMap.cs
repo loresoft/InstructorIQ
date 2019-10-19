@@ -87,11 +87,11 @@ namespace InstructorIQ.Core.Data.Mapping
 
             builder.Property(t => t.Latitude)
                 .HasColumnName("Latitude")
-                .HasColumnType("decimal(20, 10)");
+                .HasColumnType("decimal(20,10)");
 
             builder.Property(t => t.Longitude)
                 .HasColumnName("Longitude")
-                .HasColumnType("decimal(20, 10)");
+                .HasColumnType("decimal(20,10)");
 
             builder.Property(t => t.TenantId)
                 .IsRequired()
@@ -125,6 +125,7 @@ namespace InstructorIQ.Core.Data.Mapping
                 .IsRowVersion()
                 .HasColumnName("RowVersion")
                 .HasColumnType("rowversion")
+                .HasMaxLength(8)
                 .ValueGeneratedOnAddOrUpdate();
 
             builder.Property(t => t.PeriodStart)

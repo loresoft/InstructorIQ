@@ -51,8 +51,8 @@ namespace InstructorIQ.Core.Domain.Handlers
         private async Task<List<Core.Models.HistoryRecord>> CollectTopicHistory(TopicHistoryQuery request, CancellationToken cancellationToken)
         {
             var entities = await DataContext.Topics
+                .FromSqlRaw("SELECT * FROM [IQ].[Topic] FOR SYSTEM_TIME ALL WHERE [Id] = {0}", request.Id)
                 .AsNoTracking()
-                .FromSql("SELECT * FROM [IQ].[Topic] FOR SYSTEM_TIME ALL WHERE [Id] = {0}", request.Id)
                 .OrderBy(p => p.PeriodEnd)
                 .ProjectTo<TopicReadModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
@@ -66,8 +66,8 @@ namespace InstructorIQ.Core.Domain.Handlers
             var historyList = new List<Core.Models.HistoryRecord>();
 
             var entities = await DataContext.Sessions
+                .FromSqlRaw("SELECT * FROM [IQ].[Session] FOR SYSTEM_TIME ALL WHERE [TopicId] = {0}", request.Id)
                 .AsNoTracking()
-                .FromSql("SELECT * FROM [IQ].[Session] FOR SYSTEM_TIME ALL WHERE [TopicId] = {0}", request.Id)
                 .OrderBy(p => p.PeriodEnd)
                 .ProjectTo<SessionReadModel>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);

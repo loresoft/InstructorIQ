@@ -20,12 +20,13 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Discussion
     public class ViewModel : MediatorModelBase
     {
         private readonly UserClaimManager _userClaimManager;
+        private readonly IMapper _mapper;
 
-        public ViewModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserClaimManager userClaimManager)
+        public ViewModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserClaimManager userClaimManager, IMapper mapper)
             : base(tenant, mediator, loggerFactory)
         {
             _userClaimManager = userClaimManager;
-
+            _mapper = mapper;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -76,7 +77,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Discussion
             };
 
             var userAgent = Request.ReadUserAgent();
-            Mapper.Map(userAgent, createModel);
+            _mapper.Map(userAgent, createModel);
 
             var command = new EntityCreateCommand<DiscussionCreateModel, DiscussionReadModel>(User, createModel);
             var result = await Mediator.Send(command);

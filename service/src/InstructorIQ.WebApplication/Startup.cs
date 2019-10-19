@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
@@ -41,12 +42,13 @@ namespace InstructorIQ.WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
+
             services.KickStart(c => c
                 .IncludeAssemblyFor<ConfigurationServiceModule>()
                 .IncludeAssemblyFor<Startup>()
                 .Data(ConfigurationServiceModule.ConfigurationKey, Configuration)
                 .Data("hostProcess", "web")
-                .UseAutoMapper()
                 .UseEntityChange()
                 .UseStartupTask()
             );
@@ -79,8 +81,7 @@ namespace InstructorIQ.WebApplication
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<InstructorIQContext>()
-                .AddDefaultTokenProviders()
-                .AddPasswordlessLoginTokenProvider();
+                .AddDefaultTokenProviders();
 
             services.AddMultitenancy<TenantReadModel, TenantContextResolver>();
 
@@ -97,13 +98,7 @@ namespace InstructorIQ.WebApplication
             });
 
             services
-                .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(o =>
-                {
-                    o.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                })
+                .AddRazorPages()
                 .AddRazorPagesOptions(options =>
                 {
                     options.Conventions.AddPageTenantRoute("/Index", false);
@@ -164,7 +159,7 @@ namespace InstructorIQ.WebApplication
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -221,17 +216,23 @@ namespace InstructorIQ.WebApplication
 
             app.UseCookiePolicy();
 
+            app.UseRouting();
+
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseHangfireDashboard(options: new DashboardOptions
             {
                 Authorization = new[] { new DashboardAuthorization() }
             });
 
-
             app.UseMultitenancy<TenantReadModel>();
 
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+                endpoints.MapControllers();
+            });
 
         }
     }
