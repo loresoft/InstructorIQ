@@ -1,0 +1,64 @@
+﻿@page "/report/summary/{date:DateTime?}"
+@using InstructorIQ.Core.Security
+@model IndexModel
+@{
+    var previousDate = Model.Date.AddDays(-1);
+    var nextDate = Model.Date.AddDays(1);
+
+    var nextMonth = Model.Date.AddMonths(1);
+
+    ViewData["Title"] = $"Summary for {Model.Date:MMMM d}";
+}
+<div class="container summary">
+    <div class="row no-gutters mb-3 d-print-none">
+        <div class="col">
+            <a class="btn btn-outline-secondary"
+               title="Previous Day"
+               asp-page="/report/summary/index"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-date="@previousDate.ToString("yyyy-MM-dd")">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="btn btn-outline-secondary"
+               title="Next Day"
+               asp-page="/report/summary/index"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-date="@nextDate.ToString("yyyy-MM-dd")">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+        <div class="col">
+            <input asp-for="Date"
+                   type="date"
+                   class="form-control"
+                   onblur="changeDate()" />
+        </div>
+    </div>
+
+    <partial name="_Content" model="Model" />
+
+    <div class="row mt-5 d-print-none"
+         authorize-policy="@UserPolicies.AdministratorPolicy">
+        <div class="col">
+            <a id="email-button"
+               class="btn btn-secondary"
+               title="Email"
+               asp-page="/report/summary/email"
+               asp-route-tenant="@Model.TenantRoute"
+               asp-route-date="@Model.Date.ToString("yyyy-MM-dd")">
+                <i class="fas fa-envelope"></i> Email
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function changeDate() {
+            var date = $('#@Html.IdFor(p => p.Date)').val();
+            var url = '/@Model.TenantRoute/report/summary/' + date ;
+            window.location.href = url;
+        }
+    </script>
+}
+

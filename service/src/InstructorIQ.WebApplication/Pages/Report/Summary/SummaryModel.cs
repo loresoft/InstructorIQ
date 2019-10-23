@@ -12,11 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NaturalSort.Extension;
 
-namespace InstructorIQ.WebApplication.Pages.Reports
+namespace InstructorIQ.WebApplication.Pages.Report.Summary
 {
-    public class SummaryModel : MediatorModelBase
+    public abstract class SummaryModel : MediatorModelBase
     {
-        public SummaryModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory) : base(tenant, mediator, loggerFactory)
+        protected SummaryModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+            : base(tenant, mediator, loggerFactory)
         {
             Date = DateTime.Now;
         }
@@ -25,7 +26,7 @@ namespace InstructorIQ.WebApplication.Pages.Reports
         public DateTime Date { get; set; }
 
         public string MonthName => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Date.Month);
-        
+
 
         public DateTime NextMonth => Date.AddMonths(1);
 
@@ -51,11 +52,8 @@ namespace InstructorIQ.WebApplication.Pages.Reports
 
         public IReadOnlyCollection<SessionCalendarModel> Items { get; set; }
 
-        public virtual async Task<IActionResult> OnGetAsync()
+        protected async Task Load()
         {
-            if (Tenant == null || !Tenant.HasValue)
-                return RedirectToPage("/Index");
-
             var startDate = Date;
             var endDate = startDate.AddDays(1);
 
@@ -66,8 +64,6 @@ namespace InstructorIQ.WebApplication.Pages.Reports
                 .OrderBy(i => i.StartTime)
                 .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
                 .ToList();
-
-            return Page();
         }
     }
 }

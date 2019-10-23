@@ -38,18 +38,20 @@ namespace InstructorIQ.Core.Services
         {
             _logger.LogTrace("Processing email queue");
 
-            // Get first
-            var emailDelivery = await _context.EmailDeliveries
+            var emailDeliveries = await _context.EmailDeliveries
                 .FromSqlRaw("[IQ].[GetNextEmailDelivery]")
-                .FirstOrDefaultAsync(cancellationToken);
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
 
-            while (emailDelivery != null)
+            while (emailDeliveries != null && emailDeliveries.Count > 0)
             {
-                await ProcessEmail(emailDelivery, cancellationToken).ConfigureAwait(false);
+                foreach (var emailDelivery in emailDeliveries)
+                    await ProcessEmail(emailDelivery, cancellationToken).ConfigureAwait(false);
 
-                emailDelivery = await _context.EmailDeliveries
+                emailDeliveries = await _context.EmailDeliveries
                     .FromSqlRaw("[IQ].[GetNextEmailDelivery]")
-                    .FirstOrDefaultAsync(cancellationToken);
+                    .ToListAsync(cancellationToken)
+                    .ConfigureAwait(false);
             }
         }
 

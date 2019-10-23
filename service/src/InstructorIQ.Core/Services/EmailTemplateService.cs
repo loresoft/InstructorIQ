@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using MimeKit;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace InstructorIQ.Core.Services
 {
@@ -93,6 +94,32 @@ namespace InstructorIQ.Core.Services
             await SendMessage(message).ConfigureAwait(false);
         }
 
+        public async Task SendMessage(EmailMessage emailMessage)
+        {
+            var message = new MimeMessage();
+            message.Headers.Add("X-Mailer-Machine", Environment.MachineName);
+            message.Headers.Add("X-Mailer-Date", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+
+            message.Subject = emailMessage.Subject;
+
+            if (emailMessage.From.HasValue() && MailboxAddress.TryParse(emailMessage.From, out var fromAddress))
+                message.From.Add(fromAddress);
+
+            if (emailMessage.ReplyTo.HasValue() && MailboxAddress.TryParse(emailMessage.ReplyTo, out var replyAddress))
+                message.ReplyTo.Add(replyAddress);
+
+            if (emailMessage.To.HasValue() && MailboxAddress.TryParse(emailMessage.To, out var toAddress))
+                message.To.Add(toAddress);
+
+            var builder = new BodyBuilder();
+            builder.TextBody = emailMessage.TextBody;
+            builder.HtmlBody = emailMessage.HtmlBody;
+
+            message.Body = builder.ToMessageBody();
+
+            await SendMessage(message).ConfigureAwait(false);
+        }
+
         public async Task SendMessage(MimeMessage message)
         {
             var emailDelivery = new EmailDelivery();
@@ -162,9 +189,8 @@ namespace InstructorIQ.Core.Services
 
                 using (var reader = new StreamReader(stream))
                 {
-                    var convention = new YamlDotNet.Serialization.NamingConventions.CamelCaseNamingConvention();
                     var deserializer = new DeserializerBuilder()
-                        .WithNamingConvention(convention)
+                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
                         .Build();
 
                     return deserializer.Deserialize<EmailTemplate>(reader);

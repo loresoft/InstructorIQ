@@ -1,52 +1,27 @@
-﻿@page "/report/summary/{date:DateTime?}"
-@model InstructorIQ.WebApplication.Pages.Reports.SummaryModel
+﻿@model SummaryModel
+
 @{
-    var previousDate = Model.Date.AddDays(-1);
-    var nextDate = Model.Date.AddDays(1);
-
-    var nextMonth = Model.Date.AddMonths(1);
-
-    ViewData["Title"] = "Summary";
+    var sectionStyle = "color: #2F5496; font-size: 14pt; font-weight: 700; margin: 0.67em 0;";
+    var detailStyle = "font-size: 12pt; font-weight: 700; margin: 0.67em 0;";
+    var cellStyle = "border: 1px solid #000; padding: 2px 4px; min-width: 110px; font-size: 10pt;";
+    var requiredStyle = "color: #BA372A;";
 }
-<div class="container summary">
-    <div class="row no-gutters mb-3 d-print-none">
-        <div class="col">
-            <a class="btn btn-outline-secondary"
-               title="Previous Day"
-               asp-page="/report/summary"
-               asp-route-tenant="@Model.TenantRoute"
-               asp-route-date="@previousDate.ToString("yyyy-MM-dd")">
-                <i class="fas fa-chevron-left"></i>
-            </a>
-            <a class="btn btn-outline-secondary"
-               title="Next Day"
-               asp-page="/report/summary"
-               asp-route-tenant="@Model.TenantRoute"
-               asp-route-date="@nextDate.ToString("yyyy-MM-dd")">
-                <i class="fas fa-chevron-right"></i>
-            </a>
-        </div>
-        <div class="col">
-            <input asp-for="Date"
-                   type="date"
-                   class="form-control"
-                   onblur="changeDate()" />
-        </div>
-    </div>
-    <h1 class="summary-section">
+
+<div style="font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;">
+    <h1 style="@sectionStyle">
         Summary for @Model.Date.ToString("MMMM d")
     </h1>
     <table style="border-collapse: collapse;"
            include-if="@Model.Items.Count > 0">
         <thead>
             <tr>
-                <th class="summary-cell">
+                <th style="@cellStyle">
                     Station / Squad
                 </th>
-                <th class="summary-cell">
+                <th style="@cellStyle">
                     Topic
                 </th>
-                <th class="summary-cell">
+                <th style="@cellStyle">
                     Location
                 </th>
             </tr>
@@ -55,20 +30,20 @@
             @foreach (var item in Model.Items)
             {
                 <tr>
-                    <td class="summary-cell">
+                    <td style="@cellStyle">
                         @item.GroupName
                     </td>
-                    <td class="summary-cell">
+                    <td style="@cellStyle">
                         @if (item.IsRequired)
                         {
-                            <span class="required">@item.TopicTitle *</span>
+                            <span style="@requiredStyle">@item.TopicTitle *</span>
                         }
                         else
                         {
                             @item.TopicTitle
                         }
                     </td>
-                    <td class="summary-cell">
+                    <td style="@cellStyle">
                         @item.LocationName
                     </td>
                 </tr>
@@ -78,24 +53,28 @@
             <tr>
                 <td colspan="3"
                     style="border: 0 none;">
-                    <small class="required">* Required</small>
+                    <small style="@requiredStyle">* Required</small>
                 </td>
             </tr>
         </tfoot>
     </table>
+    
+    <p include-if="@Model.Items.Count == 0">&nbsp;</p>
 
-    <h1 class="summary-section">
+    <h1 style="@sectionStyle">
         Response
     </h1>
 
     <p>&nbsp;</p>
-    <h1 class="summary-section">
+
+    <h1 style="@sectionStyle">
         Topic Details
     </h1>
+
     @foreach (var group in Model.Items.OrderBy(g => g.TopicTitle).GroupBy(g => g.TopicId))
     {
         var item = group.FirstOrDefault();
-        <h3 class="summary-detail-section">
+        <h3 style="@detailStyle">
             @item.TopicTitle
         </h3>
 
@@ -105,15 +84,16 @@
 
     <p include-if="@Model.Items.Count == 0">&nbsp;</p>
 
-    <h1 class="summary-section">
+    <h1 style="@sectionStyle">
         Notes
     </h1>
 
     <p>&nbsp;</p>
 
-    <h1 class="summary-section">
+    <h1 style="@sectionStyle">
         Links
     </h1>
+
     <ul>
         <li>
             <a asp-protocol="@Model.HttpContext.Request.Scheme"
@@ -161,14 +141,3 @@
         }
     </ul>
 </div>
-
-@section Scripts {
-    <script>
-        function changeDate() {
-            var date = $('#@Html.IdFor(p => p.Date)').val();
-            var url = '/@Model.TenantRoute/report/summary/' + date ;
-            window.location.href = url;
-        }
-    </script>
-}
-
