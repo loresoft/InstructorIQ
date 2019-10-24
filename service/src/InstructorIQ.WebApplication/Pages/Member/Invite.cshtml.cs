@@ -114,8 +114,8 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
             var model = new UserInviteEmail
             {
-                DisplayName = user.DisplayName,
-                EmailAddress = user.Email,
+                RecipientName = user.DisplayName,
+                RecipientAddress = user.Email,
                 Link = loginLink,
                 TenantName = Tenant.Value.Name
             };

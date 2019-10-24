@@ -61,8 +61,8 @@ namespace InstructorIQ.WebApplication.Pages.Account
 
             var model = new UserResetPasswordEmail
             {
-                DisplayName = user.DisplayName,
-                EmailAddress = user.Email,
+                RecipientName = user.DisplayName,
+                RecipientAddress = user.Email,
                 Link = resetLink,
                 ExpireHours = (int)_tokenOptions.Value.TokenLifespan.TotalHours
             };

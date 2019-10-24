@@ -12,9 +12,11 @@ using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
+using InstructorIQ.Core.Options;
 using MediatR.CommandQuery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -25,11 +27,13 @@ namespace InstructorIQ.Core.Services
     {
         private readonly InstructorIQContext _dataContext;
         private readonly IMemoryCache _cache;
+        private readonly IOptions<SmtpConfiguration> _smtpOptions;
 
-        public EmailTemplateService(InstructorIQContext dataContext, IMemoryCache cache)
+        public EmailTemplateService(InstructorIQContext dataContext, IMemoryCache cache, IOptions<SmtpConfiguration> smtpOptions)
         {
             _dataContext = dataContext;
             _cache = cache;
+            _smtpOptions = smtpOptions;
         }
         
 
@@ -60,17 +64,26 @@ namespace InstructorIQ.Core.Services
             return true;
         }
 
+        public async Task<bool> SendSummaryEmail(SummaryReportEmail summaryEmail)
+        {
+            var emailTemplate = await GetEmailTemplate(Templates.SummaryReport).ConfigureAwait(false);
+
+            // use model reply to address
+            emailTemplate.ReplyToAddress = summaryEmail.ReplyToAddress;
+            emailTemplate.ReplyToName = summaryEmail.ReplyToName;
+
+            await SendTemplate(emailTemplate, summaryEmail).ConfigureAwait(false);
+
+            return true;
+        }
+
 
         public async Task SendTemplate<TModel>(IEmailTemplate emailTemplate, TModel emailModel)
-            where TModel : EmailModelBase
+            where TModel : IEmailRecipient
         {
-            var subjectTemplate = Handlebars.Compile(emailTemplate.Subject);
-            var htmlBodyTemplate = Handlebars.Compile(emailTemplate.HtmlBody);
-            var textBodyTemplate = Handlebars.Compile(emailTemplate.TextBody);
-
-            var subject = subjectTemplate(emailModel);
-            var htmlBody = htmlBodyTemplate(emailModel);
-            var textBody = textBodyTemplate(emailModel);
+            var subject = ApplyTemplate(emailTemplate.Subject, emailModel);
+            var htmlBody = ApplyTemplate(emailTemplate.HtmlBody, emailModel);
+            var textBody = ApplyTemplate(emailTemplate.TextBody, emailModel);
 
             var message = new MimeMessage();
             message.Headers.Add("X-Mailer-Machine", Environment.MachineName);
@@ -78,42 +91,20 @@ namespace InstructorIQ.Core.Services
 
             message.Subject = subject;
 
-            message.From.Add(new MailboxAddress(emailTemplate.FromName, emailTemplate.FromAddress));
+            var fromAddress = new MailboxAddress(
+                emailTemplate.FromName.HasValue() ? emailTemplate.FromName : _smtpOptions.Value.FromName, 
+                emailTemplate.FromAddress.HasValue() ? emailTemplate.FromAddress : _smtpOptions.Value.FromAddress);
+
+            message.From.Add(fromAddress);
 
             if (emailTemplate.ReplyToAddress.HasValue())
                 message.ReplyTo.Add(new MailboxAddress(emailTemplate.ReplyToName, emailTemplate.ReplyToAddress));
 
-            message.To.Add(new MailboxAddress(emailModel.DisplayName, emailModel.EmailAddress));
+            message.To.Add(new MailboxAddress(emailModel.RecipientName, emailModel.RecipientAddress));
 
             var builder = new BodyBuilder();
             builder.TextBody = textBody;
             builder.HtmlBody = htmlBody;
-
-            message.Body = builder.ToMessageBody();
-
-            await SendMessage(message).ConfigureAwait(false);
-        }
-
-        public async Task SendMessage(EmailMessage emailMessage)
-        {
-            var message = new MimeMessage();
-            message.Headers.Add("X-Mailer-Machine", Environment.MachineName);
-            message.Headers.Add("X-Mailer-Date", DateTime.Now.ToString(CultureInfo.InvariantCulture));
-
-            message.Subject = emailMessage.Subject;
-
-            if (emailMessage.From.HasValue() && MailboxAddress.TryParse(emailMessage.From, out var fromAddress))
-                message.From.Add(fromAddress);
-
-            if (emailMessage.ReplyTo.HasValue() && MailboxAddress.TryParse(emailMessage.ReplyTo, out var replyAddress))
-                message.ReplyTo.Add(replyAddress);
-
-            if (emailMessage.To.HasValue() && MailboxAddress.TryParse(emailMessage.To, out var toAddress))
-                message.To.Add(toAddress);
-
-            var builder = new BodyBuilder();
-            builder.TextBody = emailMessage.TextBody;
-            builder.HtmlBody = emailMessage.HtmlBody;
 
             message.Body = builder.ToMessageBody();
 
@@ -146,6 +137,17 @@ namespace InstructorIQ.Core.Services
                 emailService.ProcessEmailQueueAsync(CancellationToken.None));
         }
 
+
+        public string ApplyTemplate<TModel>(string handlebarTemplate, TModel model)
+        {
+            if (handlebarTemplate.IsNullOrWhiteSpace())
+                return string.Empty;
+
+            var compiledTemplate = Handlebars.Compile(handlebarTemplate);
+            var result = compiledTemplate(model);
+
+            return result;
+        }
 
         public async Task<IEmailTemplate> GetEmailTemplate(string templateKey)
         {
@@ -199,12 +201,12 @@ namespace InstructorIQ.Core.Services
 
         }
 
-
         public static class Templates
         {
             public const string ResetPassword = "reset-password";
             public const string PasswordlessLogin = "passwordless-login";
             public const string UserInvite = "user-invite";
+            public const string SummaryReport = "summary-report";
         }
     }
 }

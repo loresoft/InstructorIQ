@@ -4,11 +4,10 @@ using System;
 
 namespace InstructorIQ.Core.Models
 {
-    public abstract class EmailModelBase : IUserAgentModel
+    public abstract class EmailModelBase : IUserAgentModel, IEmailRecipient
     {
-        public string DisplayName { get; set; }
-
-        public string EmailAddress { get; set; }
+        public string RecipientName { get; set; }
+        public string RecipientAddress { get; set; }
 
         public string Link { get; set; }
 

@@ -16,6 +16,8 @@ namespace InstructorIQ.Core.Options
 
         public string Password { get; set; }
 
+        public string FromName { get; set; }
+
         public string FromAddress { get; set; }
     }
 }

@@ -96,8 +96,8 @@ namespace InstructorIQ.WebApplication.Pages.Account
 
             var model = new UserPasswordlessEmail
             {
-                DisplayName = user.DisplayName,
-                EmailAddress = user.Email,
+                RecipientName = user.DisplayName,
+                RecipientAddress = user.Email,
                 Link = loginLink,
                 ExpireHours = (int) _securityOptions.Value.PasswordlessTokenLifespan.TotalHours
             };

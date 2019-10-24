@@ -74,7 +74,7 @@ namespace InstructorIQ.Core.Services
             {
                 // make sure there is a from address
                 if (mimeMessage.From.Count == 0)
-                    mimeMessage.From.Add(new MailboxAddress(settings.FromAddress));
+                    mimeMessage.From.Add(new MailboxAddress(settings.FromName, settings.FromAddress));
 
                 var logger = disposableBag.Create(() => new ProtocolLogger(logStream));
                 var client = disposableBag.Create(() => new SmtpClient(logger));

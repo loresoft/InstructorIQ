@@ -9,7 +9,11 @@
 
     ViewData["Title"] = $"Summary for {Model.Date:MMMM d}";
 }
-<div class="container summary">
+
+<div class="container">
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
     <div class="row no-gutters mb-3 d-print-none">
         <div class="col">
             <a class="btn btn-outline-secondary"

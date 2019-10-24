@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
+using EntityChange.Extensions;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
@@ -15,26 +18,35 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
     public class EmailModel : SummaryModel
     {
         private readonly IEmailTemplateService _templateService;
+        private readonly UserClaimManager _userClaimManager;
 
-        public EmailModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, IEmailTemplateService templateService)
+        public EmailModel(
+            ITenant<TenantReadModel> tenant,
+            IMediator mediator,
+            ILoggerFactory loggerFactory,
+            IEmailTemplateService templateService,
+            UserClaimManager userClaimManager)
             : base(tenant, mediator, loggerFactory)
         {
             _templateService = templateService;
+            _userClaimManager = userClaimManager;
             Date = DateTime.Now;
         }
 
         [BindProperty]
-        public EmailMessage Message { get; set; }
+        public SummaryReportEmail Message { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
             if (Tenant == null || !Tenant.HasValue)
                 return RedirectToPage("/Index");
+
+            var address = _userClaimManager.GetEmail(User) ?? User.Identity.Name;
+            var name = _userClaimManager.GetDisplayName(User);
             
-            Message = new EmailMessage
-            {
-                ReplyTo = User.Identity.Name
-            };
+            Message = new SummaryReportEmail();
+            Message.ReplyToAddress = address;
+            Message.ReplyToName = name;
 
             await Load();
 
@@ -47,7 +59,7 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
                 return Page();
 
             var email = Message;
-            await _templateService.SendMessage(email);
+            await _templateService.SendSummaryEmail(email);
 
             ShowAlert("Successfully sent email");
 
