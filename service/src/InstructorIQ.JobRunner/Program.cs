@@ -41,7 +41,8 @@ namespace InstructorIQ.JobRunner
                     {
                         builder
                             .AddJsonFile("appsettings.json")
-                            .AddJsonFile($"appsettings.{hostContext.HostingEnvironment}.json", true);
+                            .AddJsonFile($"appsettings.{hostContext.HostingEnvironment}.json", true)
+                            .AddEnvironmentVariables();
 
                         if (hostContext.HostingEnvironment.IsDevelopment())
                         {
