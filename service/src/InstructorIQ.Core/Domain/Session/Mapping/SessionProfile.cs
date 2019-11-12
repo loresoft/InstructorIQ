@@ -40,6 +40,10 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.IsRequired, opt => opt.MapFrom(s => s.Topic.IsRequired))
                 .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name))
                 .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Location.Name))
+                .ForMember(d => d.LocationAddressLine1, opt => opt.MapFrom(s => s.Location.AddressLine1))
+                .ForMember(d => d.LocationCity, opt => opt.MapFrom(s => s.Location.City))
+                .ForMember(d => d.LocationStateProvince, opt => opt.MapFrom(s => s.Location.StateProvince))
+                .ForMember(d => d.LocationPostalCode, opt => opt.MapFrom(s => s.Location.PostalCode))
                 .ForMember(d => d.GroupName, opt => opt.MapFrom(s => s.Group.Name))
                 .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
                 .ForMember(d => d.AdditionalInstructors, opt => opt.MapFrom(s => s.SessionInstructors.Select(i => new SessionInstructorModel

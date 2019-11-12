@@ -109,8 +109,73 @@
                    class="dropdown-item">
                     Bulk Edit Sessions
                 </a>
+                <div class="dropdown-divider"></div>
+                <a href="#"
+                   data-toggle="modal" 
+                   data-target="#sessionModal"
+                   title="Session Summary View"
+                   class="dropdown-item">
+                    Session Summary View
+                </a>
             </div>
         </div>
     </div>
 </div>
 
+@{
+    var cellStyle = "border: 1px solid #000; padding: 2px 4px; min-width: 110px; font-size: 10pt;";
+}
+
+<!-- Modal -->
+<div class="modal fade" id="sessionModal" tabindex="-1" role="dialog" aria-labelledby="sessionModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sessionModalTitle">Session Summary</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table style="border-collapse: collapse;"
+                       include-if="@Model.Items.Count > 0">
+                    <thead>
+                        <tr>
+                            <th style="@cellStyle">
+                                Date
+                            </th>
+                            <th style="@cellStyle">
+                                Time
+                            </th>
+                            <th style="@cellStyle">
+                                Location
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td style="@cellStyle">
+                                    @item.StartDate?.ToString("MM/dd/yyyy")
+                                </td>
+                                <td style="@cellStyle">
+                                    @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
+                                </td>
+                                <td style="@cellStyle">
+                                    <google-map address="@item.LocationAddressLine1"
+                                                city="@item.LocationCity"
+                                                state="@item.LocationStateProvince"
+                                                postal="@item.LocationPostalCode">@item.LocationName</google-map>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

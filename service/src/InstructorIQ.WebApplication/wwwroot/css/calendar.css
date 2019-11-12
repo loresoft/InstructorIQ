@@ -85,7 +85,11 @@
     .monthly-topic a:link,
     .monthly-topic a:visited,
     .monthly-topic a:hover,
-    .monthly-topic a:active {
+    .monthly-topic a:active,
+    .monthly-data a:link,
+    .monthly-data a:visited,
+    .monthly-data a:hover,
+    .monthly-data a:active {
         text-decoration: none;
         color: #000
     }

@@ -112,7 +112,12 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-data">@c.LocationName</td>
+                                            <td class="monthly-data">
+                                                <google-map address="@c.LocationAddressLine1"
+                                                            city="@c.LocationCity"
+                                                            state="@c.LocationStateProvince"
+                                                            postal="@c.LocationPostalCode">@c.LocationName</google-map>
+                                            </td>
                                         }
                                     </tr>
                                     <tr>

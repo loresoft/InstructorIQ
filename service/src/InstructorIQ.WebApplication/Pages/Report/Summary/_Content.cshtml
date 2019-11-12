@@ -44,7 +44,10 @@
                         }
                     </td>
                     <td style="@cellStyle">
-                        @item.LocationName
+                        <google-map address="@item.LocationAddressLine1"
+                                    city="@item.LocationCity"
+                                    state="@item.LocationStateProvince"
+                                    postal="@item.LocationPostalCode">@item.LocationName</google-map>
                     </td>
                 </tr>
             }
