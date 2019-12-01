@@ -43,12 +43,12 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <input type="hidden" asp-for="Import.Id" />
                 <input type="hidden" asp-for="Import.Name" />
-                
+
                 @for (int i = 0; i < Model.Headers.Count; i++)
                 {
                     <input type="hidden" asp-for="Import.Headers[i]" />
                 }
-                
+
 
                 <div class="form-group">
                     <label asp-for="Import.EmailMapping">Email Address:</label>
@@ -68,6 +68,16 @@
                         <option value="">- Select -</option>
                     </select>
                     <span asp-validation-for="Import.DisplayNameMapping" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Import.SortNameMapping">Sort Name:</label>
+                    <select asp-for="Import.SortNameMapping"
+                            asp-items="@Model.Headers"
+                            class="custom-select">
+                        <option value="">- Select -</option>
+                    </select>
+                    <span asp-validation-for="Import.SortNameMapping" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">

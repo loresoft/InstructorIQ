@@ -134,6 +134,9 @@ namespace InstructorIQ.Core.Services
                     if (StringExtensions.HasValue(importModel.DisplayNameMapping))
                         item.DisplayName = csv.GetField(importModel.DisplayNameMapping);
 
+                    if (StringExtensions.HasValue(importModel.SortNameMapping))
+                        item.SortName = csv.GetField(importModel.SortNameMapping);
+
                     if (StringExtensions.HasValue(importModel.GivenNameMapping))
                         item.GivenName = csv.GetField(importModel.GivenNameMapping);
 
@@ -148,6 +151,9 @@ namespace InstructorIQ.Core.Services
 
                     if (StringExtensions.IsNullOrEmpty(item.DisplayName))
                         item.DisplayName = $"{item.GivenName} {item.FamilyName}".Trim();
+
+                    if (StringExtensions.IsNullOrEmpty(item.SortName))
+                        item.SortName = $"{item.FamilyName}, {item.GivenName}".Trim();
 
                     dataList.Add(item);
                 }

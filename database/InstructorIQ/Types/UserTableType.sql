@@ -2,7 +2,7 @@
 (
     [Email]       NVARCHAR (256) NOT NULL,
     [DisplayName] NVARCHAR (256) NOT NULL,
-    [SortName]    NVARCHAR (256) NOT NULL,
+    [SortName]    NVARCHAR (256) NULL,
     [GivenName]   NVARCHAR (256) NULL,
     [MiddleName]  NVARCHAR (256) NULL,
     [FamilyName]  NVARCHAR (256) NULL,

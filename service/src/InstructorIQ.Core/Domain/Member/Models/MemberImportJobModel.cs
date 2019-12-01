@@ -23,6 +23,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string DisplayNameMapping { get; set; }
 
+        public string SortNameMapping { get; set; }
+
         public string JobTitleMapping { get; set; }
     }
 }

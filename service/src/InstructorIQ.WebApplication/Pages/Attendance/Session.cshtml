@@ -69,7 +69,7 @@
             lastLetter = letter;
         }
     </div>
-    <div class="attendance-letters">
+    <div class="attendance-letters" exclude-if="@Model.Members.Count < 15">
         <div class="list-group attendance-letter-group">
             @foreach (var letter in letters)
             {

@@ -12,6 +12,7 @@ BEGIN
 	WHEN MATCHED THEN
 		UPDATE SET
 			D.[DisplayName] = IIF(S.[DisplayName] IS NULL, D.[DisplayName], S.[DisplayName]),
+			D.[SortName] = IIF(S.[SortName] IS NULL, D.[SortName], S.[SortName]),
 			D.[GivenName] = IIF(S.[GivenName] IS NULL, D.[GivenName], S.[GivenName]),
 			D.[MiddleName] = IIF(S.[MiddleName] IS NULL, D.[MiddleName], S.[MiddleName]),
 			D.[FamilyName] = IIF(S.[FamilyName] IS NULL, D.[FamilyName], S.[FamilyName]),
@@ -26,6 +27,7 @@ BEGIN
 			[MiddleName],
 			[FamilyName],
 			[DisplayName],
+			[SortName],
 			[JobTitle],
 			[TenantId]
 		)
@@ -37,6 +39,7 @@ BEGIN
 			S.[MiddleName],
 			S.[FamilyName],
 			S.[DisplayName],
+			S.[SortName],
 			S.[JobTitle],
 			@tenantId
 		);
