@@ -44,9 +44,4 @@
     <ProjectReference Include="..\InstructorIQ.Core\InstructorIQ.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\signature_pad\" />
-    <Folder Include="wwwroot\lib\signature_pad\dist\" />
-  </ItemGroup>
-
 </Project>

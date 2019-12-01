@@ -11,7 +11,7 @@
       "wwwroot/lib/select2/js/select2.js",
       "wwwroot/lib/simplemde/simplemde.min.js",
       "wwwroot/lib/jquery.dirty/dist/jquery.dirty.js",
-      "wwwroot/lib/signature_pad/dist/signature_pad.js",
+      "wwwroot/lib/signature_pad/dist/signature_pad.umd.js",
       "wwwroot/js/copyValue.js",
       "wwwroot/js/site.js"
     ],
