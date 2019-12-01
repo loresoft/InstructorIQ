@@ -1,0 +1,77 @@
+﻿.signature-wrapper {
+    position: relative;
+    width: 472px;
+    height: 200px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.signature-pad {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    background-color: #fff;
+    cursor: crosshair;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 472px;
+    height: 200px;
+}
+
+@media (min-width: 320px) {
+    .signature-wrapper {
+        width: 288px;
+    }
+
+    .signature-pad {
+        width: 288px;
+    }
+}
+
+@media (min-width: 480px) {
+    .signature-wrapper {
+        width: 384px;
+    }
+
+    .signature-pad {
+        width: 384px;
+    }
+}
+
+@media (min-width: 576px) {
+    .signature-wrapper {
+        width: 472px;
+    }
+    .signature-pad {
+        width: 472px;
+    }
+}
+
+@media (min-width: 768px) {
+    .signature-wrapper {
+        width: 650px;
+    }
+    .signature-pad {
+        width: 650px;
+    }
+}
+
+@media (min-width: 992px) {
+    .signature-wrapper {
+        width: 890px;
+    }
+    .signature-pad {
+        width: 890px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .signature-wrapper {
+        width: 1070px;
+    }
+    .signature-pad {
+        width: 1070px;
+    }
+}

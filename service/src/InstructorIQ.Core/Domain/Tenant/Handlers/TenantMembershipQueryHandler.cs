@@ -37,6 +37,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 return membership;
 
             membership.IsMember = roles.Contains(Data.Constants.Role.MemberName);
+            membership.IsAttendee = roles.Contains(Data.Constants.Role.AttendeeName);
             membership.IsInstructor = roles.Contains(Data.Constants.Role.InstructorName);
             membership.IsAdministrator = roles.Contains(Data.Constants.Role.AdministratorName);
 

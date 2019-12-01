@@ -22,6 +22,14 @@ namespace InstructorIQ.Core.Data
 
         #region Generated Properties
         /// <summary>
+        /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Attendance"/>.
+        /// </summary>
+        /// <value>
+        /// The <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.Attendance"/>.
+        /// </value>
+        public virtual DbSet<InstructorIQ.Core.Data.Entities.Attendance> Attendances { get; set; }
+
+        /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent"/>.
         /// </summary>
         /// <value>
@@ -192,6 +200,7 @@ namespace InstructorIQ.Core.Data
             base.OnModelCreating(modelBuilder);
 
             #region Generated Configuration
+            modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.AttendanceMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.AuthenticationEventMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.DiscussionMap());
             modelBuilder.ApplyConfiguration(new InstructorIQ.Core.Data.Mapping.EmailDeliveryMap());

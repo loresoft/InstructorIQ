@@ -44,6 +44,14 @@
     </div>
 
     <div class="custom-control custom-checkbox">
+        <input asp-for="Membership.IsAttendee"
+               type="checkbox"
+               class="custom-control-input">
+        <label asp-for="Membership.IsAttendee"
+               class="custom-control-label">Attendee</label>
+    </div>
+
+    <div class="custom-control custom-checkbox">
         <input asp-for="Membership.IsInstructor"
                type="checkbox"
                class="custom-control-input">

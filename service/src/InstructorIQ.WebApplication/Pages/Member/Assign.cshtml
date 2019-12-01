@@ -1,0 +1,179 @@
+﻿@page
+@model InstructorIQ.WebApplication.Pages.Member.AssignModel
+@{
+    ViewData["Title"] = "Assign Roles";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/member/index"
+                   asp-route-tenant="@Model.TenantRoute">Members</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Assign Roles</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <form id="assign-form"
+          name="assign-form"
+          role="form"
+          method="post">
+        <div class="card mb-5">
+            <div class="card-header">
+                <i class="fas fa-user mr-2"
+                   aria-hidden="true"></i> Bulk Assign Roles
+
+                <ul class="nav nav-tabs card-header-tabs float-right">
+                    <li class="nav-item">
+                        <a id="user-tab"
+                           data-toggle="tab"
+                           role="tab"
+                           aria-controls="user"
+                           aria-selected="true"
+                           href="#user"
+                           class="nav-link active"
+                           title="Users">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="role-tab"
+                           data-toggle="tab"
+                           role="tab"
+                           aria-controls="role"
+                           aria-selected="false"
+                           href="#role"
+                           class="nav-link"
+                           title="Roles">Roles</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body tab-content">
+                <div class="tab-pane show active" id="user" role="tabpanel" aria-labelledby="user-tab">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <table class="table table-hover table-striped table-sm">
+                        <colgroup>
+                            <col style="width: 35px" />
+                            <col />
+                            <col />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <div class="custom-control custom-checkbox">
+                                        <input id="select-all-users"
+                                               type="checkbox"
+                                               class="custom-control-input"
+                                               value="false" />
+                                        <label class="custom-control-label"
+                                               for="select-all-users"></label>
+                                    </div>
+                                </th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var member in Model.Members)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input id="user-checkbox-@member.Id"
+                                                   name="SelectedUser"
+                                                   type="checkbox"
+                                                   class="custom-control-input user-checkbox"
+                                                   value="@member.UserName" 
+                                                   @(Model.SelectedUser.Contains(member.UserName) ? "checked" : "")> 
+                                            <label class="custom-control-label"
+                                                   for="user-checkbox-@member.Id"></label>
+                                        </div>
+                                    </td>
+                                    <td>@member.SortName</td>
+                                    <td>@member.Email</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="role" role="tabpanel" aria-labelledby="role-tab">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <table class="table table-hover table-striped table-sm">
+                        <colgroup>
+                            <col style="width: 35px" />
+                            <col />
+                            <col />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <div class="custom-control custom-checkbox">
+                                        <input id="select-all-roles"
+                                               type="checkbox"
+                                               class="custom-control-input"
+                                               value="false" />
+                                        <label class="custom-control-label"
+                                               for="select-all-roles"></label>
+                                    </div>
+                                </th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input id="role-checkbox-@role.Id"
+                                                   name="SelectedRole"
+                                                   type="checkbox"
+                                                   class="custom-control-input role-checkbox"
+                                                   value="@role.Name"
+                                                   @(Model.SelectedRole.Contains(role.Name) ? "checked" : "")>
+                                            <label class="custom-control-label"
+                                                   for="role-checkbox-@role.Id"></label>
+                                        </div>
+                                    </td>
+                                    <td>@role.Name</td>
+                                    <td>@role.Description</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">
+                            Apply
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#select-all-roles").click(function () {
+                $(".role-checkbox").prop('checked', $(this).prop('checked'));
+            });
+            $("#select-all-users").click(function () {
+                $(".user-checkbox").prop('checked', $(this).prop('checked'));
+            });
+        });
+    </script>
+}

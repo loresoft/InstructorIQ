@@ -1,0 +1,47 @@
+﻿
+.attendance {
+    position: relative;
+}
+
+.attendance-header {
+    padding: .5rem 1.25rem;
+    margin-bottom: -1px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    background-color: #f8f8f8;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 58px;
+    z-index: 1020;
+}
+
+.attendance-group > .list-group-item > .far {
+    margin-right: 5px;
+}
+
+.attendance-letters {
+    position: absolute;
+    top: 0;
+    right: 32px;
+    z-index: 1020;
+}
+
+.attendance-letter-group {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-right: 0 none;
+    position: fixed;
+    top: 140px;
+}
+
+.attendance-letter-group > .list-group-item {
+    padding: 2px;
+    border: 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+@media screen and (max-height: 700px) {
+    .attendance-letters {
+        display: none;
+    }
+}

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
 using FluentCommand;
 using InstructorIQ.Core.Options;
 using KickStart.DependencyInjection;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +22,7 @@ namespace InstructorIQ.Core.Data
             var connectionString = configuration.GetConnectionString("InstructorIQ");
 
             services.AddDbContext<InstructorIQContext>(
-                options => options.UseSqlServer(connectionString), 
+                options => options.UseSqlServer(connectionString),
                 ServiceLifetime.Transient
             );
 

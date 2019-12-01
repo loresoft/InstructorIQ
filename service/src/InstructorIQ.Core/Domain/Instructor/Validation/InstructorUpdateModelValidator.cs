@@ -22,6 +22,7 @@ namespace InstructorIQ.Core.Domain.Validation
             RuleFor(p => p.FamilyName).MaximumLength(256);
             RuleFor(p => p.DisplayName).NotEmpty();
             RuleFor(p => p.DisplayName).MaximumLength(256);
+            RuleFor(p => p.SortName).MaximumLength(256);
             RuleFor(p => p.JobTitle).MaximumLength(256);
             RuleFor(p => p.EmailAddress).MaximumLength(256);
             RuleFor(p => p.MobilePhone).MaximumLength(50);

@@ -1,0 +1,91 @@
+﻿@page "/attendance/{year:int?}/{week:int?}"
+@using InstructorIQ.Core.Extensions
+@model IndexModel
+@{
+    ViewData["Title"] = "Attendance";
+}
+
+    <div class="container">
+
+        <div class="row no-gutters mb-3 d-print-none">
+            <div class="col">
+                <a class="btn btn-outline-secondary"
+                   title="Previous Month"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-week="@Model.PreviousWeek"
+                   asp-route-year="@Model.PreviousYear">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <a class="btn btn-outline-secondary"
+                   title="Next Month"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-week="@Model.NextWeek"
+                   asp-route-year="@Model.NextYear">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+            <div class="col">
+                <h3>Attendance</h3>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+
+        <div class="list-group">
+            @foreach (var item in Model.Items)
+            {
+                var instructors = new HashSet<string>();
+                if (item.LeadInstructorName.HasValue())
+                {
+                    instructors.Add(item.LeadInstructorName);
+                }
+                foreach (var instructor in item.AdditionalInstructors)
+                {
+                    instructors.Add(instructor.DisplayName);
+                }
+
+                <a asp-page="/attendance/session"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@item.Id"
+                   title="Session Attendance"
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">
+                            @item.TopicTitle@(item.GroupId.HasValue ? " - " : " ")@item.GroupName
+                        </h5>
+                        <div class="d-none d-md-block">
+                            <small class="d-block">
+                                <strong>@item.StartDate?.ToString("MMMM dd")</strong>
+                            </small>
+                            <small class="d-block">
+                                @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
+                            </small>
+                        </div>
+                    </div>
+                    <div>
+                        <small class="d-block d-md-none mr-2 mb-1"
+                               include-if="@item.StartDate.HasValue">
+                            <i class="fas fa-clock"
+                               style="width: 14px;"></i>
+                            @item.StartDate?.ToString("MMM dd")
+                            @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
+                        </small>
+                        <small class="d-block d-md-inline mr-2 mb-1"
+                               include-if="@item.LocationId.HasValue">
+                            <i class="fas fa-map-marker-alt"
+                               style="width: 14px;"></i>
+                            @item.LocationName
+                        </small>
+                        <small class="d-block d-md-inline mr-2 mb-1"
+                               include-if="@instructors.Count > 0">
+                            <i class="fas fa-user"
+                               style="width: 14px;"></i>
+                            <em>@instructors.ToDelimitedString("; ")</em>
+                        </small>
+                    </div>
+                </a>
+            }
+        </div>
+
+    </div>

@@ -63,6 +63,14 @@ namespace InstructorIQ.Core.Data.Entities
         public string DisplayName { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'SortName'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'SortName'.
+        /// </value>
+        public string SortName { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'JobTitle'.
         /// </summary>
         /// <value>

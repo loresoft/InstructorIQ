@@ -32,32 +32,52 @@ BEGIN
     PRINT 'Ensure Instrutor Role'
 
     MERGE [IQ].[TenantUserRole] WITH (ROWLOCK) AS D
-	USING 
-	(
-		SELECT
-			[EmailAddress] AS [UserName],
-			[TenantId]
-		FROM [IQ].[Instructor]
-		WHERE [EmailAddress] IS NOT NULL
-	)
-	AS S
-		ON D.[UserName] = S.[UserName] 
-			AND D.[TenantId] = S.[TenantId]
-			AND D.[RoleName] = 'Instructor'
-	WHEN NOT MATCHED THEN
-		INSERT
-		(
-			[TenantId],
-			[UserName],
-			[RoleName]
-		)
-		VALUES
-		(
-			S.[TenantId],
-			S.[UserName],
-			'Instructor'
-		);
+    USING 
+    (
+        SELECT
+            [EmailAddress] AS [UserName],
+            [TenantId]
+        FROM [IQ].[Instructor]
+        WHERE [EmailAddress] IS NOT NULL
+    )
+    AS S
+        ON D.[UserName] = S.[UserName] 
+            AND D.[TenantId] = S.[TenantId]
+            AND D.[RoleName] = 'Instructor'
+    WHEN NOT MATCHED THEN
+        INSERT
+        (
+            [TenantId],
+            [UserName],
+            [RoleName]
+        )
+        VALUES
+        (
+            S.[TenantId],
+            S.[UserName],
+            'Instructor'
+        );
 
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('19f72c77-d546-42e2-8eab-9ec8df275dd3')
+END
+
+IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = 'f36bfb5e-4d73-471a-973d-2bc71f2de7b1')
+BEGIN
+    PRINT 'Performing Datasweep: Populate SortName'
+
+    UPDATE [InstructorIQ].[Identity].[User] SET
+        [SortName] = [FamilyName] + ', ' + [GivenName]
+    WHERe [FamilyName] IS NOT NULL 
+        AND [GivenName] IS NOT NULL 
+        AND [SortName] IS NULL;
+
+    UPDATE [InstructorIQ].[IQ].[Instructor] SET
+        [SortName] = [FamilyName] + ', ' + [GivenName]
+    WHERe [FamilyName] IS NOT NULL 
+        AND [GivenName] IS NOT NULL 
+        AND [SortName] IS NULL;
+    
+    INSERT [dbo].[Datasweep] ([Id])
+    VALUES ('f36bfb5e-4d73-471a-973d-2bc71f2de7b1')
 END

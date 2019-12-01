@@ -1,4 +1,5 @@
-﻿namespace InstructorIQ.Core.Domain.Models
+﻿// ReSharper disable once CheckNamespace
+namespace InstructorIQ.Core.Domain.Models
 {
     public class MemberUpdateModel
     {
@@ -15,6 +16,8 @@
         public string FamilyName { get; set; }
 
         public string DisplayName { get; set; }
+
+        public string SortName { get; set; }
 
         public string JobTitle { get; set; }
 

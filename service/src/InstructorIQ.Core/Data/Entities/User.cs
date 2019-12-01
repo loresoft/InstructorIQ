@@ -26,6 +26,8 @@ namespace InstructorIQ.Core.Data.Entities
 
         public string DisplayName { get; set; } = string.Empty;
 
+        public string SortName { get; set; } = string.Empty;
+
         public string JobTitle { get; set; }
 
         public Guid? LastTenantId { get; set; }

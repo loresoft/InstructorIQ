@@ -100,12 +100,26 @@
 </div>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.16/tinymce.min.js"
+            integrity="sha256-DwA/5XvQk7JerRG73GsRcEUM+ESubaliT2xRpDtIKNA="
+            crossorigin="anonymous"></script>
+
     <script>
         $(function () {
-            var descriptionEditor = new SimpleMDE({
-                element: document.getElementById("@Html.IdFor(p => p.Entity.Description)"),
-                hideIcons: ['side-by-side', 'fullscreen'],
-                spellChecker: false
+            tinymce.init({
+                selector: '#@Html.IdFor(p => p.Entity.Description)',
+                plugins: [
+                    'autoresize autolink lists link image charmap',
+                    'template visualblocks code imagetools',
+                    'table paste wordcount quickbars'
+                ],
+                toolbar: 'undo redo | formatselect | bold italic underline | forecolor | link image | alignleft aligncenter alignright alignjustify | bullist numlist | table | template removeformat',
+                menubar: false,
+                max_height: 800,
+                browser_spellcheck: true,
+                relative_urls: false,
+                remove_script_host : false,
+                contextmenu: false
             });
 
             $("#topic-form").dirty({

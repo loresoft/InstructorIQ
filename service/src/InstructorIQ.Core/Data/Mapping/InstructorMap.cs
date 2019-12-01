@@ -51,6 +51,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
+            builder.Property(t => t.SortName)
+                .HasColumnName("SortName")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
             builder.Property(t => t.JobTitle)
                 .HasColumnName("JobTitle")
                 .HasColumnType("nvarchar(256)")

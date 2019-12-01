@@ -113,24 +113,52 @@ namespace InstructorIQ.Core.Extensions
             return items.Select(item => new IndexedValue<TValue>(index++, item));
         }
 
+        /// <summary>
+        /// Converts an IEnumerable to a selection list.
+        /// </summary>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="items">The items to use.</param>
+        /// <returns></returns>
+        public static IEnumerable<SelectionValue<TValue>> ToSelectionList<TValue>(this IEnumerable<TValue> items)
+        {
+            int index = 0;
+            return items.Select(item => new SelectionValue<TValue>(index++, item));
+        }
+
         public static IQueryable<T> Paginate<T>(this IQueryable<T> query, int pageNumber, int pageSize)
         {
             int skip = Math.Max(pageSize * (pageNumber - 1), 0);
             return query.Skip(skip).Take(pageSize);
         }
 
-        public class IndexedValue<T>
+    }
+
+    public class IndexedValue<T>
+    {
+        public IndexedValue(int index, T value)
         {
-            public IndexedValue(int index, T value)
-            {
-                Index = index;
-                Value = value;
-            }
-
-            public int Index { get; }
-
-            public T Value { get; }
+            Index = index;
+            Value = value;
         }
 
+        public int Index { get; }
+
+        public T Value { get; }
     }
+
+    public class SelectionValue<T>
+    {
+        public SelectionValue(int index, T value)
+        {
+            Index = index;
+            Value = value;
+        }
+
+        public int Index { get; }
+
+        public T Value { get; }
+
+        public bool Selected { get; set; }
+    }
+
 }

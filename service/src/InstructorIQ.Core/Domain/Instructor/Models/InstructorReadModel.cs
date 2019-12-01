@@ -46,6 +46,14 @@ namespace InstructorIQ.Core.Domain.Models
         public string DisplayName { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'SortName'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'SortName'.
+        /// </value>
+        public string SortName { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'JobTitle'.
         /// </summary>
         /// <value>

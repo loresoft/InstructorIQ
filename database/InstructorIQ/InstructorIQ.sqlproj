@@ -68,7 +68,6 @@
     <Folder Include="Procedures" />
     <Folder Include="Schema" />
     <Folder Include="Identity" />
-    <Folder Include="Views" />
     <Folder Include="Types" />
   </ItemGroup>
   <ItemGroup>
@@ -96,7 +95,6 @@
     <Build Include="Identity\UserLogin.sql" />
     <Build Include="Identity\UserRole.sql" />
     <Build Include="Identity\UserToken.sql" />
-    <Build Include="Views\SessionCalendar.sql" />
     <Build Include="Tables\TenantUserRole.sql" />
     <Build Include="Tables\InstructorRole.sql" />
     <Build Include="Tables\Template.sql" />
@@ -110,6 +108,7 @@
     <Build Include="Tables\LinkToken.sql" />
     <Build Include="Tables\ImportJob.sql" />
     <Build Include="Procedures\EnsureInstructorUser.sql" />
+    <Build Include="Tables\Attendance.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

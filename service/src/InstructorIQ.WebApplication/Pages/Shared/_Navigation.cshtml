@@ -63,7 +63,32 @@
                            asp-route-tenant="@Tenant.Value?.Slug">Subscribe</a>
                     </div>
                 </li>
-
+                <!-- Attendance -->
+                <li class="nav-item dropdown"
+                    include-if="@Tenant.HasValue">
+                    <a id="navbar-dropdown-attendance"
+                       class="nav-link dropdown-toggle"
+                       href="#"
+                       data-toggle="dropdown"
+                       aria-haspopup="true"
+                       aria-expanded="false">
+                        Attendance
+                    </a>
+                    <div class="dropdown-menu"
+                         aria-labelledby="navbar-dropdown-topic">
+                        <a id="navbar-view-attendance-link"
+                           class="dropdown-item"
+                           asp-page="/attendance/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Attendance</a>
+                        <div class="dropdown-divider"
+                             authorize-policy="@UserPolicies.AdministratorPolicy"></div>
+                        <a id="navbar-create-attendance-link"
+                           class="dropdown-item"
+                           authorize-policy="@UserPolicies.AdministratorPolicy"
+                           asp-page="/attendance/report"
+                           asp-route-tenant="@Tenant.Value?.Slug">Attendance Report</a>
+                    </div>
+                </li>
                 <!-- Topic Menu -->
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue">
@@ -119,26 +144,6 @@
                     </div>
                 </li>
 
-                <!-- Reports Menu -->
-                <li class="nav-item dropdown"
-                    include-if="@Tenant.HasValue">
-                    <a id="navbar-dropdown-reports"
-                       class="nav-link dropdown-toggle"
-                       href="#"
-                       data-toggle="dropdown"
-                       aria-haspopup="true"
-                       aria-expanded="false">
-                        Reports
-                    </a>
-                    <div class="dropdown-menu"
-                         aria-labelledby="navbar-dropdown-reports">
-                        <a id="navbar-summary-report-link"
-                           class="dropdown-item"
-                           asp-page="/report/summary/index"
-                           asp-route-tenant="@Tenant.Value?.Slug">Daily Summary</a>
-                    </div>
-                </li>
-
                 <!-- Administrative Menu -->
                 <li class="nav-item dropdown"
                     include-if="@Tenant.HasValue"
@@ -170,7 +175,11 @@
                            class="dropdown-item"
                            asp-page="/member/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Members</a>
-
+                        <div class="dropdown-divider"></div>
+                        <a id="navbar-summary-report-link"
+                           class="dropdown-item"
+                           asp-page="/report/summary/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Daily Summary</a>
                     </div>
                 </li>
                 <!-- Global Menu -->
@@ -209,9 +218,9 @@
                         <a id="navbar-dropdown-notification"
                            class="nav-link position-relative"
                            asp-page="/user/notification">
-                            <i id="navbar-notification-icon" 
+                            <i id="navbar-notification-icon"
                                class="far fa-bell"></i>
-                            <span id="navbar-notification-count" 
+                            <span id="navbar-notification-count"
                                   style="display: none;"
                                   class="badge badge-info border border-light">0</span>
                         </a>
@@ -258,7 +267,7 @@
                 else
                 {
                     <li class="nav-item">
-                        <a id="navbar-identity-login-link" 
+                        <a id="navbar-identity-login-link"
                            class="nav-link"
                            asp-page="/account/login"
                            asp-route-tenant="@Tenant.Value?.Slug">
@@ -271,4 +280,3 @@
         </div>
     </div>
 </nav>
- 

@@ -32,6 +32,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             if (user == null)
                 return null;
 
+            if (string.IsNullOrEmpty(user.SecurityStamp))
+                await _userManager.UpdateSecurityStampAsync(user);
+
             bool isGlobalAdministrator = request.Principal.IsInRole(Data.Constants.Role.GlobalAdministrator);
 
             await UpdateEmail(id, model, user);

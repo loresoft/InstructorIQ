@@ -36,6 +36,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             if (membership.IsMember)
                 AddRole(tenantId, userName, Data.Constants.Role.MemberName);
 
+            if (membership.IsAttendee)
+                AddRole(tenantId, userName, Data.Constants.Role.AttendeeName);
+
             if (membership.IsInstructor)
                 AddRole(tenantId, userName, Data.Constants.Role.InstructorName);
 

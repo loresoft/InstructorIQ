@@ -13,7 +13,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 {
     public class ViewModel : EntityIdentifierModelBase<SessionReadModel>
     {
-        public ViewModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory) : base(tenant, mediator, loggerFactory)
+        public ViewModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory) 
+            : base(tenant, mediator, loggerFactory)
         {
         }
 

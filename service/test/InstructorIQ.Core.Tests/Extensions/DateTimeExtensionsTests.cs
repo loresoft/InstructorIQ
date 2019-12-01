@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.WebUtilities;
+using System.Globalization;
+using FluentAssertions;
+using InstructorIQ.Core.Extensions;
 using Xunit;
 using Xunit.Abstractions;
-using InstructorIQ.Core.Extensions;
 
 namespace InstructorIQ.Core.Tests.Extensions
 {
@@ -73,5 +73,28 @@ namespace InstructorIQ.Core.Tests.Extensions
             //var returnTimeC = TimeZoneInfo.ConvertTime(userUtc, centralZone);
         }
 
+        [Fact]
+        public void GetFirstDayOfWeek()
+        {
+            var startDate = DateTimeFormatInfo.CurrentInfo.GetFirstDayOfWeek(2019, 1);
+            startDate.Should().Be(new DateTime(2018, 12, 30));
+
+            startDate = DateTimeFormatInfo.CurrentInfo.GetFirstDayOfWeek(2019, 10);
+            startDate.Should().Be(new DateTime(2019, 3, 3));
+
+            startDate = DateTimeFormatInfo.CurrentInfo.GetFirstDayOfWeek(2019, 47);
+            startDate.Should().Be(new DateTime(2019, 11, 17));
+
+            startDate = DateTimeFormatInfo.CurrentInfo.GetFirstDayOfWeek(2019, 47);
+            startDate.Should().Be(new DateTime(2019, 11, 17));
+
+            startDate = DateTimeFormatInfo.CurrentInfo.GetFirstDayOfWeek(2017, 1);
+            startDate.Should().Be(new DateTime(2017, 1, 1));
+
+            startDate = DateTimeFormatInfo.CurrentInfo.GetFirstDayOfWeek(2017, 18);
+            startDate.Should().Be(new DateTime(2017, 4, 30));
+
+            var endDate = startDate.AddDays(6);
+        }
     }
 }

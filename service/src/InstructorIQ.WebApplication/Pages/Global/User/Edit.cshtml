@@ -15,14 +15,25 @@
 
         <div asp-validation-summary="All" class="text-danger"></div>
 
-        <div class="form-group">
-            <label asp-for="Input.DisplayName">Display Name <required /></label>
-            <input asp-for="Input.DisplayName"
-                   type="text"
-                   class="form-control"
-                   placeholder="Display Name">
-            <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Input.DisplayName">Display Name <required /></label>
+                <input asp-for="Input.DisplayName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Display Name">
+                <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Input.SortName">Sort Name</label>
+                <input asp-for="Input.SortName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Sort Name">
+                <span asp-validation-for="Input.SortName" class="text-danger"></span>
+            </div>
         </div>
+
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Input.GivenName">First Name </label>

@@ -20,12 +20,9 @@ namespace InstructorIQ.WebApplication.Pages.Member
     [Authorize(Policy = UserPolicies.AdministratorPolicy)]
     public class IndexModel : MediatorModelBase
     {
-        private readonly UserManager<Core.Data.Entities.User> _userManager;
-
-        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager)
+        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
-            _userManager = userManager;
             Sort = "DisplayName";
         }
 

@@ -15,6 +15,7 @@ namespace InstructorIQ.Core.Data.Entities
         public Tenant()
         {
             #region Generated Constructor
+            Attendances = new HashSet<Attendance>();
             Discussions = new HashSet<Discussion>();
             EmailDeliveries = new HashSet<EmailDelivery>();
             EmailTemplates = new HashSet<EmailTemplate>();
@@ -164,6 +165,14 @@ namespace InstructorIQ.Core.Data.Entities
         #endregion
 
         #region Generated Relationships
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Attendance" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Attendance" />.
+        /// </value>
+        public virtual ICollection<Attendance> Attendances { get; set; }
+
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Discussion" />.
         /// </summary>

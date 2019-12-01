@@ -15,6 +15,7 @@ namespace InstructorIQ.Core.Data.Entities
         public Session()
         {
             #region Generated Constructor
+            Attendances = new HashSet<Attendance>();
             SessionInstructors = new HashSet<SessionInstructor>();
             SessionReferenceNumbers = new HashSet<SessionReferenceNumber>();
             #endregion
@@ -168,6 +169,14 @@ namespace InstructorIQ.Core.Data.Entities
         #endregion
 
         #region Generated Relationships
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="Attendance" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="Attendance" />.
+        /// </value>
+        public virtual ICollection<Attendance> Attendances { get; set; }
+
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Group" />.
         /// </summary>

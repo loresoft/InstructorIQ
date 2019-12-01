@@ -23,34 +23,6 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
         {
         }
 
-        [BindProperty(SupportsGet = true)]
-        public Guid? TemplateId { get; set; }
-
-        public IReadOnlyCollection<TemplateDropdownModel> Templates { get; set; }
-
-        public override async Task<IActionResult> OnGetAsync()
-        {
-            var loadTask = base.OnGetAsync();
-            var loadTemplatesTask = LoadTemplates();
-            var loadTemplateTask = LoadTemplate();
-
-            // load all in parallel
-            await Task.WhenAll(
-              loadTask,
-              loadTemplatesTask,
-              loadTemplateTask
-            );
-
-            Templates = loadTemplatesTask.Result;
-
-            // apply template
-            var template = loadTemplateTask.Result;
-            if (template != null)
-                Entity.LessonPlan = template.TemplateBody;
-
-            return Page();
-        }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -74,25 +46,6 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Planning
             ShowAlert("Successfully saved topic");
 
             return RedirectToPage("/Topic/Planning/View", new { id = result.Id, tenant = TenantRoute });
-        }
-
-        private async Task<TemplateReadModel> LoadTemplate()
-        {
-            if (TemplateId == null)
-                return await Task.FromResult<TemplateReadModel>(null);
-
-            var command = new EntityIdentifierQuery<Guid, TemplateReadModel>(User, TemplateId.Value);
-            var result = await Mediator.Send(command);
-
-            return result;
-        }
-
-        private async Task<IReadOnlyCollection<TemplateDropdownModel>> LoadTemplates()
-        {
-            var dropdownQuery = new TemplateDropdownQuery(User, Core.Data.Constants.TemplateType.LessonPlan);
-            var templates = await Mediator.Send(dropdownQuery);
-
-            return templates;
         }
     }
 }

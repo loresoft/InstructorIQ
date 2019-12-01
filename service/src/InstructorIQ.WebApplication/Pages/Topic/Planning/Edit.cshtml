@@ -19,33 +19,6 @@
 
         <div class="form-group">
             <label asp-for="Entity.LessonPlan">Lesson Plan</label>
-
-            <div class="dropdown fa-pull-right">
-                <button class="btn btn-link dropdown-toggle"
-                        type="button"
-                        id="templateMenuButton"
-                        title="Use Template"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
-                    Template
-                </button>
-                <div class="dropdown-menu"
-                     aria-labelledby="templateMenuButton">
-                    @foreach (var template in Model.Templates)
-                    {
-                    <a asp-page="/Topic/Planning/Edit"
-                       asp-route-tenant="@Model.TenantRoute"
-                       asp-route-id="@Model.Id"
-                       asp-route-templateid="@template.Value"
-                       title="Use Template @template.Text"
-                       class="dropdown-item">
-                        @template.Text
-                    </a>
-                    }
-                </div>
-            </div>
-
             <textarea asp-for="Entity.LessonPlan"
                       rows="5"
                       class="form-control"></textarea>
@@ -71,12 +44,26 @@
 </div>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.16/tinymce.min.js"
+            integrity="sha256-DwA/5XvQk7JerRG73GsRcEUM+ESubaliT2xRpDtIKNA="
+            crossorigin="anonymous"></script>
+
     <script>
         $(function () {
-            var planEditor = new SimpleMDE({
-                 element: document.getElementById("@Html.IdFor(p => p.Entity.LessonPlan)"),
-                hideIcons: ['side-by-side', 'fullscreen'],
-                spellChecker: false
+            tinymce.init({
+                selector: '#@Html.IdFor(p => p.Entity.LessonPlan)',
+                plugins: [
+                    'autoresize autolink lists link image charmap',
+                    'template visualblocks code imagetools',
+                    'table paste code wordcount quickbars'
+                ],
+                toolbar: 'undo redo | formatselect | bold italic underline | forecolor | link image | alignleft aligncenter alignright alignjustify | bullist numlist | table | template removeformat',
+                menubar: false,
+                max_height: 800,
+                browser_spellcheck: true,
+                relative_urls: false,
+                remove_script_host : false,
+                contextmenu: false
             });
 
             $("#planning-form").dirty({

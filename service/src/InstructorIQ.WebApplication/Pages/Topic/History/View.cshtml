@@ -1,7 +1,6 @@
 ﻿@page "/topic/{id:Guid}/history"
-@using EntityChange
-@using FluentCommand.Extensions
 @using Humanizer
+@using InstructorIQ.Core.Extensions
 @model ViewModel
 @{
     ViewData["Title"] = $"Topic {Model.Entity.Title}";

@@ -22,6 +22,7 @@ BEGIN
 			[EmailAddress] as [Email],
 			[MobilePhone] as [PhoneNumber],
 			LTRIM(RTRIM([GivenName] + ' ' + [FamilyName])) AS [DisplayName],
+			LTRIM(RTRIM([FamilyName] + ', ' + [GivenName])) AS [SortName],
 			[TenantId]
 		FROM [IQ].[Instructor]
 		WHERE [Id] = @instructorId
@@ -41,6 +42,7 @@ BEGIN
 			[MiddleName],
 			[FamilyName],
 			[DisplayName],
+			[SortName],
 			[JobTitle],
 			[LastTenantId]
 		)
@@ -55,6 +57,7 @@ BEGIN
 			S.[MiddleName],
 			S.[FamilyName],
 			s.[DisplayName],
+			s.[SortName],
 			S.[JobTitle],
 			S.[TenantId]
 		)

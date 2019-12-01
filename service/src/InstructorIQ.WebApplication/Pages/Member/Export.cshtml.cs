@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CsvHelper;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
@@ -15,16 +19,19 @@ namespace InstructorIQ.WebApplication.Pages.Member
 {
     public class ExportModel : MediatorModelBase
     {
-        public ExportModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        private readonly IMapper _mapper;
+
+        public ExportModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, IMapper mapper)
             : base(tenant, mediator, loggerFactory)
         {
-
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var command = new MemberExportQuery(User, Tenant.Value.Id);
+            var command = new MemberSelectQuery(User, Tenant.Value.Id);
             var members = await Mediator.Send(command);
+            var exported = _mapper.Map<List<MemberImportModel>>(members);
 
             byte[] buffer;
 
@@ -34,7 +41,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             using (var writer = new StreamWriter(memoryStream, Encoding.UTF8, 1024, true))
             using (var csv = new CsvWriter(writer, configuration))
             {
-                csv.WriteRecords(members);
+                csv.WriteRecords(exported);
                 writer.Flush();
 
                 buffer = memoryStream.ToArray();

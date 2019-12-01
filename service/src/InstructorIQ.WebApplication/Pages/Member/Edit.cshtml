@@ -36,16 +36,25 @@
                   method="post">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-row">
 
-                <div class="form-group">
-                    <label asp-for="Entity.DisplayName">Display Name <required /></label>
-                    <input asp-for="Entity.DisplayName"
-                           type="text"
-                           class="form-control"
-                           placeholder="Display Name">
-                    <span asp-validation-for="Entity.DisplayName" class="text-danger"></span>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.DisplayName">Display Name <required /></label>
+                        <input asp-for="Entity.DisplayName"
+                               type="text"
+                               class="form-control"
+                               placeholder="Display Name">
+                        <span asp-validation-for="Entity.DisplayName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="Entity.SortName">Sort Name</label>
+                        <input asp-for="Entity.SortName"
+                               type="text"
+                               class="form-control"
+                               placeholder="Sort Name">
+                        <span asp-validation-for="Entity.SortName" class="text-danger"></span>
+                    </div>
                 </div>
-
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label asp-for="Entity.GivenName">First Name </label>
@@ -102,6 +111,14 @@
                                class="custom-control-input">
                         <label asp-for="Membership.IsMember"
                                class="custom-control-label">Member</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="Membership.IsAttendee"
+                               type="checkbox"
+                               class="custom-control-input">
+                        <label asp-for="Membership.IsAttendee"
+                               class="custom-control-label">Attendee</label>
                     </div>
 
                     <div class="custom-control custom-checkbox">

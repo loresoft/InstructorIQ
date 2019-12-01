@@ -3,7 +3,6 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "provider": "cdnjs",
       "library": "jquery@3.3.1",
       "destination": "wwwroot/lib/jquery/",
       "files": [
@@ -11,7 +10,6 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "jquery-validate@1.19.0",
       "destination": "wwwroot/lib/jquery-validate/",
       "files": [
@@ -19,7 +17,6 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "jquery-validation-unobtrusive@3.2.11",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
       "files": [
@@ -27,7 +24,6 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "twitter-bootstrap@4.3.1",
       "destination": "wwwroot/lib/twitter-bootstrap/",
       "files": [
@@ -66,7 +62,6 @@
       ]
     },
     {
-      "provider": "cdnjs",
       "library": "moment.js@2.24.0",
       "destination": "wwwroot/lib/moment/",
       "files": [
@@ -102,6 +97,14 @@
       "destination": "wwwroot/lib/jquery.dirty/",
       "files": [
         "dist/jquery.dirty.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "signature_pad@3.0.0-beta.3",
+      "destination": "wwwroot/lib/signature_pad/",
+      "files": [
+        "dist/signature_pad.js"
       ]
     }
   ]

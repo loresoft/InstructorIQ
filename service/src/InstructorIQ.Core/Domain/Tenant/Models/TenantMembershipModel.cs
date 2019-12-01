@@ -1,5 +1,6 @@
 ﻿using System;
 
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
     public class TenantMembershipModel
@@ -9,6 +10,8 @@ namespace InstructorIQ.Core.Domain.Models
         public string UserName { get; set; }
 
         public bool IsMember { get; set; }
+
+        public bool IsAttendee { get; set; }
 
         public bool IsInstructor { get; set; }
 

@@ -110,8 +110,16 @@
                 <div class="feature-body">
                     <h3>Attendance</h3>
                     <p>
-                        Track student attendance for training classes. <em>Coming Soon ...</em>
+                        Track student attendance for training classes. 
                     </p>
+                    <ul include-if="@Tenant.HasValue" authorize>
+                        <li>
+                            <a id="home-attendance-link"
+                               asp-page="/attendance/index"
+                               asp-route-tenant="@Tenant.Value?.Slug">Track Attendance</a>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
             <div class="feature">

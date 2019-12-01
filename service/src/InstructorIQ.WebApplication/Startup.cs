@@ -103,6 +103,7 @@ namespace InstructorIQ.WebApplication
                 {
                     options.Conventions.AddPageTenantRoute("/Index", false);
                     options.Conventions.AddFolderTenantRoute("/Account", false);
+                    options.Conventions.AddFolderTenantRoute("/Attendance");
                     options.Conventions.AddFolderTenantRoute("/Calendar");
                     options.Conventions.AddFolderTenantRoute("/Group");
                     options.Conventions.AddFolderTenantRoute("/Instructor");

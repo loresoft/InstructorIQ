@@ -8,6 +8,8 @@ namespace InstructorIQ.Core.Domain.Models
         public string Email { get; set; }
 
         public string DisplayName { get; set; }
+
+        public string SortName { get; set; }
         
         public string GivenName { get; set; }
 

@@ -26,6 +26,33 @@
                class="btn btn-primary">
                 Edit
             </a>
+
+            <button type="button"
+                    class="btn btn-secondary dropdown-toggle"
+                    id="actionDropdown"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                Actions
+            </button>
+            <div class="dropdown-menu"
+                 aria-labelledby="actionDropdown">
+                <a asp-page="/Topic/Messaging/Introduction"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@Model.Id"
+                   title="Send Introduction"
+                   class="dropdown-item">
+                    Send Introduction
+                </a>
+                <a asp-page="/Topic/Messaging/PlanUpdate"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@Model.Id"
+                   title="Request Plan Update"
+                   class="dropdown-item">
+                    Request Plan Update
+                </a>
+            </div>
+
         </div>
     </div>
 </div>

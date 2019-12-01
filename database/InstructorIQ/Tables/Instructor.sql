@@ -7,6 +7,7 @@
     [FamilyName] nvarchar(256) NULL,
 
     [DisplayName] NVARCHAR(256) NOT NULL,
+    [SortName] NVARCHAR(256) NULL,
 
     [JobTitle] nvarchar(256) NULL,
 

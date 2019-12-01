@@ -1,0 +1,158 @@
+﻿@page  "/attendance/session/{sessionId:Guid}/signature/{id:Guid}"
+
+@using InstructorIQ.WebApplication.TagHelpers
+@model SignatureModel
+@{
+    ViewData["Title"] = "Attendance Signature";
+}
+
+<div class="container">
+    <form id="signature-form"
+          name="signature-form"
+          role="form"
+          method="post">
+        
+        <input asp-for="Attendance.AttendedBy"
+               type="hidden" />
+        <input asp-for="Attendance.SessionId"
+               type="hidden" />
+        <input asp-for="Attendance.TenantId"
+               type="hidden" />
+        <input asp-for="Attendance.Signature"
+               type="hidden" />
+        <input asp-for="Attendance.SignatureType"
+               type="hidden" />
+
+        <div class="card mb-5">
+            <div class="card-header">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        @Model.Session.TopicTitle@(Model.Session.GroupId.HasValue ? " - " : " ")@Model.Session.GroupName
+                    </h5>
+                    <div class="d-none d-md-block">
+                        <small class="d-block">
+                            <strong>@Model.Session.StartDate?.ToString("MMMM dd")</strong>
+                        </small>
+                        <small class="d-block">
+                            @Model.Session.StartTime?.ToString(@"hh\:mm")@(Model.Session.EndTime.HasValue ? " - " : " ")@Model.Session.EndTime?.ToString(@"hh\:mm")
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-muted text-center">
+                        <h2>@Model.Entity.DisplayName</h2>
+                    </div>
+                </div>
+                <div class="signature-wrapper">
+                    <canvas id="signature-pad" class="signature-pad"></canvas>
+                </div>
+                <div class="row">
+                    <div class="col text-muted text-center">Sign Here</div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col text-muted">* Signing here indicates you have attended @Model.Session.TopicTitle</div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <button id="save-button"
+                                type="button"
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                        <button id="clear-button"
+                                type="button"
+                                class="btn btn-secondary">
+                            Clear
+                        </button>
+                        <a asp-page="/attendance/session"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.SessionId"
+                           title="Session Attendance"
+                           class="btn btn-secondary ml-3">Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            var signatureCanvas = document.getElementById('signature-pad');
+            var signaturePad = new SignaturePad(signatureCanvas);
+
+
+            window.addEventListener("resize", resizeCanvas);
+            resizeCanvas();
+            
+            $("#clear-button").click(function() {
+                signaturePad.clear();
+            });
+
+            $("#save-button").click(function() {
+                if (signaturePad.isEmpty()) {
+                    return;
+                }
+
+                var data = cropSignature(signatureCanvas);
+
+                $("#@Html.IdFor(p => p.Attendance.Signature)").val(data);
+                $("#@Html.IdFor(p => p.Attendance.SignatureType)").val("image/png");
+
+                $("#signature-form").submit();
+            });
+
+            function resizeCanvas() {
+                var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+                signatureCanvas.width = signatureCanvas.offsetWidth * ratio;
+                signatureCanvas.height = signatureCanvas.offsetHeight * ratio;
+                signatureCanvas.getContext("2d").scale(ratio, ratio);
+                signaturePad.clear();
+            }
+
+            function cropSignature(canvas) {
+                // First duplicate the canvas to not alter the original
+                var croppedCanvas = document.createElement('canvas'),
+                    croppedCtx    = croppedCanvas.getContext('2d');
+
+                croppedCanvas.width  = canvas.width;
+                croppedCanvas.height = canvas.height;
+                croppedCtx.drawImage(canvas, 0, 0);
+
+                // Next do the actual cropping
+                var w         = croppedCanvas.width,
+                    h         = croppedCanvas.height,
+                    pix       = {x:[], y:[]},
+                    imageData = croppedCtx.getImageData(0,0,croppedCanvas.width,croppedCanvas.height),
+                    x, y, index;
+
+                for (y = 0; y < h; y++) {
+                    for (x = 0; x < w; x++) {
+                        index = (y * w + x) * 4;
+                        if (imageData.data[index+3] > 0) {
+                            pix.x.push(x);
+                            pix.y.push(y);
+
+                        }
+                    }
+                }
+                pix.x.sort(function(a,b){return a-b});
+                pix.y.sort(function(a,b){return a-b});
+                var n = pix.x.length-1;
+
+                w = pix.x[n] - pix.x[0];
+                h = pix.y[n] - pix.y[0];
+                var cut = croppedCtx.getImageData(pix.x[0], pix.y[0], w, h);
+
+                croppedCanvas.width = w;
+                croppedCanvas.height = h;
+                croppedCtx.putImageData(cut, 0, 0);
+
+                return croppedCanvas.toDataURL();
+            };
+        });
+    </script>
+}

@@ -60,12 +60,17 @@ namespace InstructorIQ.WebApplication.Pages.Member
                 updateModel,
                 nameof(Entity),
                 p => p.DisplayName,
+                p => p.SortName,
                 p => p.FamilyName,
                 p => p.GivenName,
                 p => p.JobTitle,
                 p => p.Email,
                 p => p.PhoneNumber
             );
+
+            // compute sort name
+            if (updateModel.SortName.IsNullOrWhiteSpace())
+                updateModel.SortName = ToSortName(updateModel);
 
             var updateCommand = new EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>(User, Id, updateModel);
             var updateResult = await Mediator.Send(updateCommand);
@@ -155,6 +160,16 @@ namespace InstructorIQ.WebApplication.Pages.Member
             var linkToken = await Mediator.Send(createCommand);
         }
 
+        private string ToSortName(MemberUpdateModel user)
+        {
+            if (user.FamilyName.HasValue() && user.GivenName.HasValue())
+                return $"{user.FamilyName}, {user.GivenName}";
+
+            if (user.FamilyName.HasValue())
+                return user.FamilyName;
+
+            return user.DisplayName;
+        }
 
     }
 }

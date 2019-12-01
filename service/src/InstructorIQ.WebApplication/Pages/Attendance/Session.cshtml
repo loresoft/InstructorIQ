@@ -1,0 +1,88 @@
+﻿@page  "/attendance/session/{id:Guid}"
+
+@using FluentCommand.Extensions
+@model SessionModel
+@{
+    ViewData["Title"] = "Session";
+    var lastLetter = string.Empty;
+    var letters = new HashSet<string>();
+}
+
+<div class="container attendance">
+    <div class="attendance-header">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+            <div>
+                <h5 class="m-0">
+                    @Model.Entity.TopicTitle@(Model.Entity.GroupId.HasValue ? " - " : " ")@Model.Entity.GroupName
+                </h5>
+                <small class="d-block">
+                    Attendees: @Model.Attendances.Count
+                </small>
+            </div>
+            <div class="d-none d-md-block">
+                <small class="d-block">
+                    <strong>@Model.Entity.StartDate?.ToString("MMMM dd")</strong>
+                </small>
+                <small class="d-block">
+                    @Model.Entity.StartTime?.ToString(@"hh\:mm")@(Model.Entity.EndTime.HasValue ? " - " : " ")@Model.Entity.EndTime?.ToString(@"hh\:mm")
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="list-group attendance-group">
+        @foreach (var member in Model.Members)
+        {
+            var name = member.SortName ?? member.DisplayName;
+            var letter = name.Substring(0, 1).ToUpperInvariant();
+            letters.Add(letter);
+
+            var id = letter != lastLetter ? letter : null;
+            var attendee = Model.GetAttendee(member.UserName);
+
+            if (attendee != null)
+            {
+                <a id="@id"
+                   title="@member.DisplayName"
+                   asp-page="/attendance/signed"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@attendee.Id"
+                   asp-route-sessionId="@attendee.SessionId"
+                   class="list-group-item list-group-item-action">
+                    <i class="far fa-check-square"></i>
+                    @name
+                </a>
+            }
+            else
+            {
+                <a id="@id"
+                   title="@member.DisplayName"
+                   asp-page="/attendance/signature"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@member.Id"
+                   asp-route-sessionId="@Model.Id"
+                   class="list-group-item list-group-item-action">
+                    <i class="far fa-square"></i>
+                    @name
+                </a>
+            }
+
+            lastLetter = letter;
+        }
+    </div>
+    <div class="attendance-letters">
+        <div class="list-group attendance-letter-group">
+            @foreach (var letter in letters)
+            {
+                <a href="#@letter" class="list-group-item list-group-item-action text-primary">@letter</a>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+
+        });
+    </script>
+}

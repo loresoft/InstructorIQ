@@ -2,6 +2,10 @@
     padding-top: 4.5rem;
 }
 
+html {
+    scroll-padding-top: 110px;
+}
+
 label {
     font-weight: 600;
 }

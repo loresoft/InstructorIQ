@@ -22,6 +22,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string DisplayName { get; set; }
 
+        public string SortName { get; set; }
+
         public string JobTitle { get; set; }
 
         public DateTimeOffset? LockoutEnd { get; set; }

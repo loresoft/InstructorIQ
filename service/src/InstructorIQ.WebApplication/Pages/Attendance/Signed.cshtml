@@ -1,0 +1,70 @@
+﻿@page  "/attendance/session/{sessionId:Guid}/signed/{id:Guid}"
+@model SignedModel
+@{
+    ViewData["Title"] = "Attendance Signed";
+}
+
+<div class="container">
+    <form id="signed-form"
+          name="signed-form"
+          role="form"
+          method="post">
+
+        <div class="card mb-5">
+            <div class="card-header">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">
+                        @Model.Session.TopicTitle@(Model.Session.GroupId.HasValue ? " - " : " ")@Model.Session.GroupName
+                    </h5>
+                    <div class="d-none d-md-block">
+                        <small class="d-block">
+                            <strong>@Model.Session.StartDate?.ToString("MMMM dd")</strong>
+                        </small>
+                        <small class="d-block">
+                            @Model.Session.StartTime?.ToString(@"hh\:mm")@(Model.Session.EndTime.HasValue ? " - " : " ")@Model.Session.EndTime?.ToString(@"hh\:mm")
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col text-muted text-center">
+                        <h2>@Model.Member.DisplayName</h2>
+                    </div>
+                </div>
+                <div class="signature-wrapper">
+                    <div class="signature-pad d-flex align-items-center justify-content-center">
+                        <img style="height: 100px"
+                             src="@Model.Entity.Signature"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-muted text-center">
+                        @Model.Entity.Attended.ToLocalTime().ToString("f")
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        <a asp-page="/attendance/session"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.SessionId"
+                           title="Session Attendance"
+                           class="btn btn-secondary">Back</a>
+                    </div>
+                    <div class="col">
+                        <confirm-button id="delete-button"
+                                        class="btn btn-danger fa-pull-right"
+                                        asp-page-handler="DeleteEntity"
+                                        modal-button="Delete"
+                                        modal-color="danger"
+                                        modal-text="Are you sure you want to delete this attendance record?">
+                            Delete
+                        </confirm-button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>

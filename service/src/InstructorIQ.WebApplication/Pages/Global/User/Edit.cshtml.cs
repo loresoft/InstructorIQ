@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using EntityChange.Extensions;
 using InstructorIQ.Core.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -36,6 +37,9 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             [Display(Name = "Display Name")]
             public string DisplayName { get; set; }
 
+            [Display(Name = "Display Name")]
+            public string SortName { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email Address")]
@@ -53,6 +57,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
 
             [Display(Name = "Title")]
             public string JobTitle { get; set; }
+
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -62,6 +67,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
                 return NotFound($"Unable to load user with ID '{Id}'.");
 
             var displayName = user.DisplayName;
+            var sortName = user.SortName;
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -71,6 +77,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             Input = new InputModel
             {
                 DisplayName = displayName,
+                SortName = sortName,
                 Email = email,
                 PhoneNumber = phoneNumber,
                 JobTitle = user.JobTitle,
@@ -90,6 +97,9 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             if (user == null)
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 
+            if (string.IsNullOrEmpty(user.SecurityStamp))
+                await _userManager.UpdateSecurityStampAsync(user);
+
             var userId = await _userManager.GetUserIdAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             if (Input.Email != email)
@@ -106,6 +116,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             }
 
             user.DisplayName = Input.DisplayName;
+            user.SortName = Input.SortName.HasValue() ? Input.SortName : ToSortName(Input);
             user.GivenName = Input.GivenName;
             user.FamilyName = Input.FamilyName;
             user.JobTitle = Input.JobTitle;
@@ -151,6 +162,17 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
         {
             TempData["alert.type"] = type;
             TempData["alert.message"] = message;
+        }
+
+        private string ToSortName(InputModel user)
+        {
+            if (user.FamilyName.HasValue() && user.GivenName.HasValue())
+                return $"{user.FamilyName}, {user.GivenName}";
+
+            if (user.FamilyName.HasValue())
+                return user.FamilyName;
+
+            return user.DisplayName;
         }
     }
 }

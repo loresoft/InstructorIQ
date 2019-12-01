@@ -1,0 +1,14 @@
+﻿@page  "/topic/{id:Guid}/messaging/introduction"
+
+@model IntroductionModel
+@{
+    ViewData["Title"] = "Topic Introduction";
+    ViewData["TopicTitle"] = $" - {Model.Entity.Title}";
+    ViewData["TopicTab"] = "Planning";
+
+    Layout = "_TopicLayout";
+}
+
+<div class="card-body">
+    Introduction
+</div>
