@@ -66,13 +66,13 @@ IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = 'f36bfb5e-4d73-47
 BEGIN
     PRINT 'Performing Datasweep: Populate SortName'
 
-    UPDATE [InstructorIQ].[Identity].[User] SET
+    UPDATE [Identity].[User] SET
         [SortName] = [FamilyName] + ', ' + [GivenName]
     WHERe [FamilyName] IS NOT NULL 
         AND [GivenName] IS NOT NULL 
         AND [SortName] IS NULL;
 
-    UPDATE [InstructorIQ].[IQ].[Instructor] SET
+    UPDATE [IQ].[Instructor] SET
         [SortName] = [FamilyName] + ', ' + [GivenName]
     WHERe [FamilyName] IS NOT NULL 
         AND [GivenName] IS NOT NULL 
