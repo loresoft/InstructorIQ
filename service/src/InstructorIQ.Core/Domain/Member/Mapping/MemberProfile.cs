@@ -8,10 +8,12 @@ namespace InstructorIQ.Core.Domain.Mapping
         public MemberProfile()
         {
             CreateMap<Data.Entities.User, MemberReadModel>();
-            
+
             CreateMap<Data.Entities.User, MemberUpdateModel>();
 
             CreateMap<Data.Entities.User, MemberImportModel>();
+
+            CreateMap<MemberUpdateModel, Data.Entities.User>();
         }
     }
 }

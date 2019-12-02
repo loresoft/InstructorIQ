@@ -71,7 +71,7 @@
     </div>
     <div class="attendance-letters" exclude-if="@Model.Members.Count < 15">
         <div class="list-group attendance-letter-group">
-            @foreach (var letter in letters)
+            @foreach (var letter in letters.OrderBy(l => l))
             {
                 <a href="#@letter" class="list-group-item list-group-item-action text-primary">@letter</a>
             }
