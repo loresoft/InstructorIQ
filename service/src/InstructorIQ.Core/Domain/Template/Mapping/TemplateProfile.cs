@@ -31,6 +31,13 @@ namespace InstructorIQ.Core.Domain.Mapping
             CreateMap<Template, TemplateDropdownModel>()
                 .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))
                 .ForMember(d => d.Text, opt => opt.MapFrom(s => s.Name));
+
+            CreateMap<Template, TemplateEditorModel>()
+                .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+                .ForMember(d => d.TenantId, opt => opt.MapFrom(s => s.TenantId))
+                .ForMember(d => d.Title, opt => opt.MapFrom(s => s.Name ?? string.Empty))
+                .ForMember(d => d.Description, opt => opt.MapFrom(s => s.Description ?? string.Empty))
+                .ForMember(d => d.Content, opt => opt.MapFrom(s => s.TemplateBody ?? string.Empty));
         }
 
     }

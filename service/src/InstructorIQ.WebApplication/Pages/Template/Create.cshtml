@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label asp-for="Entity.Description">Description</label>
                     <textarea asp-for="Entity.Description"
-                              rows="5"
+                              rows="3"
                               class="form-control"
                               placeholder="Description"></textarea>
                     <span asp-validation-for="Entity.Description" class="text-danger"></span>
@@ -86,11 +86,5 @@
 </div>
 
 @section Scripts {
-    <script>
-        $(function () {
-            var templateEditor = new SimpleMDE({
-                element: document.getElementById("@Html.IdFor(p => p.Entity.TemplateBody)")
-            });
-        });
-    </script>
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Entity.TemplateBody)" />
 }

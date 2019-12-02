@@ -75,25 +75,5 @@
 </div>
 
 @section Scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.16/tinymce.min.js"
-            integrity="sha256-DwA/5XvQk7JerRG73GsRcEUM+ESubaliT2xRpDtIKNA="
-            crossorigin="anonymous"></script>
-
-    <script>
-        tinymce.init({
-            selector: '#Message_HtmlBody',
-            height: 500,
-            plugins: [
-                'autolink lists link image charmap',
-                'visualblocks code imagetools',
-                'table paste code wordcount quickbars'
-            ],
-            toolbar: 'undo redo | formatselect | bold italic underline | forecolor | link image | alignleft aligncenter alignright alignjustify | bullist numlist | table | removeformat',
-            menubar: false,
-            browser_spellcheck: true,
-            relative_urls: false,
-            remove_script_host : false,
-            contextmenu: false
-        });
-    </script>
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Message.HtmlBody)" />
 }

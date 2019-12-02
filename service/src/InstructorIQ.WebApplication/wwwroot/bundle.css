@@ -15230,7 +15230,6 @@ a.text-dark:hover, a.text-dark:focus {
 
 .attendance-letter-group {
     border: 1px solid rgba(0, 0, 0, 0.125);
-    border-right: 0 none;
     position: fixed;
     top: 140px;
     z-index: 1020;
@@ -15245,7 +15244,7 @@ a.text-dark:hover, a.text-dark:focus {
         z-index: 1020;
     }
 
-@media screen and (max-height: 700px) {
+@media screen and (max-height: 600px) {
     .attendance-letters {
         display: none;
     }

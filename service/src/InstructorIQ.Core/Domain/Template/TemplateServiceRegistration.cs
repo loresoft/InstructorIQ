@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using MediatR;
+using MediatR.CommandQuery.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -19,6 +21,8 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityCommand<Guid, Template, TemplateReadModel, TemplateCreateModel, TemplateUpdateModel>(services);
 
             services.TryAddTransient<IRequestHandler<TemplateDropdownQuery, IReadOnlyCollection<TemplateDropdownModel>>, TemplateDropdownQueryHandler>();
+
+            services.AddEntityQueries<InstructorIQContext, Template, Guid, TemplateEditorModel>();
         }
     }
 }

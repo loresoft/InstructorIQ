@@ -100,14 +100,10 @@
 </div>
 
 @section Scripts {
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Message)" />
+
     <script>
         $(function () {
-            var messageEditor = new SimpleMDE({
-                element: document.getElementById("@Html.IdFor(p => p.Message)"),
-                hideIcons: ['side-by-side', 'fullscreen'],
-                spellChecker: false
-            });
-
             $("#discussion-form").dirty({
                 preventLeaving: true
             });

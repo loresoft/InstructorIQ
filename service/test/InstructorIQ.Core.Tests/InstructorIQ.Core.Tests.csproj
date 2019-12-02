@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.13.0" />
     <PackageReference Include="DataGenerator" Version="5.0.0.50" />
     <PackageReference Include="FluentAssertions" Version="5.9.0" />
     <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.129" />

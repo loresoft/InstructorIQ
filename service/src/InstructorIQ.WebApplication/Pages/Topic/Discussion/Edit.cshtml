@@ -41,9 +41,9 @@
                   method="post">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
-                
-                <input type="hidden" asp-for="Entity.DisplayName"/>
-                <input type="hidden" asp-for="Entity.EmailAddress"/>
+
+                <input type="hidden" asp-for="Entity.DisplayName" />
+                <input type="hidden" asp-for="Entity.EmailAddress" />
 
                 <div class="form-group">
                     <label asp-for="Entity.Message">Message</label>
@@ -86,14 +86,10 @@
 </div>
 
 @section Scripts {
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Entity.Message)" />
+
     <script>
         $(function () {
-            var messageEditor = new SimpleMDE({
-                element: document.getElementById("@Html.IdFor(p => p.Entity.Message)"),
-                hideIcons: ['side-by-side', 'fullscreen'],
-                spellChecker: false
-            });
-
             $("#session-form").dirty({
                 preventLeaving: true
             });
