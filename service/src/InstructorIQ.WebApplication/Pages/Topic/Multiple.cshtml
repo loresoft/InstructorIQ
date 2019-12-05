@@ -1,0 +1,159 @@
+﻿@page
+@using InstructorIQ.Core.Services
+@model MultipleModel
+@{
+    ViewData["Title"] = "Create Multiple Topics";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/index"
+                   asp-route-tenant="@Model.TenantRoute">Topics</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Bulk Create Topics</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+    <form id="multiple-topic-form"
+          name="multiple-topic-form"
+          role="form"
+          method="post">
+
+        <div asp-validation-summary="All" 
+             class="text-danger"></div>
+
+        <div class="card mb-5">
+            <div class="card-header">
+                <i class="fas fa-book-open mr-2"
+                   aria-hidden="true"></i> Create Multiple Topics
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm table-striped m-0">
+                            <colgroup>
+                                <col style="width: 32px">
+                                <col style="">
+                                <col style="width: 125px">
+                                <col style="width: 180px">
+                                <col style="">
+                            </colgroup>
+                            <thead class="">
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                <th>Year</th>
+                                <th>Month</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var topic in Model.Topics)
+                                {
+                                    <tr>
+                                        <td style="position: relative;">
+                                            <input type="hidden" 
+                                                   name="Topics.Index" 
+                                                   value="@topic.Id" />
+                                            <input type="hidden" 
+                                                   name="Topics[@topic.Id].Id" 
+                                                   value="@topic.Id" />
+                                            <div style="position: absolute; top: 7px; left:8px">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input id="topic-checkbox-@topic.Id"
+                                                           name="Selected"
+                                                           type="checkbox"
+                                                           class="custom-control-input"
+                                                           value="@topic.Id"
+                                                           checked=@(Model.Selected.Contains(topic.Id))>
+                                                    <label class="custom-control-label"
+                                                           for="topic-checkbox-@topic.Id"></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input name="Topics[@topic.Id].Title" 
+                                                   value="@topic.Title"
+                                                   class="form-control form-control-sm"/>
+                                        </td>
+                                        <td>
+                                            <select name="Topics[@topic.Id].CalendarYear"
+                                                    class="custom-select custom-select-sm">
+                                                @foreach (var item in SelectItemFactory.Years())
+                                                {
+                                                    <option value="@item.Value"
+                                                            selected="@(item.Value == topic.CalendarYear.ToString())">
+                                                        @item.Text
+                                                    </option>
+                                                }
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                            <select name="Topics[@topic.Id].TargetMonth"
+                                                    class="custom-select custom-select-sm">
+                                                <option value="0"> - Month -</option>
+                                                @foreach (var item in SelectItemFactory.Months())
+                                                {
+                                                    <option value="@item.Value"
+                                                            selected="@(item.Value == topic.TargetMonth.ToString())">
+                                                        @item.Text
+                                                    </option>
+                                                }
+                                            </select>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                asp-page-handler=""
+                                class="btn btn-primary">
+                            Save
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/topic/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <button id="add-button"
+                                type="submit"
+                                asp-page-handler="Add"
+                                class="btn btn-secondary">
+                            Add
+                        </button>
+                        <button id="copy-button"
+                                type="submit"
+                                asp-page-handler="Copy"
+                                class="btn btn-secondary">
+                            Copy
+                        </button>
+                        <button id="delete-button"
+                                type="submit"
+                                asp-page-handler="Delete"
+                                class="btn btn-danger">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

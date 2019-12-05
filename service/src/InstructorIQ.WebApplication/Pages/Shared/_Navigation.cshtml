@@ -113,6 +113,11 @@
                            authorize-policy="@UserPolicies.AdministratorPolicy"
                            asp-page="/topic/create"
                            asp-route-tenant="@Tenant.Value?.Slug">Add Topic</a>
+                        <a id="navbar-multiple-topic-link"
+                           class="dropdown-item"
+                           authorize-policy="@UserPolicies.AdministratorPolicy"
+                           asp-page="/topic/multiple"
+                           asp-route-tenant="@Tenant.Value?.Slug">Add Multiple</a>
                     </div>
                 </li>
 
