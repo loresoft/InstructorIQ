@@ -51,7 +51,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
             if (topics.Count == 0)
             {
-                ShowAlert("Enter a title for at least one topic.", "error");
+                ShowAlert("Enter a title for at least one topic.", "warning");
                 return Page();
             }
 
