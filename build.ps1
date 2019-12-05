@@ -22,8 +22,8 @@ Write-Host "*** Build Database ***"
 
 # build service
 Write-Host "*** Build Service ***"
-& dotnet publish $workingDirectory\service\src\InstructorIQ.WebApplication\InstructorIQ.WebApplication.csproj -c Release -o $buildDirectory\website
-& dotnet publish $workingDirectory\service\src\InstructorIQ.JobRunner\InstructorIQ.JobRunner.csproj -c Release -o $buildDirectory\runner
+& dotnet publish $workingDirectory\service\src\InstructorIQ.WebApplication\InstructorIQ.WebApplication.csproj -c Release -o $buildDirectory\website --runtime win-x64 --self-contained
+& dotnet publish $workingDirectory\service\src\InstructorIQ.JobRunner\InstructorIQ.JobRunner.csproj -c Release -o $buildDirectory\runner --runtime win-x64 --self-contained
 
 # create package
 Write-Host "*** Create Packages ***"
