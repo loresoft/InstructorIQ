@@ -105,6 +105,22 @@
                            class="dropdown-item">
                             Bulk Edit Sessions
                         </a>
+                        <div class="dropdown-divider"></div>
+                        <a asp-page="/Topic/Messaging/Introduction"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.Id"
+                           title="Send Introduction"
+                           class="dropdown-item">
+                            Send Introduction
+                        </a>
+                        <a asp-page="/Topic/Messaging/PlanUpdate"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.Id"
+                           title="Request Plan Update"
+                           class="dropdown-item">
+                            Request Plan Update
+                        </a>
+
                     </div>
                 </li>
             </ul>
