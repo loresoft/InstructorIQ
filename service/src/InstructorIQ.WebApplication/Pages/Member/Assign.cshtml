@@ -155,7 +155,10 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col">
-                        <button type="submit" class="btn btn-primary">
+                        <button id="apply-button" 
+                                type="submit" 
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Processing...">
                             Apply
                         </button>
                     </div>
@@ -174,6 +177,9 @@
             $("#select-all-users").click(function () {
                 $(".user-checkbox").prop('checked', $(this).prop('checked'));
             });
+
+            $("#assign-form")
+                .submitGuard();
         });
     </script>
 }

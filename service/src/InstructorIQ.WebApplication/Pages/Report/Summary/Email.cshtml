@@ -58,7 +58,8 @@
             <div class="col">
                 <button id="send-button"
                         type="submit"
-                        class="btn btn-primary">
+                        class="btn btn-primary"
+                        data-loading-text="<span class='spinner-border spinner-border-sm'></span> Sending...">
                     Send
                 </button>
                 <a id="cancel-button"
@@ -76,4 +77,11 @@
 
 @section Scripts {
     <partial name="_tinymce" model="@Html.IdFor(p => p.Message.HtmlBody)" />
+
+    <script>
+        $(function () {
+            $("#email-form").submitGuard();
+        });
+    </script>
+
 }

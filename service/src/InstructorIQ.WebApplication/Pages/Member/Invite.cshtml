@@ -59,7 +59,8 @@
                     <div class="col">
                         <button id="send-button"
                                 type="submit"
-                                class="btn btn-primary">
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Sending...">
                             Send Invite
                         </button>
                         <a id="cancel-button"
@@ -75,3 +76,14 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        $(function () {
+            $("#member-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+        });
+    </script>
+}

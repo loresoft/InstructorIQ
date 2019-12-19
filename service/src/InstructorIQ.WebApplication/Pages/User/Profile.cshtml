@@ -77,7 +77,7 @@
                       class="rounded-circle d-block mx-auto"
                       size="200"></gravatar>
             <p class="text-center">
-                You can change your picture at <a href="http://gravatar.com/" 
+                You can change your picture at <a href="http://gravatar.com/"
                                                   target="_blank">Gravatar.com</a>
             </p>
         </div>
@@ -86,7 +86,8 @@
         <div class="col">
             <button id="save-button"
                     type="submit"
-                    class="btn btn-primary">
+                    class="btn btn-primary"
+                    data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                 Save
             </button>
 
@@ -99,3 +100,15 @@
     </div>
 
 </form>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#profile-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+        });
+    </script>
+}

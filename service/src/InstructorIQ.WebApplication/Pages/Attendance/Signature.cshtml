@@ -11,7 +11,7 @@
           name="signature-form"
           role="form"
           method="post">
-        
+
         <input asp-for="Attendance.AttendedBy"
                type="hidden" />
         <input asp-for="Attendance.SessionId"
@@ -49,7 +49,7 @@
                     <canvas id="signature-pad" class="signature-pad"></canvas>
                 </div>
                 <div class="row">
-                    <div class="col text-muted text-center">Sign Here</div>
+                    <div id="sign-here-label" class="col text-muted text-center">Sign Here</div>
                 </div>
                 <div class="row mt-3">
                     <div class="col text-muted">* Signing here indicates you have attended @Model.Session.TopicTitle</div>
@@ -87,15 +87,24 @@
 
             window.addEventListener("resize", resizeCanvas);
             resizeCanvas();
-            
+
             $("#clear-button").click(function() {
                 signaturePad.clear();
             });
 
             $("#save-button").click(function() {
                 if (signaturePad.isEmpty()) {
+                    $('#sign-here-label')
+                        .removeClass('text-muted')
+                        .addClass('text-danger')
+                        .addClass('font-weight-bold');
+
                     return;
                 }
+
+                $(this)
+                    .html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Saving...")
+                    .prop('disabled', true);
 
                 var data = cropSignature(signatureCanvas);
 

@@ -89,7 +89,8 @@
                     <div class="col">
                         <button id="create-button"
                                 type="submit"
-                                class="btn btn-primary">
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Creating...">
                             Create
                         </button>
                         <a id="cancel-button"
@@ -108,3 +109,10 @@
     </form>
 </div>
 
+@section Scripts {
+    <script>
+        $(function () {
+            $("#create-session-form").submitGuard();
+        });
+    </script>
+}

@@ -12,50 +12,52 @@
 
     @foreach (var item in Model.Items)
     {
-    <div id="msg-@item.Id"
-         class="discussion-item">
-        <div class="discussion-header">
-            <div class="discussion-avatar">
-                <gravatar email="@item.EmailAddress"
-                          title="@item.DisplayName"
-                          class="rounded"
-                          size="42"></gravatar>
+        <div id="msg-@item.Id"
+             class="discussion-item">
+            <div class="discussion-header">
+                <div class="discussion-avatar">
+                    <gravatar email="@item.EmailAddress"
+                              title="@item.DisplayName"
+                              class="rounded"
+                              size="42"></gravatar>
+                </div>
+                <div class="discussion-metadata">
+                    <div class="discussion-username">
+                        @(item.DisplayName ?? item.EmailAddress)
+                    </div>
+                    <div class="discussion-timestamp">
+                        <a href="#msg-@item.Id"
+                           title="@item.MessageDate.ToString("dddd, MMMM dd, yyyy H:mm")">@item.MessageDate.ToString("MMMM dd, yyyy")</a>
+                    </div>
+                </div>
+                <div class="discussion-actions">
+                    <div authorize-policy="@UserPolicies.InstructorPolicy"
+                         class="btn-group"
+                         role="group"
+                         aria-label="Basic example">
+                        <a asp-page="/topic/discussion/edit"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-topicid="@Model.Id"
+                           asp-route-id="@item.Id"
+                           class="btn btn-light">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <!--
+                        <a asp-page="/topic/discussion/edit"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-topicid="@Model.Id"
+                           asp-route-id="@item.Id"
+                           class="btn btn-light">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        -->
+                    </div>
+                </div>
             </div>
-            <div class="discussion-metadata">
-                <div class="discussion-username">
-                    @(item.DisplayName ?? item.EmailAddress)
-                </div>
-                <div class="discussion-timestamp">
-                    <a href="#msg-@item.Id"
-                       title="@item.MessageDate.ToString("dddd, MMMM dd, yyyy H:mm")">@item.MessageDate.ToString("MMMM dd, yyyy")</a>
-                </div>
-            </div>
-            <div class="discussion-actions">
-                <div authorize-policy="@UserPolicies.InstructorPolicy"
-                     class="btn-group"
-                     role="group"
-                     aria-label="Basic example">
-                    <a asp-page="/topic/discussion/edit"
-                       asp-route-tenant="@Model.TenantRoute"
-                       asp-route-topicid="@Model.Id"
-                       asp-route-id="@item.Id"
-                       class="btn btn-light">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a asp-page="/topic/discussion/edit"
-                       asp-route-tenant="@Model.TenantRoute"
-                       asp-route-topicid="@Model.Id"
-                       asp-route-id="@item.Id"
-                       class="btn btn-light">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                </div>
+            <div class="discussion-content">
+                <markdown content="@item.Message"></markdown>
             </div>
         </div>
-        <div class="discussion-content">
-            <markdown content="@item.Message"></markdown>
-        </div>
-    </div>
     }
 
     <hr />
@@ -104,9 +106,11 @@
 
     <script>
         $(function () {
-            $("#discussion-form").dirty({
-                preventLeaving: true
-            });
+            $("#discussion-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
         });
     </script>
 }

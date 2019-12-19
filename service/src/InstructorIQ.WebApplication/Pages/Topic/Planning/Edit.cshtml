@@ -28,7 +28,8 @@
             <div class="col">
                 <button id="save-button"
                         type="submit"
-                        class="btn btn-primary">
+                        class="btn btn-primary"
+                        data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                     Save
                 </button>
                 <a id="cancel-button"
@@ -48,9 +49,11 @@
 
     <script>
         $(function () {
-            $("#planning-form").dirty({
-                preventLeaving: true
-            });
+            $("#planning-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
         });
     </script>
 }

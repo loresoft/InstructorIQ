@@ -21,6 +21,9 @@ namespace InstructorIQ.WebApplication.TagHelpers
         [HtmlAttributeName("truncate")]
         public int? Truncate { get; set; }
 
+        [HtmlAttributeName("default-text")] 
+        public string DefaultText { get; set; } = string.Empty;
+
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = null;
@@ -28,7 +31,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
             var content = await GetContent(output);
             if (content.IsNullOrWhiteSpace())
             {
-                output.Content.SetContent(string.Empty);
+                output.Content.SetContent(DefaultText);
                 return;
             }
 

@@ -150,7 +150,8 @@
                     <div class="col">
                         <button id="save-button"
                                 type="submit"
-                                class="btn btn-primary">
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                             Save
                         </button>
                         <button id="reset-button"
@@ -172,9 +173,11 @@
 
             $("[multiple='multiple']").select2();
 
-            $("#bulk-session-form").dirty({
-                preventLeaving: true
-            });
+            $("#bulk-session-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
         });
     </script>
 }

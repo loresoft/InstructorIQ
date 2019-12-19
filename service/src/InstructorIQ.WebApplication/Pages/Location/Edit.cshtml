@@ -89,7 +89,7 @@
                         <span asp-validation-for="Entity.PostalCode" class="text-danger"></span>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <div class="form-group">
                     <label asp-for="Entity.ContactName">Contact Name</label>
                     <input asp-for="Entity.ContactName"
@@ -121,7 +121,8 @@
                     <div class="col">
                         <button id="save-button"
                                 type="submit"
-                                class="btn btn-primary">
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                             Save
                         </button>
                         <a id="cancel-button"
@@ -150,9 +151,12 @@
 @section Scripts {
     <script>
         $(function () {
-            $("#location-form").dirty({
-                preventLeaving: true
-            });
+            $("#location-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+
         });
     </script>
 }

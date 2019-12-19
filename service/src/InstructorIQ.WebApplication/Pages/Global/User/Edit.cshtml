@@ -8,109 +8,112 @@
     Layout = "_UserLayout";
 }
 
-    <form id="user-form"
-          name="user-form"
-          role="form"
-          method="post">
+<form id="user-form"
+      name="user-form"
+      role="form"
+      method="post">
 
-        <div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label asp-for="Input.DisplayName">Display Name <required /></label>
-                <input asp-for="Input.DisplayName"
-                       type="text"
-                       class="form-control"
-                       placeholder="Display Name">
-                <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="Input.SortName">Sort Name</label>
-                <input asp-for="Input.SortName"
-                       type="text"
-                       class="form-control"
-                       placeholder="Sort Name">
-                <span asp-validation-for="Input.SortName" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label asp-for="Input.GivenName">First Name </label>
-                <input asp-for="Input.GivenName"
-                       type="text"
-                       class="form-control"
-                       placeholder="First Name" />
-                <span asp-validation-for="Input.GivenName" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="Input.FamilyName">Last Name </label>
-                <input asp-for="Input.FamilyName"
-                       type="text"
-                       class="form-control"
-                       placeholder="Last Name" />
-                <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.JobTitle">Job Title </label>
-            <input asp-for="Input.JobTitle"
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Input.DisplayName">Display Name <required /></label>
+            <input asp-for="Input.DisplayName"
                    type="text"
                    class="form-control"
-                   placeholder="Job Title" />
-            <span asp-validation-for="Input.JobTitle" class="text-danger"></span>
+                   placeholder="Display Name">
+            <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
         </div>
-
-        <div class="form-group">
-            <label asp-for="Input.Email">Email Address <required /></label>
-            <input asp-for="Input.Email"
-                   type="email"
+        <div class="form-group col-md-6">
+            <label asp-for="Input.SortName">Sort Name</label>
+            <input asp-for="Input.SortName"
+                   type="text"
                    class="form-control"
-                   placeholder="Email Address">
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                   placeholder="Sort Name">
+            <span asp-validation-for="Input.SortName" class="text-danger"></span>
         </div>
-        <div class="form-group">
-            <label asp-for="Input.PhoneNumber">Phone Number</label>
-            <input asp-for="Input.PhoneNumber"
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Input.GivenName">First Name </label>
+            <input asp-for="Input.GivenName"
+                   type="text"
                    class="form-control"
-                   placeholder="Phone Number" />
-            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                   placeholder="First Name" />
+            <span asp-validation-for="Input.GivenName" class="text-danger"></span>
         </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Input.FamilyName">Last Name </label>
+            <input asp-for="Input.FamilyName"
+                   type="text"
+                   class="form-control"
+                   placeholder="Last Name" />
+            <span asp-validation-for="Input.FamilyName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Input.JobTitle">Job Title </label>
+        <input asp-for="Input.JobTitle"
+               type="text"
+               class="form-control"
+               placeholder="Job Title" />
+        <span asp-validation-for="Input.JobTitle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.Email">Email Address <required /></label>
+        <input asp-for="Input.Email"
+               type="email"
+               class="form-control"
+               placeholder="Email Address">
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Input.PhoneNumber">Phone Number</label>
+        <input asp-for="Input.PhoneNumber"
+               class="form-control"
+               placeholder="Phone Number" />
+        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+    </div>
 
 
-        <div class="row">
-            <div class="col">
-                <button id="save-button"
-                        type="submit"
-                        class="btn btn-primary">
-                    Save
-                </button>
-                <a id="cancel-button"
-                   asp-page="/Global/User/Index"
-                   class="btn btn-secondary">
-                    Cancel
-                </a>
-            </div>
-            <div class="col">
-                <confirm-button id="delete-button"
-                                class="btn btn-danger fa-pull-right"
-                                asp-page-handler="DeleteUser"
-                                modal-button="Delete"
-                                modal-color="danger"
-                                modal-text="Are you sure you want to delete this?">
-                    Delete
-                </confirm-button>
-            </div>
+    <div class="row">
+        <div class="col">
+            <button id="save-button"
+                    type="submit"
+                    class="btn btn-primary"
+                    data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
+                Save
+            </button>
+            <a id="cancel-button"
+               asp-page="/Global/User/Index"
+               class="btn btn-secondary">
+                Cancel
+            </a>
         </div>
-    </form>
+        <div class="col">
+            <confirm-button id="delete-button"
+                            class="btn btn-danger fa-pull-right"
+                            asp-page-handler="DeleteUser"
+                            modal-button="Delete"
+                            modal-color="danger"
+                            modal-text="Are you sure you want to delete this?">
+                Delete
+            </confirm-button>
+        </div>
+    </div>
+</form>
 
 
 @section Scripts {
     <script>
         $(function () {
-            $("#user-form").dirty({
-                preventLeaving: true
-            });
+            $("#user-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
         });
     </script>
 }

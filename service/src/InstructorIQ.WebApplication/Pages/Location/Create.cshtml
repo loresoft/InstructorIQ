@@ -93,7 +93,8 @@
                     <div class="col">
                         <button id="save-button"
                                 type="submit"
-                                class="btn btn-primary">
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                             Save
                         </button>
                     </div>
@@ -102,3 +103,15 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#location-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+        });
+    </script>
+}

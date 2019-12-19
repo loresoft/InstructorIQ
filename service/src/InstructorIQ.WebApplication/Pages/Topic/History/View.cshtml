@@ -29,21 +29,21 @@
                 @if (item.Operation == "Add")
                 {
                     <span class="text-muted">
-                        Added @item.Entity <span class="text-dark font-weight-bold">@item.Description</span>
+                        Added @item.Entity <span class="text-dark font-weight-bold"><summary-text content="@item.Description" truncate="100" /></span>
                     </span>
                 }
                 else if (item.Operation == "Remove")
                 {
                     <span class="text-muted">
-                        Removed @item.Entity <span class="text-dark font-weight-bold">@item.Description</span>
+                        Removed @item.Entity <span class="text-dark font-weight-bold"><summary-text content="@item.Description" truncate="100" /></span>
                     </span>
                 }
                 else
                 {
                     <span class="text-muted">
                         Changed @item.Entity <span class="text-dark font-weight-bold">@item.DisplayName</span>
-                        <span>from <span class="text-dark font-weight-bold">@(item.OriginalFormatted.HasValue() ? item.OriginalFormatted.Truncate(70) : "-none-")</span></span>
-                        <span>to <span class="text-dark font-weight-bold">@(item.CurrentFormatted.HasValue() ? item.CurrentFormatted.Truncate(70) : "-none-")</span></span>
+                        <span>from <span class="text-dark font-weight-bold"><summary-text content="@item.OriginalFormatted" default-text="-none-" truncate="70" /></span></span>
+                        <span>to <span class="text-dark font-weight-bold"><summary-text content="@item.CurrentFormatted" default-text="-none-" truncate="70" /></span></span>
                     </span>
                 }
             </p>

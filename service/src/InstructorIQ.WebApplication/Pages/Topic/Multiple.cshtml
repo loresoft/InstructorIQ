@@ -29,7 +29,7 @@
           role="form"
           method="post">
 
-        <div asp-validation-summary="All" 
+        <div asp-validation-summary="All"
              class="text-danger"></div>
 
         <div class="card mb-5">
@@ -49,23 +49,23 @@
                                 <col style="">
                             </colgroup>
                             <thead class="">
-                            <tr>
-                                <th></th>
-                                <th>Title</th>
-                                <th>Year</th>
-                                <th>Month</th>
-                            </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Title</th>
+                                    <th>Year</th>
+                                    <th>Month</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach (var topic in Model.Topics)
                                 {
                                     <tr>
                                         <td style="position: relative;">
-                                            <input type="hidden" 
-                                                   name="Topics.Index" 
+                                            <input type="hidden"
+                                                   name="Topics.Index"
                                                    value="@topic.Id" />
-                                            <input type="hidden" 
-                                                   name="Topics[@topic.Id].Id" 
+                                            <input type="hidden"
+                                                   name="Topics[@topic.Id].Id"
                                                    value="@topic.Id" />
                                             <div style="position: absolute; top: 7px; left:8px">
                                                 <div class="custom-control custom-checkbox">
@@ -81,9 +81,9 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input name="Topics[@topic.Id].Title" 
+                                            <input name="Topics[@topic.Id].Title"
                                                    value="@topic.Title"
-                                                   class="form-control form-control-sm"/>
+                                                   class="form-control form-control-sm" />
                                         </td>
                                         <td>
                                             <select name="Topics[@topic.Id].CalendarYear"
@@ -122,7 +122,8 @@
                         <button id="save-button"
                                 type="submit"
                                 asp-page-handler=""
-                                class="btn btn-primary">
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                             Save
                         </button>
                         <a id="cancel-button"
@@ -157,3 +158,15 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#multiple-topic-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+        });
+    </script>
+}

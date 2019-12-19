@@ -12,6 +12,7 @@
       "wwwroot/lib/jquery.dirty/dist/jquery.dirty.js",
       "wwwroot/lib/signature_pad/dist/signature_pad.umd.js",
       "wwwroot/js/copyValue.js",
+      "wwwroot/js/submitGuard.js",
       "wwwroot/js/site.js"
     ],
     "minify": {
