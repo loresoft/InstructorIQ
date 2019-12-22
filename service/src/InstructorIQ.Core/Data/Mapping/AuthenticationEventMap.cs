@@ -120,5 +120,47 @@ namespace InstructorIQ.Core.Data.Mapping
             #endregion
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent" /></summary>
+        public const string TableName = "AuthenticationEvent";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.EmailAddress" /></summary>
+        public const string ColumnEmailAddress = "EmailAddress";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.UserName" /></summary>
+        public const string ColumnUserName = "UserName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.UserAgent" /></summary>
+        public const string ColumnUserAgent = "UserAgent";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.Browser" /></summary>
+        public const string ColumnBrowser = "Browser";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.OperatingSystem" /></summary>
+        public const string ColumnOperatingSystem = "OperatingSystem";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.DeviceFamily" /></summary>
+        public const string ColumnDeviceFamily = "DeviceFamily";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.DeviceBrand" /></summary>
+        public const string ColumnDeviceBrand = "DeviceBrand";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.DeviceModel" /></summary>
+        public const string ColumnDeviceModel = "DeviceModel";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.IpAddress" /></summary>
+        public const string ColumnIpAddress = "IpAddress";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.IsSuccessful" /></summary>
+        public const string ColumnIsSuccessful = "IsSuccessful";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.FailureMessage" /></summary>
+        public const string ColumnFailureMessage = "FailureMessage";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.Created" /></summary>
+        public const string ColumnCreated = "Created";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.CreatedBy" /></summary>
+        public const string ColumnCreatedBy = "CreatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.Updated" /></summary>
+        public const string ColumnUpdated = "Updated";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.UpdatedBy" /></summary>
+        public const string ColumnUpdatedBy = "UpdatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.RowVersion" /></summary>
+        public const string ColumnRowVersion = "RowVersion";
+        #endregion
+
     }
 }

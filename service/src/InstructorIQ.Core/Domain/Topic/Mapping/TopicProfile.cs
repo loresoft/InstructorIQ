@@ -34,6 +34,7 @@ namespace InstructorIQ.Core.Domain.Mapping
 
             CreateMap<TopicReadModel, TopicUpdateModel>();
 
+            CreateMap<Topic, TopicMultipleUpdateModel>();
         }
 
     }

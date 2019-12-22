@@ -6,6 +6,7 @@ using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
@@ -14,23 +15,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.Topic.Session
+namespace InstructorIQ.WebApplication.Pages.Session
 {
     [Authorize(Policy = UserPolicies.AdministratorPolicy)]
-    public class BulkModel : MediatorModelBase
+    public class MultipleModel : MediatorModelBase
     {
-        public BulkModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        public MultipleModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
         }
 
         [BindProperty(SupportsGet = true)]
-        public Guid Id { get; set; }
+        public List<Guid> TopicIds { get; set; }
 
         [BindProperty]
-        public List<SessionBulkUpdateModel> Sessions { get; set; }
+        public List<SessionMultipleUpdateModel> Sessions { get; set; }
 
-        public TopicReadModel Topic { get; set; }
+        public IReadOnlyCollection<TopicReadModel> Topics { get; set; }
 
         public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
 
@@ -41,34 +42,38 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var loadTopicTask = LoadTopic();
-            var loadSessionsTask = LoadSessions();
+            var topicsTask = LoadTopics();
+            var sessionsTask = LoadSessions();
             var instructorTask = LoadInstructors();
             var locationTask = LoadLocations();
             var groupTask = LoadGroups();
 
             // load all in parallel
             await Task.WhenAll(
-                loadSessionsTask,
-                loadTopicTask,
+                sessionsTask,
+                topicsTask,
                 instructorTask,
                 locationTask,
                 groupTask
             );
 
-            Topic = loadTopicTask.Result;
+            Topics = topicsTask.Result;
             Instructors = instructorTask.Result;
             Locations = locationTask.Result;
             Groups = groupTask.Result;
 
-            // shared layout title
-            ViewData["TopicTitle"] = $" - {Topic.Title}";
+            var title = Topics.Select(t => t.Title).ToDelimitedString("; ");
 
-            // convert to bulk update
-            Sessions = loadSessionsTask.Result
-                .OrderBy(s => s.StartDate)
+            // shared layout title
+            ViewData["TopicTitle"] = $" - {title}";
+
+            // convert to multiple update
+            Sessions = sessionsTask.Result
+                .OrderBy(s => s.TopicTitle)
+                .ThenBy(t => t.TopicId)
+                .ThenBy(s => s.StartDate)
                 .ThenBy(s => s.StartTime)
-                .Select(i => new SessionBulkUpdateModel
+                .Select(i => new SessionMultipleUpdateModel
                 {
                     Id = i.Id,
                     StartDate = i.StartDate,
@@ -79,7 +84,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
                     LeadInstructorId = i.LeadInstructorId,
                     LocationId = i.LocationId,
                     Note = i.Note,
-                    AdditionalInstructors = i.AdditionalInstructors.Select(s => s.InstructorId).ToList()
+                    AdditionalInstructors = i.AdditionalInstructors.Select(s => s.InstructorId).ToList(),
+                    TopicId = i.TopicId,
+                    TopicTitle = i.TopicTitle
                 })
                 .ToList();
 
@@ -91,18 +98,17 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             if (!ModelState.IsValid)
                 return Page();
 
-            var bulkUpdateCommand = new SessionBulkUpdateCommand(User, Sessions);
-            var result = await Mediator.Send(bulkUpdateCommand);
+            var updateCommand = new SessionMultipleUpdateCommand(User, Sessions);
+            var result = await Mediator.Send(updateCommand);
 
             ShowAlert("Successfully saved topic sessions");
 
-            return RedirectToPage("/Topic/Session/Index", new { Id, tenant = TenantRoute });
+            return RedirectToPage("/Topic/Index", new { tenant = TenantRoute });
         }
 
-
-        private async Task<TopicReadModel> LoadTopic()
+        private async Task<IReadOnlyCollection<TopicReadModel>> LoadTopics()
         {
-            var command = new EntityIdentifierQuery<Guid, TopicReadModel>(User, Id);
+            var command = new EntityIdentifiersQuery<Guid, TopicReadModel>(User, TopicIds);
             var result = await Mediator.Send(command);
 
             return result;
@@ -110,7 +116,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
 
         private async Task<IReadOnlyCollection<SessionCalendarModel>> LoadSessions()
         {
-            var query = new SessionTopicQuery(User, Id);
+            var query = new SessionTopicQuery(User, TopicIds);
             var items = await Mediator.Send(query);
 
             return items;

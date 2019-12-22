@@ -63,7 +63,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Session
             var command = new SessionSequenceCreateCommand(User, Id, Selected);
             var result = await Mediator.Send(command);
 
-            return RedirectToPage("/topic/session/bulk", new { Id, tenant = TenantRoute });
+            return RedirectToPage("/topic/session/multiple", new { Id, tenant = TenantRoute });
         }
 
         private async Task<TopicReadModel> LoadTopic()

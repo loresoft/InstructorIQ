@@ -9,6 +9,7 @@ using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,15 +25,25 @@ namespace InstructorIQ.WebApplication.Pages.Topic
             Selected = new List<Guid>();
         }
 
+        [BindProperty(SupportsGet = true)]
+        public List<Guid> TopicIds { get; set; }
+
         [BindProperty]
         public List<Guid> Selected { get; set; }
 
         [BindProperty]
-        public List<TopicCreateModel> Topics { get; set; }
+        public List<TopicMultipleUpdateModel> Topics { get; set; }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Topics = new List<TopicCreateModel>
+            if (TopicIds != null && TopicIds.Count != 0)
+            {
+                ViewData["Title"] = "Update Topics";
+                Topics = await LoadTopics();
+                return Page();
+            }
+
+            Topics = new List<TopicMultipleUpdateModel>
             {
                 CreateTopic(),
                 CreateTopic(),
@@ -40,6 +51,10 @@ namespace InstructorIQ.WebApplication.Pages.Topic
                 CreateTopic(),
                 CreateTopic()
             };
+
+            ViewData["Title"] = "Create Topics";
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -61,15 +76,11 @@ namespace InstructorIQ.WebApplication.Pages.Topic
             // ensure required data
             foreach (var topic in topics)
             {
-                topic.TenantId = Tenant.Value.Id;
-                topic.Description = topic.Title;
-                topic.Created = DateTimeOffset.UtcNow;
-                topic.CreatedBy = User.Identity.Name;
                 topic.Updated = DateTimeOffset.UtcNow;
                 topic.UpdatedBy = User.Identity.Name;
             }
 
-            var command = new TopicCreateMultipleCommand(User, topics);
+            var command = new TopicMultipleUpdateCommand(User, topics);
             var result = await Mediator.Send(command);
 
             ShowAlert("Successfully created topics");
@@ -94,12 +105,15 @@ namespace InstructorIQ.WebApplication.Pages.Topic
                 if (topic == null)
                     continue;
 
-                var createModel = new TopicCreateModel
+                var createModel = new TopicMultipleUpdateModel
                 {
                     Id = Guid.NewGuid(),
                     Title = topic.Title,
                     CalendarYear = topic.CalendarYear,
-                    TargetMonth = topic.TargetMonth
+                    TargetMonth = topic.TargetMonth,
+                    TenantId = Tenant.Value.Id,
+                    Created = DateTimeOffset.UtcNow,
+                    CreatedBy = User.Identity.Name
                 };
                 Topics.Add(createModel);
             }
@@ -118,12 +132,23 @@ namespace InstructorIQ.WebApplication.Pages.Topic
             return Page();
         }
 
-        private TopicCreateModel CreateTopic(short? year = null)
+        private async Task<List<TopicMultipleUpdateModel>> LoadTopics()
         {
-            return new TopicCreateModel
+            var command = new EntityIdentifiersQuery<Guid, TopicMultipleUpdateModel>(User, TopicIds);
+            var result = await Mediator.Send(command);
+
+            return result.ToList();
+        }
+
+        private TopicMultipleUpdateModel CreateTopic(short? year = null)
+        {
+            return new TopicMultipleUpdateModel
             {
                 Id = Guid.NewGuid(),
-                CalendarYear = year ?? (short)DateTime.Now.Year
+                CalendarYear = year ?? (short)DateTime.Now.Year,
+                TenantId = Tenant.Value.Id,
+                Created = DateTimeOffset.UtcNow,
+                CreatedBy = User.Identity.Name
             };
         }
     }

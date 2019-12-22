@@ -18,14 +18,14 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SessionBulkUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionBulkUpdateCommand, CommandCompleteModel>
+    public class SessionMultipleUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionMultipleUpdateCommand, CommandCompleteModel>
     {
-        public SessionBulkUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
+        public SessionMultipleUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionBulkUpdateCommand request, CancellationToken cancellationToken)
+        protected override async Task<CommandCompleteModel> Process(SessionMultipleUpdateCommand request, CancellationToken cancellationToken)
         {
             foreach (var updateModel in request.Models)
                 await UpdateSession(updateModel, request.Principal?.Identity?.Name);
@@ -33,7 +33,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             return new CommandCompleteModel();
         }
 
-        private async Task UpdateSession(SessionBulkUpdateModel updateModel, string identityName)
+        private async Task UpdateSession(SessionMultipleUpdateModel updateModel, string identityName)
         {
             var session = await DataContext.Sessions.FindAsync(updateModel.Id);
             if (session == null)

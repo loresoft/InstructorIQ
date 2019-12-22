@@ -70,5 +70,27 @@ namespace InstructorIQ.Core.Data.Mapping
             #endregion
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.LinkToken" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.LinkToken" /></summary>
+        public const string TableName = "LinkToken";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.TokenHash" /></summary>
+        public const string ColumnTokenHash = "TokenHash";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.UserName" /></summary>
+        public const string ColumnUserName = "UserName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Url" /></summary>
+        public const string ColumnUrl = "Url";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.TenantId" /></summary>
+        public const string ColumnTenantId = "TenantId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Issued" /></summary>
+        public const string ColumnIssued = "Issued";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Expires" /></summary>
+        public const string ColumnExpires = "Expires";
+        #endregion
+
     }
 }

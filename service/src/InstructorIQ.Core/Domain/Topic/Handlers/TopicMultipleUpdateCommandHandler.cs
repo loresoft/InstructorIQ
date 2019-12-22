@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentCommand;
 using FluentCommand.Merge;
+using InstructorIQ.Core.Data.Mapping;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using MediatR.CommandQuery.Handlers;
@@ -11,17 +12,17 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class TopicCreateMultipleCommandHandler
-        : RequestHandlerBase<TopicCreateMultipleCommand, CommandCompleteModel>
+    public class TopicMultipleUpdateCommandHandler
+        : RequestHandlerBase<TopicMultipleUpdateCommand, CommandCompleteModel>
     {
         private readonly IDataSession _dataSession;
 
-        public TopicCreateMultipleCommandHandler(ILoggerFactory loggerFactory, IDataSession dataSession) : base(loggerFactory)
+        public TopicMultipleUpdateCommandHandler(ILoggerFactory loggerFactory, IDataSession dataSession) : base(loggerFactory)
         {
             _dataSession = dataSession;
         }
 
-        protected override async Task<CommandCompleteModel> Process(TopicCreateMultipleCommand request, CancellationToken cancellationToken)
+        protected override async Task<CommandCompleteModel> Process(TopicMultipleUpdateCommand request, CancellationToken cancellationToken)
         {
             if (request.Topics.Count == 0)
             {
@@ -30,16 +31,15 @@ namespace InstructorIQ.Core.Domain.Handlers
             }
 
             int rows = await _dataSession
-                .MergeData("[IQ].[Topic]")
+                .MergeData($"[{TopicMap.TableSchema}].[{TopicMap.TableName}]")
                 .IncludeInsert()
-                .IncludeUpdate(false)
+                .IncludeUpdate()
                 .Mode(DataMergeMode.SqlStatement)
-                .Map<TopicCreateModel>(m =>
+                .Map<TopicMultipleUpdateModel>(m =>
                 {
                     m.Column(p => p.Id).Key();
                     m.Column(p => p.TenantId);
                     m.Column(p => p.Title);
-                    m.Column(p => p.Description);
                     m.Column(p => p.CalendarYear);
                     m.Column(p => p.TargetMonth);
                     m.Column(p => p.Created);
@@ -49,7 +49,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 })
                 .ExecuteAsync(request.Topics, cancellationToken);
 
-            Logger.LogInformation("Created {rows} topics", rows);
+            Logger.LogInformation("Processed {rows} topics", rows);
 
             return new CommandCompleteModel();
 

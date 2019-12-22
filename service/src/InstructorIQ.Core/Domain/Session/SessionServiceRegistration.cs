@@ -23,7 +23,7 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<SessionTopicQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionTopicQueryHandler>();
             services.TryAddTransient<IRequestHandler<SessionCalendarQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionCalendarQueryHandler>();
             services.TryAddTransient<IRequestHandler<SessionInstructorQuery, IReadOnlyCollection<SessionInstructorModel>>, SessionInstructorQueryHandler>();
-            services.TryAddTransient<IRequestHandler<SessionBulkUpdateCommand, CommandCompleteModel>, SessionBulkUpdateCommandHandler>();
+            services.TryAddTransient<IRequestHandler<SessionMultipleUpdateCommand, CommandCompleteModel>, SessionMultipleUpdateCommandHandler>();
             services.TryAddTransient<IRequestHandler<SessionSequenceCreateCommand, CommandCompleteModel>, SessionSequenceCreateCommandHandler>();
             services.TryAddTransient<IRequestHandler<SessionInstructorUpdateCommand, CommandCompleteModel>, SessionInstructorUpdateCommandHandler>();
         }

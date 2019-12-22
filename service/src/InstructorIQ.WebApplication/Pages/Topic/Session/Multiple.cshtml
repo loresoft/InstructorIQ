@@ -1,10 +1,8 @@
-﻿@page "/sessions/edit"
-@model BulkModel
+﻿@page  "/topic/{id:Guid}/sessions/edit"
+@model MultipleModel
 @{
-    ViewData["Title"] = "Bulk";
-    string lastTopic = null;
+    ViewData["Title"] = "Edit Sessions";
 }
-
 
 <div class="container-fluid">
 
@@ -18,6 +16,11 @@
                 <a asp-page="/topic/index"
                    asp-route-tenant="@Model.TenantRoute">Topics</a>
             </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/topic/session/index"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@Model.Id">Topic Sessions</a>
+            </li>
             <li class="breadcrumb-item active"
                 aria-current="page">Edit Sessions</li>
         </ol>
@@ -26,8 +29,8 @@
     <alert type="@TempData["alert.type"]"
            message="@TempData["alert.message"]" />
 
-    <form id="bulk-session-form"
-          name="bulk-session-form"
+    <form id="multiple-session-form"
+          name="multiple-session-form"
           role="form"
           method="post">
 
@@ -41,7 +44,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-sm table-striped m-0"
+                        <table class="table table-bordered table-sm table-striped m-0" 
                                style="min-width: 1840px ">
                             <colgroup>
                                 <col style="width: 180px">
@@ -70,15 +73,6 @@
                             <tbody>
                                 @for (int i = 0; i < Model.Sessions.Count; i++)
                                 {
-                                    if (lastTopic != Model.Sessions[i].TopicTitle)
-                                    {
-                                        lastTopic = Model.Sessions[i].TopicTitle;
-                                <tr>
-                                    <th colspan="8">
-                                        @lastTopic
-                                    </th>
-                                </tr>
-                                    }
                                 <tr>
 
                                     <td>
@@ -86,6 +80,7 @@
                                                type="hidden" />
                                         <input asp-for="Sessions[i].TopicId"
                                                type="hidden" />
+
 
                                         <input asp-for="Sessions[i].StartDate"
                                                type="date"
@@ -154,11 +149,13 @@
                                 data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
                             Save
                         </button>
-                        <button id="reset-button"
-                                type="reset"
-                                class="btn btn-secondary">
-                            Reset
-                        </button>
+                        <a id="cancel-button"
+                           asp-page="/topic/session/index"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
                     </div>
                 </div>
             </div>
@@ -173,7 +170,7 @@
 
             $("[multiple='multiple']").select2();
 
-            $("#bulk-session-form")
+            $("#multiple-session-form")
                 .submitGuard()
                 .dirty({
                     preventLeaving: true
@@ -181,4 +178,3 @@
         });
     </script>
 }
-

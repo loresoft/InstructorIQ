@@ -1,9 +1,6 @@
 ﻿@page
 @using InstructorIQ.Core.Services
 @model MultipleModel
-@{
-    ViewData["Title"] = "Create Multiple Topics";
-}
 
 <div class="container">
 
@@ -18,12 +15,13 @@
                    asp-route-tenant="@Model.TenantRoute">Topics</a>
             </li>
             <li class="breadcrumb-item active"
-                aria-current="page">Bulk Create Topics</li>
+                aria-current="page">Create Topics</li>
         </ol>
     </nav>
 
     <alert type="@TempData["alert.type"]"
            message="@TempData["alert.message"]" />
+
     <form id="multiple-topic-form"
           name="multiple-topic-form"
           role="form"
@@ -35,7 +33,7 @@
         <div class="card mb-5">
             <div class="card-header">
                 <i class="fas fa-book-open mr-2"
-                   aria-hidden="true"></i> Create Multiple Topics
+                   aria-hidden="true"></i> @ViewData["Title"]
             </div>
             <div class="card-body">
                 <div class="row">
@@ -67,6 +65,16 @@
                                             <input type="hidden"
                                                    name="Topics[@topic.Id].Id"
                                                    value="@topic.Id" />
+                                            <input type="hidden"
+                                                   name="Topics[@topic.Id].TenantId"
+                                                   value="@topic.TenantId" />
+                                            <input type="hidden"
+                                                   name="Topics[@topic.Id].Created"
+                                                   value="@topic.Created" />
+                                            <input type="hidden"
+                                                   name="Topics[@topic.Id].CreatedBy"
+                                                   value="@topic.CreatedBy" />
+
                                             <div style="position: absolute; top: 7px; left:8px">
                                                 <div class="custom-control custom-checkbox">
                                                     <input id="topic-checkbox-@topic.Id"

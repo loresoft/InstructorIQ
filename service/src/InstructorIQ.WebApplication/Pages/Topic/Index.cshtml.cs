@@ -39,13 +39,22 @@ namespace InstructorIQ.WebApplication.Pages.Topic
             return RedirectToPage("/Session/Sequence", new { TopicIds = Selected, tenant = TenantRoute });
         }
 
-        public IActionResult OnPostBulkEdit()
+        public IActionResult OnPostEditSessions()
         {
             if (Selected.Count == 0)
                 return RedirectToPage();
 
 
-            return RedirectToPage("/Session/Bulk", new { TopicIds = Selected, tenant = TenantRoute });
+            return RedirectToPage("/Session/Multiple", new { TopicIds = Selected, tenant = TenantRoute });
+        }
+
+        public IActionResult OnPostEditTopics()
+        {
+            if (Selected.Count == 0)
+                return RedirectToPage();
+
+
+            return RedirectToPage("/Topic/Multiple", new { TopicIds = Selected, tenant = TenantRoute });
         }
 
         protected override EntityQuery CreateQuery()

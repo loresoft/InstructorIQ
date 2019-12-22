@@ -113,5 +113,39 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Template" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Template" /></summary>
+        public const string TableName = "Template";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.Name" /></summary>
+        public const string ColumnName = "Name";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.Description" /></summary>
+        public const string ColumnDescription = "Description";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.TemplateBody" /></summary>
+        public const string ColumnTemplateBody = "TemplateBody";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.TemplateType" /></summary>
+        public const string ColumnTemplateType = "TemplateType";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.TenantId" /></summary>
+        public const string ColumnTenantId = "TenantId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.Created" /></summary>
+        public const string ColumnCreated = "Created";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.CreatedBy" /></summary>
+        public const string ColumnCreatedBy = "CreatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.Updated" /></summary>
+        public const string ColumnUpdated = "Updated";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.UpdatedBy" /></summary>
+        public const string ColumnUpdatedBy = "UpdatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.RowVersion" /></summary>
+        public const string ColumnRowVersion = "RowVersion";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.PeriodStart" /></summary>
+        public const string ColumnPeriodStart = "PeriodStart";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Template.PeriodEnd" /></summary>
+        public const string ColumnPeriodEnd = "PeriodEnd";
+        #endregion
+
     }
 }

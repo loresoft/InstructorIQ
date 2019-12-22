@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands
 {
-    public class TopicCreateMultipleCommand : PrincipalCommandBase<CommandCompleteModel>
+    public class TopicMultipleUpdateCommand : PrincipalCommandBase<CommandCompleteModel>
     {
-        public TopicCreateMultipleCommand(IPrincipal principal, IEnumerable<TopicCreateModel> topics) : base(principal)
+        public TopicMultipleUpdateCommand(IPrincipal principal, IEnumerable<TopicMultipleUpdateModel> topics) : base(principal)
         {
             if (topics == null)
                 throw new ArgumentNullException(nameof(topics));
@@ -19,6 +19,6 @@ namespace InstructorIQ.Core.Domain.Commands
             Topics = topics.ToList();
         }
 
-        public List<TopicCreateModel> Topics { get; }
+        public List<TopicMultipleUpdateModel> Topics { get; }
     }
 }

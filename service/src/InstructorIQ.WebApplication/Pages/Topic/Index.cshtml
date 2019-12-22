@@ -65,6 +65,21 @@
                                     <i class="fas fa-search"
                                        aria-hidden="true"></i>
                                 </button>
+
+                                <button class="btn btn-outline-secondary dropdown-toggle"
+                                        type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a id="select-all-topics"
+                                       class="dropdown-item"
+                                       href="#">Select All</a>
+                                    <a id="select-none-topics"
+                                       class="dropdown-item"
+                                       href="#">Select None</a>
+                                </div>
                             </div>
                         </div>
 
@@ -84,37 +99,37 @@
                         ? CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.TargetMonth.Value)
                         : string.Empty;
 
-                <a asp-page="/topic/view"
-                   asp-route-tenant="@Model.TenantRoute"
-                   asp-route-id="@item.Id"
-                   title="Edit @item.Title"
-                   class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">@item.Title</h5>
-                        <small title="Updated on @item.Updated.ToString("dddd, dd MMMM yyyy HH:mm")">
-                            @item.Updated.ToLocalTime().Humanize()
-                        </small>
-                    </div>
-
-                    <p class="mb-1">
-                        <summary-text content="@item.Description" truncate="100" />
-                    </p>
-
-                    <div class="d-flex w-100 justify-content-between">
-                        <small class="d-block">Scheduled for @itemMonth @item.CalendarYear with @item.SessionCount sessions</small>
-
-                        <div class="custom-control custom-checkbox"
-                             title="Select">
-                            <input type="checkbox"
-                                   name="Selected"
-                                   value="@item.Id"
-                                   class="custom-control-input"
-                                   id="sequence-@item.Id">
-                            <label class="custom-control-label"
-                                   for="sequence-@item.Id"></label>
+                    <a asp-page="/topic/view"
+                       asp-route-tenant="@Model.TenantRoute"
+                       asp-route-id="@item.Id"
+                       title="Edit @item.Title"
+                       class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@item.Title</h5>
+                            <small title="Updated on @item.Updated.ToString("dddd, dd MMMM yyyy HH:mm")">
+                                @item.Updated.ToLocalTime().Humanize()
+                            </small>
                         </div>
-                    </div>
-                </a>
+
+                        <p class="mb-1">
+                            <summary-text content="@item.Description" truncate="100" />
+                        </p>
+
+                        <div class="d-flex w-100 justify-content-between">
+                            <small class="d-block">Scheduled for @itemMonth @item.CalendarYear with @item.SessionCount sessions</small>
+
+                            <div class="custom-control custom-checkbox"
+                                 title="Select">
+                                <input type="checkbox"
+                                       name="Selected"
+                                       value="@item.Id"
+                                       class="custom-control-input topic-checkbox"
+                                       id="sequence-@item.Id">
+                                <label class="custom-control-label"
+                                       for="sequence-@item.Id"></label>
+                            </div>
+                        </div>
+                    </a>
                 }
             </div>
             <div class="card-footer p-0">
@@ -137,17 +152,24 @@
                             <div class="dropdown-menu"
                                  aria-labelledby="actionDropdown">
                                 <button type="submit"
-                                        asp-page-handler="AddGroups"
-                                        title="Add Sessions for Groups"
+                                        asp-page-handler="EditTopics"
+                                        title="Edit Topics"
                                         class="dropdown-item">
-                                    Add Sessions for Groups
+                                    Edit Selected Topics
                                 </button>
                                 <div class="dropdown-divider"></div>
                                 <button type="submit"
-                                        asp-page-handler="BulkEdit"
-                                        title="Bulk Edit Sessions"
+                                        asp-page-handler="AddGroups"
+                                        title="Add Sessions for Groups"
                                         class="dropdown-item">
-                                    Bulk Edit Sessions
+                                    Add Sessions Groups for Selected Topics
+                                </button>
+                                <div class="dropdown-divider"></div>
+                                <button type="submit"
+                                        asp-page-handler="EditSessions"
+                                        title="Edit Sessions"
+                                        class="dropdown-item">
+                                    Edit Sessions for Selected Topics
                                 </button>
                             </div>
                         </div>
@@ -169,3 +191,15 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        $(function () {
+            $("#select-all-topics").click(function () {
+                $(".topic-checkbox").prop('checked', true);
+            });
+            $("#select-none-topics").click(function () {
+                $(".topic-checkbox").prop('checked', false);
+            });
+        });
+    </script>
+}

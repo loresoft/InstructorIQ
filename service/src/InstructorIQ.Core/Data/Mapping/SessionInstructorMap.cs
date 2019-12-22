@@ -81,5 +81,25 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor" /></summary>
+        public const string TableName = "SessionInstructor";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor.SessionId" /></summary>
+        public const string ColumnSessionId = "SessionId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor.InstructorId" /></summary>
+        public const string ColumnInstructorId = "InstructorId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor.InstructorRoleId" /></summary>
+        public const string ColumnInstructorRoleId = "InstructorRoleId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor.PeriodStart" /></summary>
+        public const string ColumnPeriodStart = "PeriodStart";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionInstructor.PeriodEnd" /></summary>
+        public const string ColumnPeriodEnd = "PeriodEnd";
+        #endregion
+
     }
 }

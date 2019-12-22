@@ -5,7 +5,7 @@ using MediatR.CommandQuery.Definitions;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
-    public class SessionBulkUpdateModel : IHaveIdentifier<Guid>
+    public class SessionMultipleUpdateModel : IHaveIdentifier<Guid>
     {
         public Guid Id { get; set; }
 

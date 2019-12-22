@@ -138,5 +138,49 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Instructor" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Instructor" /></summary>
+        public const string TableName = "Instructor";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.GivenName" /></summary>
+        public const string ColumnGivenName = "GivenName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.MiddleName" /></summary>
+        public const string ColumnMiddleName = "MiddleName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.FamilyName" /></summary>
+        public const string ColumnFamilyName = "FamilyName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.DisplayName" /></summary>
+        public const string ColumnDisplayName = "DisplayName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.SortName" /></summary>
+        public const string ColumnSortName = "SortName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.JobTitle" /></summary>
+        public const string ColumnJobTitle = "JobTitle";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.EmailAddress" /></summary>
+        public const string ColumnEmailAddress = "EmailAddress";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.MobilePhone" /></summary>
+        public const string ColumnMobilePhone = "MobilePhone";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.BusinessPhone" /></summary>
+        public const string ColumnBusinessPhone = "BusinessPhone";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.TenantId" /></summary>
+        public const string ColumnTenantId = "TenantId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.Created" /></summary>
+        public const string ColumnCreated = "Created";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.CreatedBy" /></summary>
+        public const string ColumnCreatedBy = "CreatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.Updated" /></summary>
+        public const string ColumnUpdated = "Updated";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.UpdatedBy" /></summary>
+        public const string ColumnUpdatedBy = "UpdatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.RowVersion" /></summary>
+        public const string ColumnRowVersion = "RowVersion";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.PeriodStart" /></summary>
+        public const string ColumnPeriodStart = "PeriodStart";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Instructor.PeriodEnd" /></summary>
+        public const string ColumnPeriodEnd = "PeriodEnd";
+        #endregion
+
     }
 }

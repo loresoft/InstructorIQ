@@ -20,8 +20,10 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityQuery<Guid, Topic, TopicReadModel>(services);
             RegisterEntityCommand<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
 
+            RegisterEntityQuery<Guid, Topic, TopicMultipleUpdateModel>(services);
+
             services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<Core.Models.HistoryRecord>>, TopicHistoryQueryHandler>();
-            services.TryAddTransient<IRequestHandler<TopicCreateMultipleCommand, CommandCompleteModel>, TopicCreateMultipleCommandHandler>();
+            services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CommandCompleteModel>, TopicMultipleUpdateCommandHandler>();
 
         }
     }

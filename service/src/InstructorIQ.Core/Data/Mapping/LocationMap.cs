@@ -155,5 +155,57 @@ namespace InstructorIQ.Core.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Location" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Location" /></summary>
+        public const string TableName = "Location";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Name" /></summary>
+        public const string ColumnName = "Name";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Description" /></summary>
+        public const string ColumnDescription = "Description";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.AddressLine1" /></summary>
+        public const string ColumnAddressLine1 = "AddressLine1";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.AddressLine2" /></summary>
+        public const string ColumnAddressLine2 = "AddressLine2";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.AddressLine3" /></summary>
+        public const string ColumnAddressLine3 = "AddressLine3";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.City" /></summary>
+        public const string ColumnCity = "City";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.StateProvince" /></summary>
+        public const string ColumnStateProvince = "StateProvince";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.PostalCode" /></summary>
+        public const string ColumnPostalCode = "PostalCode";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.ContactName" /></summary>
+        public const string ColumnContactName = "ContactName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.ContactEmail" /></summary>
+        public const string ColumnContactEmail = "ContactEmail";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.ContactPhone" /></summary>
+        public const string ColumnContactPhone = "ContactPhone";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Latitude" /></summary>
+        public const string ColumnLatitude = "Latitude";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Longitude" /></summary>
+        public const string ColumnLongitude = "Longitude";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.TenantId" /></summary>
+        public const string ColumnTenantId = "TenantId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Created" /></summary>
+        public const string ColumnCreated = "Created";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.CreatedBy" /></summary>
+        public const string ColumnCreatedBy = "CreatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.Updated" /></summary>
+        public const string ColumnUpdated = "Updated";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.UpdatedBy" /></summary>
+        public const string ColumnUpdatedBy = "UpdatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.RowVersion" /></summary>
+        public const string ColumnRowVersion = "RowVersion";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.PeriodStart" /></summary>
+        public const string ColumnPeriodStart = "PeriodStart";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Location.PeriodEnd" /></summary>
+        public const string ColumnPeriodEnd = "PeriodEnd";
+        #endregion
+
     }
 }

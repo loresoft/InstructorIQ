@@ -86,5 +86,31 @@ namespace InstructorIQ.Core.Data.Mapping
             #endregion
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber" /></summary>
+        public const string TableName = "SessionReferenceNumber";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.ReferenceNumber" /></summary>
+        public const string ColumnReferenceNumber = "ReferenceNumber";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.ReferenceType" /></summary>
+        public const string ColumnReferenceType = "ReferenceType";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.SessionId" /></summary>
+        public const string ColumnSessionId = "SessionId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.Created" /></summary>
+        public const string ColumnCreated = "Created";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.CreatedBy" /></summary>
+        public const string ColumnCreatedBy = "CreatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.Updated" /></summary>
+        public const string ColumnUpdated = "Updated";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.UpdatedBy" /></summary>
+        public const string ColumnUpdatedBy = "UpdatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.SessionReferenceNumber.RowVersion" /></summary>
+        public const string ColumnRowVersion = "RowVersion";
+        #endregion
+
     }
 }

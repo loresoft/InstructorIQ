@@ -65,5 +65,27 @@ namespace InstructorIQ.Core.Data.Mapping
             #endregion
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.RefreshToken" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.RefreshToken" /></summary>
+        public const string TableName = "RefreshToken";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.TokenHash" /></summary>
+        public const string ColumnTokenHash = "TokenHash";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.UserName" /></summary>
+        public const string ColumnUserName = "UserName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.ClientId" /></summary>
+        public const string ColumnClientId = "ClientId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.ProtectedTicket" /></summary>
+        public const string ColumnProtectedTicket = "ProtectedTicket";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.Issued" /></summary>
+        public const string ColumnIssued = "Issued";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.Expires" /></summary>
+        public const string ColumnExpires = "Expires";
+        #endregion
+
     }
 }

@@ -113,5 +113,43 @@ namespace InstructorIQ.Core.Data.Mapping
             #endregion
         }
 
+        #region Generated Constants
+        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate" /></summary>
+        public const string TableSchema = "IQ";
+        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate" /></summary>
+        public const string TableName = "EmailTemplate";
+
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.Id" /></summary>
+        public const string ColumnId = "Id";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.Key" /></summary>
+        public const string ColumnKey = "Key";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.FromAddress" /></summary>
+        public const string ColumnFromAddress = "FromAddress";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.FromName" /></summary>
+        public const string ColumnFromName = "FromName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.ReplyToAddress" /></summary>
+        public const string ColumnReplyToAddress = "ReplyToAddress";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.ReplyToName" /></summary>
+        public const string ColumnReplyToName = "ReplyToName";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.Subject" /></summary>
+        public const string ColumnSubject = "Subject";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.TextBody" /></summary>
+        public const string ColumnTextBody = "TextBody";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.HtmlBody" /></summary>
+        public const string ColumnHtmlBody = "HtmlBody";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.TenantId" /></summary>
+        public const string ColumnTenantId = "TenantId";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.Created" /></summary>
+        public const string ColumnCreated = "Created";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.CreatedBy" /></summary>
+        public const string ColumnCreatedBy = "CreatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.Updated" /></summary>
+        public const string ColumnUpdated = "Updated";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.UpdatedBy" /></summary>
+        public const string ColumnUpdatedBy = "UpdatedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailTemplate.RowVersion" /></summary>
+        public const string ColumnRowVersion = "RowVersion";
+        #endregion
+
     }
 }
