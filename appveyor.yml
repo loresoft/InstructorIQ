@@ -33,20 +33,21 @@ artifacts:
   - path: 'build\database\*.dacpac'
     name: Database
 
-- branches:
-    only:
-      - develop
-  deploy:
-    - provider: Environment
-      name: InstructorIQ-Database-Staging
-    - provider: Environment
-      name: InstructorIQ-Website-Staging
-- branches:
-    only:
-      - master
-  deploy:
-    - provider: Environment
-      name: InstructorIQ-Database
-    - provider: Environment
-      name: InstructorIQ-Website
-            
+for:
+  - branches:
+      only:
+        - develop
+    deploy:
+      - provider: Environment
+        name: InstructorIQ-Database-Staging
+      - provider: Environment
+        name: InstructorIQ-Website-Staging
+  - branches:
+      only:
+        - master
+    deploy:
+      - provider: Environment
+        name: InstructorIQ-Database
+      - provider: Environment
+        name: InstructorIQ-Website
+  
