@@ -256,3 +256,4 @@ paket-files/
 build/
 client/dist/
 temp/
+coverage.opencover.xml

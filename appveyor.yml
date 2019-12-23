@@ -24,7 +24,8 @@ dotnet_csproj:
 build_script:
   - ps: ./build.ps1
 
-test: off
+test_script:
+  - ps: ./test.ps1
 
 artifacts:
   - path: 'build\*.zip'
@@ -32,5 +33,21 @@ artifacts:
   - path: 'build\database\*.dacpac'
     name: Database
 
-after_deploy:
-  - cmd: dotnet test service\test\InstructorIQ.Core.Tests\InstructorIQ.Core.Tests.csproj
+for:
+  - branches:
+      only:
+        - develop
+    deploy:
+      - provider: Environment
+        name: InstructorIQ-Database-Staging
+      - provider: Environment
+        name: InstructorIQ-Website-Staging
+  - branches:
+      only:
+        - master
+    deploy:
+      - provider: Environment
+        name: InstructorIQ-Database
+      - provider: Environment
+        name: InstructorIQ-Website
+  

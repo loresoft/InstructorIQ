@@ -20,6 +20,7 @@ namespace InstructorIQ.Core.Services
             services.TryAddSingleton<IStorageService, StorageService>();
             services.TryAddSingleton<IEntityComparer, EntityComparer>();
 
+            services.AddMemoryCache();
 
         }
     }

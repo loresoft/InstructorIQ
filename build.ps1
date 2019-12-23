@@ -27,7 +27,7 @@ Write-Host "*** Build Service ***"
 
 # create package
 Write-Host "*** Create Packages ***"
-Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\App_Data\jobs\continuous\runner -recurse -Force
+Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\App_Data\jobs\continuous\runner -Recurse -Force
 
 # zip package
 Write-Host "*** Zip Packages ***"
