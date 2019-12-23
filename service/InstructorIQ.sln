@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{64DEECE6
 	ProjectSection(SolutionItems) = preProject
 		..\appveyor.yml = ..\appveyor.yml
 		..\build.ps1 = ..\build.ps1
+		..\test.ps1 = ..\test.ps1
 		version.props = version.props
 	EndProjectSection
 EndProject

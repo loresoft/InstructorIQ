@@ -76,9 +76,6 @@ namespace InstructorIQ.WebApplication
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
-
-            services.AddMemoryCache();
-
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<InstructorIQContext>()
                 .AddDefaultTokenProviders();
