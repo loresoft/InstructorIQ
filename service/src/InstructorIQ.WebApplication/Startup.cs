@@ -82,6 +82,8 @@ namespace InstructorIQ.WebApplication
 
             services.AddMultitenancy<TenantReadModel, TenantContextResolver>();
 
+            services.AddResponseCaching();
+
             services.AddResponseCompression(options =>
             {
                 options.Providers.Add<BrotliCompressionProvider>();
@@ -223,6 +225,8 @@ namespace InstructorIQ.WebApplication
             {
                 Authorization = new[] { new DashboardAuthorization() }
             });
+
+            app.UseResponseCaching();
 
             app.UseMultitenancy<TenantReadModel>();
 
