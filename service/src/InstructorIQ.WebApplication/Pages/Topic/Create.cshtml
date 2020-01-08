@@ -54,15 +54,32 @@
                               placeholder="Description"></textarea>
                     <span asp-validation-for="Entity.Description" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
-                    <select asp-for="Entity.CalendarYear"
-                            asp-items="SelectItemFactory.Years()"
-                            class="custom-select"></select>
-                    <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label asp-for="Entity.CalendarYear">Calendar Year <required /></label>
+                        <select asp-for="Entity.CalendarYear"
+                                asp-items="SelectItemFactory.Years()"
+                                class="custom-select"></select>
+                        <span asp-validation-for="Entity.CalendarYear" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Entity.TargetMonth">Target Month</label>
+                        <select asp-for="Entity.TargetMonth"
+                                asp-items="SelectItemFactory.Months()"
+                                class="custom-select">
+                            <option value="">- Select -</option>
+                        </select>
+                        <span asp-validation-for="Entity.TargetMonth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label asp-for="Entity.IsRequired">Required</label>
+                        <select asp-for="Entity.IsRequired"
+                                asp-items="SelectItemFactory.Boolean()"
+                                class="custom-select"></select>
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col">
                         <button id="save-button"
                                 type="submit"

@@ -112,7 +112,7 @@
                         </div>
 
                         <p class="mb-1">
-                            <summary-text content="@item.Description" truncate="100" />
+                            @item.Summary
                         </p>
 
                         <div class="d-flex w-100 justify-content-between">
@@ -151,6 +151,14 @@
                             </button>
                             <div class="dropdown-menu"
                                  aria-labelledby="actionDropdown">
+                                <a asp-page="/topic/export"
+                                   asp-route-year="@Model.Year"
+                                   asp-route-month="@Model.Month"
+                                   asp-route-q="@Model.Query"
+                                   asp-route-tenant="@Model.TenantRoute"
+                                   title="Export Topics"
+                                   class="dropdown-item">Export Topics</a>
+                                <div class="dropdown-divider"></div>
                                 <button type="submit"
                                         asp-page-handler="EditTopics"
                                         title="Edit Topics"

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic
 {
-    public class IndexModel : EntityPagedModelBase<TopicReadModel>
+    public class IndexModel : EntityPagedModelBase<TopicListModel>
     {
         public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)

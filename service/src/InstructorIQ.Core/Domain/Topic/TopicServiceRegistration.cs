@@ -18,9 +18,11 @@ namespace InstructorIQ.Core.Domain
         public override void Register(IServiceCollection services, IDictionary<string, object> data)
         {
             RegisterEntityQuery<Guid, Topic, TopicReadModel>(services);
+            RegisterEntityQuery<Guid, Topic, TopicListModel>(services);
             RegisterEntityCommand<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
 
             RegisterEntityQuery<Guid, Topic, TopicMultipleUpdateModel>(services);
+            RegisterEntityQuery<Guid, Topic, TopicDropdownModel>(services);
 
             services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<Core.Models.HistoryRecord>>, TopicHistoryQueryHandler>();
             services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CommandCompleteModel>, TopicMultipleUpdateCommandHandler>();

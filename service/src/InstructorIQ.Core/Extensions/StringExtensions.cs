@@ -221,6 +221,21 @@ namespace InstructorIQ.Core.Extensions
                 .Replace("\n", Environment.NewLine);
         }
 
+        public static string RemoveExtended(this string text)
+        {
+            var buffer = new StringBuilder(text.Length);
+            foreach (var c in text)
+            {
+                var n = Convert.ToUInt16(c);
+
+                if ((n >= 33u) && (n <= 126u))
+                    buffer.Append(c);
+                else if (buffer.Length == 0 || buffer[buffer.Length - 1] != ' ')
+                    buffer.Append(' ');
+            }
+
+            return buffer.ToString();
+        }
 
         /// <summary>
         /// Appends a copy of the specified string followed by the default line terminator to the end of the StringBuilder object.

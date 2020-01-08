@@ -36,6 +36,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
+            builder.Property(t => t.Summary)
+                .HasColumnName("Summary")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
             builder.Property(t => t.Description)
                 .HasColumnName("Description")
                 .HasColumnType("nvarchar(max)");
@@ -149,6 +154,8 @@ namespace InstructorIQ.Core.Data.Mapping
         public const string ColumnId = "Id";
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Title" /></summary>
         public const string ColumnTitle = "Title";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Summary" /></summary>
+        public const string ColumnSummary = "Summary";
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Description" /></summary>
         public const string ColumnDescription = "Description";
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.TenantId" /></summary>

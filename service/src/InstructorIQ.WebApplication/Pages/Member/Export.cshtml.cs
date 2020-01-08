@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Member
 {
-    public class ExportModel : MediatorModelBase
+    public class ExportModel : ExportModelBase
     {
         private readonly IMapper _mapper;
 
@@ -33,22 +33,9 @@ namespace InstructorIQ.WebApplication.Pages.Member
             var members = await Mediator.Send(command);
             var exported = _mapper.Map<List<MemberImportModel>>(members);
 
-            byte[] buffer;
-
-            var configuration = new CsvHelper.Configuration.Configuration { HasHeaderRecord = true };
-            
-            using (var memoryStream = new MemoryStream())
-            using (var writer = new StreamWriter(memoryStream, Encoding.UTF8, 1024, true))
-            using (var csv = new CsvWriter(writer, configuration))
-            {
-                csv.WriteRecords(exported);
-                writer.Flush();
-
-                buffer = memoryStream.ToArray();
-            }
-            
             var fileName = $"Members-{DateTime.Now:yyyy-MM-dd-HH-mm-ss}.csv";
-            return File(buffer, "text/csv", fileName);
+            
+            return Export(exported, fileName);
         }
     }
 }

@@ -6,6 +6,7 @@
     <NoWarn>1591</NoWarn>
     <UserSecretsId>903022c7-65a9-40cf-8939-9a3388f50b0f</UserSecretsId>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,13 +17,13 @@
     <PackageReference Include="AngleSharp" Version="0.13.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
     <PackageReference Include="CommonMark.NET" Version="0.15.1" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.1" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.8" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.8" />
     <PackageReference Include="Humanizer" Version="2.7.9" />
     <PackageReference Include="Ical.Net" Version="4.1.11" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.162" />
-    <PackageReference Include="KickStart.EntityChange" Version="8.0.0.162" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.174" />
+    <PackageReference Include="KickStart.EntityChange" Version="8.0.0.174" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
@@ -39,6 +40,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InstructorIQ.Core\InstructorIQ.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\fontawesome\css\" />
+    <Folder Include="wwwroot\lib\fontawesome\webfonts\" />
+    <Folder Include="wwwroot\lib\jquery-validate\" />
+    <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
+    <Folder Include="wwwroot\lib\jquery.dirty\dist\" />
+    <Folder Include="wwwroot\lib\jquery\" />
+    <Folder Include="wwwroot\lib\moment\" />
+    <Folder Include="wwwroot\lib\popper\dist\umd\" />
+    <Folder Include="wwwroot\lib\select2-bootstrap-theme\dist\" />
+    <Folder Include="wwwroot\lib\select2\dist\css\" />
+    <Folder Include="wwwroot\lib\select2\dist\js\" />
+    <Folder Include="wwwroot\lib\signature_pad\dist\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,26 @@
+﻿@page
+@model TopicModel
+@{
+    ViewData["Title"] = "Topic";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Topics</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+
+    <div class="card mb-5">
+    </div>
+</div>

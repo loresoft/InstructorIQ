@@ -16,15 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.13.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="CsvHelper" Version="12.2.2" />
+    <PackageReference Include="CsvHelper" Version="12.2.3" />
     <PackageReference Include="EntityChange" Version="3.0.0.30" />
     <PackageReference Include="FluentCommand.SqlServer" Version="4.0.0.108" />
     <PackageReference Include="Handlebars.Net" Version="1.10.1" />
     <PackageReference Include="HangFire.Core" Version="1.7.8" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.162" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.174" />
     <PackageReference Include="MailKit" Version="2.4.1" />
-    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="4.0.0.76" />
+    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="4.0.0.89" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />

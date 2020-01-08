@@ -29,12 +29,23 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
                 .ForMember(d => d.SessionCount, opt => opt.MapFrom(s => s.Sessions.Count()));
 
+            CreateMap<Topic, TopicListModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
+                .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name))
+                .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
+                .ForMember(d => d.SessionCount, opt => opt.MapFrom(s => s.Sessions.Count()));
+
             CreateMap<Topic, TopicUpdateModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
 
             CreateMap<TopicReadModel, TopicUpdateModel>();
 
             CreateMap<Topic, TopicMultipleUpdateModel>();
+
+            CreateMap<Topic, TopicDropdownModel>()
+                .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))
+                .ForMember(d => d.Text, opt => opt.MapFrom(s => s.Title));
+
         }
 
     }
