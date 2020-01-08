@@ -63,6 +63,7 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
             Items = result
                 .OrderBy(i => i.StartTime)
                 .ThenBy(i => i.GroupName, StringComparer.OrdinalIgnoreCase.WithNaturalSort())
+                .ThenBy(i => i.TopicTitle)
                 .ToList();
         }
     }

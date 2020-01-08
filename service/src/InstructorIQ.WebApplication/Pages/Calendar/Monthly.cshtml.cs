@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Calendar
 {
+    [ResponseCache(Duration = 150)]
     public class MonthlyModel : MediatorModelBase
     {
         public MonthlyModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)

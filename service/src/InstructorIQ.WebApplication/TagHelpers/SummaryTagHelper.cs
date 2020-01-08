@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AngleSharp.Dom;
-using AngleSharp.Html.Parser;
-using CommonMark;
-using EntityChange.Extensions;
+﻿using System.Threading.Tasks;
 using Humanizer;
+using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Services;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -16,12 +10,19 @@ namespace InstructorIQ.WebApplication.TagHelpers
     [HtmlTargetElement("summary-text", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class SummaryTagHelper : TagHelper
     {
+        private readonly IHtmlService _htmlService;
+
+        public SummaryTagHelper(IHtmlService htmlService)
+        {
+            _htmlService = htmlService;
+        }
+
         public ModelExpression Content { get; set; }
 
         [HtmlAttributeName("truncate")]
         public int? Truncate { get; set; }
 
-        [HtmlAttributeName("default-text")] 
+        [HtmlAttributeName("default-text")]
         public string DefaultText { get; set; } = string.Empty;
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
@@ -35,11 +36,9 @@ namespace InstructorIQ.WebApplication.TagHelpers
                 return;
             }
 
-            var htmlParser = new HtmlParser();
-            var document = htmlParser.ParseDocument(content);
-            var text = document.Body.Text();
+            var text = _htmlService.PlanText(content);
 
-            text = StripExtended(text);
+            text = text.RemoveExtended();
 
             if (Truncate.HasValue)
                 text = text.Truncate(Truncate.Value);
@@ -56,20 +55,5 @@ namespace InstructorIQ.WebApplication.TagHelpers
             return childContent.GetContent();
         }
 
-        private static string StripExtended(string text)
-        {
-            var buffer = new StringBuilder(text.Length);
-            foreach (var c in text)
-            {
-                var n = Convert.ToUInt16(c);
-
-                if ((n >= 33u) && (n <= 126u))
-                    buffer.Append(c);
-                else if (buffer.Length == 0 || buffer[^1] != ' ')
-                    buffer.Append(' ');
-            }
-
-            return buffer.ToString();
-        }
     }
 }

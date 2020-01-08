@@ -24,11 +24,12 @@
       ]
     },
     {
-      "library": "twitter-bootstrap@4.3.1",
-      "destination": "wwwroot/lib/twitter-bootstrap/",
+      "provider": "unpkg",
+      "library": "bootstrap@4.4.1",
+      "destination": "wwwroot/lib/bootstrap/",
       "files": [
-        "js/bootstrap.js",
-        "css/bootstrap.css"
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
       ]
     },
     {
@@ -55,10 +56,11 @@
       ]
     },
     {
-      "library": "popper.js@1.14.7",
+      "provider": "unpkg",
+      "library": "popper.js@1.16.0",
       "destination": "wwwroot/lib/popper/",
       "files": [
-        "umd/popper.js"
+        "dist/umd/popper.js"
       ]
     },
     {
@@ -69,18 +71,20 @@
       ]
     },
     {
-      "library": "select2@4.0.5",
+      "provider": "unpkg",
+      "library": "select2@4.0.12",
       "destination": "wwwroot/lib/select2/",
       "files": [
-        "js/select2.js",
-        "css/select2.css"
+        "dist/js/select2.js",
+        "dist/css/select2.css"
       ]
     },
     {
+      "provider": "unpkg",
       "library": "select2-bootstrap-theme@0.1.0-beta.10",
       "destination": "wwwroot/lib/select2-bootstrap-theme/",
       "files": [
-        "select2-bootstrap.css"
+        "dist/select2-bootstrap.css"
       ]
     },
     {

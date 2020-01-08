@@ -5,8 +5,10 @@ using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
+using InstructorIQ.Core.Services;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -18,9 +20,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic
     [Authorize(Policy = UserPolicies.InstructorPolicy)]
     public class EditModel : EntityIdentifierModelBase<TopicUpdateModel>
     {
-        public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        private readonly IHtmlService _htmlService;
+
+        public EditModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, IHtmlService htmlService)
             : base(tenant, mediator, loggerFactory)
         {
+            _htmlService = htmlService;
         }
 
         [BindProperty]
@@ -63,6 +68,10 @@ namespace InstructorIQ.WebApplication.Pages.Topic
                 p => p.LeadInstructorId,
                 p => p.IsRequired
             );
+
+            // update summary
+            if (updateModel.Description.HasValue())
+                updateModel.Summary = _htmlService.PlanText(updateModel.Description).RemoveExtended().Truncate(256);
 
             var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);

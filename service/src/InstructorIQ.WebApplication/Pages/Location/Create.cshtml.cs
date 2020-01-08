@@ -36,7 +36,10 @@ namespace InstructorIQ.WebApplication.Pages.Location
                 p => p.AddressLine1,
                 p => p.City,
                 p => p.StateProvince,
-                p => p.PostalCode
+                p => p.PostalCode,
+                p => p.ContactName,
+                p => p.ContactEmail,
+                p => p.ContactPhone
             );
 
             var command = new EntityCreateCommand<LocationCreateModel, LocationReadModel>(User, createModel);

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Topic.History
 {
+    [ResponseCache(Duration = 300)]
     public class ViewModel : EntityIdentifierModelBase<TopicUpdateModel>
     {
         public ViewModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)

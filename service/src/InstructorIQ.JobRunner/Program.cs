@@ -85,6 +85,7 @@ namespace InstructorIQ.JobRunner
                             );
 
                         services.AddHostedService<RecurringJobsService>();
+                        services.AddHostedService<OneTimeJobService>();
                         services.AddHangfireServer();
                     })
                     .UseSerilog();

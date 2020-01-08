@@ -10,5 +10,80 @@
 }
 
 <div class="card-body">
-    Introduction
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <form id="email-form"
+          name="email-form"
+          role="form"
+          method="post">
+
+        <input type="hidden" asp-for="Message.ReplyToAddress" />
+        <input type="hidden" asp-for="Message.ReplyToName" />
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Message.RecipientName">Recipient Name <required /></label>
+                <input asp-for="Message.RecipientName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Name" />
+                <span asp-validation-for="Message.RecipientName" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Message.RecipientAddress">Recipient Email <required /></label>
+                <input asp-for="Message.RecipientAddress"
+                       type="email"
+                       class="form-control"
+                       placeholder="Email" />
+                <span asp-validation-for="Message.RecipientAddress" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Message.Subject">Subject <required /></label>
+            <input asp-for="Message.Subject"
+                   type="text"
+                   class="form-control"
+                   placeholder="Subject" />
+            <span asp-validation-for="Message.Subject" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Message.HtmlBody">Message</label>
+            <textarea id="Message_HtmlBody"
+                      name="Message.HtmlBody"
+                      rows="5"
+                      class="form-control"
+                      placeholder="Message"></textarea>
+            <span asp-validation-for="Message.HtmlBody" class="text-danger"></span>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <button id="send-button"
+                        type="submit"
+                        class="btn btn-primary"
+                        data-loading-text="<span class='spinner-border spinner-border-sm'></span> Sending...">
+                    Send
+                </button>
+                <a id="cancel-button"
+                   asp-page="/topic/view"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </form>
 </div>
+
+@section Scripts {
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Message.HtmlBody)" />
+
+    <script>
+        $(function () {
+            $("#email-form").submitGuard();
+        });
+    </script>
+}

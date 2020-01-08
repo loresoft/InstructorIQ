@@ -38,6 +38,14 @@ namespace InstructorIQ.Core.Data.Entities
         public string Title { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'Summary'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Summary'.
+        /// </value>
+        public string Summary { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'Description'.
         /// </summary>
         /// <value>

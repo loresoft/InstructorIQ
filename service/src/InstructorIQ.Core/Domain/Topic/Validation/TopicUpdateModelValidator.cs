@@ -19,6 +19,7 @@ namespace InstructorIQ.Core.Domain.Validation
             #region Generated Constructor
             RuleFor(p => p.Title).NotEmpty();
             RuleFor(p => p.Title).MaximumLength(256);
+            RuleFor(p => p.Summary).MaximumLength(256);
             #endregion
         }
 

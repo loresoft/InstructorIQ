@@ -61,5 +61,15 @@ namespace InstructorIQ.Core.Domain.Models
         public Guid TenantId { get; set; }
 
         #endregion
+
+        public Guid TopicId { get; set; }
+
+        public string TopicTitle { get; set; }
+
+        public Guid? LocationId { get; set; }
+
+        public string LocationName { get; set; }
+
+        public bool IsRequired { get; set; }
     }
 }

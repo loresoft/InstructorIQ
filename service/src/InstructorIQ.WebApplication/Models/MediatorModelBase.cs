@@ -1,4 +1,5 @@
-﻿using InstructorIQ.Core.Domain.Models;
+﻿using System;
+using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using MediatR;
 using Microsoft.AspNetCore.Mvc.RazorPages;
