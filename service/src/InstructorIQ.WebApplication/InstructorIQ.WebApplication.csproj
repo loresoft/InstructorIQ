@@ -42,19 +42,4 @@
     <ProjectReference Include="..\InstructorIQ.Core\InstructorIQ.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\fontawesome\css\" />
-    <Folder Include="wwwroot\lib\fontawesome\webfonts\" />
-    <Folder Include="wwwroot\lib\jquery-validate\" />
-    <Folder Include="wwwroot\lib\jquery-validation-unobtrusive\" />
-    <Folder Include="wwwroot\lib\jquery.dirty\dist\" />
-    <Folder Include="wwwroot\lib\jquery\" />
-    <Folder Include="wwwroot\lib\moment\" />
-    <Folder Include="wwwroot\lib\popper\dist\umd\" />
-    <Folder Include="wwwroot\lib\select2-bootstrap-theme\dist\" />
-    <Folder Include="wwwroot\lib\select2\dist\css\" />
-    <Folder Include="wwwroot\lib\select2\dist\js\" />
-    <Folder Include="wwwroot\lib\signature_pad\dist\" />
-  </ItemGroup>
-
 </Project>
