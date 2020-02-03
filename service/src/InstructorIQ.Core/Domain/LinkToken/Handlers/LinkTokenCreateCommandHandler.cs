@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using InstructorIQ.Core.Data;
-using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
-using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
-using MediatR.CommandQuery.Queries;
 using Microsoft.Extensions.Logging;
 
 // ReSharper disable once CheckNamespace
@@ -19,7 +14,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 {
     public class LinkTokenCreateCommandHandler : DataContextHandlerBase<InstructorIQContext, LinkTokenCreateCommand, LinkTokenReadModel>
     {
-        public LinkTokenCreateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper) 
+        public LinkTokenCreateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }

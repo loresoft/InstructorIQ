@@ -1,4 +1,7 @@
-﻿// ReSharper disable once CheckNamespace
+﻿
+using System;
+
+// ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
     public class MemberUpdateModel
@@ -20,6 +23,10 @@ namespace InstructorIQ.Core.Domain.Models
         public string SortName { get; set; }
 
         public string JobTitle { get; set; }
+
+        public bool LockoutEnabled { get; set; }
+
+        public virtual DateTimeOffset? LockoutEnd { get; set; }
 
         public bool IsGlobalAdministrator { get; set; }
     }

@@ -1,0 +1,49 @@
+﻿@model IntroductionModel
+@{
+    var paragraphStyle = "line-height: 1.5em;";
+    var cellStyle = "border: 1px solid #000; padding: 2px 4px; min-width: 110px; font-size: 10pt;";
+}
+<p style="@paragraphStyle">
+    Hello,
+</p>
+
+<p style="@paragraphStyle">
+    The training topic @Model.Entity.Title is schedule in @Model.TargetMonth(). The class dates are scheduled as follows.
+</p>
+
+<table style="border-collapse: collapse;"
+       include-if="@Model.Sessions.Count > 0">
+    <thead>
+        <tr>
+            <th style="@cellStyle">
+                Date
+            </th>
+            <th style="@cellStyle">
+                Time
+            </th>
+            <th style="@cellStyle">
+                Location
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Sessions)
+        {
+            <tr>
+                <td style="@cellStyle">
+                    @item.StartDate?.ToString("MM/dd/yyyy")
+                </td>
+                <td style="@cellStyle">
+                    @item.StartTime?.ToString(@"hh\:mm")@(item.EndTime.HasValue ? " - " : " ")@item.EndTime?.ToString(@"hh\:mm")
+                </td>
+                <td style="@cellStyle">
+                    @item.LocationName
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p style="@paragraphStyle">
+    Please use the link below to update the lesson plan.
+</p>

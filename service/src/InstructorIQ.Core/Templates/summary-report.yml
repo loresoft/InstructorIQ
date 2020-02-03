@@ -20,7 +20,9 @@ htmlBody: |
             </o:OfficeDocumentSettings>
         </xml><![endif]-->
     </head>
-    <body style="font-family: Arial, Helvetica, sans-serif; font-size: 16px;">
+    <body style="font-family: Helvetica,Arial,sans-serif; font-size: 16px;">
+    
     {{{ HtmlBody }}}
+
     </body>
     </html>

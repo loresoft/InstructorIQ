@@ -1,0 +1,13 @@
+﻿@model PlanUpdateModel
+@{
+    var paragraphStyle = "line-height: 1.5em;";
+}
+<p style="@paragraphStyle">
+    Hello,
+</p>
+
+<p style="@paragraphStyle">
+    @Model.SenderName requested you update the lesson plan for the training topic @Model.Entity.Title.  
+    The less plan contains the objectives and instructions for the class.  
+    Please use the link below to update the lesson plan.
+</p>

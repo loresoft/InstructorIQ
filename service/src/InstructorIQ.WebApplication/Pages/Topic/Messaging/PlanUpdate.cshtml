@@ -13,32 +13,21 @@
     <alert type="@TempData["alert.type"]"
            message="@TempData["alert.message"]" />
 
+    <h5 class="card-title">Request Lesson Plan Update Email</h5>
+
     <form id="email-form"
           name="email-form"
           role="form"
           method="post">
 
-        <input type="hidden" asp-for="Message.ReplyToAddress" />
-        <input type="hidden" asp-for="Message.ReplyToName" />
-
         <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label asp-for="Message.RecipientName">Recipient Name <required /></label>
-                <input asp-for="Message.RecipientName"
-                       type="text"
-                       class="form-control"
-                       placeholder="Name" />
-                <span asp-validation-for="Message.RecipientName" class="text-danger"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="Message.RecipientAddress">Recipient Email <required /></label>
-                <input asp-for="Message.RecipientAddress"
-                       type="email"
-                       class="form-control"
-                       placeholder="Email" />
-                <span asp-validation-for="Message.RecipientAddress" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Message.Recipients">Recipient <required /></label>
+            <select multiple="multiple"
+                    asp-for="Message.Recipients"
+                    asp-items="@Model.Members"
+                    class="custom-select"></select>
+            <span asp-validation-for="Message.Recipients" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Message.Subject">Subject <required /></label>
@@ -54,7 +43,7 @@
                       name="Message.HtmlBody"
                       rows="5"
                       class="form-control"
-                      placeholder="Message"></textarea>
+                      placeholder="Message"><partial name="_PlanUpdate" model="Model" /></textarea>
             <span asp-validation-for="Message.HtmlBody" class="text-danger"></span>
         </div>
 
@@ -67,7 +56,7 @@
                     Send
                 </button>
                 <a id="cancel-button"
-                   asp-page="/topic/view"
+                   asp-page="/topic/planning/view"
                    asp-route-tenant="@Model.TenantRoute"
                    asp-route-id="@Model.Id"
                    class="btn btn-secondary">
@@ -83,6 +72,8 @@
 
     <script>
         $(function () {
+            $('#@Html.IdFor(p => p.Message.Recipients)').select2();
+
             $("#email-form").submitGuard();
         });
     </script>

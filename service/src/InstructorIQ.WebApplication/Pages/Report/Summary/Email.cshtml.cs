@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using EntityChange.Extensions;
+using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
-using InstructorIQ.Core.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,24 +20,23 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
     [Authorize(Policy = UserPolicies.AdministratorPolicy)]
     public class EmailModel : SummaryModel
     {
-        private readonly IEmailTemplateService _templateService;
         private readonly UserClaimManager _userClaimManager;
 
         public EmailModel(
             ITenant<TenantReadModel> tenant,
             IMediator mediator,
             ILoggerFactory loggerFactory,
-            IEmailTemplateService templateService,
             UserClaimManager userClaimManager)
             : base(tenant, mediator, loggerFactory)
         {
-            _templateService = templateService;
             _userClaimManager = userClaimManager;
             Date = DateTime.Now;
         }
 
         [BindProperty]
-        public SummaryReportEmail Message { get; set; }
+        public SummaryReportModel Message { get; set; }
+
+        public IReadOnlyCollection<MemberDropdownModel> Members { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -44,11 +46,12 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
             var address = _userClaimManager.GetEmail(User) ?? User.Identity.Name;
             var name = _userClaimManager.GetDisplayName(User);
             
-            Message = new SummaryReportEmail();
+            Message = new SummaryReportModel();
             Message.ReplyToAddress = address;
             Message.ReplyToName = name;
 
             await Load();
+            await LoadMembers();
 
             return Page();
         }
@@ -59,11 +62,30 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
                 return Page();
 
             var email = Message;
-            await _templateService.SendSummaryEmail(email);
+
+            var command = new SendSummaryEmailCommand(User, email);
+            await Mediator.Send(command);
 
             ShowAlert("Successfully sent email");
 
             return RedirectToPage("/report/summary/index", new { date = Date.ToString("yyyy-MM-dd"), tenant = TenantRoute });
+        }
+
+        protected virtual async Task LoadMembers()
+        {
+            var command = new MemberSelectQuery(User, Tenant.Value.Id);
+            command.RoleName = Core.Data.Constants.Role.MemberName;
+
+            var members = await Mediator.Send(command);
+
+            Members = members
+                .OrderBy(m => m.SortName)
+                .Select(m => new MemberDropdownModel
+                {
+                    Text = m.SortName.HasValue() ? m.SortName : m.Email,
+                    Value = m.Email
+                })
+                .ToList();
         }
 
     }

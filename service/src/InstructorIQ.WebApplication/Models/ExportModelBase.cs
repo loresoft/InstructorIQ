@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using CsvHelper;
@@ -21,7 +22,7 @@ namespace InstructorIQ.WebApplication.Models
         {
             byte[] buffer;
 
-            var configuration = new CsvHelper.Configuration.Configuration { HasHeaderRecord = true };
+            var configuration = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.CurrentCulture) { HasHeaderRecord = true };
 
             using (var memoryStream = new MemoryStream())
             using (var writer = new StreamWriter(memoryStream, Encoding.UTF8, 1024, true))

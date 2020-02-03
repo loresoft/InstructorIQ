@@ -1,7 +1,7 @@
-﻿@page "/member/invite"
-@model InstructorIQ.WebApplication.Pages.Member.InviteModel
+﻿@page "/member/create"
+@model InstructorIQ.WebApplication.Pages.Member.CreateModel
 @{
-    ViewData["Title"] = "Invite Member";
+    ViewData["Title"] = "Create Member";
 }
 
 <div class="container">
@@ -17,7 +17,7 @@
                    asp-route-tenant="@Model.TenantRoute">Members</a>
             </li>
             <li class="breadcrumb-item active"
-                aria-current="page">Invite Member</li>
+                aria-current="page">Create Member</li>
         </ol>
     </nav>
 
@@ -27,7 +27,7 @@
     <div class="card mb-5">
         <div class="card-header">
             <i class="fas fa-user mr-2"
-               aria-hidden="true"></i> Invite Member
+               aria-hidden="true"></i> Create Member
         </div>
         <div class="card-body">
             <form id="member-form"
@@ -55,13 +55,18 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" asp-for="Input.SendInvite">
+                    <label class="custom-control-label" for="@Html.IdFor(p => p.Input.SendInvite)">Send Invite Email</label>
+                </div>
+
                 <div class="row mt-3">
                     <div class="col">
                         <button id="send-button"
                                 type="submit"
                                 class="btn btn-primary"
-                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Sending...">
-                            Send Invite
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
+                            Save
                         </button>
                         <a id="cancel-button"
                            asp-page="/member/index"

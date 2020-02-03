@@ -97,6 +97,10 @@
                            placeholder="Phone Number" />
                     <span asp-validation-for="Entity.PhoneNumber" class="text-danger"></span>
                 </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" asp-for="IsMemberDisabled">
+                    <label class="custom-control-label" for="@Html.IdFor(p => p.IsMemberDisabled)">Member Disabled</label>
+                </div>
 
                 <fieldset class="border p-2">
                     <legend class="w-auto pr-2 pl-2">Roles</legend>

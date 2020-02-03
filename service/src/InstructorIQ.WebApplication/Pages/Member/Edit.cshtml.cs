@@ -35,9 +35,15 @@ namespace InstructorIQ.WebApplication.Pages.Member
         [BindProperty]
         public TenantMembershipModel Membership { get; set; }
 
+        [BindProperty]
+        public bool IsMemberDisabled { get; set; }
+
+
         public override async Task<IActionResult> OnGetAsync()
         {
             await base.OnGetAsync();
+
+            IsMemberDisabled = Entity.LockoutEnd.HasValue;
 
             Membership = await LoadMembership();
 
@@ -71,6 +77,11 @@ namespace InstructorIQ.WebApplication.Pages.Member
             // compute sort name
             if (updateModel.SortName.IsNullOrWhiteSpace())
                 updateModel.SortName = ToSortName(updateModel);
+
+            if (IsMemberDisabled && updateModel.LockoutEnd == null)
+                updateModel.LockoutEnd = DateTimeOffset.Now.AddYears(100);
+            else if (!IsMemberDisabled && updateModel.LockoutEnd.HasValue)
+                updateModel.LockoutEnd = null;
 
             var updateCommand = new EntityUpdateCommand<Guid, MemberUpdateModel, MemberReadModel>(User, Id, updateModel);
             var updateResult = await Mediator.Send(updateCommand);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -84,7 +85,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             // reset stream
             memoryStream.Position = 0;
 
-            var configuration = new Configuration { HasHeaderRecord = true };
+            var configuration = new CsvConfiguration(CultureInfo.CurrentCulture) { HasHeaderRecord = true };
 
             using (var reader = new StreamReader(memoryStream))
             using (var csv = new CsvReader(reader, configuration))

@@ -9,7 +9,6 @@ using Hangfire;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
-using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Options;
@@ -35,7 +34,7 @@ namespace InstructorIQ.Core.Services
             _cache = cache;
             _smtpOptions = smtpOptions;
         }
-        
+
 
         public async Task<bool> SendResetPasswordEmail(UserResetPasswordEmail resetPassword)
         {
@@ -45,7 +44,7 @@ namespace InstructorIQ.Core.Services
 
             return true;
         }
-        
+
         public async Task<bool> SendPasswordlessLoginEmail(UserPasswordlessEmail loginEmail)
         {
             var emailTemplate = await GetEmailTemplate(Templates.PasswordlessLogin).ConfigureAwait(false);
@@ -77,6 +76,18 @@ namespace InstructorIQ.Core.Services
             return true;
         }
 
+        public async Task<bool> SendUserLinkEmail(UserLinkEmail userLinkModel)
+        {
+            var emailTemplate = await GetEmailTemplate(Templates.UserLink).ConfigureAwait(false);
+
+            // use model reply to address
+            emailTemplate.ReplyToAddress = userLinkModel.ReplyToAddress;
+            emailTemplate.ReplyToName = userLinkModel.ReplyToName;
+
+            await SendTemplate(emailTemplate, userLinkModel).ConfigureAwait(false);
+
+            return true;
+        }
 
         public async Task SendTemplate<TModel>(IEmailTemplate emailTemplate, TModel emailModel)
             where TModel : IEmailRecipient
@@ -91,9 +102,18 @@ namespace InstructorIQ.Core.Services
 
             message.Subject = subject;
 
-            var fromAddress = new MailboxAddress(
-                emailTemplate.FromName.HasValue() ? emailTemplate.FromName : _smtpOptions.Value.FromName, 
-                emailTemplate.FromAddress.HasValue() ? emailTemplate.FromAddress : _smtpOptions.Value.FromAddress);
+            // first try reply to name, next try model from address, default to option address
+            var fromName = emailTemplate.ReplyToName.HasValue() 
+                ? emailTemplate.ReplyToName
+                : emailTemplate.FromName.HasValue()
+                    ? emailTemplate.FromName
+                    : _smtpOptions.Value.FromName;
+
+            var fromEmail = emailTemplate.FromAddress.HasValue() 
+                ? emailTemplate.FromAddress 
+                : _smtpOptions.Value.FromAddress;
+
+            var fromAddress = new MailboxAddress(fromName, fromEmail);
 
             message.From.Add(fromAddress);
 
@@ -114,7 +134,7 @@ namespace InstructorIQ.Core.Services
         public async Task SendMessage(MimeMessage message)
         {
             var emailDelivery = new EmailDelivery();
-            
+
             // for reference only
             emailDelivery.From = message.From.ToDelimitedString(";").Truncate(256);
             emailDelivery.To = message.To.ToDelimitedString(";").Truncate(256);
@@ -133,7 +153,7 @@ namespace InstructorIQ.Core.Services
             await _dataContext.SaveChangesAsync().ConfigureAwait(false);
 
             // trigger email job
-            BackgroundJob.Enqueue<IEmailDeliveryService>(emailService => 
+            BackgroundJob.Enqueue<IEmailDeliveryService>(emailService =>
                 emailService.ProcessEmailQueueAsync(CancellationToken.None));
         }
 
@@ -207,6 +227,7 @@ namespace InstructorIQ.Core.Services
             public const string PasswordlessLogin = "passwordless-login";
             public const string UserInvite = "user-invite";
             public const string SummaryReport = "summary-report";
+            public const string UserLink = "user-link";
         }
     }
 }
