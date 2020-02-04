@@ -46,9 +46,7 @@ htmlBody: |
         </tbody>
     </table>
 
-    <hr height="1" style="height:1px; border:0 none; color: #808080; background-color: #808080; margin-top:1.5em; margin-bottom:1.5em;">
-
-    <p style="font-size: 10px;">
+    <p style="font-size: 10px; line-height: 1.5em;">
         If you’re having trouble with the link above, copy and paste the URL below into your web browser.<br />
         <br />
         {{ LinkUrl }}<br />
