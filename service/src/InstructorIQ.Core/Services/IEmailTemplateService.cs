@@ -10,6 +10,7 @@ namespace InstructorIQ.Core.Services
         Task<bool> SendPasswordlessLoginEmail(UserPasswordlessEmail loginEmail);
         Task<bool> SendUserInviteEmail(UserInviteEmail inviteEmail);
         Task<bool> SendSummaryEmail(SummaryReportEmail summaryEmail);
+        Task<bool> SendUserLinkEmail(UserLinkEmail userLinkModel);
 
         Task SendTemplate<TModel>(IEmailTemplate emailTemplate, TModel emailModel)
             where TModel : IEmailRecipient;

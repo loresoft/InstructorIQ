@@ -19,6 +19,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string LeadInstructorName { get; set; }
 
+        public string LeadInstructorEmail { get; set; }
+
         public int SessionCount { get; set; }
 
 

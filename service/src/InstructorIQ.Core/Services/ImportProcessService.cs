@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -114,7 +115,7 @@ namespace InstructorIQ.Core.Services
             var blobReference = await _storageService.Container
                 .GetBlobReferenceFromServerAsync(importJob.StorageFile, cancellationToken);
 
-            var configuration = new Configuration { HasHeaderRecord = true };
+            var configuration = new CsvConfiguration(CultureInfo.CurrentCulture) { HasHeaderRecord = true };
 
             using (var blobStream = await blobReference.OpenReadAsync(cancellationToken))
             using (var reader = new StreamReader(blobStream))

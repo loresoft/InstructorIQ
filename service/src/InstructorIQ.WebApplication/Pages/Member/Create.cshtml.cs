@@ -16,12 +16,12 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Member
 {
-    public class InviteModel : MediatorModelBase
+    public class CreateModel : MediatorModelBase
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
         private readonly IEmailTemplateService _templateService;
 
-        public InviteModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService)
+        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService)
             : base(tenant, mediator, loggerFactory)
         {
             _userManager = userManager;
@@ -41,6 +41,14 @@ namespace InstructorIQ.WebApplication.Pages.Member
             [EmailAddress]
             [Display(Name = "Email Address")]
             public string Email { get; set; }
+
+            [Display(Name = "Send Invite")]
+            public bool SendInvite { get; set; }
+        }
+
+        public void OnGet()
+        {
+            Input = new InputModel { SendInvite = true };
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -54,9 +62,15 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
             await UpdateMembership(user);
 
-            await SendInvite(user);
-
-            ShowAlert("Successfully sent invite email");
+            if (Input.SendInvite)
+            {
+                await SendInvite(user);
+                ShowAlert("Successfully sent invite email");
+            }
+            else
+            {
+                ShowAlert("Successfully saved user");
+            }
 
             return RedirectToPage("/Member/Index", new { tenant = TenantRoute });
         }
@@ -102,7 +116,6 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
         private async Task SendInvite(Core.Data.Entities.User user)
         {
-
             var token = _userManager.GenerateNewAuthenticatorKey();
             await CreateLinkToken(user, token);
 

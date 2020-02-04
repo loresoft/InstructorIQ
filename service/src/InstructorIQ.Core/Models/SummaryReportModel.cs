@@ -1,12 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace InstructorIQ.Core.Models
 {
-    public class TopicEmail : IEmailRecipient
+    public class SummaryReportModel
     {
         [Required]
-        public string RecipientAddress { get; set; }
-        public string RecipientName { get; set; }
+        public List<string> Recipients { get; set; } = new List<string>();
 
         [Required]
         public string ReplyToAddress { get; set; }
@@ -18,7 +18,5 @@ namespace InstructorIQ.Core.Models
         public string TextBody { get; set; }
 
         public string HtmlBody { get; set; }
-
-        public string Link { get; set; }
     }
 }

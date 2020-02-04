@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using AngleSharp.Dom;
@@ -36,7 +37,7 @@ namespace InstructorIQ.Core.Tests
 
             var users = generator.List<MemberImportModel>(20);
 
-            var configuration = new CsvHelper.Configuration.Configuration();
+            var configuration = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.CurrentCulture);
             configuration.HasHeaderRecord = true;
 
             using (var writer = new StreamWriter($"users-{DateTime.Now.Ticks}.csv"))

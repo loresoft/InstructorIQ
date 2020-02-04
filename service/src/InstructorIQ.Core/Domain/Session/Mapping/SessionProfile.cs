@@ -31,7 +31,8 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.TenantTimeZone, opt => opt.MapFrom(s => s.Tenant.TimeZone))
                 .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Location.Name))
                 .ForMember(d => d.GroupName, opt => opt.MapFrom(s => s.Group.Name))
-                .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName));
+                .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
+                .ForMember(d => d.LeadInstructorEmail, opt => opt.MapFrom(s => s.LeadInstructor.EmailAddress));
 
             CreateMap<Session, SessionCalendarModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
@@ -46,13 +47,15 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.LocationPostalCode, opt => opt.MapFrom(s => s.Location.PostalCode))
                 .ForMember(d => d.GroupName, opt => opt.MapFrom(s => s.Group.Name))
                 .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
+                .ForMember(d => d.LeadInstructorEmail, opt => opt.MapFrom(s => s.LeadInstructor.EmailAddress))
                 .ForMember(d => d.AdditionalInstructors, opt => opt.MapFrom(s => s.SessionInstructors.Select(i => new SessionInstructorModel
                 {
                     SessionId = i.Id,
                     InstructorId = i.InstructorId,
                     DisplayName = i.Instructor.DisplayName,
                     FamilyName = i.Instructor.FamilyName,
-                    GivenName = i.Instructor.GivenName
+                    GivenName = i.Instructor.GivenName,
+                    EmailAddress = i.Instructor.EmailAddress
                 })));
 
             CreateMap<Session, SessionUpdateModel>()

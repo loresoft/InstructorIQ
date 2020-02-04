@@ -1,16 +1,12 @@
 ﻿fromName: InstructorIQ
 fromAddress: noreply@InstructorIQ.com
 
-subject: Login Link for InstructorIQ
+subject: '{{ Subject }}'
 
 textBody: |
-    You recently requested a login link for your InstructorIQ account. Please follow the link below to automatically login to your account.
+    {{ TextBody }}
 
-    {{ Link }}
-
-    Note: Your login link will expire in {{ ExpireHours }} hours and can only be used one time.
-
-    For security, this request was received from a {{ OperatingSystem }} device using {{ Browser }}. If you did not request a login link, please ignore this email.
+    {{ LinkUrl }}
 
 htmlBody: |
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,7 +14,7 @@ htmlBody: |
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login Link for InstructorIQ</title>
+        <title>{{ Subject }}</title>
         <!--[if gte mso 9]><xml>
             <o:OfficeDocumentSettings>
                 <o:AllowPNG />
@@ -27,10 +23,8 @@ htmlBody: |
         </xml><![endif]-->
     </head>
     <body style="font-family: Helvetica,Arial,sans-serif; font-size: 16px;">
-
-    <p style="font-size: 16px; line-height: 1.5em; ">
-        You recently requested a login link for your InstructorIQ account. Please follow the link below to automatically login to your account.
-    </p>
+    
+    {{{ HtmlBody }}}
 
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody>
@@ -40,8 +34,8 @@ htmlBody: |
                         <tbody>
                             <tr>
                                 <td align="center" bgcolor="#2e8a96" style="color:#ffffff;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;">
-                                    <a href="{{ Link }}" target="_blank" style="background:#2e8a96;border:1px solid #2e8a96;color:#ffffff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;padding:12px 18px;text-decoration:none;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;">
-                                        <span style="color:#ffffff">Login to InstructorIQ</span>
+                                    <a href="{{ LinkUrl }}" target="_blank" style="background:#2e8a96;border:1px solid #2e8a96;color:#ffffff;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:bold;padding:12px 18px;text-decoration:none;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;">
+                                        <span style="color:#ffffff">{{ LinkText }}</span>
                                     </a>
                                 </td>
                             </tr>
@@ -52,18 +46,10 @@ htmlBody: |
         </tbody>
     </table>
 
-    <p style="font-size: 16px; line-height: 1.5em;">
-        Note: Your login link will expire in {{ ExpireHours }} hours and can only be used one time.
-    </p>
-
-    <p style="font-size: 16px; line-height: 1.5em;">
-        For security, this request was received from a {{ OperatingSystem }} device using {{ Browser }}. If you did not request a login link, please ignore this email.
-    </p>
-
     <p style="font-size: 10px; line-height: 1.5em;">
         If you’re having trouble with the link above, copy and paste the URL below into your web browser.<br />
         <br />
-        {{ Link }}<br />
+        {{ LinkUrl }}<br />
     </p>
 
     </body>

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using InstructorIQ.Core.Data;
+using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using MediatR.CommandQuery;
 using MediatR.CommandQuery.Commands;
@@ -40,8 +41,21 @@ namespace InstructorIQ.Core.Domain.Handlers
             await UpdateEmail(id, model, user);
             await UpdatePhoneNumber(id, model, user);
             await UpdateModel(id, model, user, isGlobalAdministrator);
+            await UpdateLockoutEnd(id, model, user);
 
-            return await Read(id).ConfigureAwait(false);
+            return await Read(id, cancellationToken).ConfigureAwait(false);
+        }
+
+        private async Task UpdateLockoutEnd(Guid id, MemberUpdateModel model, User user)
+        {
+            var currentLockoutEnabled = await _userManager.GetLockoutEndDateAsync(user);
+
+            if (currentLockoutEnabled == model.LockoutEnd)
+                return;
+            
+            var result = await _userManager.SetLockoutEndDateAsync(user, model.LockoutEnd);
+            if (!result.Succeeded)
+                throw new DomainException(System.Net.HttpStatusCode.InternalServerError, $"Unexpected error occurred setting lockout end date for user with ID '{id}'.");
         }
 
         private async Task UpdateModel(Guid id, MemberUpdateModel model, Data.Entities.User user, bool isGlobalAdministrator)

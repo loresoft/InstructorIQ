@@ -5,6 +5,7 @@
     var detailStyle = "font-size: 12pt; font-weight: 700; margin: 0.67em 0;";
     var cellStyle = "border: 1px solid #000; padding: 2px 4px; min-width: 110px; font-size: 10pt;";
     var requiredStyle = "color: #BA372A;";
+    var paragraphStyle = "line-height: 1.5em;";
 }
 
 <div style="font-family: Calibri, Helvetica, sans-serif; font-size: 11pt;">
@@ -62,13 +63,14 @@
         </tfoot>
     </table>
     
-    <p include-if="@Model.Items.Count == 0">&nbsp;</p>
+    <p style="@paragraphStyle" 
+       include-if="@Model.Items.Count == 0">&nbsp;</p>
 
     <h1 style="@sectionStyle">
         Response
     </h1>
 
-    <p>&nbsp;</p>
+    <p style="@paragraphStyle">&nbsp;</p>
 
     <h1 style="@sectionStyle">
         Topic Details
@@ -85,13 +87,14 @@
 
     }
 
-    <p include-if="@Model.Items.Count == 0">&nbsp;</p>
+    <p style="@paragraphStyle" 
+       include-if="@Model.Items.Count == 0">&nbsp;</p>
 
     <h1 style="@sectionStyle">
         Notes
     </h1>
 
-    <p>&nbsp;</p>
+    <p style="@paragraphStyle">&nbsp;</p>
 
     <h1 style="@sectionStyle">
         Links

@@ -121,6 +121,8 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string LeadInstructorName { get; set; }
 
+        public string LeadInstructorEmail { get; set; }
+
         public string TopicTitle { get; set; }
 
         public string TopicDescription { get; set; }
