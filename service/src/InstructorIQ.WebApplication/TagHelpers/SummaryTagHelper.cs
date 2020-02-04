@@ -36,7 +36,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
                 return;
             }
 
-            var text = _htmlService.PlanText(content);
+            var text = _htmlService.PlainText(content);
 
             text = text.RemoveExtended();
 

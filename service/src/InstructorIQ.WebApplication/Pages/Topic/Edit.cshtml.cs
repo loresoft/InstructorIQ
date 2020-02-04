@@ -71,7 +71,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
             // update summary
             if (updateModel.Description.HasValue())
-                updateModel.Summary = _htmlService.PlanText(updateModel.Description).RemoveExtended().Truncate(256);
+                updateModel.Summary = _htmlService.PlainText(updateModel.Description).RemoveExtended().Truncate(256);
 
             var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(User, Id, updateModel);
             var result = await Mediator.Send(updateCommand);

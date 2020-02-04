@@ -39,7 +39,7 @@ namespace InstructorIQ.Core.Jobs
                     continue;
 
                 var summary = _htmlService
-                    .PlanText(topic.Description)
+                    .PlainText(topic.Description)
                     .RemoveExtended()
                     .Truncate(256);
 

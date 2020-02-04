@@ -46,7 +46,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
             // update summary
             if (createModel.Description.HasValue())
-                createModel.Summary = _htmlService.PlanText(createModel.Description).RemoveExtended().Truncate(256);
+                createModel.Summary = _htmlService.PlainText(createModel.Description).RemoveExtended().Truncate(256);
 
             var command = new EntityCreateCommand<TopicCreateModel, TopicReadModel>(User, createModel);
             var result = await Mediator.Send(command);

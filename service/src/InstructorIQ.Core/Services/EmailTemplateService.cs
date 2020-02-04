@@ -27,12 +27,14 @@ namespace InstructorIQ.Core.Services
         private readonly InstructorIQContext _dataContext;
         private readonly IMemoryCache _cache;
         private readonly IOptions<SmtpConfiguration> _smtpOptions;
+        private readonly IHtmlService _htmlService;
 
-        public EmailTemplateService(InstructorIQContext dataContext, IMemoryCache cache, IOptions<SmtpConfiguration> smtpOptions)
+        public EmailTemplateService(InstructorIQContext dataContext, IMemoryCache cache, IOptions<SmtpConfiguration> smtpOptions, IHtmlService htmlService)
         {
             _dataContext = dataContext;
             _cache = cache;
             _smtpOptions = smtpOptions;
+            _htmlService = htmlService;
         }
 
 
@@ -95,6 +97,10 @@ namespace InstructorIQ.Core.Services
             var subject = ApplyTemplate(emailTemplate.Subject, emailModel);
             var htmlBody = ApplyTemplate(emailTemplate.HtmlBody, emailModel);
             var textBody = ApplyTemplate(emailTemplate.TextBody, emailModel);
+            
+            // ensure text body has value
+            if (textBody.IsNullOrWhiteSpace() && htmlBody.HasValue())
+                textBody = _htmlService.PlainText(htmlBody);
 
             var message = new MimeMessage();
             message.Headers.Add("X-Mailer-Machine", Environment.MachineName);

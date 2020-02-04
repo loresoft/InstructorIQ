@@ -2,6 +2,6 @@
 {
     public interface IHtmlService
     {
-        string PlanText(string htmlText);
+        string PlainText(string htmlText);
     }
 }

@@ -6,7 +6,7 @@ namespace InstructorIQ.Core.Services
 {
     public class HtmlService : IHtmlService
     {
-        public string PlanText(string htmlText)
+        public string PlainText(string htmlText)
         {
             if (htmlText.IsNullOrWhiteSpace())
                 return string.Empty;
