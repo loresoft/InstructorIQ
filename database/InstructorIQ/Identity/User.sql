@@ -32,8 +32,8 @@
     [LockoutEnabled] BIT NOT NULL CONSTRAINT [DF_User_LockoutEnabled] DEFAULT (0),
     [LockoutEnd] DATETIMEOFFSET(7) NULL,
 
-    [SecurityStamp] NVARCHAR(MAX) NULL,
-    [ConcurrencyStamp] NVARCHAR(MAX) NULL,
+    [SecurityStamp] NVARCHAR(MAX) NOT NULL CONSTRAINT [DF_User_SecurityStamp] DEFAULT (CONVERT(NVARCHAR(MAX), CRYPT_GEN_RANDOM(20), 2)),
+    [ConcurrencyStamp] NVARCHAR(MAX) NOT NULL CONSTRAINT [DF_User_ConcurrencyStampd] DEFAULT (NEWID()),
 
     CONSTRAINT [PK_User] PRIMARY KEY NONCLUSTERED ([Id] ASC)
 )
