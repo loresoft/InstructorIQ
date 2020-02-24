@@ -4,7 +4,7 @@ fromAddress: noreply@InstructorIQ.com
 subject: 'You have been invited to {{ TenantName }} on InstructorIQ'
 
 textBody: |
-    You have been invited to {{ TenantName }} on InstructorIQ. Please use the link below to automatically join.
+    {{ SenderName }} invited you to join {{ TenantName }} on InstructorIQ. Please use the link below to automatically join.
 
     {{ Link }}
 
@@ -25,7 +25,7 @@ htmlBody: |
     <body style="font-family: Helvetica,Arial,sans-serif; font-size: 16px;">
 
     <p style="font-size: 16px; line-height: 1.5em; ">
-        You have been invited to {{ TenantName }} on InstructorIQ. Please use the link below to automatically join.
+        {{ SenderName }} invited you to join {{ TenantName }} on InstructorIQ. Please use the link below to automatically join.
     </p>
 
     <table width="100%" border="0" cellspacing="0" cellpadding="0">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Security.Principal;
+using EntityChange.Extensions;
 using InstructorIQ.Core.Data.Constants;
 using InstructorIQ.Core.Domain;
 using MediatR.CommandQuery;
@@ -49,7 +50,13 @@ namespace InstructorIQ.Core.Security
         public string GetEmail(IPrincipal principal)
         {
             var claimPrincipal = principal as ClaimsPrincipal;
-            return claimPrincipal?.FindFirstValue(UserClaims.Email);
+            var email = claimPrincipal?.FindFirstValue(UserClaims.Email);
+
+            if (email.HasValue()) 
+                return email;
+
+            email = claimPrincipal?.FindFirstValue(Options.ClaimsIdentity.UserNameClaimType);
+            return email;
         }
 
 

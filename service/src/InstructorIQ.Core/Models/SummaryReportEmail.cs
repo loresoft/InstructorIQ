@@ -2,7 +2,7 @@
 
 namespace InstructorIQ.Core.Models
 {
-    public class SummaryReportEmail : IEmailRecipient
+    public class SummaryReportEmail : IEmailRecipient, IEmailReplyTo
     {
         [Required]
         public string RecipientAddress { get; set; }

@@ -7,7 +7,6 @@ using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
-using InstructorIQ.Core.Services;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -19,13 +18,11 @@ namespace InstructorIQ.WebApplication.Pages.Member
     public class CreateModel : MediatorModelBase
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
-        private readonly IEmailTemplateService _templateService;
 
-        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager, IEmailTemplateService templateService)
+        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager)
             : base(tenant, mediator, loggerFactory)
         {
             _userManager = userManager;
-            _templateService = templateService;
         }
 
         [BindProperty]
@@ -116,42 +113,15 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
         private async Task SendInvite(Core.Data.Entities.User user)
         {
-            var token = _userManager.GenerateNewAuthenticatorKey();
-            await CreateLinkToken(user, token);
-
-            var loginLink = Url.Page(
-                "/Account/Link",
-                pageHandler: null,
-                values: new { token },
-                protocol: Request.Scheme);
-
-            var model = new UserInviteEmail
+            var model = new UserInviteModel
             {
-                RecipientName = user.DisplayName,
-                RecipientAddress = user.Email,
-                Link = loginLink,
-                TenantName = Tenant.Value.Name
+                User = user,
+                ReturnUrl = Url.Content("~/"),
             };
             Request.ReadUserAgent(model);
 
-            await _templateService.SendUserInviteEmail(model);
+            var command = new SendUserInviteEmailCommand(User, model);
+            await Mediator.Send(command);
         }
-
-        private async Task CreateLinkToken(Core.Data.Entities.User user, string token)
-        {
-            var returnUrl = Url.Content("~/");
-
-            var createModel = new LinkTokenCreateModel
-            {
-                Expires = DateTimeOffset.UtcNow.Add(TimeSpan.FromDays(30)),
-                Url = returnUrl,
-                UserName = user.UserName,
-                TenantId = Tenant.Value.Id
-            };
-
-            var createCommand = new LinkTokenCreateCommand(User, createModel, token);
-            var linkToken = await Mediator.Send(createCommand);
-        }
-
     }
 }
