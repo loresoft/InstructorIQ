@@ -87,7 +87,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Messaging
                 .OrderBy(m => m.SortName)
                 .Select(m => new MemberDropdownModel
                 {
-                    Text = m.SortName.HasValue() ? m.SortName : m.Email,
+                    Text = FormatName(m),
                     Value = m.Email
                 })
                 .ToList();
@@ -110,5 +110,14 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Messaging
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
         }
+
+        private string FormatName(MemberReadModel member)
+        {
+            var name = member.SortName ?? member.DisplayName;
+            var email = member.Email;
+
+            return $"{name} <{email}>";
+        }
+
     }
 }

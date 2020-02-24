@@ -1,6 +1,6 @@
 ﻿namespace InstructorIQ.Core.Models
 {
-    public class UserLinkEmail: IEmailRecipient
+    public class UserLinkEmail: IEmailRecipient, IEmailReplyTo
     {
         public string RecipientName { get; set; }
 

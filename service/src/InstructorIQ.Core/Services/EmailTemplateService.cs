@@ -60,6 +60,10 @@ namespace InstructorIQ.Core.Services
         {
             var emailTemplate = await GetEmailTemplate(Templates.UserInvite).ConfigureAwait(false);
 
+            // use model reply to address
+            emailTemplate.ReplyToAddress = inviteEmail.ReplyToAddress;
+            emailTemplate.ReplyToName = inviteEmail.ReplyToName;
+
             await SendTemplate(emailTemplate, inviteEmail).ConfigureAwait(false);
 
             return true;
