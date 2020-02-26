@@ -21,6 +21,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         }
 
         public IReadOnlyCollection<MemberReadModel> Members { get; set; }
+        
         public IReadOnlyCollection<AttendanceSessionModel> Attendances { get; set; }
 
         public override async Task<IActionResult> OnGetAsync()
@@ -66,7 +67,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         {
             return Attendances
                 .FirstOrDefault(a => string.Equals(
-                    a.AttendedBy, 
+                    a.AttendeeEmail, 
                     username, 
                     StringComparison.OrdinalIgnoreCase
                 ));

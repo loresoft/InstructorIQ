@@ -36,7 +36,8 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
 
             Attendance = new AttendanceCreateModel
             {
-                AttendedBy = Entity.UserName,
+                AttendeeEmail = Entity.UserName,
+                AttendeeName = Entity.SortName,
                 SessionId = Session.Id,
                 TenantId = Tenant.Value.Id,
             };
@@ -59,7 +60,8 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
                 p => p.TenantId,
                 p => p.Signature,
                 p => p.SignatureType,
-                p => p.AttendedBy
+                p => p.AttendeeEmail,
+                p => p.AttendeeName
             );
             createModel.Attended = DateTimeOffset.UtcNow;
 

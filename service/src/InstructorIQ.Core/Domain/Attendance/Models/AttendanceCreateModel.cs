@@ -28,12 +28,20 @@ namespace InstructorIQ.Core.Domain.Models
         public DateTimeOffset Attended { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value for 'AttendedBy'.
+        /// Gets or sets the property value for 'AttendeeEmail'.
         /// </summary>
         /// <value>
-        /// The property value for 'AttendedBy'.
+        /// The property value for 'AttendeeEmail'.
         /// </value>
-        public string AttendedBy { get; set; }
+        public string AttendeeEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'AttendeeName'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'AttendeeName'.
+        /// </value>
+        public string AttendeeName { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'Signature'.

@@ -81,3 +81,19 @@ BEGIN
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('f36bfb5e-4d73-471a-973d-2bc71f2de7b1')
 END
+
+
+
+IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = 'b3285c86-46ab-4284-a3ef-74645fdc77db')
+BEGIN
+    PRINT 'Performing Datasweep: Fix attendance names'
+
+    UPDATE [IQ].[Attendance] SET
+        [AttendeeName] = u.[SortName]
+    FROM [IQ].[Attendance] as a
+    LEFT OUTER JOIN [Identity].[User] as u on u.[UserName] = a.[AttendeeEmail]
+    WHERE a.[AttendeeName] IS NULL
+    
+    INSERT [dbo].[Datasweep] ([Id])
+    VALUES ('b3285c86-46ab-4284-a3ef-74645fdc77db')
+END

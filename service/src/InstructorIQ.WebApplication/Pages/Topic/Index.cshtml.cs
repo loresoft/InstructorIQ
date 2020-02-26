@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.Core.Services;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +16,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 {
     public class IndexModel : EntityPagedModelBase<TopicListModel>
     {
-        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        private readonly IStateService _stateService;
+
+        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, IStateService stateService)
             : base(tenant, mediator, loggerFactory)
         {
+            _stateService = stateService;
             Sort = nameof(TopicReadModel.TargetMonth);
             Selected = new List<Guid>();
         }
@@ -153,32 +158,27 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
         private void WriteHistory()
         {
-            Response.Cookies.Append("_topic_year", Year?.ToString() ?? string.Empty);
-            Response.Cookies.Append("_topic_month", Month?.ToString() ?? string.Empty);
-            Response.Cookies.Append("_topic_query", Query ?? string.Empty);
+            var state = new SessionQueryState
+            {
+                Year = Year,
+                Month = Month,
+                Query = Query
+            };
+
+            _stateService.WriteState(state, "topic");
         }
 
         private void ReadHistory()
         {
+            var state = _stateService.ReadState<SessionQueryState>("topic");
             if (Year == null || Year == 0)
-                Year = ReadCookieInt32("_topic_year") ?? DateTime.Now.Year;
+                Year = state.Year ?? DateTime.Now.Year;
 
             if (Month == null)
-                Month = ReadCookieInt32("_topic_month");
+                Month = state.Month;
 
             if (!Request.Query.ContainsKey("q") && Request.Cookies.TryGetValue("_topic_query", out var queryCookie))
-                Query = queryCookie?.Trim();
-        }
-
-        private int? ReadCookieInt32(string name)
-        {
-            if (!Request.Cookies.TryGetValue(name, out var cookie))
-                return null;
-
-            if (!int.TryParse(cookie, out var value))
-                return null;
-
-            return value;
+                Query = state.Query?.Trim();
         }
     }
 }

@@ -4,29 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
-using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Services;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
-using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Attendance
 {
-    public class TopicModel : MediatorModelBase
+    public class UserModel : MediatorModelBase
     {
         private readonly IStateService _stateService;
 
-        public TopicModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, IStateService stateService)
+        public UserModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, IStateService stateService)
             : base(tenant, mediator, loggerFactory)
         {
             _stateService = stateService;
         }
-
 
         [BindProperty(Name = "q", SupportsGet = true)]
         public string Query { get; set; }
@@ -37,54 +33,48 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         [BindProperty(Name = "month", SupportsGet = true)]
         public int? Month { get; set; }
 
-        [BindProperty(Name = "topicId", SupportsGet = true)]
-        public Guid? TopicId { get; set; }
+        [BindProperty(Name = "username", SupportsGet = true)]
+        public string UserName { get; set; }
 
-
-        public IReadOnlyCollection<TopicDropdownModel> Topics { get; set; }
+        public IReadOnlyCollection<MemberDropdownModel> Members { get; set; }
 
         public IReadOnlyCollection<AttendanceSessionModel> Items { get; set; }
-
 
         public async Task<IActionResult> OnGetAsync()
         {
             ReadHistory();
 
             var loadTask = LoadItems();
-            var loadTopicsTask = LoadTopics();
+            var loadMembersTask = LoadMembers();
 
             // load all in parallel
             await Task.WhenAll(
                 loadTask,
-                loadTopicsTask
+                loadMembersTask
             );
 
             Items = loadTask.Result;
-            Topics = loadTopicsTask.Result;
+            Members = loadMembersTask.Result;
 
             WriteHistory();
 
             return Page();
         }
 
-
-        private async Task<IReadOnlyCollection<TopicDropdownModel>> LoadTopics()
+        private async Task<IReadOnlyCollection<MemberDropdownModel>> LoadMembers()
         {
-            var dropdownQuery = new EntitySelectQuery<TopicDropdownModel>(User);
+            var command = new MemberSelectQuery(User, Tenant.Value.Id);
+            command.RoleName = Core.Data.Constants.Role.AttendeeName;
 
-            if (Year.HasValue)
-            {
-                var filter = new EntityFilter();
-                filter.Name = nameof(Core.Data.Entities.Topic.CalendarYear);
-                filter.Value = Year.Value;
+            var members = await Mediator.Send(command);
 
-                dropdownQuery.Filter = filter;
-            }
-
-            var topics = await Mediator.Send(dropdownQuery);
-
-            return topics
-                .OrderBy(p => p.Text)
+            return members
+                .OrderBy(m => m.SortName)
+                .Select(m => new MemberDropdownModel
+                {
+                    Value = m.UserName,
+                    Text = m.SortName
+                })
                 .ToList();
         }
 
@@ -92,7 +82,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         {
             var command = new AttendanceSessionQuery(User, Tenant.Value.Id);
             command.SearchText = Query;
-            command.TopicId = TopicId;
+            command.UserName = UserName;
 
             if (Year.HasValue && Month.HasValue && Month.Value > 0)
             {
@@ -100,7 +90,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
                 command.StartDate = startDate;
                 command.EndDate = startDate.AddMonths(1);
             }
-            else if(Year.HasValue)
+            else if (Year.HasValue)
             {
                 var startDate = new DateTime(Year.Value, 1, 1);
                 command.StartDate = startDate;
@@ -119,15 +109,15 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
                 Year = Year,
                 Month = Month,
                 Query = Query,
-                TopicId = TopicId
+                UserName = UserName
             };
 
-            _stateService.WriteState(state, "attend_topic");
+            _stateService.WriteState(state, "attend_user");
         }
 
         private void ReadHistory()
         {
-            var state = _stateService.ReadState<SessionQueryState>("attend_topic");
+            var state = _stateService.ReadState<SessionQueryState>("attend_user");
             if (Year == null || Year == 0)
                 Year = state?.Year ?? DateTime.Now.Year;
 
@@ -137,9 +127,8 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
             if (!Request.Query.ContainsKey("q"))
                 Query = state?.Query?.Trim();
 
-            if (!Request.Query.ContainsKey("topicId"))
-                TopicId = state?.TopicId;
+            if (!Request.Query.ContainsKey("username"))
+                UserName = state?.UserName?.Trim();
         }
-
     }
 }

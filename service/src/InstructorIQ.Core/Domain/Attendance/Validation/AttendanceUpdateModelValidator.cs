@@ -17,8 +17,9 @@ namespace InstructorIQ.Core.Domain.Validation
         public AttendanceUpdateModelValidator()
         {
             #region Generated Constructor
-            RuleFor(p => p.AttendedBy).NotEmpty();
-            RuleFor(p => p.AttendedBy).MaximumLength(256);
+            RuleFor(p => p.AttendeeEmail).NotEmpty();
+            RuleFor(p => p.AttendeeEmail).MaximumLength(256);
+            RuleFor(p => p.AttendeeName).MaximumLength(256);
             RuleFor(p => p.SignatureType).MaximumLength(256);
             #endregion
         }

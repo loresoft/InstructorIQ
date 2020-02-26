@@ -1,8 +1,8 @@
-﻿@page "/attendance/topic"
+﻿@page "/attendance/user"
 @using InstructorIQ.Core.Services
-@model TopicModel
+@model UserModel
 @{
-    ViewData["Title"] = "Attendance by Topic";
+    ViewData["Title"] = "Attendance by User";
 }
 
 <div class="container">
@@ -18,7 +18,7 @@
                    asp-route-tenant="@Model.TenantRoute">Attendance</a>
             </li>
             <li class="breadcrumb-item active"
-                aria-current="page">By Topic</li>
+                aria-current="page">By User</li>
         </ol>
     </nav>
 
@@ -38,11 +38,11 @@
                            aria-hidden="true"></i> Attendance
                     </div>
                     <div class="col-md-2">
-                        <select asp-for="TopicId"
-                                asp-items="Model.Topics"
+                        <select asp-for="UserName"
+                                asp-items="Model.Members"
                                 class="custom-select custom-select-sm"
                                 onchange="this.form.submit()">
-                            <option value=""> - All Topics -</option>
+                            <option value=""> - All Users -</option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -85,32 +85,25 @@
                     <colgroup>
                         <col style="" />
                         <col style="" />
-                        <col style="width: 120px" />
-                        <col style="width: 140px" />
                         <col style="width: 50px" />
                     </colgroup>
                     <tbody>
-                        @foreach (var grouping in Model.Items.GroupBy(g => g.SessionId))
+                        @foreach (var grouping in Model.Items.GroupBy(g => g.AttendeeEmail))
                         {
                             var sortedGroups = grouping
-                                .OrderBy(i => i.AttendeeName)
-                                .ThenBy(i => i.AttendeeEmail)
+                                .OrderBy(i => i.StartDate)
+                                .ThenBy(i => i.StartTime)
+                                .ThenBy(i => i.GroupName)
                                 .ToList();
 
                             var first = sortedGroups.First();
 
                             <tr class="table-primary font-weight-bold">
-                                <td title="Topic Title">
-                                    @first.TopicTitle - @first.GroupName
+                                <td title="Attendee Name">
+                                    @first.AttendeeName
                                 </td>
-                                <td title="Session Location">
-                                    @first.LocationName
-                                </td>
-                                <td title="Session Date">
-                                    @first.StartDate?.ToShortDateString()
-                                </td>
-                                <td title="Session Time">
-                                    @first.StartTime?.ToString(@"hh\:mm")@(first.EndTime.HasValue ? " - " : " ")@first.EndTime?.ToString(@"hh\:mm")
+                                <td title="Attendee Email">
+                                    @first.AttendeeEmail
                                 </td>
                                 <td title="Attendance Count">
                                     @sortedGroups.Count
@@ -122,13 +115,17 @@
                                         <colgroup>
                                             <col style="" />
                                             <col style="" />
+                                            <col style="width: 120px" />
+                                            <col style="width: 140px" />
                                             <col style="width: 180px" />
                                             <col style="width: 120px" />
                                         </colgroup>
                                         <thead>
                                             <tr class="table-secondary">
-                                                <th>Name</th>
-                                                <th>Email</th>
+                                                <th>Title</th>
+                                                <th>Location</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
                                                 <th>Signed</th>
                                                 <th>Signature</th>
                                             </tr>
@@ -138,10 +135,16 @@
                                             {
                                                 <tr>
                                                     <td>
-                                                        @a.AttendeeName
+                                                        @a.TopicTitle - @a.GroupName
                                                     </td>
                                                     <td>
-                                                        @a.AttendeeEmail
+                                                        @a.LocationName
+                                                    </td>
+                                                    <td>
+                                                        @a.StartDate?.ToShortDateString()
+                                                    </td>
+                                                    <td>
+                                                        @a.StartTime?.ToString(@"hh\:mm")@(a.EndTime.HasValue ? " - " : " ")@a.EndTime?.ToString(@"hh\:mm")
                                                     </td>
                                                     <td>
                                                         @a.Attended.ToLocalTime().ToString("MM/dd/yyyy HH:mm")
@@ -151,7 +154,7 @@
                                                            asp-route-tenant="@Model.TenantRoute"
                                                            asp-route-sessionId="@a.SessionId"
                                                            asp-route-id="@a.Id"
-                                                           asp-route-route="topic"
+                                                           asp-route-route="user"
                                                            title="View Signature">view</a>
                                                     </td>
                                                 </tr>

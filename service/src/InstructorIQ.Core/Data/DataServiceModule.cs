@@ -22,7 +22,7 @@ namespace InstructorIQ.Core.Data
             var connectionString = configuration.GetConnectionString("InstructorIQ");
 
             services.AddDbContext<InstructorIQContext>(
-                options => options.UseSqlServer(connectionString),
+                options => options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure()),
                 ServiceLifetime.Transient
             );
 

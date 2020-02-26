@@ -41,9 +41,14 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("datetimeoffset")
                 .HasDefaultValueSql("(sysutcdatetime())");
 
-            builder.Property(t => t.AttendedBy)
+            builder.Property(t => t.AttendeeEmail)
                 .IsRequired()
-                .HasColumnName("AttendedBy")
+                .HasColumnName("AttendeeEmail")
+                .HasColumnType("nvarchar(256)")
+                .HasMaxLength(256);
+
+            builder.Property(t => t.AttendeeName)
+                .HasColumnName("AttendeeName")
                 .HasColumnType("nvarchar(256)")
                 .HasMaxLength(256);
 
@@ -117,8 +122,10 @@ namespace InstructorIQ.Core.Data.Mapping
         public const string ColumnSessionId = "SessionId";
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Attended" /></summary>
         public const string ColumnAttended = "Attended";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendedBy" /></summary>
-        public const string ColumnAttendedBy = "AttendedBy";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendeeEmail" /></summary>
+        public const string ColumnAttendeeEmail = "AttendeeEmail";
+        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendeeName" /></summary>
+        public const string ColumnAttendeeName = "AttendeeName";
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Signature" /></summary>
         public const string ColumnSignature = "Signature";
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.SignatureType" /></summary>

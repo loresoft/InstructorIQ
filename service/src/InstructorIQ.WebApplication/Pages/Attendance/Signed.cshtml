@@ -1,4 +1,5 @@
 ﻿@page  "/attendance/session/{sessionId:Guid}/signed/{id:Guid}"
+@using InstructorIQ.Core.Security
 @model SignedModel
 @{
     ViewData["Title"] = "Attendance Signed";
@@ -45,15 +46,34 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col">
-                        <a asp-page="/attendance/session"
-                           asp-route-tenant="@Model.TenantRoute"
-                           asp-route-id="@Model.SessionId"
-                           title="Session Attendance"
-                           class="btn btn-secondary">Back</a>
+                        @if (Model.Route == "topic")
+                        {
+                            <a asp-page="/attendance/topic"
+                               asp-route-tenant="@Model.TenantRoute"
+                               title="Attendance by Topic"
+                               class="btn btn-secondary">Back</a>
+
+                        }
+                        else if (Model.Route == "user")
+                        {
+                            <a asp-page="/attendance/user"
+                               asp-route-tenant="@Model.TenantRoute"
+                               title="Attendance by User"
+                               class="btn btn-secondary">Back</a>
+                        }
+                        else
+                        {
+                            <a asp-page="/attendance/session"
+                               asp-route-tenant="@Model.TenantRoute"
+                               asp-route-id="@Model.SessionId"
+                               title="Session Attendance"
+                               class="btn btn-secondary">Back</a>
+                        }
                     </div>
                     <div class="col">
                         <confirm-button id="delete-button"
                                         class="btn btn-danger fa-pull-right"
+                                        authorize-policy="@UserPolicies.AdministratorPolicy"
                                         asp-page-handler="DeleteEntity"
                                         modal-button="Delete"
                                         modal-color="danger"
