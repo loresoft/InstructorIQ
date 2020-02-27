@@ -12,7 +12,9 @@
           role="form"
           method="post">
 
-        <input asp-for="Attendance.AttendedBy"
+        <input asp-for="Attendance.AttendeeEmail"
+               type="hidden" />
+        <input asp-for="Attendance.AttendeeName"
                type="hidden" />
         <input asp-for="Attendance.SessionId"
                type="hidden" />

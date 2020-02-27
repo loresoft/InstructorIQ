@@ -81,12 +81,17 @@
                            asp-page="/attendance/index"
                            asp-route-tenant="@Tenant.Value?.Slug">Attendance</a>
                         <div class="dropdown-divider"
-                             authorize-policy="@UserPolicies.AdministratorPolicy"></div>
-                        <a id="navbar-create-attendance-link"
+                             authorize-policy="@UserPolicies.UserPolicy"></div>
+                        <a id="navbar-topic-attendance-link"
                            class="dropdown-item"
-                           authorize-policy="@UserPolicies.AdministratorPolicy"
-                           asp-page="/attendance/report"
-                           asp-route-tenant="@Tenant.Value?.Slug">Attendance Report</a>
+                           authorize-policy="@UserPolicies.UserPolicy"
+                           asp-page="/attendance/topic"
+                           asp-route-tenant="@Tenant.Value?.Slug">Attendance By Topic</a>
+                        <a id="navbar-user-attendance-link"
+                           class="dropdown-item"
+                           authorize-policy="@UserPolicies.UserPolicy"
+                           asp-page="/attendance/user"
+                           asp-route-tenant="@Tenant.Value?.Slug">Attendance By User</a>
                     </div>
                 </li>
                 <!-- Topic Menu -->

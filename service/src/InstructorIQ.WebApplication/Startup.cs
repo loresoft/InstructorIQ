@@ -121,6 +121,16 @@ namespace InstructorIQ.WebApplication
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(
+                    UserPolicies.UserPolicy,
+                    policy => policy.RequireRole(
+                        Core.Data.Constants.Role.GlobalAdministrator,
+                        Core.Data.Constants.Role.AdministratorName,
+                        Core.Data.Constants.Role.InstructorName,
+                        Core.Data.Constants.Role.AttendeeName,
+                        Core.Data.Constants.Role.MemberName
+                    )
+                );
+                options.AddPolicy(
                     UserPolicies.InstructorPolicy,
                     policy => policy.RequireRole(
                         Core.Data.Constants.Role.GlobalAdministrator,

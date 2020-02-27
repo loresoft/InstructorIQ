@@ -43,12 +43,20 @@ namespace InstructorIQ.Core.Data.Entities
         public DateTimeOffset Attended { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'AttendedBy'.
+        /// Gets or sets the property value representing column 'AttendeeEmail'.
         /// </summary>
         /// <value>
-        /// The property value representing column 'AttendedBy'.
+        /// The property value representing column 'AttendeeEmail'.
         /// </value>
-        public string AttendedBy { get; set; }
+        public string AttendeeEmail { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'AttendeeName'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'AttendeeName'.
+        /// </value>
+        public string AttendeeName { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'Signature'.

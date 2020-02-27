@@ -5,8 +5,9 @@
     [SessionId] UNIQUEIDENTIFIER NOT NULL,
     
     [Attended] DATETIMEOFFSET NOT NULL CONSTRAINT [DF_Attendance_Attended] DEFAULT (SYSUTCDATETIME()),
-    [AttendedBy] NVARCHAR(256) NOT NULL,
-    
+    [AttendeeEmail] NVARCHAR(256) NOT NULL,
+    [AttendeeName] NVARCHAR(256) NULL,
+
     [Signature] NVARCHAR(MAX) NULL,
     [SignatureType] NVARCHAR(256) NULL,
     
@@ -33,4 +34,4 @@ CREATE INDEX [IX_Attendance_SessionId]
 
 GO
 CREATE INDEX [IX_Attendance_AttendedBy]
-    ON [IQ].[Attendance] ([AttendedBy])
+    ON [IQ].[Attendance] ([AttendeeEmail])
