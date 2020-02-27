@@ -7,16 +7,19 @@ using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Multitenancy;
+using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using MediatR.CommandQuery.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Attendance
 {
+    [Authorize(Policy = UserPolicies.UserPolicy)]
     public class TopicModel : MediatorModelBase
     {
         private readonly IStateService _stateService;

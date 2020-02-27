@@ -172,13 +172,13 @@ namespace InstructorIQ.WebApplication.Pages.Topic
         {
             var state = _stateService.ReadState<SessionQueryState>("topic");
             if (Year == null || Year == 0)
-                Year = state.Year ?? DateTime.Now.Year;
+                Year = state?.Year ?? DateTime.Now.Year;
 
             if (Month == null)
-                Month = state.Month;
+                Month = state?.Month;
 
             if (!Request.Query.ContainsKey("q") && Request.Cookies.TryGetValue("_topic_query", out var queryCookie))
-                Query = state.Query?.Trim();
+                Query = state?.Query?.Trim();
         }
     }
 }
