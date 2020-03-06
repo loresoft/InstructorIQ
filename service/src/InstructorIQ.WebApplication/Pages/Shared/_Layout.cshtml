@@ -43,52 +43,6 @@
 
     @RenderSection("Scripts", required: false)
 
-    <script type="text/javascript">
-        var refreshTimer;
-        var loadCount = 0;
-        var unreadUrl = '/api/notification/unread/';
-
-        function loadNotification() {
-            loadCount++;
-
-            // only run refresh 50x
-            if (loadCount > 50)
-                clearInterval(refreshTimer);
-
-            $.getJSON(unreadUrl)
-                .done(function (json) {
-                    var count = json.count;
-
-                    if (count > 0) {
-                        $('#navbar-notification-icon')
-                            .removeClass('far')
-                            .addClass('fas');
-
-                        $('#navbar-notification-count')
-                            .html(count)
-                            .show();
-                    } else {
-                        $('#navbar-notification-icon')
-                            .removeClass('fas')
-                            .addClass('far');
-
-                        $('#navbar-notification-count')
-                            .html(count)
-                            .hide();
-                    }
-                });
-        }
-
-        $(function () {
-            if ($('#navbar-notification-count').length) {
-                refreshTimer = setInterval(function () {
-                    loadNotification();
-                }, 15000);
-
-                loadNotification();
-            }
-        });
-    </script>
     @Html.Raw(JavaScriptSnippet.FullScript)
 </body>
 </html>
