@@ -58,7 +58,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 eventModel.Required = session.IsRequired;
 
                 eventModel.Title = $"{session.TopicTitle} - {session.GroupName}";
-                eventModel.Description = session.TopicDescription;
+                eventModel.Description = session.TopicSummary;
                 eventModel.Location = session.LocationName;
 
                 if (session.IsRequired)
