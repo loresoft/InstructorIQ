@@ -125,7 +125,7 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string TopicTitle { get; set; }
 
-        public string TopicDescription { get; set; }
+        public string TopicSummary { get; set; }
 
         public bool IsRequired { get; set; }
     }
