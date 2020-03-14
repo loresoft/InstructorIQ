@@ -60,10 +60,10 @@ namespace InstructorIQ.WebApplication.Controllers
                 calendarEvent.Categories.Add("Training");
 
                 if (e.Start.HasValue)
-                    calendarEvent.Start = new CalDateTime(e.Start.Value.UtcDateTime);
+                    calendarEvent.Start = new CalDateTime(e.Start.Value.UtcDateTime) { HasTime = true };
 
                 if (e.End.HasValue)
-                    calendarEvent.End = new CalDateTime(e.End.Value.UtcDateTime);
+                    calendarEvent.End = new CalDateTime(e.End.Value.UtcDateTime) { HasTime = true };
 
                 calendarEvent.LastModified = new CalDateTime(e.Modified.UtcDateTime);
 
