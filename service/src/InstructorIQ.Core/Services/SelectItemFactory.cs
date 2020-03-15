@@ -62,7 +62,7 @@ namespace InstructorIQ.Core.Services
         {
             var values = new List<SelectListItem>
             {
-                new SelectListItem("Lesson Plan", TemplateType.LessonPlan),
+                new SelectListItem("Editor", TemplateType.Editor),
             };
 
             return values;
