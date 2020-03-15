@@ -6,6 +6,7 @@ using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Models;
+using InstructorIQ.Core.Security;
 using InstructorIQ.Core.Services;
 using MediatR;
 using MediatR.CommandQuery.Models;
@@ -19,13 +20,15 @@ namespace InstructorIQ.Core.Domain.Handlers
     public class SendUserLinkEmailCommandHandler : EmailTemplateCommandHandlerBase<SendUserLinkEmailCommand, CommandCompleteModel>
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
+        private readonly UserClaimManager _userClaimManager;
         private readonly IUrlHelper _urlHelper;
 
-        public SendUserLinkEmailCommandHandler(ILoggerFactory loggerFactory, IMediator mediator, IEmailTemplateService emailTemplate, UserManager<User> userManager, IUrlHelper urlHelper)
+        public SendUserLinkEmailCommandHandler(ILoggerFactory loggerFactory, IMediator mediator, IEmailTemplateService emailTemplate, UserManager<User> userManager, IUrlHelper urlHelper, UserClaimManager userClaimManager)
             : base(loggerFactory, mediator, emailTemplate)
         {
             _userManager = userManager;
             _urlHelper = urlHelper;
+            _userClaimManager = userClaimManager;
         }
 
         protected override async Task<CommandCompleteModel> Process(SendUserLinkEmailCommand request, CancellationToken cancellationToken)
@@ -56,6 +59,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 Expires = DateTimeOffset.UtcNow.AddMonths(1),
                 Url = userLinkModel.LinkUrl,
                 UserName = recipientUser.UserName,
+                TenantId = _userClaimManager.GetTenantId(principal)
             };
 
             // create user token

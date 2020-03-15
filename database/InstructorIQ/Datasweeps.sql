@@ -82,8 +82,6 @@ BEGIN
     VALUES ('f36bfb5e-4d73-471a-973d-2bc71f2de7b1')
 END
 
-
-
 IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = 'b3285c86-46ab-4284-a3ef-74645fdc77db')
 BEGIN
     PRINT 'Performing Datasweep: Fix attendance names'
@@ -96,4 +94,16 @@ BEGIN
     
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('b3285c86-46ab-4284-a3ef-74645fdc77db')
+END
+
+IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = '10ac2ee9-fa65-4dbf-a1a3-c94ae0081629')
+BEGIN
+    PRINT 'Performing Template type name change: 10ac2ee9-fa65-4dbf-a1a3-c94ae0081629'
+
+    UPDATE [IQ].[Template] SET
+        [TemplateType] = 'Editor'
+    WHERE [TemplateType] = 'LessonPlan'
+
+    INSERT [dbo].[Datasweep] ([Id])
+    VALUES ('10ac2ee9-fa65-4dbf-a1a3-c94ae0081629')
 END

@@ -112,7 +112,8 @@ namespace InstructorIQ.WebApplication.Pages.Account
             {
                 Expires = DateTimeOffset.UtcNow.Add(_securityOptions.Value.PasswordlessTokenLifespan),
                 Url = ReturnUrl,
-                UserName = user.UserName
+                UserName = user.UserName,
+                TenantId = user.LastTenantId
             };
 
             var createCommand = new LinkTokenCreateCommand(User, createModel, token);

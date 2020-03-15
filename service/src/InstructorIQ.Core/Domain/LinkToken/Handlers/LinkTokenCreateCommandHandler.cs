@@ -6,6 +6,7 @@ using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
+using InstructorIQ.Core.Security;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using Microsoft.Extensions.Logging;
 
@@ -14,23 +15,28 @@ namespace InstructorIQ.Core.Domain.Handlers
 {
     public class LinkTokenCreateCommandHandler : DataContextHandlerBase<InstructorIQContext, LinkTokenCreateCommand, LinkTokenReadModel>
     {
-        public LinkTokenCreateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
+        private readonly UserClaimManager _userClaimManager;
+
+        public LinkTokenCreateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, UserClaimManager userClaimManager)
             : base(loggerFactory, dataContext, mapper)
         {
+            _userClaimManager = userClaimManager;
         }
 
         protected override async Task<LinkTokenReadModel> Process(LinkTokenCreateCommand request, CancellationToken cancellationToken)
         {
             // token is stored hashed to prevent session hijacking 
             var tokenHash = request.Token.ComputeHash();
+            var returnUrl = GetReturnUrl(request);
+            var tenantId = GetTenantId(request);
 
             var linkToken = new Data.Entities.LinkToken
             {
                 Expires = request.Model.Expires,
                 Issued = DateTimeOffset.UtcNow,
-                TenantId = request.Model.TenantId,
+                TenantId = tenantId,
                 TokenHash = tokenHash,
-                Url = request.Model.Url,
+                Url = returnUrl,
                 UserName = request.Model.UserName
             };
 
@@ -46,6 +52,24 @@ namespace InstructorIQ.Core.Domain.Handlers
             };
 
             return readToken;
+        }
+
+        private Guid? GetTenantId(LinkTokenCreateCommand request)
+        {
+            return request.Model.TenantId ??
+                _userClaimManager.GetTenantId(request.Principal);
+        }
+
+        private string GetReturnUrl(LinkTokenCreateCommand request)
+        {
+            var linkUrl = request.Model.Url;
+            if (linkUrl.IsNullOrEmpty())
+                return "/";
+
+            var linkUri = new Uri(linkUrl, UriKind.RelativeOrAbsolute);
+            var returnUrl = linkUri.ToLocalPath();
+
+            return returnUrl;
         }
     }
 }

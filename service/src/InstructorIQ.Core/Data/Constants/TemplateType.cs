@@ -6,7 +6,6 @@ namespace InstructorIQ.Core.Data.Constants
 {
     public static class TemplateType
     {
-        public const string LessonPlan = "LessonPlan";
-
+        public const string Editor = "Editor";
     }
 }
