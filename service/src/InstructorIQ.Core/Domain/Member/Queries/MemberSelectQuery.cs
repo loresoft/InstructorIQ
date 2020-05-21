@@ -9,12 +9,13 @@ namespace InstructorIQ.Core.Domain.Queries
 {
     public class MemberSelectQuery : EntitySelectQuery<MemberReadModel>
     {
-        public MemberSelectQuery(IPrincipal principal, Guid tenantId) : base(principal)
+        public MemberSelectQuery(IPrincipal principal, Guid tenantId)
+            : this(principal, new EntitySelect(), tenantId)
         {
-            TenantId = tenantId;
         }
 
-        public MemberSelectQuery(IPrincipal principal, EntityFilter filter, IEnumerable<EntitySort> sort, Guid tenantId) : base(principal, filter, sort)
+        public MemberSelectQuery(IPrincipal principal, EntitySelect select, Guid tenantId)
+            : base(principal, select)
         {
             TenantId = tenantId;
         }

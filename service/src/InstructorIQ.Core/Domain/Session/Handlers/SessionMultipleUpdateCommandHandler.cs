@@ -18,19 +18,19 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SessionMultipleUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionMultipleUpdateCommand, CommandCompleteModel>
+    public class SessionMultipleUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionMultipleUpdateCommand, CompleteModel>
     {
         public SessionMultipleUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionMultipleUpdateCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(SessionMultipleUpdateCommand request, CancellationToken cancellationToken)
         {
             foreach (var updateModel in request.Models)
                 await UpdateSession(updateModel, request.Principal?.Identity?.Name);
 
-            return new CommandCompleteModel();
+            return new CompleteModel();
         }
 
         private async Task UpdateSession(SessionMultipleUpdateModel updateModel, string identityName)

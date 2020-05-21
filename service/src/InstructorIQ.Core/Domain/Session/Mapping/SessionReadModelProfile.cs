@@ -10,10 +10,10 @@ namespace InstructorIQ.Core.Domain.Mapping
         {
             AutoMap();
 
-            Property(p => p.StartDate).Formatter(StringFormatter.ShortDate);
-            Property(p => p.StartTime).Formatter(StringFormatter.ShortTime);
-            Property(p => p.EndDate).Formatter(StringFormatter.ShortDate);
-            Property(p => p.EndTime).Formatter(StringFormatter.ShortTime);
+            Property(p => p.StartDate).Formatter(v => v?.ToString("d"));
+            Property(p => p.StartTime).Formatter(v => v?.ToString("t"));
+            Property(p => p.EndDate).Formatter(v => v?.ToString("d"));
+            Property(p => p.EndTime).Formatter(v => v?.ToString("t"));
 
             Property(p => p.TenantId).Ignore();
             Property(p => p.TopicId).Ignore();

@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SendUserInviteEmailCommandHandler : EmailTemplateCommandHandlerBase<SendUserInviteEmailCommand, CommandCompleteModel>
+    public class SendUserInviteEmailCommandHandler : EmailTemplateCommandHandlerBase<SendUserInviteEmailCommand, CompleteModel>
     {
         private readonly UserManager<User> _userManager;
         private readonly UserClaimManager _userClaimManager;
@@ -31,9 +31,9 @@ namespace InstructorIQ.Core.Domain.Handlers
             _urlHelper = urlHelper;
         }
 
-        protected override async Task<CommandCompleteModel> Process(SendUserInviteEmailCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(SendUserInviteEmailCommand request, CancellationToken cancellationToken)
         {
-            var completeModel = new CommandCompleteModel();
+            var completeModel = new CompleteModel();
             var inviteModel = request.Model;
             var principal = request.Principal;
             var returnUrl = inviteModel.ReturnUrl;

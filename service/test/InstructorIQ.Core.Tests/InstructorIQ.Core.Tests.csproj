@@ -14,17 +14,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.13.0" />
-    <PackageReference Include="coverlet.msbuild" Version="2.8.0">
+    <PackageReference Include="AngleSharp" Version="0.14.0" />
+    <PackageReference Include="coverlet.msbuild" Version="2.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="DataGenerator" Version="5.0.0.50" />
-    <PackageReference Include="FluentAssertions" Version="5.10.2" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.181" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="DataGenerator" Version="5.0.0.94" />
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.221" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>

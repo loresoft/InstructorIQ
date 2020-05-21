@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using InstructorIQ.Core.Definitions;
+using MediatR.CommandQuery.Definitions;
 using MediatR.CommandQuery.Models;
 
 // ReSharper disable once CheckNamespace

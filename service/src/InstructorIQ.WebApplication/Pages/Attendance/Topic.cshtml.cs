@@ -73,7 +73,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
 
         private async Task<IReadOnlyCollection<TopicDropdownModel>> LoadTopics()
         {
-            var dropdownQuery = new EntitySelectQuery<TopicDropdownModel>(User);
+            var select = new EntitySelect();
 
             if (Year.HasValue)
             {
@@ -81,10 +81,11 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
                 filter.Name = nameof(Core.Data.Entities.Topic.CalendarYear);
                 filter.Value = Year.Value;
 
-                dropdownQuery.Filter = filter;
+                select.Filter = filter;
             }
 
-            var topics = await Mediator.Send(dropdownQuery);
+            var query = new EntitySelectQuery<TopicDropdownModel>(User, select);
+            var topics = await Mediator.Send(query);
 
             return topics
                 .OrderBy(p => p.Text)

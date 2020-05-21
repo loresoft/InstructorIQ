@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 namespace InstructorIQ.Core.Domain.Handlers
 {
     public class MemberAssignRoleCommandHandler
-        : RequestHandlerBase<MemberAssignRoleCommand, CommandCompleteModel>
+        : RequestHandlerBase<MemberAssignRoleCommand, CompleteModel>
     {
         private readonly IDataSession _dataSession;
 
@@ -25,12 +25,12 @@ namespace InstructorIQ.Core.Domain.Handlers
             _dataSession = dataSession;
         }
 
-        protected override async Task<CommandCompleteModel> Process(MemberAssignRoleCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(MemberAssignRoleCommand request, CancellationToken cancellationToken)
         {
             if (request.Users.Count == 0 || request.Roles.Count == 0)
             {
                 Logger.LogWarning("No users or roles to process");
-                return new CommandCompleteModel();
+                return new CompleteModel();
             }
 
             var assignments = from user in request.Users
@@ -57,7 +57,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             Logger.LogInformation("Processed {rows} user role assignments", rows);
 
-            return new CommandCompleteModel();
+            return new CompleteModel();
         }
     }
 }

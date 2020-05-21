@@ -25,10 +25,7 @@ namespace InstructorIQ.WebApplication.Controllers
         [HttpGet("editor")]
         public async Task<ActionResult<IReadOnlyCollection<TemplateEditorModel>>> Get(CancellationToken cancellationToken)
         {
-            var tenantId = _userClaimManager.GetTenantId(User) ?? Guid.Empty;
-            var userName = User.Identity.Name;
-
-            var command = new EntitySelectQuery<TemplateEditorModel>(User);
+            var command = new EntitySelectQuery<TemplateEditorModel>(User, new EntitySelect());
             var result = await Mediator.Send(command, cancellationToken);
 
             return Ok(result);

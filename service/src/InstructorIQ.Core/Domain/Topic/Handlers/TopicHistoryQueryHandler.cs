@@ -10,7 +10,6 @@ using EntityChange;
 using FluentCommand.Extensions;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
-using InstructorIQ.Core.Definitions;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using MediatR.CommandQuery.Definitions;

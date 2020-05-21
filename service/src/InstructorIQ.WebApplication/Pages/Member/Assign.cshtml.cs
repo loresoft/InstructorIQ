@@ -66,7 +66,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
 
         private async Task LoadRoles()
         {
-            var command = new EntitySelectQuery<RoleReadModel>(User);
+            var command = new EntitySelectQuery<RoleReadModel>(User, new EntitySelect());
             var roles = await Mediator.Send(command);
 
             Roles = roles

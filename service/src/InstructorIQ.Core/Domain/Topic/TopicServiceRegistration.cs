@@ -25,7 +25,7 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityQuery<Guid, Topic, TopicDropdownModel>(services);
 
             services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<Core.Models.HistoryRecord>>, TopicHistoryQueryHandler>();
-            services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CommandCompleteModel>, TopicMultipleUpdateCommandHandler>();
+            services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CompleteModel>, TopicMultipleUpdateCommandHandler>();
 
         }
     }

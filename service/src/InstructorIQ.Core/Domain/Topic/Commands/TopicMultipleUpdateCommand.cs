@@ -9,7 +9,7 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands
 {
-    public class TopicMultipleUpdateCommand : PrincipalCommandBase<CommandCompleteModel>
+    public class TopicMultipleUpdateCommand : PrincipalCommandBase<CompleteModel>
     {
         public TopicMultipleUpdateCommand(IPrincipal principal, IEnumerable<TopicMultipleUpdateModel> topics) : base(principal)
         {

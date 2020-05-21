@@ -28,7 +28,7 @@ namespace InstructorIQ.Core.Domain
             services.AddEntityUpdateCommand<InstructorIQContext, Data.Entities.User, Guid, MemberReadModel, MemberUpdateModel>();
 
             services.TryAddTransient<IRequestHandler<MemberChangeTenantCommand, MemberReadModel>, MemberChangeTenantCommandHandler>();
-            services.TryAddTransient<IRequestHandler<MemberAssignRoleCommand, CommandCompleteModel>, MemberAssignRoleCommandHandler>();
+            services.TryAddTransient<IRequestHandler<MemberAssignRoleCommand, CompleteModel>, MemberAssignRoleCommandHandler>();
 
             services.TryAddTransient<IRequestHandler<MemberImportJobQuery, MemberImportJobModel>, MemberImportJobQueryHandler>();
             services.TryAddTransient<IRequestHandler<MemberImportUploadCommand, MemberImportJobModel>, MemberImportUploadCommandHandler>();

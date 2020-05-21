@@ -31,14 +31,16 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var query = new EntitySelectQuery<TopicListModel>(User);
-            query.Filter = CreateFilter();
-            query.Sort = new List<EntitySort>
+            var select = new EntitySelect();
+            select.Filter = CreateFilter();
+            select.Sort = new List<EntitySort>
             {
                 new EntitySort { Name = nameof(TopicListModel.CalendarYear) },
                 new EntitySort { Name = nameof(TopicListModel.TargetMonth) },
                 new EntitySort { Name = nameof(TopicListModel.Title) }
             };
+
+            var query = new EntitySelectQuery<TopicListModel>(User, select);
 
             var topics = await Mediator.Send(query);
 

@@ -16,7 +16,7 @@ using NaturalSort.Extension;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SessionSequenceCreateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionSequenceCreateCommand, CommandCompleteModel>
+    public class SessionSequenceCreateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionSequenceCreateCommand, CompleteModel>
     {
         private readonly UserClaimManager _userClaimManager;
 
@@ -26,7 +26,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userClaimManager = userClaimManager;
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionSequenceCreateCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(SessionSequenceCreateCommand request, CancellationToken cancellationToken)
         {
             var tenantId = _userClaimManager.GetRequiredTenantId(request.Principal);
             var identityName = request.Principal?.Identity?.Name;
@@ -71,7 +71,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             await DataContext.SaveChangesAsync(cancellationToken);
 
-            return new CommandCompleteModel();
+            return new CompleteModel();
         }
 
     }

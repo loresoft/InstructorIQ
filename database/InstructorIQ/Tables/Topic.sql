@@ -17,6 +17,8 @@
     [IsRequired] BIT NOT NULL CONSTRAINT [DF_Topic_IsRequired] DEFAULT (0),
     [IsPublished] BIT NOT NULL CONSTRAINT [DF_Topic_IsPublished] DEFAULT (0),
 
+    [InstructorSlots] INT NULL,
+
     [CalendarYear] SMALLINT NOT NULL CONSTRAINT [DF_Topic_CalendarYear] DEFAULT YEAR(GETDATE()),
     [TargetMonth] SMALLINT NULL,
 
