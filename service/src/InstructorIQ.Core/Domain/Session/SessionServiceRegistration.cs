@@ -6,6 +6,7 @@ using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using MediatR;
+using MediatR.CommandQuery.Audit;
 using MediatR.CommandQuery.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -26,6 +27,7 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<SessionMultipleUpdateCommand, CompleteModel>, SessionMultipleUpdateCommandHandler>();
             services.TryAddTransient<IRequestHandler<SessionSequenceCreateCommand, CompleteModel>, SessionSequenceCreateCommandHandler>();
             services.TryAddTransient<IRequestHandler<SessionInstructorUpdateCommand, CompleteModel>, SessionInstructorUpdateCommandHandler>();
+            services.TryAddTransient<IRequestHandler<SessionHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, SessionHistoryQueryHandler>();
         }
     }
 }

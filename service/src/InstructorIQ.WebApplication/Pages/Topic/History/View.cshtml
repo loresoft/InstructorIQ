@@ -1,6 +1,8 @@
 ﻿@page "/topic/{id:Guid}/history"
 @using Humanizer
 @using InstructorIQ.Core.Extensions
+@using MediatR.CommandQuery.Audit
+
 @model ViewModel
 @{
     ViewData["Title"] = $"Topic {Model.Entity.Title}";
@@ -17,34 +19,42 @@
            class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
                 <div class="mb-1">
-                    <gravatar email="@item.ChangedBy"
+                    <gravatar email="@item.ActivityBy"
                               size="24"></gravatar>
-                    @item.ChangedBy
+                    @item.ActivityBy
                 </div>
-                <small class="mt-1" title="@item.Changed.ToString("dddd, dd MMMM yyyy HH:mm")">
-                    @item.Changed.ToLocalTime().Humanize()
+                <small class="mt-1" title="@item.ActivityDate.ToString("dddd, dd MMMM yyyy HH:mm")">
+                    @item.ActivityDate.ToLocalTime().Humanize()
                 </small>
             </div>
             <p class="mb-1 mt-2">
-                @if (item.Operation == "Add")
+                @if (item.Operation == AuditOperation.Create)
                 {
                     <span class="text-muted">
                         Added @item.Entity <span class="text-dark font-weight-bold"><summary-text content="@item.Description" truncate="100" /></span>
                     </span>
                 }
-                else if (item.Operation == "Remove")
+                else if (item.Operation == AuditOperation.Delete)
                 {
                     <span class="text-muted">
                         Removed @item.Entity <span class="text-dark font-weight-bold"><summary-text content="@item.Description" truncate="100" /></span>
                     </span>
                 }
-                else
+                else if (item.Operation == AuditOperation.Update)
                 {
                     <span class="text-muted">
-                        Changed @item.Entity <span class="text-dark font-weight-bold">@item.DisplayName</span>
-                        <span>from <span class="text-dark font-weight-bold"><summary-text content="@item.OriginalFormatted" default-text="-none-" truncate="70" /></span></span>
-                        <span>to <span class="text-dark font-weight-bold"><summary-text content="@item.CurrentFormatted" default-text="-none-" truncate="70" /></span></span>
+                        Changed @item.Entity <span class="text-dark font-weight-bold"><summary-text content="@item.Description" truncate="100" /></span>
                     </span>
+                    <ul>
+                        @foreach(var change in item.Changes)
+                        {
+                        <li>
+                            <span class="text-dark font-weight-bold">@change.DisplayName</span>
+                            <span>from <span class="text-dark font-weight-bold"><summary-text content="@change.OriginalFormatted" default-text="-none-" truncate="70" /></span></span>
+                            <span>to <span class="text-dark font-weight-bold"><summary-text content="@change.CurrentFormatted" default-text="-none-" truncate="70" /></span></span>
+                        </li>
+                        }
+                    </ul>
                 }
             </p>
         </a>

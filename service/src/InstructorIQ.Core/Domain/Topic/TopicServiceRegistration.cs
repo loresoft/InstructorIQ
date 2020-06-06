@@ -9,6 +9,7 @@ using InstructorIQ.Core.Domain.Queries;
 using MediatR;
 using MediatR.CommandQuery.Models;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using MediatR.CommandQuery.Audit;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain
@@ -24,7 +25,7 @@ namespace InstructorIQ.Core.Domain
             RegisterEntityQuery<Guid, Topic, TopicMultipleUpdateModel>(services);
             RegisterEntityQuery<Guid, Topic, TopicDropdownModel>(services);
 
-            services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<Core.Models.HistoryRecord>>, TopicHistoryQueryHandler>();
+            services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, TopicHistoryQueryHandler>();
             services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CompleteModel>, TopicMultipleUpdateCommandHandler>();
 
         }

@@ -29,7 +29,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.4" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="3.0.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
     <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />

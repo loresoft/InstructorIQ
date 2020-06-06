@@ -20,7 +20,7 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.11" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.11" />
-    <PackageReference Include="Humanizer" Version="2.8.11" />
+    <PackageReference Include="Humanizer" Version="2.8.26" />
     <PackageReference Include="Ical.Net" Version="4.1.11" />
     <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.221" />
     <PackageReference Include="KickStart.EntityChange" Version="8.0.0.221" />
