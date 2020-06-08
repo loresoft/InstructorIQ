@@ -109,6 +109,7 @@
     <Build Include="Tables\ImportJob.sql" />
     <Build Include="Procedures\EnsureInstructorUser.sql" />
     <Build Include="Tables\Attendance.sql" />
+    <Build Include="Procedures\FrequentSessionTimes.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

@@ -9,6 +9,8 @@ namespace InstructorIQ.Core.Domain.Models
     {
         public Guid Id { get; set; }
 
+        public Guid TenantId { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         public TimeSpan? StartTime { get; set; }

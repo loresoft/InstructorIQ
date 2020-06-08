@@ -2,7 +2,7 @@
 @using InstructorIQ.Core.Services
 @model MultipleModel
 
-<div class="container">
+<div id="topic-multiple" class="container">
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -40,7 +40,7 @@
                     <div class="table-responsive">
                         <table class="table table-bordered table-sm table-striped m-0">
                             <colgroup>
-                                <col style="width: 32px">
+                                <col style="width: 34px">
                                 <col style="">
                                 <col style="width: 125px">
                                 <col style="width: 180px">
@@ -55,72 +55,76 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var topic in Model.Topics)
-                                {
-                                    <tr>
-                                        <td style="position: relative;">
-                                            <input type="hidden"
-                                                   name="Topics.Index"
-                                                   value="@topic.Id" />
-                                            <input type="hidden"
-                                                   name="Topics[@topic.Id].Id"
-                                                   value="@topic.Id" />
-                                            <input type="hidden"
-                                                   name="Topics[@topic.Id].TenantId"
-                                                   value="@topic.TenantId" />
-                                            <input type="hidden"
-                                                   name="Topics[@topic.Id].Created"
-                                                   value="@topic.Created" />
-                                            <input type="hidden"
-                                                   name="Topics[@topic.Id].CreatedBy"
-                                                   value="@topic.CreatedBy" />
+                                <tr v-for="(topic, index) in topics" :key="topic.id">
+                                    <td style="position: relative;">
+                                        <input type="hidden"
+                                               name="Topics.Index"
+                                               v-model="topic.id" />
+                                        <input type="hidden"
+                                               :name="`Topics[${topic.id}].Id`"
+                                               v-model="topic.id" />
+                                        <input type="hidden"
+                                               :name="`Topics[${topic.id}].TenantId`"
+                                               v-model="topic.tenantId" />
+                                        <input type="hidden"
+                                               :name="`Topics[${topic.id}].Created`"
+                                               v-model="topic.created" />
+                                        <input type="hidden"
+                                               :name="`Topics[${topic.id}].CreatedBy`"
+                                               v-model="topic.createdBy" />
 
-                                            <div style="position: absolute; top: 7px; left:8px">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input id="topic-checkbox-@topic.Id"
-                                                           name="Selected"
-                                                           type="checkbox"
-                                                           class="custom-control-input"
-                                                           value="@topic.Id"
-                                                           checked=@(Model.Selected.Contains(topic.Id))>
-                                                    <label class="custom-control-label"
-                                                           for="topic-checkbox-@topic.Id"></label>
-                                                </div>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <button type="button"
+                                                        class="dropdown-item"
+                                                        v-on:click="copyTopic(topic)">
+                                                    Duplicate Topic
+                                                </button>
+                                                <button type="button"
+                                                        class="dropdown-item"
+                                                        v-on:click="removeTopic(topic)">
+                                                    Remove Topic
+                                                </button>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <input name="Topics[@topic.Id].Title"
-                                                   value="@topic.Title"
-                                                   class="form-control form-control-sm" />
-                                        </td>
-                                        <td>
-                                            <select name="Topics[@topic.Id].CalendarYear"
-                                                    class="custom-select custom-select-sm">
-                                                @foreach (var item in SelectItemFactory.Years())
-                                                {
-                                                    <option value="@item.Value"
-                                                            selected="@(item.Value == topic.CalendarYear.ToString())">
-                                                        @item.Text
-                                                    </option>
-                                                }
-                                            </select>
+                                        </div>
 
-                                        </td>
-                                        <td>
-                                            <select name="Topics[@topic.Id].TargetMonth"
-                                                    class="custom-select custom-select-sm">
-                                                <option value="0"> - Month -</option>
-                                                @foreach (var item in SelectItemFactory.Months())
-                                                {
-                                                    <option value="@item.Value"
-                                                            selected="@(item.Value == topic.TargetMonth.ToString())">
-                                                        @item.Text
-                                                    </option>
-                                                }
-                                            </select>
-                                        </td>
-                                    </tr>
-                                }
+                                    </td>
+                                    <td>
+                                        <input :name="`Topics[${topic.id}].Title`"
+                                               v-model="topic.title"
+                                               class="form-control form-control-sm" />
+                                    </td>
+                                    <td>
+                                        <v-select append-to-body
+                                                  label="text"
+                                                  class="selector"
+                                                  placeholder="- Year -"
+                                                  :options="years"
+                                                  :reduce="item => item.value"
+                                                  v-model="topic.calendarYear"></v-select>
+
+                                        <input type="hidden"
+                                               :name="`Topics[${topic.id}].CalendarYear`"
+                                               :value="topic.calendarYear" />
+
+                                    </td>
+                                    <td>
+                                        <v-select append-to-body
+                                                  label="text"
+                                                  class="selector"
+                                                  placeholder="- Month -"
+                                                  :options="months"
+                                                  :reduce="item => item.value"
+                                                  v-model="topic.targetMonth"></v-select>
+
+                                        <input type="hidden"
+                                               :name="`Topics[${topic.id}].TargetMonth`"
+                                               :value="topic.targetMonth" />
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -143,22 +147,10 @@
                     </div>
                     <div class="col-auto">
                         <button id="add-button"
-                                type="submit"
-                                asp-page-handler="Add"
+                                type="button"
+                                v-on:click="addTopic"
                                 class="btn btn-secondary">
                             Add
-                        </button>
-                        <button id="copy-button"
-                                type="submit"
-                                asp-page-handler="Copy"
-                                class="btn btn-secondary">
-                            Copy
-                        </button>
-                        <button id="delete-button"
-                                type="submit"
-                                asp-page-handler="Delete"
-                                class="btn btn-danger">
-                            Delete
                         </button>
                     </div>
                 </div>
@@ -169,6 +161,39 @@
 
 @section Scripts {
     <script>
+        var app = new Vue({
+            el: '#topic-multiple',
+            data: {
+                tenantId: @Json.Serialize(Model.Tenant.Value.Id),
+                created: @Json.Serialize(DateTime.UtcNow),
+                topics: @Json.Serialize(Model.Topics),
+                years: @Json.Serialize(SelectItemFactory.Years()),
+                months: @Json.Serialize(SelectItemFactory.Months()),
+            },
+            methods: {
+                copyTopic: function (instance) {
+                    var topic = { ...instance, id: uuidv4() };
+                    this.topics.push(topic);
+                },
+                removeTopic: function (instance) {
+                    const index = this.topics.indexOf(instance);
+                    if (index > -1) {
+                        this.topics.splice(index, 1);
+                    }
+                },
+                addTopic: function () {
+                    var topic = {
+                        id: uuidv4(),
+                        tenantId: this.tenantId,
+                        calendarYear: new Date().getFullYear(),
+                        created: this.created
+                    }
+                    this.topics.push(topic);
+                }
+            }
+        })
+
+
         $(function () {
             $("#multiple-topic-form")
                 .submitGuard()

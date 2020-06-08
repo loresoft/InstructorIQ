@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
+using InstructorIQ.Core.Converters;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
@@ -114,7 +115,12 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/Template");
                     options.Conventions.AddFolderTenantRoute("/User", false);
                 })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());
+                })
                 .AddFluentValidation();
+
 
             services.AddUrlHelper();
 

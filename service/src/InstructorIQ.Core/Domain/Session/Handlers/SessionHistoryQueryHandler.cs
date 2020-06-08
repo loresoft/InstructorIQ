@@ -101,4 +101,5 @@ namespace InstructorIQ.Core.Domain.Handlers
             return builder.ToString();
         }
     }
+
 }

@@ -28,6 +28,7 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<SessionSequenceCreateCommand, CompleteModel>, SessionSequenceCreateCommandHandler>();
             services.TryAddTransient<IRequestHandler<SessionInstructorUpdateCommand, CompleteModel>, SessionInstructorUpdateCommandHandler>();
             services.TryAddTransient<IRequestHandler<SessionHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, SessionHistoryQueryHandler>();
+            services.TryAddTransient<IRequestHandler<SessionFrequentTimeQuery, IReadOnlyCollection<SessionFrequentTimeModel>>, SessionFrequentTimeHandler>();
         }
     }
 }

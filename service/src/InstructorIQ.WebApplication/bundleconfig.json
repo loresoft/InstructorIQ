@@ -8,9 +8,12 @@
       "wwwroot/lib/popper/dist/umd/popper.js",
       "wwwroot/lib/bootstrap/dist/js/bootstrap.js",
       "wwwroot/lib/moment/moment.js",
+      "wwwroot/lib/vue/dist/vue.min.js",
+      "wwwroot/lib/vue-select/dist/vue-select.js",
       "wwwroot/lib/select2/dist/js/select2.js",
       "wwwroot/lib/jquery.dirty/dist/jquery.dirty.js",
       "wwwroot/lib/signature_pad/dist/signature_pad.umd.js",
+      "wwwroot/lib/uuid/dist/umd/uuidv4.min.js",
       "wwwroot/js/copyValue.js",
       "wwwroot/js/submitGuard.js",
       "wwwroot/js/site.js"
@@ -26,6 +29,7 @@
     "inputFiles": [
       "wwwroot/lib/fontawesome/css/all.css",
       "wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "wwwroot/lib/vue-select/dist/vue-select.css",
       "wwwroot/lib/select2/dist/css/select2.css",
       "wwwroot/lib/select2-bootstrap-theme/dist/select2-bootstrap.css",
       "wwwroot/css/attendance.css",

@@ -102,6 +102,31 @@
       "files": [
         "dist/signature_pad.umd.js"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "uuid@8.1.0",
+      "destination": "wwwroot/lib/uuid/",
+      "files": [
+        "dist/umd/uuidv4.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "vue@2.6.11",
+      "destination": "wwwroot/lib/vue/",
+      "files": [
+        "dist/vue.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "vue-select@3.10.3",
+      "destination": "wwwroot/lib/vue-select/",
+      "files": [
+        "dist/vue-select.css",
+        "dist/vue-select.js"
+      ]
     }
   ]
 }
