@@ -45,6 +45,10 @@ namespace InstructorIQ.WebApplication.Pages.Topic.History
         {
             if (history.Entity == "Session")
                 return Url.Page("/topic/session/view", new { topicid = Id, tenant = TenantRoute, id = history.Key });
+            if (history.Entity == "SessionInstructor")
+                return Url.Page("/topic/session/index", new { id = Id, tenant = TenantRoute });
+            if (history.Entity == "Discussion")
+                return Url.Page("/topic/discussion/view", new { id = Id, tenant = TenantRoute });
 
             return Url.Page("/topic/view", new { id = Id, tenant = TenantRoute });
         }

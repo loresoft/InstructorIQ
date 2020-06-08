@@ -44,6 +44,12 @@ namespace InstructorIQ.Core.Domain.Handlers
             var sessionHistoryList = await CollectSessionHistory(request, cancellationToken);
             historyList.AddRange(sessionHistoryList);
 
+            var instructorHistoryList = await CollectSessionInstructorHistory(request, cancellationToken);
+            historyList.AddRange(instructorHistoryList);
+
+            var discussionHistoryList = await CollectDiscussionHistory(request, cancellationToken);
+            historyList.AddRange(discussionHistoryList);
+
             return historyList
                 .Where(p => p.Operation != AuditOperation.Update || (p.Operation == AuditOperation.Update && p.Changes?.Count > 0))
                 .OrderBy(p => p.ActivityDate)
@@ -77,5 +83,16 @@ namespace InstructorIQ.Core.Domain.Handlers
             return await _mediator.Send(command, cancellationToken);
         }
 
+        private async Task<IReadOnlyCollection<AuditRecord<Guid>>> CollectSessionInstructorHistory(TopicHistoryQuery request, CancellationToken cancellationToken)
+        {
+            var command = new SessionInstructorHistoryQuery(request.Principal) { TopicId = request.Id };
+            return await _mediator.Send(command, cancellationToken);
+        }
+
+        private async Task<IReadOnlyCollection<AuditRecord<Guid>>> CollectDiscussionHistory(TopicHistoryQuery request, CancellationToken cancellationToken)
+        {
+            var command = new DiscussionHistoryQuery(request.Principal) { TopicId = request.Id };
+            return await _mediator.Send(command, cancellationToken);
+        }
     }
 }

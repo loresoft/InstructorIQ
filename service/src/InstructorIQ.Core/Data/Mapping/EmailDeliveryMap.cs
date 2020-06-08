@@ -128,49 +128,55 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery" /></summary>
-        public const string TableName = "EmailDelivery";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery" /></summary>
+            public const string Name = "EmailDelivery";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.IsProcessing" /></summary>
-        public const string ColumnIsProcessing = "IsProcessing";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.IsDelivered" /></summary>
-        public const string ColumnIsDelivered = "IsDelivered";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Delivered" /></summary>
-        public const string ColumnDelivered = "Delivered";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Attempts" /></summary>
-        public const string ColumnAttempts = "Attempts";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.LastAttempt" /></summary>
-        public const string ColumnLastAttempt = "LastAttempt";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.NextAttempt" /></summary>
-        public const string ColumnNextAttempt = "NextAttempt";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.SmtpLog" /></summary>
-        public const string ColumnSmtpLog = "SmtpLog";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Error" /></summary>
-        public const string ColumnError = "Error";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.From" /></summary>
-        public const string ColumnFrom = "From";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.To" /></summary>
-        public const string ColumnTo = "To";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Subject" /></summary>
-        public const string ColumnSubject = "Subject";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.MimeMessage" /></summary>
-        public const string ColumnMimeMessage = "MimeMessage";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.TenantId" /></summary>
-        public const string ColumnTenantId = "TenantId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.IsProcessing" /></summary>
+            public const string IsProcessing = "IsProcessing";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.IsDelivered" /></summary>
+            public const string IsDelivered = "IsDelivered";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Delivered" /></summary>
+            public const string Delivered = "Delivered";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Attempts" /></summary>
+            public const string Attempts = "Attempts";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.LastAttempt" /></summary>
+            public const string LastAttempt = "LastAttempt";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.NextAttempt" /></summary>
+            public const string NextAttempt = "NextAttempt";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.SmtpLog" /></summary>
+            public const string SmtpLog = "SmtpLog";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Error" /></summary>
+            public const string Error = "Error";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.From" /></summary>
+            public const string From = "From";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.To" /></summary>
+            public const string To = "To";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Subject" /></summary>
+            public const string Subject = "Subject";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.MimeMessage" /></summary>
+            public const string MimeMessage = "MimeMessage";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.TenantId" /></summary>
+            public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+        }
         #endregion
 
     }

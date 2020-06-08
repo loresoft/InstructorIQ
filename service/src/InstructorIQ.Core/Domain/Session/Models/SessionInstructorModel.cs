@@ -1,13 +1,13 @@
 using System;
 using MediatR.CommandQuery.Definitions;
+using MediatR.CommandQuery.Models;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Models
 {
-    public class SessionInstructorModel : IHaveIdentifier<Guid>,  ITrackUpdated, ITrackHistory
-    {
-        public Guid Id { get; set; }
+    public class SessionInstructorModel : EntityReadModel<Guid>, ITrackHistory
 
+    {
         public Guid SessionId { get; set; }
 
         public Guid InstructorId { get; set; }
@@ -18,11 +18,9 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string DisplayName { get; set; }
 
+        public string SortName { get; set; }
+
         public string EmailAddress { get; set; }
-
-        public DateTimeOffset Updated { get; set; }
-
-        public string UpdatedBy { get; set; }
 
         public DateTime PeriodStart { get; set; }
 

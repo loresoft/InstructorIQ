@@ -66,6 +66,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
             Items = result
                 .OrderBy(r => r.StartDate)
                 .ThenBy(r => r.StartTime)
+                .ThenBy(r => r.TopicTitle)
                 .ToList();
 
             return Page();

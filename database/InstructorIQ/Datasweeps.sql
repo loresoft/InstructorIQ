@@ -32,7 +32,7 @@ BEGIN
     PRINT 'Ensure Instrutor Role'
 
     MERGE [IQ].[TenantUserRole] WITH (ROWLOCK) AS D
-    USING 
+    USING
     (
         SELECT
             [EmailAddress] AS [UserName],
@@ -41,7 +41,7 @@ BEGIN
         WHERE [EmailAddress] IS NOT NULL
     )
     AS S
-        ON D.[UserName] = S.[UserName] 
+        ON D.[UserName] = S.[UserName]
             AND D.[TenantId] = S.[TenantId]
             AND D.[RoleName] = 'Instructor'
     WHEN NOT MATCHED THEN
@@ -68,16 +68,16 @@ BEGIN
 
     UPDATE [Identity].[User] SET
         [SortName] = [FamilyName] + ', ' + [GivenName]
-    WHERe [FamilyName] IS NOT NULL 
-        AND [GivenName] IS NOT NULL 
+    WHERe [FamilyName] IS NOT NULL
+        AND [GivenName] IS NOT NULL
         AND [SortName] IS NULL;
 
     UPDATE [IQ].[Instructor] SET
         [SortName] = [FamilyName] + ', ' + [GivenName]
-    WHERe [FamilyName] IS NOT NULL 
-        AND [GivenName] IS NOT NULL 
+    WHERe [FamilyName] IS NOT NULL
+        AND [GivenName] IS NOT NULL
         AND [SortName] IS NULL;
-    
+
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('f36bfb5e-4d73-471a-973d-2bc71f2de7b1')
 END
@@ -91,7 +91,7 @@ BEGIN
     FROM [IQ].[Attendance] as a
     LEFT OUTER JOIN [Identity].[User] as u on u.[UserName] = a.[AttendeeEmail]
     WHERE a.[AttendeeName] IS NULL
-    
+
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('b3285c86-46ab-4284-a3ef-74645fdc77db')
 END
@@ -106,4 +106,24 @@ BEGIN
 
     INSERT [dbo].[Datasweep] ([Id])
     VALUES ('10ac2ee9-fa65-4dbf-a1a3-c94ae0081629')
+END
+
+
+-- Data Sweep added 6/8/2020
+IF NOT EXISTS (SELECT [Id] FROM [dbo].[Datasweep] WHERE [Id] = '35dec4c0-d19a-4e3e-8732-09a5cedb4437')
+BEGIN
+    PRINT 'Performing Data Sweep: 35dec4c0-d19a-4e3e-8732-09a5cedb4437'
+
+    -- Data Sweep Here
+    UPDATE [IQ].[SessionInstructor] SET
+        CreatedBy = S.CreatedBy,
+        UpdatedBy = S.UpdatedBy
+    FROM [IQ].[SessionInstructor] AS I
+    INNER JOIN [IQ].[Session] AS S ON S.Id = I.SessionId
+    WHERE I.CreatedBy IS NULL
+        OR I.UpdatedBy IS NULL
+
+    -- Mark Complete
+    INSERT [dbo].[Datasweep] ([Id])
+    VALUES ('35dec4c0-d19a-4e3e-8732-09a5cedb4437')
 END

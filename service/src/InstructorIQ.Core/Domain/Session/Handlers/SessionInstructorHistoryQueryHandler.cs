@@ -64,7 +64,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                     .OrderBy(p => p.PeriodEnd)
                     .ToList();
 
-                var changeList = _changeCollector.CollectChanges(groupList, nameof(Session), s => s.DisplayName);
+                var changeList = _changeCollector.CollectChanges(groupList, nameof(SessionInstructor), s => s.DisplayName);
                 historyList.AddRange(changeList);
             }
 

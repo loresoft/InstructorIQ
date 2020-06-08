@@ -31,7 +31,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             }
 
             int rows = await _dataSession
-                .MergeData($"[{TopicMap.TableSchema}].[{TopicMap.TableName}]")
+                .MergeData($"[{TopicMap.Table.Schema}].[{TopicMap.Table.Name}]")
                 .IncludeInsert()
                 .IncludeUpdate()
                 .Mode(DataMergeMode.SqlStatement)

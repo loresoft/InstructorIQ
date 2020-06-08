@@ -144,55 +144,61 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord" /></summary>
-        public const string TableName = "HistoryRecord";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord" /></summary>
+            public const string Name = "HistoryRecord";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Key" /></summary>
-        public const string ColumnKey = "Key";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Entity" /></summary>
-        public const string ColumnEntity = "Entity";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.ParentKey" /></summary>
-        public const string ColumnParentKey = "ParentKey";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.ParentEntity" /></summary>
-        public const string ColumnParentEntity = "ParentEntity";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Changed" /></summary>
-        public const string ColumnChanged = "Changed";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.ChangedBy" /></summary>
-        public const string ColumnChangedBy = "ChangedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.PropertyName" /></summary>
-        public const string ColumnPropertyName = "PropertyName";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.DisplayName" /></summary>
-        public const string ColumnDisplayName = "DisplayName";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Path" /></summary>
-        public const string ColumnPath = "Path";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Operation" /></summary>
-        public const string ColumnOperation = "Operation";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.OriginalValue" /></summary>
-        public const string ColumnOriginalValue = "OriginalValue";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.OriginalFormatted" /></summary>
-        public const string ColumnOriginalFormatted = "OriginalFormatted";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.OriginalType" /></summary>
-        public const string ColumnOriginalType = "OriginalType";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CurrentValue" /></summary>
-        public const string ColumnCurrentValue = "CurrentValue";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CurrentFormatted" /></summary>
-        public const string ColumnCurrentFormatted = "CurrentFormatted";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CurrentType" /></summary>
-        public const string ColumnCurrentType = "CurrentType";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Key" /></summary>
+            public const string Key = "Key";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Entity" /></summary>
+            public const string Entity = "Entity";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.ParentKey" /></summary>
+            public const string ParentKey = "ParentKey";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.ParentEntity" /></summary>
+            public const string ParentEntity = "ParentEntity";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Changed" /></summary>
+            public const string Changed = "Changed";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.ChangedBy" /></summary>
+            public const string ChangedBy = "ChangedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.PropertyName" /></summary>
+            public const string PropertyName = "PropertyName";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.DisplayName" /></summary>
+            public const string DisplayName = "DisplayName";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Path" /></summary>
+            public const string Path = "Path";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Operation" /></summary>
+            public const string Operation = "Operation";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.OriginalValue" /></summary>
+            public const string OriginalValue = "OriginalValue";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.OriginalFormatted" /></summary>
+            public const string OriginalFormatted = "OriginalFormatted";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.OriginalType" /></summary>
+            public const string OriginalType = "OriginalType";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CurrentValue" /></summary>
+            public const string CurrentValue = "CurrentValue";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CurrentFormatted" /></summary>
+            public const string CurrentFormatted = "CurrentFormatted";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CurrentType" /></summary>
+            public const string CurrentType = "CurrentType";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.HistoryRecord.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+        }
         #endregion
 
     }

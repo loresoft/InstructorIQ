@@ -95,33 +95,39 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Notification" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Notification" /></summary>
-        public const string TableName = "Notification";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Notification" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Notification" /></summary>
+            public const string Name = "Notification";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Type" /></summary>
-        public const string ColumnType = "Type";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Message" /></summary>
-        public const string ColumnMessage = "Message";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.UserName" /></summary>
-        public const string ColumnUserName = "UserName";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Read" /></summary>
-        public const string ColumnRead = "Read";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.TenantId" /></summary>
-        public const string ColumnTenantId = "TenantId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Type" /></summary>
+            public const string Type = "Type";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Message" /></summary>
+            public const string Message = "Message";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.UserName" /></summary>
+            public const string UserName = "UserName";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Read" /></summary>
+            public const string Read = "Read";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.TenantId" /></summary>
+            public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+        }
         #endregion
 
     }
