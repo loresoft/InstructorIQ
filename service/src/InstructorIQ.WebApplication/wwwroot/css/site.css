@@ -322,3 +322,11 @@ ul.timeline {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+[aria-expanded=true] > .fa-caret-right {
+    display: none;
+}
+
+[aria-expanded=false] > .fa-caret-down {
+    display: none;
+}

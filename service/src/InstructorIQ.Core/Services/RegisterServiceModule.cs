@@ -21,6 +21,7 @@ namespace InstructorIQ.Core.Services
             services.TryAddSingleton<IEntityComparer, EntityComparer>();
             services.TryAddSingleton<IHtmlService, HtmlService>();
             services.TryAddSingleton<IStateService, CookieStateService>();
+            services.TryAddSingleton<ICleanupService, CleanupService>();
 
             services.AddMemoryCache();
 
