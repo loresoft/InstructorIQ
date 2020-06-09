@@ -72,6 +72,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("IsPublished")
                 .HasColumnType("bit");
 
+            builder.Property(t => t.InstructorSlots)
+                .HasColumnName("InstructorSlots")
+                .HasColumnType("int");
+
             builder.Property(t => t.CalendarYear)
                 .IsRequired()
                 .HasColumnName("CalendarYear")
@@ -145,49 +149,57 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Topic" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Topic" /></summary>
-        public const string TableName = "Topic";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Topic" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Topic" /></summary>
+            public const string Name = "Topic";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Title" /></summary>
-        public const string ColumnTitle = "Title";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Summary" /></summary>
-        public const string ColumnSummary = "Summary";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Description" /></summary>
-        public const string ColumnDescription = "Description";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.TenantId" /></summary>
-        public const string ColumnTenantId = "TenantId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.LeadInstructorId" /></summary>
-        public const string ColumnLeadInstructorId = "LeadInstructorId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.LessonPlan" /></summary>
-        public const string ColumnLessonPlan = "LessonPlan";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Notes" /></summary>
-        public const string ColumnNotes = "Notes";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.IsRequired" /></summary>
-        public const string ColumnIsRequired = "IsRequired";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.IsPublished" /></summary>
-        public const string ColumnIsPublished = "IsPublished";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.CalendarYear" /></summary>
-        public const string ColumnCalendarYear = "CalendarYear";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.TargetMonth" /></summary>
-        public const string ColumnTargetMonth = "TargetMonth";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.PeriodStart" /></summary>
-        public const string ColumnPeriodStart = "PeriodStart";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.PeriodEnd" /></summary>
-        public const string ColumnPeriodEnd = "PeriodEnd";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Title" /></summary>
+            public const string Title = "Title";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Summary" /></summary>
+            public const string Summary = "Summary";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Description" /></summary>
+            public const string Description = "Description";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.TenantId" /></summary>
+            public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.LeadInstructorId" /></summary>
+            public const string LeadInstructorId = "LeadInstructorId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.LessonPlan" /></summary>
+            public const string LessonPlan = "LessonPlan";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Notes" /></summary>
+            public const string Notes = "Notes";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.IsRequired" /></summary>
+            public const string IsRequired = "IsRequired";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.IsPublished" /></summary>
+            public const string IsPublished = "IsPublished";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.InstructorSlots" /></summary>
+            public const string InstructorSlots = "InstructorSlots";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.CalendarYear" /></summary>
+            public const string CalendarYear = "CalendarYear";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.TargetMonth" /></summary>
+            public const string TargetMonth = "TargetMonth";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.PeriodStart" /></summary>
+            public const string PeriodStart = "PeriodStart";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.PeriodEnd" /></summary>
+            public const string PeriodEnd = "PeriodEnd";
+        }
         #endregion
 
     }

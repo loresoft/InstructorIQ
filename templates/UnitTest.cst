@@ -1,0 +1,94 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" %>
+<%@ Property Name="EntityName" Type="System.String" %>
+
+using System;
+using System.Threading.Tasks;
+using AutoMapper;
+using DataGenerator;
+using EntityFrameworkCore.CommandQuery.Commands;
+using EntityFrameworkCore.CommandQuery.Queries;
+using FluentAssertions;
+using InstructorIQ.Core.Data.Entities;
+using InstructorIQ.Core.Domain.Models;
+using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
+using Xunit.Abstractions;
+
+namespace InstructorIQ.Core.Tests.Domain
+{
+    [Collection("DependencyInjectionCollection")]
+    public class <%= EntityName %>Test : DependencyInjectionBase
+    {
+        public <%= EntityName %>Test(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
+            : base(outputHelper, dependencyInjection)
+        {
+        }
+
+        [Fact]
+        public async Task FullTest()
+        {
+            var mediator = ServiceProvider.GetService<IMediator>();
+            mediator.Should().NotBeNull();
+
+            var mapper = ServiceProvider.GetService<IMapper>();
+            mapper.Should().NotBeNull();
+
+            // Create Entity
+            var createModel = Generator.Default.Single<<%= EntityName %>CreateModel>();
+            createModel.Abbreviation = "TEST";
+
+            var createCommand = new EntityCreateCommand<<%= EntityName %>, <%= EntityName %>CreateModel, <%= EntityName %>ReadModel>(createModel, MockPrincipal.Default);
+            var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
+            createResult.Should().NotBeNull();
+
+            // Get Entity by Key
+            var identifierQuery = new EntityIdentifierQuery<Guid, <%= EntityName %>, <%= EntityName %>ReadModel>(createResult.Id, MockPrincipal.Default);
+            var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
+            identifierResult.Should().NotBeNull();
+            identifierResult.Name.Should().Be(createModel.Name);
+
+            // Query Entity
+            var entityQuery = new EntityQuery
+            {
+                Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
+                Filter = new EntityFilter { Name = "Abbreviation", Value = "TEST" }
+            };
+            var listQuery = new EntityListQuery<<%= EntityName %>, <%= EntityName %>ReadModel>(entityQuery, MockPrincipal.Default);
+
+            var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
+            listResult.Should().NotBeNull();
+
+            // Patch Entity
+            var patchModel = new JsonPatchDocument<<%= EntityName %>>();
+            patchModel.Operations.Add(new Operation<<%= EntityName %>>
+            {
+                op = "replace",
+                path = "/Description",
+                value = "Patch Update"
+            });
+
+            var patchCommand = new EntityPatchCommand<Guid, <%= EntityName %>, <%= EntityName %>ReadModel>(createResult.Id, patchModel, MockPrincipal.Default);
+            var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
+            patchResult.Should().NotBeNull();
+            patchResult.Description.Should().Be("Patch Update");
+
+            // Update Entity
+            var updateModel = mapper.Map<<%= EntityName %>UpdateModel>(patchResult);
+            updateModel.Description = "Update Command";
+
+            var updateCommand = new EntityUpdateCommand<Guid, <%= EntityName %>, <%= EntityName %>UpdateModel, <%= EntityName %>ReadModel>(createResult.Id, updateModel, MockPrincipal.Default);
+            var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
+            updateResult.Should().NotBeNull();
+            updateResult.Description.Should().Be("Update Command");
+
+            // Delete Entity
+            var deleteCommand = new EntityDeleteCommand<Guid, <%= EntityName %>, <%= EntityName %>ReadModel>(createResult.Id, MockPrincipal.Default);
+            var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
+            deleteResult.Should().NotBeNull();
+            deleteResult.Id.Should().Be(createResult.Id);
+        }
+    }
+}

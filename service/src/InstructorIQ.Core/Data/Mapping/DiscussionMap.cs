@@ -159,53 +159,59 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Discussion" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Discussion" /></summary>
-        public const string TableName = "Discussion";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Discussion" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Discussion" /></summary>
+            public const string Name = "Discussion";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.TopicId" /></summary>
-        public const string ColumnTopicId = "TopicId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.TenantId" /></summary>
-        public const string ColumnTenantId = "TenantId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Message" /></summary>
-        public const string ColumnMessage = "Message";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.MessageDate" /></summary>
-        public const string ColumnMessageDate = "MessageDate";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.EmailAddress" /></summary>
-        public const string ColumnEmailAddress = "EmailAddress";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DisplayName" /></summary>
-        public const string ColumnDisplayName = "DisplayName";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.UserAgent" /></summary>
-        public const string ColumnUserAgent = "UserAgent";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Browser" /></summary>
-        public const string ColumnBrowser = "Browser";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.OperatingSystem" /></summary>
-        public const string ColumnOperatingSystem = "OperatingSystem";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DeviceFamily" /></summary>
-        public const string ColumnDeviceFamily = "DeviceFamily";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DeviceBrand" /></summary>
-        public const string ColumnDeviceBrand = "DeviceBrand";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DeviceModel" /></summary>
-        public const string ColumnDeviceModel = "DeviceModel";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.IpAddress" /></summary>
-        public const string ColumnIpAddress = "IpAddress";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.PeriodStart" /></summary>
-        public const string ColumnPeriodStart = "PeriodStart";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.PeriodEnd" /></summary>
-        public const string ColumnPeriodEnd = "PeriodEnd";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.TopicId" /></summary>
+            public const string TopicId = "TopicId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.TenantId" /></summary>
+            public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Message" /></summary>
+            public const string Message = "Message";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.MessageDate" /></summary>
+            public const string MessageDate = "MessageDate";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.EmailAddress" /></summary>
+            public const string EmailAddress = "EmailAddress";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DisplayName" /></summary>
+            public const string DisplayName = "DisplayName";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.UserAgent" /></summary>
+            public const string UserAgent = "UserAgent";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Browser" /></summary>
+            public const string Browser = "Browser";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.OperatingSystem" /></summary>
+            public const string OperatingSystem = "OperatingSystem";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DeviceFamily" /></summary>
+            public const string DeviceFamily = "DeviceFamily";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DeviceBrand" /></summary>
+            public const string DeviceBrand = "DeviceBrand";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.DeviceModel" /></summary>
+            public const string DeviceModel = "DeviceModel";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.IpAddress" /></summary>
+            public const string IpAddress = "IpAddress";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.PeriodStart" /></summary>
+            public const string PeriodStart = "PeriodStart";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.PeriodEnd" /></summary>
+            public const string PeriodEnd = "PeriodEnd";
+        }
         #endregion
 
     }

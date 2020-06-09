@@ -8,7 +8,7 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands
 {
-    public class MemberAssignRoleCommand : PrincipalCommandBase<CommandCompleteModel>
+    public class MemberAssignRoleCommand : PrincipalCommandBase<CompleteModel>
     {
         public MemberAssignRoleCommand(IPrincipal principal, Guid tenantId, IEnumerable<string> users, IEnumerable<string> roles) 
             : base(principal)

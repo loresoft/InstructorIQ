@@ -302,3 +302,31 @@ ul.timeline {
             height: 20px;
             z-index: 400;
         }
+
+.btn-inline {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+}
+
+.input-group > .input-group-prepend > .btn-inline {
+    border-right: 0 none;
+}
+
+.v-select.selector {
+    font-size: 0.875rem;
+    background-color: #fff;
+}
+
+    .v-select.selector .vs__selected {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+[aria-expanded=true] > .fa-caret-right {
+    display: none;
+}
+
+[aria-expanded=false] > .fa-caret-down {
+    display: none;
+}

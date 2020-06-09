@@ -16,14 +16,14 @@ using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SessionInstructorUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionInstructorUpdateCommand, CommandCompleteModel>
+    public class SessionInstructorUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionInstructorUpdateCommand, CompleteModel>
     {
         public SessionInstructorUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionInstructorUpdateCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(SessionInstructorUpdateCommand request, CancellationToken cancellationToken)
         {
             var sessionId = request.SessionId;
             var session = await DataContext.Sessions.FindAsync(sessionId);
@@ -46,7 +46,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             await DataContext.SaveChangesAsync(cancellationToken);
 
-            return new CommandCompleteModel();
+            return new CompleteModel();
         }
 
         private void RemoveInstructors(IReadOnlyCollection<SessionInstructor> existingInstructors, IEnumerable<Guid> updated, Guid sessionId)

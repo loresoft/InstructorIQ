@@ -9,6 +9,7 @@ using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Security;
 using MediatR.CommandQuery;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using MediatR.CommandQuery.Models;
@@ -18,26 +19,40 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SessionMultipleUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionMultipleUpdateCommand, CommandCompleteModel>
+    public class SessionMultipleUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionMultipleUpdateCommand, CompleteModel>
     {
         public SessionMultipleUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }
 
-        protected override async Task<CommandCompleteModel> Process(SessionMultipleUpdateCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(SessionMultipleUpdateCommand request, CancellationToken cancellationToken)
         {
             foreach (var updateModel in request.Models)
-                await UpdateSession(updateModel, request.Principal?.Identity?.Name);
+            {
+                string userName = request.Principal?.Identity?.Name;
 
-            return new CommandCompleteModel();
+                await UpdateSession(updateModel, userName);
+            }
+
+            return new CompleteModel();
         }
 
         private async Task UpdateSession(SessionMultipleUpdateModel updateModel, string identityName)
         {
             var session = await DataContext.Sessions.FindAsync(updateModel.Id);
             if (session == null)
-                throw new DomainException(HttpStatusCode.NotFound, $"Session with id '{updateModel.Id}' not found.");
+            {
+                session = new Session
+                {
+                    Id = updateModel.Id,
+                    TenantId = updateModel.TenantId,
+                    TopicId = updateModel.TopicId,
+                    Created = DateTimeOffset.UtcNow,
+                    CreatedBy = identityName,
+                };
+                await DataContext.Sessions.AddAsync(session);
+            }
 
             session.StartDate = updateModel.StartDate;
             session.StartTime = updateModel.StartTime;
@@ -52,7 +67,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             session.UpdatedBy = identityName;
 
             await DataContext.SaveChangesAsync();
-            
+
             // update instructors
             var sessionId = session.Id;
             var existingInstructors = await DataContext.SessionInstructors

@@ -2,6 +2,7 @@
 using AutoMapper;
 using InstructorIQ.Core.Data;
 using KickStart.DependencyInjection;
+using MediatR.CommandQuery.Audit;
 using MediatR.CommandQuery.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,7 @@ namespace InstructorIQ.Core.Domain
             services.AddMediator();
             services.AddAutoMapper(typeof(InstructorIQContext).Assembly);
             services.AddValidatorsFromAssembly<InstructorIQContext>();
+            services.AddEntityAudit();
         }
     }
 }

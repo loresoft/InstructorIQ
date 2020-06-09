@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace InstructorIQ.Core.Domain.Handlers
 {
     public class TopicMultipleUpdateCommandHandler
-        : RequestHandlerBase<TopicMultipleUpdateCommand, CommandCompleteModel>
+        : RequestHandlerBase<TopicMultipleUpdateCommand, CompleteModel>
     {
         private readonly IDataSession _dataSession;
 
@@ -22,16 +22,16 @@ namespace InstructorIQ.Core.Domain.Handlers
             _dataSession = dataSession;
         }
 
-        protected override async Task<CommandCompleteModel> Process(TopicMultipleUpdateCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(TopicMultipleUpdateCommand request, CancellationToken cancellationToken)
         {
             if (request.Topics.Count == 0)
             {
                 Logger.LogWarning("No topics to process");
-                return new CommandCompleteModel();
+                return new CompleteModel();
             }
 
             int rows = await _dataSession
-                .MergeData($"[{TopicMap.TableSchema}].[{TopicMap.TableName}]")
+                .MergeData($"[{TopicMap.Table.Schema}].[{TopicMap.Table.Name}]")
                 .IncludeInsert()
                 .IncludeUpdate()
                 .Mode(DataMergeMode.SqlStatement)
@@ -51,7 +51,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             Logger.LogInformation("Processed {rows} topics", rows);
 
-            return new CommandCompleteModel();
+            return new CompleteModel();
 
         }
     }

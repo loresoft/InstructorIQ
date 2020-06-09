@@ -18,9 +18,9 @@ namespace InstructorIQ.Core.Domain
         {
             RegisterEntityQuery<Guid, EmailDelivery, EmailDeliveryReadModel>(services);
 
-            services.TryAddTransient<IRequestHandler<SendUserInviteEmailCommand, CommandCompleteModel>, SendUserInviteEmailCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SendUserLinkEmailCommand, CommandCompleteModel>, SendUserLinkEmailCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SendSummaryEmailCommand, CommandCompleteModel>, SendSummaryEmailCommandHandler>();
+            services.TryAddTransient<IRequestHandler<SendUserInviteEmailCommand, CompleteModel>, SendUserInviteEmailCommandHandler>();
+            services.TryAddTransient<IRequestHandler<SendUserLinkEmailCommand, CompleteModel>, SendUserLinkEmailCommandHandler>();
+            services.TryAddTransient<IRequestHandler<SendSummaryEmailCommand, CompleteModel>, SendSummaryEmailCommandHandler>();
         }
     }
 }

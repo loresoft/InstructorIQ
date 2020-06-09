@@ -24,6 +24,10 @@ namespace InstructorIQ.JobRunner
                 RecurringJob.AddOrUpdate<IEmailDeliveryService>(
                     emailService => emailService.ProcessEmailQueueAsync(CancellationToken.None),
                     Cron.Minutely);
+
+                RecurringJob.AddOrUpdate<ICleanupService>(
+                    emailService => emailService.ProcessAsync(CancellationToken.None),
+                    Cron.Daily);
             }
             catch (Exception ex)
             {

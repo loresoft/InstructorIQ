@@ -14,6 +14,10 @@ namespace InstructorIQ.Core.Domain.Mapping
             CreateMap<Data.Entities.User, MemberImportModel>();
 
             CreateMap<MemberUpdateModel, Data.Entities.User>();
+
+            CreateMap<MemberReadModel, MemberUpdateModel>();
+
+            CreateMap<MemberReadModel, MemberImportModel>();
         }
     }
 }

@@ -52,7 +52,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             if (currentLockoutEnabled == model.LockoutEnd)
                 return;
-            
+
             var result = await _userManager.SetLockoutEndDateAsync(user, model.LockoutEnd);
             if (!result.Succeeded)
                 throw new DomainException(System.Net.HttpStatusCode.InternalServerError, $"Unexpected error occurred setting lockout end date for user with ID '{id}'.");

@@ -111,37 +111,43 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Attendance" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Attendance" /></summary>
-        public const string TableName = "Attendance";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Attendance" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Attendance" /></summary>
+            public const string Name = "Attendance";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.SessionId" /></summary>
-        public const string ColumnSessionId = "SessionId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Attended" /></summary>
-        public const string ColumnAttended = "Attended";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendeeEmail" /></summary>
-        public const string ColumnAttendeeEmail = "AttendeeEmail";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendeeName" /></summary>
-        public const string ColumnAttendeeName = "AttendeeName";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Signature" /></summary>
-        public const string ColumnSignature = "Signature";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.SignatureType" /></summary>
-        public const string ColumnSignatureType = "SignatureType";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.TenantId" /></summary>
-        public const string ColumnTenantId = "TenantId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.SessionId" /></summary>
+            public const string SessionId = "SessionId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Attended" /></summary>
+            public const string Attended = "Attended";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendeeEmail" /></summary>
+            public const string AttendeeEmail = "AttendeeEmail";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.AttendeeName" /></summary>
+            public const string AttendeeName = "AttendeeName";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Signature" /></summary>
+            public const string Signature = "Signature";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.SignatureType" /></summary>
+            public const string SignatureType = "SignatureType";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.TenantId" /></summary>
+            public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Attendance.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+        }
         #endregion
     }
 }

@@ -56,8 +56,8 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
                 Name = nameof(AttendanceSessionModel.SessionId),
                 Value = Id
             };
-
-            var command = new EntitySelectQuery<AttendanceSessionModel>(User, filter);
+            var select = new EntitySelect(filter);
+            var command = new EntitySelectQuery<AttendanceSessionModel>(User, select);
             var results = await Mediator.Send(command);
 
             Attendances = results.ToList();

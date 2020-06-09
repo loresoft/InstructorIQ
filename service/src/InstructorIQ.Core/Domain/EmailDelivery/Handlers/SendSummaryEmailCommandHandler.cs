@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class SendSummaryEmailCommandHandler : EmailTemplateCommandHandlerBase<SendSummaryEmailCommand, CommandCompleteModel>
+    public class SendSummaryEmailCommandHandler : EmailTemplateCommandHandlerBase<SendSummaryEmailCommand, CompleteModel>
     {
         private readonly UserManager<Core.Data.Entities.User> _userManager;
 
@@ -22,12 +22,12 @@ namespace InstructorIQ.Core.Domain.Handlers
             _userManager = userManager;
         }
 
-        protected override async Task<CommandCompleteModel> Process(SendSummaryEmailCommand request, CancellationToken cancellationToken)
+        protected override async Task<CompleteModel> Process(SendSummaryEmailCommand request, CancellationToken cancellationToken)
         {
             foreach (var recipient in request.Model.Recipients)
                 await SendSummaryEmail(request.Model, recipient);
 
-            var completeModel = new CommandCompleteModel();
+            var completeModel = new CompleteModel();
             return completeModel;
         }
 

@@ -102,6 +102,14 @@ namespace InstructorIQ.Core.Data.Entities
         public bool IsPublished { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'InstructorSlots'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'InstructorSlots'.
+        /// </value>
+        public int? InstructorSlots { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'CalendarYear'.
         /// </summary>
         /// <value>

@@ -8,7 +8,7 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands
 {
-    public class SessionSequenceCreateCommand : PrincipalCommandBase<CommandCompleteModel>
+    public class SessionSequenceCreateCommand : PrincipalCommandBase<CompleteModel>
     {
         public SessionSequenceCreateCommand(IPrincipal principal, Guid topicId, IEnumerable<int> sequences) : base(principal)
         {

@@ -6,7 +6,7 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands
 {
-    public class SendUserInviteEmailCommand : EntityModelCommand<UserInviteModel, CommandCompleteModel>
+    public class SendUserInviteEmailCommand : EntityModelCommand<UserInviteModel, CompleteModel>
     {
         public SendUserInviteEmailCommand(IPrincipal principal, UserInviteModel model)
             : base(principal, model)

@@ -85,29 +85,35 @@ namespace InstructorIQ.Core.Data.Mapping
         }
 
         #region Generated Constants
-        /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.InstructorRole" /></summary>
-        public const string TableSchema = "IQ";
-        /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.InstructorRole" /></summary>
-        public const string TableName = "InstructorRole";
+        public struct Table
+        {
+            /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.InstructorRole" /></summary>
+            public const string Schema = "IQ";
+            /// <summary>Table Name constant for entity <see cref="InstructorIQ.Core.Data.Entities.InstructorRole" /></summary>
+            public const string Name = "InstructorRole";
+        }
 
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Id" /></summary>
-        public const string ColumnId = "Id";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Name" /></summary>
-        public const string ColumnName = "Name";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Description" /></summary>
-        public const string ColumnDescription = "Description";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.TenantId" /></summary>
-        public const string ColumnTenantId = "TenantId";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Created" /></summary>
-        public const string ColumnCreated = "Created";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.CreatedBy" /></summary>
-        public const string ColumnCreatedBy = "CreatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Updated" /></summary>
-        public const string ColumnUpdated = "Updated";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.UpdatedBy" /></summary>
-        public const string ColumnUpdatedBy = "UpdatedBy";
-        /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.RowVersion" /></summary>
-        public const string ColumnRowVersion = "RowVersion";
+        public struct Columns
+        {
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Id" /></summary>
+            public const string Id = "Id";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Name" /></summary>
+            public const string Name = "Name";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Description" /></summary>
+            public const string Description = "Description";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.TenantId" /></summary>
+            public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Created" /></summary>
+            public const string Created = "Created";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.CreatedBy" /></summary>
+            public const string CreatedBy = "CreatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.Updated" /></summary>
+            public const string Updated = "Updated";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.UpdatedBy" /></summary>
+            public const string UpdatedBy = "UpdatedBy";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.InstructorRole.RowVersion" /></summary>
+            public const string RowVersion = "RowVersion";
+        }
         #endregion
 
     }

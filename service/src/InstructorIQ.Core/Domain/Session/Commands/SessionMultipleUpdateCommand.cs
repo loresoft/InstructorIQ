@@ -7,7 +7,7 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands
 {
-    public class SessionMultipleUpdateCommand : PrincipalCommandBase<CommandCompleteModel>
+    public class SessionMultipleUpdateCommand : PrincipalCommandBase<CompleteModel>
     {
         public SessionMultipleUpdateCommand(IPrincipal principal, IReadOnlyCollection<SessionMultipleUpdateModel> models) : base(principal)
         {

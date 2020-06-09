@@ -47,6 +47,7 @@ namespace InstructorIQ.Core.Domain.Mapping
                     SessionId = i.Id,
                     InstructorId = i.InstructorId,
                     DisplayName = i.Instructor.DisplayName,
+                    SortName = i.Instructor.SortName,
                     FamilyName = i.Instructor.FamilyName,
                     GivenName = i.Instructor.GivenName,
                     EmailAddress = i.Instructor.EmailAddress
@@ -54,6 +55,16 @@ namespace InstructorIQ.Core.Domain.Mapping
 
             CreateMap<Session, SessionUpdateModel>()
                 .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+
+
+            CreateMap<SessionInstructor, SessionInstructorModel>()
+                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
+                .ForMember(d => d.DisplayName, opt => opt.MapFrom(s => s.Instructor.DisplayName))
+                .ForMember(d => d.SortName, opt => opt.MapFrom(s => s.Instructor.SortName))
+                .ForMember(d => d.GivenName, opt => opt.MapFrom(s => s.Instructor.GivenName))
+                .ForMember(d => d.FamilyName, opt => opt.MapFrom(s => s.Instructor.FamilyName))
+                .ForMember(d => d.EmailAddress, opt => opt.MapFrom(s => s.Instructor.EmailAddress));
+
         }
 
     }

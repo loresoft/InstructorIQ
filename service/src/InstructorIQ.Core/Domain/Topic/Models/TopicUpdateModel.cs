@@ -85,6 +85,14 @@ namespace InstructorIQ.Core.Domain.Models
         public bool IsPublished { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value for 'InstructorSlots'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'InstructorSlots'.
+        /// </value>
+        public int? InstructorSlots { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value for 'CalendarYear'.
         /// </summary>
         /// <value>

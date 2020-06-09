@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
@@ -11,6 +10,7 @@ using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -39,28 +39,18 @@ namespace InstructorIQ.WebApplication.Pages.Session
 
         public IReadOnlyCollection<GroupDropdownModel> Groups { get; set; }
 
+        public IReadOnlyCollection<SessionFrequentTimeModel> Times { get; private set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var topicsTask = LoadTopics();
+            var loadTask = LoadData();
             var sessionsTask = LoadSessions();
-            var instructorTask = LoadInstructors();
-            var locationTask = LoadLocations();
-            var groupTask = LoadGroups();
 
             // load all in parallel
             await Task.WhenAll(
                 sessionsTask,
-                topicsTask,
-                instructorTask,
-                locationTask,
-                groupTask
+                loadTask
             );
-
-            Topics = topicsTask.Result;
-            Instructors = instructorTask.Result;
-            Locations = locationTask.Result;
-            Groups = groupTask.Result;
 
             var title = Topics.Select(t => t.Title).ToDelimitedString("; ");
 
@@ -84,10 +74,13 @@ namespace InstructorIQ.WebApplication.Pages.Session
                     LeadInstructorId = i.LeadInstructorId,
                     LocationId = i.LocationId,
                     Note = i.Note,
-                    AdditionalInstructors = i.AdditionalInstructors.Select(s => s.InstructorId).ToList(),
                     TopicId = i.TopicId,
-                    TopicTitle = i.TopicTitle
+                    TopicTitle = i.TopicTitle,
+                    TenantId = i.TenantId,
+
+                    AdditionalInstructors = i.AdditionalInstructors.Select(s => s.InstructorId).ToList()
                 })
+
                 .ToList();
 
             return Page();
@@ -96,7 +89,10 @@ namespace InstructorIQ.WebApplication.Pages.Session
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
+            {
+                await LoadData();
                 return Page();
+            }
 
             var updateCommand = new SessionMultipleUpdateCommand(User, Sessions);
             var result = await Mediator.Send(updateCommand);
@@ -104,6 +100,30 @@ namespace InstructorIQ.WebApplication.Pages.Session
             ShowAlert("Successfully saved topic sessions");
 
             return RedirectToPage("/Topic/Index", new { tenant = TenantRoute });
+        }
+
+        private async Task LoadData()
+        {
+            var topicTask = LoadTopics();
+            var instructorTask = LoadInstructors();
+            var locationTask = LoadLocations();
+            var groupTask = LoadGroups();
+            var timesTask = LoadTimes();
+
+            // load all in parallel
+            await Task.WhenAll(
+                topicTask,
+                instructorTask,
+                locationTask,
+                groupTask,
+                timesTask
+            );
+
+            Topics = topicTask.Result;
+            Instructors = instructorTask.Result;
+            Locations = locationTask.Result;
+            Groups = groupTask.Result;
+            Times = timesTask.Result;
         }
 
         private async Task<IReadOnlyCollection<TopicReadModel>> LoadTopics()
@@ -146,5 +166,12 @@ namespace InstructorIQ.WebApplication.Pages.Session
             return items;
         }
 
+        private async Task<IReadOnlyCollection<SessionFrequentTimeModel>> LoadTimes()
+        {
+            var query = new SessionFrequentTimeQuery(User, Tenant.Value.Id);
+            var items = await Mediator.Send(query);
+
+            return items;
+        }
     }
 }

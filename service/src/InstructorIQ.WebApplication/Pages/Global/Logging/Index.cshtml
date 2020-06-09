@@ -1,0 +1,264 @@
+﻿@page
+@model InstructorIQ.WebApplication.Pages.Global.Logging.IndexModel
+@{
+    ViewData["Title"] = "Logs";
+}
+
+
+<div id="log-viewer" class="container-fluid">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Logs</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData[" alert.type"]"
+           message="@TempData[" alert.message"]" />
+
+    <form id="log-search-form"
+          name="log-search-form"
+          role="form"
+          method="get">
+        <div class="card mb-5">
+            <div class="card-header">
+                <div class="row no-gutters">
+                    <div class="col-sm-4">
+                        <i class="fas fa-file-alt mr-2"
+                           aria-hidden="true"></i> Logs
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="custom-select custom-select-sm"
+                                name="l"
+                                asp-for="Level"
+                                onchange="this.form.submit()">
+                            <option value="">- Level -</option>
+                            <option value="Trace">Trace</option>
+                            <option value="Debug">Debug</option>
+                            <option value="Information">Information</option>
+                            <option value="Warning">Warning</option>
+                            <option value="Error">Error</option>
+                            <option value="Critical">Critical</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="input-group input-group-sm mr-2">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="button"
+                                        title="Previous Date"
+                                        onclick="previousDate()">
+                                    <i class="fas fa-chevron-left"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <input type="date"
+                                   name="d"
+                                   asp-for="Date"
+                                   class="form-control form-control-sm"
+                                   placeholder="Date" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="button"
+                                        title="Next Date"
+                                        onclick="nextDate()">
+                                    <i class="fas fa-chevron-right"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group input-group-sm mr-2">
+                            <input type="text"
+                                   name="q"
+                                   asp-for="Query"
+                                   class="form-control"
+                                   placeholder="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="submit">
+                                    <i class="fas fa-search"
+                                       aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <table class="table table-bordered table-sm">
+                    <colgroup>
+                        <col style="width: 30px" />
+                        <col style="width: 30px" />
+                        <col style="width: 200px" />
+                        <col style="width: 120px" />
+                        <col style="" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in Model.Logs)
+                        {
+                            <tr>
+                                <td style="text-align:center;">
+                                    <a class="d-block"
+                                       data-toggle="collapse"
+                                       href="#collapse-@log.TimeStamp.Ticks"
+                                       role="button"
+                                       aria-expanded="false"
+                                       aria-controls="collapse-@log.TimeStamp.Ticks">
+                                        <i class="fas fa-caret-right"></i>
+                                        <i class="fas fa-caret-down"></i>
+                                    </a>
+                                </td>
+                                <td style="text-align:center;">
+                                    @if (log.Level == "Warning")
+                                    {
+                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    }
+                                    else if (log.Level == "Error" || log.Level == "Critical")
+                                    {
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                    }
+                                    else if (log.Level == "Information")
+                                    {
+                                        <i class="fas fa-info-circle text-primary"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-info-circle text-secondary"></i>
+                                    }
+                                </td>
+                                <td>@log.TimeStamp.ToString()</td>
+                                <td>@log.Level</td>
+                                <td>@log.Message</td>
+                            </tr>
+                            <tr class="collapse" id="collapse-@log.TimeStamp.Ticks" style="background-color: #f9f9f9;">
+                                <td colspan="5">
+                                    <div class="tab-container">
+                                        <ul class="nav nav-tabs" id="log-tabs-@log.TimeStamp.Ticks" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link active"
+                                                   id="properties-tab-@log.TimeStamp.Ticks"
+                                                   href="#properties-panel-@log.TimeStamp.Ticks"
+                                                   data-toggle="tab"
+                                                   aria-controls="properties-panel-@log.TimeStamp.Ticks"
+                                                   aria-selected="true"
+                                                   role="tab">Properties</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link"
+                                                   id="exception-tab-@log.TimeStamp.Ticks"
+                                                   href="#exception-panel-@log.TimeStamp.Ticks"
+                                                   data-toggle="tab"
+                                                   aria-controls="exception-panel-@log.TimeStamp.Ticks"
+                                                   role="tab">Exception</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade show active"
+                                                 id="properties-panel-@log.TimeStamp.Ticks"
+                                                 aria-labelledby="properties-tab-@log.TimeStamp.Ticks"
+                                                 role="tabpanel">
+                                                <table class="table table-bordered table-sm table-striped table-property">
+                                                    <colgroup>
+                                                        <col style="width: 200px" />
+                                                        <col style="" />
+                                                    </colgroup>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Value</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var property in log.Properties.EnumerateObject())
+                                                        {
+                                                            <tr>
+                                                                <th>@property.Name</th>
+                                                                <td>@property.Value</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade"
+                                                 id="exception-panel-@log.TimeStamp.Ticks"
+                                                 aria-labelledby="exception-tab-@log.TimeStamp.Ticks"
+                                                 role="tabpanel">
+                                                <pre style="overflow: auto; max-height: 400px; font-family: Courier New">@(string.IsNullOrWhiteSpace(log.Exception) ? "No Exception Found" : log.Exception)</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer p-0">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="center-block text-center m-3">
+                            <span>
+                                Showing @((Model.PageNumber * Model.PageSize) - (Model.PageSize -1)) to @(Math.Min(Model.PageNumber * Model.PageSize, Model.Total)) of @Model.Total rows.
+                            </span>
+                            <span style="margin-left: 10px">
+                                <select class="form-control"
+                                        style="width: 75px; display: inline"
+                                        name="PageSize"
+                                        asp-for="PageSize"
+                                        onchange="this.form.submit()">
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                                records per page
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <pagination current-page="@Model.PageNumber"
+                                    page-size="@Model.PageSize"
+                                    total-items="@Model.Total"
+                                    asp-route-z="@Model.PageSize"
+                                    asp-route-l="@Model.Level"
+                                    asp-route-d="@Model.Date"
+                                    asp-route-q="@Model.Query"
+                                    class="justify-content-md-end m-3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+        function previousDate() {
+            $('#@Html.IdFor(p => p.Date)').val('@Model.Date.AddDays(-1).ToString("yyyy-MM-dd")');
+            $('#log-search-form').submit();
+        }
+        function nextDate() {
+            $('#@Html.IdFor(p => p.Date)').val('@Model.Date.AddDays(1).ToString("yyyy-MM-dd")');
+            $('#log-search-form').submit();
+        }
+    </script>
+}

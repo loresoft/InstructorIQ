@@ -32,7 +32,7 @@ namespace InstructorIQ.Core.Domain.Mapping
 
 
             CreateMap<Instructor, InstructorDropdownModel>()
-                .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))
+                .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id.ToString().ToLowerInvariant()))
                 .ForMember(d => d.Text, opt => opt.MapFrom(s => s.DisplayName));
 
 

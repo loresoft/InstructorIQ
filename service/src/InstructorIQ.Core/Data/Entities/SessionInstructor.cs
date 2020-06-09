@@ -52,6 +52,46 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid? InstructorRoleId { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'Created'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Created'.
+        /// </value>
+        public DateTimeOffset Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'CreatedBy'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'CreatedBy'.
+        /// </value>
+        public string CreatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'Updated'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Updated'.
+        /// </value>
+        public DateTimeOffset Updated { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'UpdatedBy'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'UpdatedBy'.
+        /// </value>
+        public string UpdatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value representing column 'RowVersion'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'RowVersion'.
+        /// </value>
+        public Byte[] RowVersion { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'PeriodStart'.
         /// </summary>
         /// <value>

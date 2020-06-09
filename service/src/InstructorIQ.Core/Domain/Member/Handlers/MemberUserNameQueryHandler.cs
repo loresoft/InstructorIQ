@@ -13,10 +13,10 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class MemberUserNameQueryHandler 
+    public class MemberUserNameQueryHandler
         : DataContextHandlerBase<InstructorIQContext, MemberUserNameQuery, MemberReadModel>
     {
-        public MemberUserNameQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper) 
+        public MemberUserNameQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
         {
         }

@@ -3,6 +3,7 @@ using System.Linq;
 using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
+using InstructorIQ.Core.Converters;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
@@ -17,7 +18,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.StaticFiles;
@@ -25,7 +25,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace InstructorIQ.WebApplication
@@ -42,7 +43,34 @@ namespace InstructorIQ.WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("InstructorIQ");
+
             services.AddApplicationInsightsTelemetry();
+
+            var sinkOptions = new Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options.SinkOptions
+            {
+                SchemaName = "Log",
+                TableName = "LogEvent"
+            };
+
+            var columnOptions = new ColumnOptions();
+            columnOptions.Store.Remove(StandardColumn.Id);
+            columnOptions.Store.Remove(StandardColumn.MessageTemplate);
+            columnOptions.Store.Remove(StandardColumn.Properties);
+            columnOptions.Store.Add(StandardColumn.LogEvent);
+            columnOptions.PrimaryKey = columnOptions.TimeStamp;
+            columnOptions.Level.DataLength = 20;
+
+            // append logging after configuration load
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .WriteTo.Logger(Log.Logger)
+                .WriteTo.MSSqlServer(
+                    connectionString: connectionString,
+                    sinkOptions: sinkOptions,
+                    columnOptions: columnOptions
+                )
+                .CreateLogger();
 
             services.KickStart(c => c
                 .IncludeAssemblyFor<ConfigurationServiceModule>()
@@ -114,7 +142,12 @@ namespace InstructorIQ.WebApplication
                     options.Conventions.AddFolderTenantRoute("/Template");
                     options.Conventions.AddFolderTenantRoute("/User", false);
                 })
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());
+                })
                 .AddFluentValidation();
+
 
             services.AddUrlHelper();
 
@@ -156,7 +189,6 @@ namespace InstructorIQ.WebApplication
             // hangfire options
             services.TryAddSingleton(new SqlServerStorageOptions());
 
-            var connectionString = Configuration.GetConnectionString("InstructorIQ");
             services.AddHangfire((provider, configuration) => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()

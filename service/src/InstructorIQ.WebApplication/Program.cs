@@ -8,7 +8,7 @@ using Serilog.Events;
 
 namespace InstructorIQ.WebApplication
 {
-    public class Program
+    public static class Program
     {
         public static int Main(string[] args)
         {

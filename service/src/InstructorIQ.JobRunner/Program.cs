@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
 
 namespace InstructorIQ.JobRunner
 {
@@ -51,8 +52,36 @@ namespace InstructorIQ.JobRunner
                     })
                     .ConfigureServices((hostContext, services) =>
                     {
+                        var connectionString = hostContext.Configuration.GetConnectionString("InstructorIQ");
+
                         services.AddOptions();
                         services.AddSingleton(p => hostContext.Configuration);
+
+                        var sinkOptions = new Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options.SinkOptions
+                        {
+                            SchemaName = "Log",
+                            TableName = "LogEvent"
+                        };
+
+                        var columnOptions = new ColumnOptions();
+                        columnOptions.Store.Remove(StandardColumn.Id);
+                        columnOptions.Store.Remove(StandardColumn.MessageTemplate);
+                        columnOptions.Store.Remove(StandardColumn.Properties);
+                        columnOptions.Store.Add(StandardColumn.LogEvent);
+                        columnOptions.PrimaryKey = columnOptions.TimeStamp;
+                        columnOptions.Level.DataLength = 20;
+
+                        // append logging after configuration load
+                        Log.Logger = new LoggerConfiguration()
+                            .MinimumLevel.Verbose()
+                            .WriteTo.Logger(Log.Logger)
+                            .WriteTo.MSSqlServer(
+                                connectionString: connectionString,
+                                sinkOptions: sinkOptions,
+                                columnOptions: columnOptions
+                            )
+                            .CreateLogger();
+
 
                         services.KickStart(config => config
                             .IncludeAssemblyFor<InstructorIQContext>()
@@ -75,7 +104,6 @@ namespace InstructorIQ.JobRunner
                             WorkerCount = hostContext.HostingEnvironment.IsDevelopment() ? 1 : 4
                         });
 
-                        var connectionString = hostContext.Configuration.GetConnectionString("InstructorIQ");
                         services.AddHangfire((provider, configuration) => configuration
                             .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                             .UseSimpleAssemblyNameTypeSerializer()

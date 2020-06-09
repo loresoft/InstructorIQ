@@ -1,5 +1,4 @@
 using System;
-using InstructorIQ.Core.Definitions;
 using MediatR.CommandQuery.Definitions;
 using MediatR.CommandQuery.Models;
 

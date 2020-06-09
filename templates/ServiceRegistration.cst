@@ -1,0 +1,23 @@
+﻿<%@ Template Language="C#" TargetLanguage="C#" %>
+<%@ Property Name="Namespace" Type="System.String" %>
+<%@ Property Name="EntityName" Type="System.String" %>
+<%@ Property Name="DataContext" Type="System.String" %>
+<%@ Property Name="KeyType" Type="System.String" Default="Guid" %>
+
+using System;
+using System.Collections.Generic;
+using KickStart.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+
+// ReSharper disable once CheckNamespace
+namespace <%= Namespace %>
+{   
+    public class <%= EntityName %>ServiceRegistration : IDependencyInjectionRegistration
+    {
+        public void Register(IServiceCollection services, IDictionary<string, object> data)
+        {
+            services.AddEntityQueries<<%= DataContext %>, Data.Entities.<%= EntityName %>, <%= KeyType %>, <%= EntityName %>ReadModel>();
+            services.AddEntityCommands<<%= DataContext %>, Data.Entities.<%= EntityName %>, <%= KeyType %>, <%= EntityName %>ReadModel, <%= EntityName %>CreateModel, <%= EntityName %>UpdateModel>();
+        }
+    }
+}

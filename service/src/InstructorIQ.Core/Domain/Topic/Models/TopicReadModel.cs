@@ -1,5 +1,4 @@
 using System;
-using InstructorIQ.Core.Definitions;
 using MediatR.CommandQuery.Definitions;
 using MediatR.CommandQuery.Models;
 
@@ -84,6 +83,14 @@ namespace InstructorIQ.Core.Domain.Models
         /// The property value for 'IsPublished'.
         /// </value>
         public bool IsPublished { get; set; }
+
+        /// <summary>
+        /// Gets or sets the property value for 'InstructorSlots'.
+        /// </summary>
+        /// <value>
+        /// The property value for 'InstructorSlots'.
+        /// </value>
+        public int? InstructorSlots { get; set; }
 
         /// <summary>
         /// Gets or sets the property value for 'CalendarYear'.
