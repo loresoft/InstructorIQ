@@ -78,7 +78,8 @@ namespace InstructorIQ.JobRunner
                             .WriteTo.MSSqlServer(
                                 connectionString: connectionString,
                                 sinkOptions: sinkOptions,
-                                columnOptions: columnOptions
+                                columnOptions: columnOptions,
+                                restrictedToMinimumLevel: LogEventLevel.Information
                             )
                             .CreateLogger();
 

@@ -68,7 +68,8 @@ namespace InstructorIQ.WebApplication
                 .WriteTo.MSSqlServer(
                     connectionString: connectionString,
                     sinkOptions: sinkOptions,
-                    columnOptions: columnOptions
+                    columnOptions: columnOptions,
+                    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information
                 )
                 .CreateLogger();
 
