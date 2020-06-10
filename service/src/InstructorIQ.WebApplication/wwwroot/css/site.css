@@ -323,6 +323,11 @@ ul.timeline {
         text-overflow: ellipsis;
     }
 
+    .v-select.selector-single .vs__selected {
+        max-width: 140px
+    }
+
+
 [aria-expanded=true] > .fa-caret-right {
     display: none;
 }
