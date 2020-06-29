@@ -67,6 +67,14 @@ namespace InstructorIQ.Core.Data.Entities
         public DateTimeOffset Issued { get; set; }
 
         /// <summary>
+        /// Gets or sets the property value representing column 'Used'.
+        /// </summary>
+        /// <value>
+        /// The property value representing column 'Used'.
+        /// </value>
+        public DateTimeOffset? Used { get; set; }
+
+        /// <summary>
         /// Gets or sets the property value representing column 'Expires'.
         /// </summary>
         /// <value>

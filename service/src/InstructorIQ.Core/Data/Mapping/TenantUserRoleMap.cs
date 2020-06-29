@@ -35,14 +35,20 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnName("TenantId")
                 .HasColumnType("uniqueidentifier");
 
+            builder.Property(t => t.UserId)
+                .HasColumnName("UserId")
+                .HasColumnType("uniqueidentifier");
+
+            builder.Property(t => t.RoleId)
+                .HasColumnName("RoleId")
+                .HasColumnType("uniqueidentifier");
+
             builder.Property(t => t.UserName)
-                .IsRequired()
                 .HasColumnName("UserName")
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
 
             builder.Property(t => t.RoleName)
-                .IsRequired()
                 .HasColumnName("RoleName")
                 .HasColumnType("nvarchar(100)")
                 .HasMaxLength(100);
@@ -54,6 +60,16 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasConstraintName("FK_TenantUserRole_Tenant_TenantId");
 
             #endregion
+
+            builder.HasOne(t => t.Role)
+                .WithMany(t => t.TenantUserRoles)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK_TenantUserRole_Role_RoleId");
+
+            builder.HasOne(t => t.User)
+                .WithMany(t => t.TenantUserRoles)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK_TenantUserRole_User_UserId");
         }
 
         #region Generated Constants
@@ -71,12 +87,17 @@ namespace InstructorIQ.Core.Data.Mapping
             public const string Id = "Id";
             /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.TenantId" /></summary>
             public const string TenantId = "TenantId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.UserId" /></summary>
+            public const string UserId = "UserId";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.RoleId" /></summary>
+            public const string RoleId = "RoleId";
             /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.UserName" /></summary>
             public const string UserName = "UserName";
             /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.RoleName" /></summary>
             public const string RoleName = "RoleName";
         }
         #endregion
+
 
     }
 }

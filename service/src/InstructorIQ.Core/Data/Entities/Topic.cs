@@ -17,6 +17,8 @@ namespace InstructorIQ.Core.Data.Entities
             #region Generated Constructor
             Discussions = new HashSet<Discussion>();
             Sessions = new HashSet<Session>();
+            SignUpTopics = new HashSet<SignUpTopic>();
+            TopicInstructors = new HashSet<TopicInstructor>();
             #endregion
         }
 
@@ -193,21 +195,20 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<Discussion> Discussions { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="Instructor" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="Instructor" />.
-        /// </value>
-        /// <seealso cref="LeadInstructorId" />
-        public virtual Instructor LeadInstructor { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Session" />.
         /// </summary>
         /// <value>
         /// The the navigation collection for entity <see cref="Session" />.
         /// </value>
         public virtual ICollection<Session> Sessions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="SignUpTopic" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="SignUpTopic" />.
+        /// </value>
+        public virtual ICollection<SignUpTopic> SignUpTopics { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Tenant" />.
@@ -218,7 +219,16 @@ namespace InstructorIQ.Core.Data.Entities
         /// <seealso cref="TenantId" />
         public virtual Tenant Tenant { get; set; }
 
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="TopicInstructor" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="TopicInstructor" />.
+        /// </value>
+        public virtual ICollection<TopicInstructor> TopicInstructors { get; set; }
+
         #endregion
 
+        public virtual User LeadInstructor { get; set; }
     }
 }

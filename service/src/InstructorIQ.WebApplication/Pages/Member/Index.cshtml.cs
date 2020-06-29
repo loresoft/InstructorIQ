@@ -1,18 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MediatR.CommandQuery.Queries;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
-using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Member

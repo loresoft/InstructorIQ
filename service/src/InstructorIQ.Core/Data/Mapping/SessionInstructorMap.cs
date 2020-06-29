@@ -87,11 +87,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasDefaultValueSql("('9999-12-31 23:59:59.9999999')");
 
             // relationships
-            builder.HasOne(t => t.Instructor)
-                .WithMany(t => t.SessionInstructors)
-                .HasForeignKey(d => d.InstructorId)
-                .HasConstraintName("FK_SessionInstructor_Instructor_InstructorId");
-
             builder.HasOne(t => t.InstructorRole)
                 .WithMany(t => t.SessionInstructors)
                 .HasForeignKey(d => d.InstructorRoleId)
@@ -103,6 +98,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasConstraintName("FK_SessionInstructor_Session_SessionId");
 
             #endregion
+
+            builder.HasOne(t => t.Instructor)
+                .WithMany(t => t.SessionInstructors)
+                .HasForeignKey(d => d.InstructorId)
+                .HasConstraintName("FK_SessionInstructor_Instructor_InstructorId");
 
             builder.Property(t => t.PeriodStart)
                 .ValueGeneratedOnAddOrUpdate();

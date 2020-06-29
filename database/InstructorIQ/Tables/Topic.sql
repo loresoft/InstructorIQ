@@ -34,7 +34,7 @@
 
     CONSTRAINT [PK_Topic] PRIMARY KEY NONCLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Topic_Tenant_TenantId] FOREIGN KEY ([TenantId]) REFERENCES [IQ].[Tenant]([Id]),
-    CONSTRAINT [FK_Topic_Instructor_LeadInstructorId] FOREIGN KEY ([LeadInstructorId]) REFERENCES [IQ].[Instructor]([Id]),
+    CONSTRAINT [FK_Topic_Instructor_LeadInstructorId] FOREIGN KEY ([LeadInstructorId]) REFERENCES [Identity].[User]([Id]),
 )
 WITH 
 (

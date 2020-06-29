@@ -1,0 +1,83 @@
+﻿@page  "/signup/create"
+@model CreateModel
+@{
+    ViewData["Title"] = "Create Instructor Sign Up";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/signup/index"
+                   asp-route-tenant="@Model.TenantRoute">Sign Ups</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Create Sign Up</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="far fa-check-square mr-2"></i> Sign Up
+        </div>
+        <div class="card-body">
+            <form id="signup-form"
+                  name="signup-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Entity.Name">Name <required /></label>
+                    <input asp-for="Entity.Name"
+                           type="text"
+                           class="form-control"
+                           placeholder="Name" />
+                    <span asp-validation-for="Entity.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.Description">Description</label>
+                    <textarea asp-for="Entity.Description"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Description"></textarea>
+                    <span asp-validation-for="Entity.Description" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Entity.Description)" />
+
+    <script>
+        $(function () {
+            $("#signup-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+        });
+    </script>
+}

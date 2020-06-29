@@ -21,7 +21,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         }
 
         public IReadOnlyCollection<MemberReadModel> Members { get; set; }
-        
+
         public IReadOnlyCollection<AttendanceSessionModel> Attendances { get; set; }
 
         public override async Task<IActionResult> OnGetAsync()
@@ -39,7 +39,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         private async Task LoadMembers()
         {
             var command = new MemberSelectQuery(User, Tenant.Value.Id);
-            command.RoleName = Core.Data.Constants.Role.AttendeeName;
+            command.RoleId = Core.Data.Constants.Role.Attendee;
 
             var members = await Mediator.Send(command);
 
@@ -67,8 +67,8 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         {
             return Attendances
                 .FirstOrDefault(a => string.Equals(
-                    a.AttendeeEmail, 
-                    username, 
+                    a.AttendeeEmail,
+                    username,
                     StringComparison.OrdinalIgnoreCase
                 ));
         }

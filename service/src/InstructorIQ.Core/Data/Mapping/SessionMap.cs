@@ -120,11 +120,6 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasForeignKey(d => d.GroupId)
                 .HasConstraintName("FK_Session_Group_GroupId");
 
-            builder.HasOne(t => t.LeadInstructor)
-                .WithMany(t => t.LeadSessions)
-                .HasForeignKey(d => d.LeadInstructorId)
-                .HasConstraintName("FK_Session_Instructor_LeadInstructorId");
-
             builder.HasOne(t => t.Location)
                 .WithMany(t => t.Sessions)
                 .HasForeignKey(d => d.LocationId)
@@ -141,6 +136,11 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasConstraintName("FK_Session_Topic_TopicId");
 
             #endregion
+
+            builder.HasOne(t => t.LeadInstructor)
+                .WithMany(t => t.LeadSessions)
+                .HasForeignKey(d => d.LeadInstructorId)
+                .HasConstraintName("FK_Session_Instructor_LeadInstructorId");
 
             builder.Property(t => t.PeriodStart)
                 .ValueGeneratedOnAddOrUpdate();

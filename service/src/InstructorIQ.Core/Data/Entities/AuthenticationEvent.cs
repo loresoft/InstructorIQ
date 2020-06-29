@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using MediatR.CommandQuery.Definitions;
 
 namespace InstructorIQ.Core.Data.Entities
 {
     /// <summary>
     /// Entity class representing data for table 'AuthenticationEvent'.
     /// </summary>
-    public partial class AuthenticationEvent
+    public partial class AuthenticationEvent : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationEvent"/> class.

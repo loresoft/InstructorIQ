@@ -5,6 +5,9 @@ database:
   connectionString: 'Data Source=(local);Initial Catalog=InstructorIQ;Integrated Security=True'
   schemas:
     - IQ
+  exclude:
+    - exact: dbo.Instructor
+    - exact: dbo.old_Instructor
 data:
   context:
     name: 'InstructorIQContext'
@@ -36,10 +39,10 @@ model:
         - 'ImportJob'
         - 'InviteUser'
         - 'RefreshToken'
-        - 'SessionInstructor'
         - 'SessionReferenceNumber'
         - 'TenantUserRole'
         - 'LinkToken'
+        - exact: 'Instructor'
       properties:
         - '\.Id$'
         - '\.Created$'
@@ -48,6 +51,11 @@ model:
         - '\.UpdatedBy$'
         - '\.RowVersion$'
         - 'Invite\.InviteHash$'
+        - exact: 'Topic.old_LeadInstructorId'
+        - exact: 'Session.old_LeadInstructorId'
+        - exact: 'TopicInstructor.old_InstructorId'
+        - exact: 'SessionInstructor.old_InstructorId'
+
   read:
     generate: true
     name: '{Entity.Name}ReadModel'
@@ -86,3 +94,9 @@ model:
     namespace: '{Project.Namespace}.Domain.Validation'
     directory: '{Project.Directory}\Domain\{Entity.Name}\Validation'
     document: true
+script:
+  entity:
+    - templatePath: '..\..\..\templates\DomainServiceRegistration.csx'
+      fileName: '{Entity.Name}ServiceRegistration.cs'
+      namespace: '{Project.Namespace}.Domain'
+      directory: '{Project.Directory}\Domain\{Entity.Name}'

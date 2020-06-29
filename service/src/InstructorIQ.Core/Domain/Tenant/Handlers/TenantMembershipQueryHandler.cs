@@ -24,22 +24,22 @@ namespace InstructorIQ.Core.Domain.Handlers
             var membership = new TenantMembershipModel
             {
                 TenantId = request.TenantId,
-                UserName = request.UserName
+                UserId = request.UserId
             };
 
             var roles = await DataContext.TenantUserRoles
                 .AsNoTracking()
-                .Where(q => q.TenantId == request.TenantId && q.UserName == request.UserName)
-                .Select(q => q.RoleName)
+                .Where(q => q.TenantId == request.TenantId && q.UserId == request.UserId)
+                .Select(q => q.RoleId)
                 .ToListAsync(cancellationToken);
 
             if (roles.Count == 0)
                 return membership;
 
-            membership.IsMember = roles.Contains(Data.Constants.Role.MemberName);
-            membership.IsAttendee = roles.Contains(Data.Constants.Role.AttendeeName);
-            membership.IsInstructor = roles.Contains(Data.Constants.Role.InstructorName);
-            membership.IsAdministrator = roles.Contains(Data.Constants.Role.AdministratorName);
+            membership.IsMember = roles.Contains(Data.Constants.Role.Member);
+            membership.IsAttendee = roles.Contains(Data.Constants.Role.Attendee);
+            membership.IsInstructor = roles.Contains(Data.Constants.Role.Instructor);
+            membership.IsAdministrator = roles.Contains(Data.Constants.Role.Administrator);
 
             return membership;
         }

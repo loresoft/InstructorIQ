@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace InstructorIQ.WebApplication.TagHelpers
 {
+    [HtmlTargetElement("authorize-content")]
     [HtmlTargetElement(Attributes = "authorize")]
     [HtmlTargetElement(Attributes = "authorize-policy")]
     [HtmlTargetElement(Attributes = "authorize-roles")]
@@ -41,7 +43,34 @@ namespace InstructorIQ.WebApplication.TagHelpers
         [HtmlAttributeName("authorize-schemes")]
         public string AuthenticationSchemes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the owner to authorize.
+        /// </summary>
+        /// <value>
+        /// The owner to authorize.
+        /// </value>
+        [HtmlAttributeName("authorize-owner")]
+        public string Owner { get; set; }
+
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        {
+            var ownerResult = EvaluateOwner();
+            var authorizeResult = await EvaluateAuthorization();
+
+            if (!ownerResult && !authorizeResult.Succeeded)
+                output.SuppressOutput();
+        }
+
+        private bool EvaluateOwner()
+        {
+            var currentUser = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            if (string.IsNullOrEmpty(currentUser) || string.IsNullOrEmpty(Owner))
+                return false;
+
+            return string.Equals(currentUser, Owner, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private async Task<PolicyAuthorizationResult> EvaluateAuthorization()
         {
             var policy = await AuthorizationPolicy.CombineAsync(_policyProvider, new[] { this });
 
@@ -49,8 +78,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
 
             var authorizeResult = await _policyEvaluator.AuthorizeAsync(policy, authenticateResult, _httpContextAccessor.HttpContext, null);
 
-            if (!authorizeResult.Succeeded)
-                output.SuppressOutput();
+            return authorizeResult;
         }
     }
 }

@@ -87,7 +87,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
             if (TenantId == Guid.Empty)
                 return new TenantMembershipModel();
 
-            var command = new TenantMembershipQuery(User, TenantId, Entity.UserName);
+            var command = new TenantMembershipQuery(User, TenantId, Entity.Id);
             return await Mediator.Send(command);
         }
     }

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace InstructorIQ.WebApplication.Pages.Instructor
 {
     [Authorize]
-    public class ViewModel : EntityIdentifierModelBase<InstructorUpdateModel>
+    public class ViewModel : EntityIdentifierModelBase<MemberReadModel>
     {
         public ViewModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)

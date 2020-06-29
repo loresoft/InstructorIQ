@@ -1,6 +1,7 @@
 using MediatR.CommandQuery.Definitions;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 
 namespace InstructorIQ.Core.Data.Entities
 {
@@ -9,14 +10,17 @@ namespace InstructorIQ.Core.Data.Entities
     /// </summary>
     public class Role : IdentityRole<Guid>, IHaveIdentifier<Guid>
     {
-        public Role()
+        public Role() : this(null)
         {
         }
 
         public Role(string roleName) : base(roleName)
         {
+            TenantUserRoles = new HashSet<TenantUserRole>();
         }
 
         public string Description { get; set; }
+
+        public virtual ICollection<TenantUserRole> TenantUserRoles { get; set; }
     }
 }

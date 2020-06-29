@@ -33,7 +33,7 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Location.Name))
                 .ForMember(d => d.GroupName, opt => opt.MapFrom(s => s.Group.Name))
                 .ForMember(d => d.LeadInstructorName, opt => opt.MapFrom(s => s.LeadInstructor.DisplayName))
-                .ForMember(d => d.LeadInstructorEmail, opt => opt.MapFrom(s => s.LeadInstructor.EmailAddress))
+                .ForMember(d => d.LeadInstructorEmail, opt => opt.MapFrom(s => s.LeadInstructor.Email))
                 .IncludeAllDerived();
 
             CreateMap<Session, SessionCalendarModel>()
@@ -50,7 +50,7 @@ namespace InstructorIQ.Core.Domain.Mapping
                     SortName = i.Instructor.SortName,
                     FamilyName = i.Instructor.FamilyName,
                     GivenName = i.Instructor.GivenName,
-                    EmailAddress = i.Instructor.EmailAddress
+                    Email = i.Instructor.Email
                 })));
 
             CreateMap<Session, SessionUpdateModel>()
@@ -63,7 +63,7 @@ namespace InstructorIQ.Core.Domain.Mapping
                 .ForMember(d => d.SortName, opt => opt.MapFrom(s => s.Instructor.SortName))
                 .ForMember(d => d.GivenName, opt => opt.MapFrom(s => s.Instructor.GivenName))
                 .ForMember(d => d.FamilyName, opt => opt.MapFrom(s => s.Instructor.FamilyName))
-                .ForMember(d => d.EmailAddress, opt => opt.MapFrom(s => s.Instructor.EmailAddress));
+                .ForMember(d => d.Email, opt => opt.MapFrom(s => s.Instructor.Email));
 
         }
 

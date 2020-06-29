@@ -14,5 +14,7 @@ namespace InstructorIQ.Core.Domain.Queries
         }
 
         public Guid TenantId { get; }
+
+        public Guid? RoleId { get; set; }
     }
 }

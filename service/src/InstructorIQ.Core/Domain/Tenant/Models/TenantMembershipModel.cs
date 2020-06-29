@@ -7,7 +7,7 @@ namespace InstructorIQ.Core.Domain.Models
     {
         public Guid TenantId { get; set; }
 
-        public string UserName { get; set; }
+        public Guid UserId { get; set; }
 
         public bool IsMember { get; set; }
 

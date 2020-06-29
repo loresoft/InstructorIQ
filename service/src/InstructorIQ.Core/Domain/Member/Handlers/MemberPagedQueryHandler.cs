@@ -18,7 +18,8 @@ using Microsoft.Extensions.Logging;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Handlers
 {
-    public class MemberPagedQueryHandler : DataContextHandlerBase<InstructorIQContext, MemberPagedQuery, EntityPagedResult<MemberReadModel>>
+    public class MemberPagedQueryHandler
+        : MemberQueryHandlerBase<MemberPagedQuery, EntityPagedResult<MemberReadModel>>
     {
         public MemberPagedQueryHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
             : base(loggerFactory, dataContext, mapper)
@@ -30,15 +31,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             var entityQuery = request.Query;
 
             // users that are members for tenant
-            var query = from c in DataContext.Users
-                        where
-                        (
-                            from t in DataContext.TenantUserRoles
-                            where t.TenantId == request.TenantId
-                            select t.UserName
-                        ).Contains(c.UserName)
-                        select c;
-
+            var query = UserQuery(request.TenantId, request.RoleId);
 
             // build query from filter
             query = query

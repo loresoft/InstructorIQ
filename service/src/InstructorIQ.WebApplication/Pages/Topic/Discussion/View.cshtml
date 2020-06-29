@@ -31,27 +31,20 @@
                     </div>
                 </div>
                 <div class="discussion-actions">
-                    <div authorize-policy="@UserPolicies.InstructorPolicy"
-                         class="btn-group"
-                         role="group"
-                         aria-label="Basic example">
-                        <a asp-page="/topic/discussion/edit"
-                           asp-route-tenant="@Model.TenantRoute"
-                           asp-route-topicid="@Model.Id"
-                           asp-route-id="@item.Id"
-                           class="btn btn-light">
-                            <i class="far fa-edit"></i>
-                        </a>
-                        <!--
-                        <a asp-page="/topic/discussion/edit"
-                           asp-route-tenant="@Model.TenantRoute"
-                           asp-route-topicid="@Model.Id"
-                           asp-route-id="@item.Id"
-                           class="btn btn-light">
-                            <i class="far fa-trash-alt"></i>
-                        </a>
-                        -->
-                    </div>
+                    <authorize-content authorize-owner="@item.EmailAddress"
+                                       authorize-policy="@UserPolicies.AdministratorPolicy">
+                        <div class="btn-group"
+                             role="group"
+                             aria-label="Basic example">
+                            <a asp-page="/topic/discussion/edit"
+                               asp-route-tenant="@Model.TenantRoute"
+                               asp-route-topicid="@Model.Id"
+                               asp-route-id="@item.Id"
+                               class="btn btn-light">
+                                <i class="far fa-edit"></i>
+                            </a>
+                        </div>
+                    </authorize-content>
                 </div>
             </div>
             <div class="discussion-content">

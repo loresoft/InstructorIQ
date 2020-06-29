@@ -23,6 +23,7 @@ namespace InstructorIQ.Core.Domain
             services.TryAddTransient<IRequestHandler<EntityIdentifierQuery<Guid, MemberReadModel>, MemberReadModel>, EntityIdentifierQueryHandler<InstructorIQContext, Data.Entities.User, Guid, MemberReadModel>>();
             services.TryAddTransient<IRequestHandler<MemberPagedQuery, EntityPagedResult<MemberReadModel>>, MemberPagedQueryHandler>();
             services.TryAddTransient<IRequestHandler<MemberSelectQuery, IReadOnlyCollection<MemberReadModel>>, MemberSelectQueryHandler>();
+            services.TryAddTransient<IRequestHandler<MemberDropdownQuery, IReadOnlyCollection<MemberDropdownModel>>, MemberDropdownQueryHandler>();
             services.TryAddTransient<IRequestHandler<MemberUserNameQuery, MemberReadModel>, MemberUserNameQueryHandler>();
 
             services.AddEntityUpdateCommand<InstructorIQContext, Data.Entities.User, Guid, MemberReadModel, MemberUpdateModel>();

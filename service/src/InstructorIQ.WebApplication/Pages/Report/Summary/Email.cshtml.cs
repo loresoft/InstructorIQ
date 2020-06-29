@@ -45,7 +45,7 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
 
             var address = _userClaimManager.GetEmail(User) ?? User.Identity.Name;
             var name = _userClaimManager.GetDisplayName(User);
-            
+
             Message = new SummaryReportModel();
             Message.ReplyToAddress = address;
             Message.ReplyToName = name;
@@ -73,19 +73,12 @@ namespace InstructorIQ.WebApplication.Pages.Report.Summary
 
         protected virtual async Task LoadMembers()
         {
-            var command = new MemberSelectQuery(User, Tenant.Value.Id);
-            command.RoleName = Core.Data.Constants.Role.MemberName;
+            var command = new MemberDropdownQuery(User, Tenant.Value.Id);
+            command.RoleId = Core.Data.Constants.Role.Member;
 
             var members = await Mediator.Send(command);
 
-            Members = members
-                .OrderBy(m => m.SortName)
-                .Select(m => new MemberDropdownModel
-                {
-                    Text = FormatName(m),
-                    Value = m.Email
-                })
-                .ToList();
+            Members = members.ToList();
         }
 
         private string FormatName(MemberReadModel member)

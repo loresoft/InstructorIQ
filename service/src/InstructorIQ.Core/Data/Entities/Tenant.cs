@@ -22,11 +22,11 @@ namespace InstructorIQ.Core.Data.Entities
             Groups = new HashSet<Group>();
             ImportJobs = new HashSet<ImportJob>();
             InstructorRoles = new HashSet<InstructorRole>();
-            Instructors = new HashSet<Instructor>();
             LinkTokens = new HashSet<LinkToken>();
             Locations = new HashSet<Location>();
             Notifications = new HashSet<Notification>();
             Sessions = new HashSet<Session>();
+            SignUps = new HashSet<SignUp>();
             Templates = new HashSet<Template>();
             TenantUserRoles = new HashSet<TenantUserRole>();
             Topics = new HashSet<Topic>();
@@ -222,14 +222,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual ICollection<InstructorRole> InstructorRoles { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="Instructor" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="Instructor" />.
-        /// </value>
-        public virtual ICollection<Instructor> Instructors { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="LinkToken" />.
         /// </summary>
         /// <value>
@@ -260,6 +252,14 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="Session" />.
         /// </value>
         public virtual ICollection<Session> Sessions { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation collection for entity <see cref="SignUp" />.
+        /// </summary>
+        /// <value>
+        /// The the navigation collection for entity <see cref="SignUp" />.
+        /// </value>
+        public virtual ICollection<SignUp> SignUps { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Template" />.

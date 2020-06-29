@@ -98,7 +98,6 @@
     <Build Include="Tables\TenantUserRole.sql" />
     <Build Include="Tables\InstructorRole.sql" />
     <Build Include="Tables\Template.sql" />
-    <Build Include="Tables\SessionReferenceNumber.sql" />
     <Build Include="Types\UserTableType.sql" />
     <Build Include="Procedures\ImportUsers.sql" />
     <Build Include="Procedures\ImportInstructors.sql" />
@@ -107,7 +106,6 @@
     <Build Include="Tables\Discussion.sql" />
     <Build Include="Tables\LinkToken.sql" />
     <Build Include="Tables\ImportJob.sql" />
-    <Build Include="Procedures\EnsureInstructorUser.sql" />
     <Build Include="Tables\Attendance.sql" />
     <Build Include="Procedures\FrequentSessionTimes.sql" />
     <Build Include="Schema\Log.sql" />
@@ -115,6 +113,9 @@
     <Build Include="Procedures\PurgeLogs.sql" />
     <Build Include="Procedures\SearchLogs.sql" />
     <Build Include="Procedures\PurgeEmailDelivery.sql" />
+    <Build Include="Tables\SignUp.sql" />
+    <Build Include="Tables\SignUpTopic.sql" />
+    <Build Include="Tables\TopicInstructor.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />

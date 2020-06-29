@@ -17,7 +17,6 @@ namespace InstructorIQ.Core.Data.Entities
             #region Generated Constructor
             Attendances = new HashSet<Attendance>();
             SessionInstructors = new HashSet<SessionInstructor>();
-            SessionReferenceNumbers = new HashSet<SessionReferenceNumber>();
             #endregion
         }
 
@@ -187,15 +186,6 @@ namespace InstructorIQ.Core.Data.Entities
         public virtual Group Group { get; set; }
 
         /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="Instructor" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="Instructor" />.
-        /// </value>
-        /// <seealso cref="LeadInstructorId" />
-        public virtual Instructor LeadInstructor { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Location" />.
         /// </summary>
         /// <value>
@@ -211,14 +201,6 @@ namespace InstructorIQ.Core.Data.Entities
         /// The the navigation collection for entity <see cref="SessionInstructor" />.
         /// </value>
         public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the navigation collection for entity <see cref="SessionReferenceNumber" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation collection for entity <see cref="SessionReferenceNumber" />.
-        /// </value>
-        public virtual ICollection<SessionReferenceNumber> SessionReferenceNumbers { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="Tenant" />.
@@ -240,5 +222,6 @@ namespace InstructorIQ.Core.Data.Entities
 
         #endregion
 
+        public virtual User LeadInstructor { get; set; }
     }
 }

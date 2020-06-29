@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -14,6 +15,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
         public ConfirmButtonTagHelper(IUrlHelperFactory urlHelperFactory)
         {
             UrlHelperFactory = urlHelperFactory;
+            RouteValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         }
 
         private const string ActionAttributeName = "asp-action";
@@ -74,7 +76,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var uniqueId = context.UniqueId;
+            var uniqueId = Guid.NewGuid().ToString();
             var modalId = $"modal-{uniqueId}";
 
             output.TagName = "button";

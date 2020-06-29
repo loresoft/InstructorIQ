@@ -7,7 +7,7 @@ namespace InstructorIQ.Core.Domain.Queries
 {
     public class MemberUserNameQuery : CacheableQueryBase<MemberReadModel>
     {
-        public MemberUserNameQuery(IPrincipal principal, string userName) 
+        public MemberUserNameQuery(IPrincipal principal, string userName)
             : base(principal)
         {
             UserName = userName;

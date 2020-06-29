@@ -29,7 +29,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
         }
 
         [BindProperty]
-        public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
+        public IReadOnlyCollection<MemberDropdownModel> Instructors { get; set; }
 
         public override async Task<IActionResult> OnGetAsync()
         {
@@ -92,9 +92,9 @@ namespace InstructorIQ.WebApplication.Pages.Topic
 
         }
 
-        private async Task<IReadOnlyCollection<InstructorDropdownModel>> LoadInstructors()
+        private async Task<IReadOnlyCollection<MemberDropdownModel>> LoadInstructors()
         {
-            var dropdownQuery = new InstructorDropdownQuery(User);
+            var dropdownQuery = new MemberDropdownQuery(User, Tenant.Value.Id) { RoleId = Core.Data.Constants.Role.Instructor };
             var instructors = await Mediator.Send(dropdownQuery);
 
             return instructors;

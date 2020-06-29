@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Principal;
 using InstructorIQ.Core.Domain.Models;
 using MediatR.CommandQuery.Queries;
@@ -22,6 +21,6 @@ namespace InstructorIQ.Core.Domain.Queries
 
         public Guid TenantId { get; }
 
-        public string RoleName { get; set; }
+        public Guid? RoleId { get; set; }
     }
 }

@@ -56,17 +56,6 @@ namespace InstructorIQ.Core.Data.Queries
         /// Filters a sequence of values based on a predicate.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
-        /// <param name="leadInstructorId">The value to filter by.</param>
-        /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByLeadInstructorId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? leadInstructorId)
-        {
-            return queryable.Where(q => (q.LeadInstructorId == leadInstructorId || (leadInstructorId == null && q.LeadInstructorId == null)));
-        }
-
-        /// <summary>
-        /// Filters a sequence of values based on a predicate.
-        /// </summary>
-        /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="locationId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
         public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByLocationId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? locationId)

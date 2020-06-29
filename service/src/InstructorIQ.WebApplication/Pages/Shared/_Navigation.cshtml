@@ -145,12 +145,12 @@
                            asp-page="/instructor/index"
                            asp-route-tenant="@Tenant.Value?.Slug">View Instructors</a>
                         <div class="dropdown-divider"
-                             authorize-policy="@UserPolicies.AdministratorPolicy"></div>
-                        <a id="navbar-create-instructor-link"
+                             authorize-policy="@UserPolicies.UserPolicy"></div>
+                        <a id="navbar-signup-instructor-link"
                            class="dropdown-item"
-                           authorize-policy="@UserPolicies.AdministratorPolicy"
-                           asp-page="/instructor/create"
-                           asp-route-tenant="@Tenant.Value?.Slug">Add Instructor</a>
+                           authorize-policy="@UserPolicies.UserPolicy"
+                           asp-page="/signup/index"
+                           asp-route-tenant="@Tenant.Value?.Slug">Sign Ups</a>
                     </div>
                 </li>
 
