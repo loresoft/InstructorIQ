@@ -16,6 +16,6 @@ namespace InstructorIQ.Core.Domain.Models
         public string LocationPostalCode { get; set; }
 
         public List<SessionInstructorModel> AdditionalInstructors { get; set; } = new List<SessionInstructorModel>();
-        
+
     }
 }

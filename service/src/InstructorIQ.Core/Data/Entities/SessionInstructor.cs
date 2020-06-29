@@ -111,15 +111,6 @@ namespace InstructorIQ.Core.Data.Entities
 
         #region Generated Relationships
         /// <summary>
-        /// Gets or sets the navigation property for entity <see cref="Instructor" />.
-        /// </summary>
-        /// <value>
-        /// The the navigation property for entity <see cref="Instructor" />.
-        /// </value>
-        /// <seealso cref="InstructorId" />
-        public virtual Instructor Instructor { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation property for entity <see cref="InstructorRole" />.
         /// </summary>
         /// <value>
@@ -139,5 +130,6 @@ namespace InstructorIQ.Core.Data.Entities
 
         #endregion
 
+        public virtual User Instructor { get; set; }
     }
 }

@@ -101,7 +101,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             if (!Tenant.HasValue)
                 return;
 
-            var membershipQuery = new TenantMembershipQuery(User, Tenant.Value.Id, user.Email);
+            var membershipQuery = new TenantMembershipQuery(User, Tenant.Value.Id, user.Id);
             var membership = await Mediator.Send(membershipQuery);
 
             // make sure user is member

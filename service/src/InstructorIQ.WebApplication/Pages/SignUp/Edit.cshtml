@@ -1,0 +1,343 @@
+﻿@page  "/signup/{id:Guid}/edit"
+@using InstructorIQ.Core.Services
+@model EditModel
+@{
+    ViewData["Title"] = $"Edit Sign Up {Model.Entity.Name}";
+}
+
+<div id="signup-edit" class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/signup/index"
+                   asp-route-tenant="@Model.TenantRoute">Sign Ups</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">Edit Sign Up</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <i class="far fa-check-square mr-2"></i> Sign Up
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <form id="signup-form"
+                  name="signup-form"
+                  role="form"
+                  method="post">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <input asp-for="Entity.TenantId"
+                       type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="Entity.Name">Name <required /></label>
+                    <input asp-for="Entity.Name"
+                           type="text"
+                           class="form-control"
+                           placeholder="Name" />
+                    <span asp-validation-for="Entity.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Entity.Description">Description</label>
+                    <textarea asp-for="Entity.Description"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Description"></textarea>
+                    <span asp-validation-for="Entity.Description" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <fieldset class="standard w-100 mx-3 mb-3">
+                        <legend>Topics</legend>
+                        <div class="table-responsive" style="min-height: 200px">
+                            <table class="table table-sm table-striped">
+                                <colgroup>
+                                    <col style="" />
+                                    <col style="width: 100px;" />
+                                    <col style="width: 130px;" />
+                                    <col style="width: 130px;" />
+                                    <col style="width: 35px;" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Year</th>
+                                        <th>Month</th>
+                                        <th>Slots</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(signUp, index) in signUpTopics" :key="signUp.id">
+                                        <td>
+                                            <input type="hidden"
+                                                   name="SignUpTopics.Index"
+                                                   v-model="signUp.id" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].Id`"
+                                                   v-model="signUp.id" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].SignUpId`"
+                                                   v-model="signUp.signUpId" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].TopicId`"
+                                                   v-model="signUp.topicId" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].TopicTitle`"
+                                                   v-model="signUp.topicTitle" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].TopicCalendarYear`"
+                                                   v-model="signUp.topicCalendarYear" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].TopicTargetMonth`"
+                                                   v-model="signUp.topicTargetMonth" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].Created`"
+                                                   v-model="signUp.created" />
+                                            <input type="hidden"
+                                                   :name="`SignUpTopics[${signUp.id}].CreatedBy`"
+                                                   v-model="signUp.createdBy" />
+
+                                            {{signUp.topicTitle}}
+                                        </td>
+                                        <td>
+                                            {{signUp.topicCalendarYear}}
+                                        </td>
+                                        <td>
+                                            {{lookupMonth(signUp.topicTargetMonth)}}
+                                        </td>
+                                        <td>
+                                            <input type="number"
+                                                   class="form-control form-control-sm"
+                                                   :name="`SignUpTopics[${signUp.id}].TopicInstructorSlots`"
+                                                   v-model="signUp.topicInstructorSlots" />
+                                        </td>
+                                        <td>
+                                            <button type="button"
+                                                    class="close text-danger"
+                                                    v-on:click="removeTopic(signUp)"
+                                                    :title="`Remove ${signUp.topicTitle} from sign up`">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button id="add-topic-button"
+                                type="button"
+                                class="btn btn-sm btn-outline-secondary"
+                                data-toggle="modal"
+                                data-target="#topic-picker-model">
+                            Add Topics
+                        </button>
+                    </fieldset>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button id="save-button"
+                                type="submit"
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
+                            Save
+                        </button>
+                        <a id="cancel-button"
+                           asp-page="/signup/view"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-secondary">
+                            Cancel
+                        </a>
+
+                    </div>
+                    <div class="col-auto">
+                        <confirm-button id="delete-button"
+                                        class="btn btn-danger"
+                                        asp-page-handler="DeleteEntity"
+                                        modal-button="Delete"
+                                        modal-color="danger"
+                                        modal-text="Are you sure you want to delete this?">
+                            Delete
+                        </confirm-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal fade"
+         id="topic-picker-model"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="topic-picker-model-title"
+         style="display: none;"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="topic-picker-model-title">Select Topics</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body py-0 px-3">
+                    <table class="table table-sm table-sticky">
+                        <colgroup>
+                            <col style="width: 35px;" />
+                            <col style="" />
+                            <col style="width: 100px;" />
+                            <col style="width: 130px;" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                <th>Year</th>
+                                <th>Month</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(topic, index) in filteredTopics" :key="topic.id">
+                                <td>
+                                    <div class="custom-control custom-checkbox"
+                                         title="Select">
+                                        <input type="checkbox"
+                                               v-model="topic.selected"
+                                               class="custom-control-input"
+                                               :id="`topic-${topic.id}`">
+                                        <label class="custom-control-label"
+                                               :for="`topic-${topic.id}`"></label>
+                                    </div>
+                                </td>
+                                <td>{{topic.title}}</td>
+                                <td>{{topic.calendarYear}}</td>
+                                <td>{{lookupMonth(topic.targetMonth)}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <select v-model="year" class="custom-select col-md-2">
+                        <option v-for="year in years" v-bind:value="year">
+                            {{ year }}
+                        </option>
+                    </select>
+
+                    <select v-model="month" class="custom-select col-md-2">
+                        <option value="0"> - Month -</option>
+                        <option v-for="month in months" v-bind:value="month.value">
+                            {{ month.text }}
+                        </option>
+                    </select>
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" v-on:click="addSelected()">Add Topics</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_tinymce" model="@Html.IdFor(p => p.Entity.Description)" />
+
+    <script>
+        var app = new Vue({
+            el: '#signup-edit',
+            data: {
+                signUpId: @Json.Serialize(Model.Id),
+                created: @Json.Serialize(DateTime.UtcNow),
+                signUp: @Json.Serialize(Model.Entity),
+                topics: @Json.Serialize(Model.Topics),
+                signUpTopics: @Json.Serialize(Model.SignUpTopics),
+                years: @Json.Serialize(Model.Topics.Select(t => t.CalendarYear).Distinct()),
+                months: @Json.Serialize(SelectItemFactory.Months()),
+                year: @Json.Serialize(DateTime.Now.Year),
+                month: 0
+            },
+            computed: {
+                filteredTopics: function () {
+                    var filtered = this.topics;
+                    var y = this.year;
+                    var m = this.month;
+
+                    filtered = filtered.filter(f => this.signUpTopics.every(s => s.topicId !== f.id));
+                    filtered = filtered.filter(f => f.calendarYear == y);
+
+                    if (m != 0) {
+                        filtered = filtered.filter(f => f.targetMonth == m);
+                    }
+
+                    return filtered
+                }
+            },
+            methods: {
+                addSelected: function () {
+                    var selected = this.topics
+                        .filter(f => f.selected === true)
+                        .map(f => {
+                            var signup = {
+                                id: uuidv4(),
+                                signUpId: this.signUpId,
+                                topicId: f.id,
+                                topicTitle: f.title,
+                                topicCalendarYear: f.calendarYear,
+                                topicTargetMonth: f.targetMonth,
+                                topicInstructorSlots: 1,
+                                created: this.created
+                            };
+                            return signup;
+                        });
+
+
+                    for (var i = 0; i < selected.length; i++) {
+                        this.signUpTopics.push(selected[i]);
+                    }
+
+                    // clear selected
+                    for (var i = 0; i < this.topics.length; i++) {
+                        this.topics[i].selected = false;
+                    }
+
+                    $('#topic-picker-model').modal('hide');
+                },
+                removeTopic: function (instance) {
+                    const index = this.signUpTopics.indexOf(instance);
+                    if (index > -1) {
+                        this.signUpTopics.splice(index, 1);
+                    }
+                },
+                lookupMonth: function (target) {
+                    var month = this.months.find(f => f.value == target);
+                    return month ? month.text : target;
+                }
+            }
+        });
+
+        $(function () {
+            $("#instructor-form")
+                .submitGuard()
+                .dirty({
+                    preventLeaving: true
+                });
+        });
+    </script>
+}

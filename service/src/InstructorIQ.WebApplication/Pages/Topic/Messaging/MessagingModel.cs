@@ -36,7 +36,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Messaging
             var loadTask = base.OnGetAsync();
             var loadMembers = LoadMembers();
             var loadSessions = LoadSessions();
-            
+
             // load all in parallel
             await Task.WhenAll(
                 loadTask,
@@ -56,10 +56,10 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Messaging
         protected List<string> GetInstructorEmails()
         {
             var instructors = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            
+
             if (Entity.LeadInstructorEmail.HasValue())
                 instructors.Add(Entity.LeadInstructorEmail);
-            
+
             if (Sessions == null || Sessions.Count == 0)
                 return instructors.ToList();
 
@@ -69,8 +69,8 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Messaging
                     instructors.Add(session.LeadInstructorEmail);
 
                 foreach (var instructor in session.AdditionalInstructors)
-                    if (instructor.EmailAddress.HasValue())
-                        instructors.Add(instructor.EmailAddress);
+                    if (instructor.Email.HasValue())
+                        instructors.Add(instructor.Email);
             }
 
             return instructors.ToList(); ;
@@ -78,19 +78,12 @@ namespace InstructorIQ.WebApplication.Pages.Topic.Messaging
 
         protected virtual async Task LoadMembers()
         {
-            var command = new MemberSelectQuery(User, Tenant.Value.Id);
-            command.RoleName = Core.Data.Constants.Role.MemberName;
+            var command = new MemberDropdownQuery(User, Tenant.Value.Id);
+            command.RoleId = Core.Data.Constants.Role.Member;
 
             var members = await Mediator.Send(command);
 
-            Members = members
-                .OrderBy(m => m.SortName)
-                .Select(m => new MemberDropdownModel
-                {
-                    Text = FormatName(m),
-                    Value = m.Email
-                })
-                .ToList();
+            Members = members.ToList();
         }
 
         protected virtual async Task LoadSessions()

@@ -335,3 +335,29 @@ ul.timeline {
 [aria-expanded=false] > .fa-caret-down {
     display: none;
 }
+
+
+.table-sticky thead th {
+    background-color: #fff;
+    border: 0 hidden;
+    position: sticky;
+    top: 0;
+}
+
+fieldset.standard {
+    border: 1px solid #c0c0c0;
+    margin: 0;
+    padding: 0.35em 0.625em 0.75em;
+    border-radius: 4px;
+}
+
+    fieldset.standard > legend {
+        display: block;
+        width: auto;
+        padding: 0 5px;
+        border: 0;
+        margin: 0;
+        font-size: 1em;
+        font-weight: 600;
+    }
+

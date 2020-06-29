@@ -10,12 +10,17 @@ namespace InstructorIQ.Core.Data.Entities
     /// </summary>
     public class User : IdentityUser<Guid>, IHaveIdentifier<Guid>
     {
-        public User()
+        public User() : this(null)
         {
         }
 
         public User(string userName) : base(userName)
         {
+            LeadTopics = new HashSet<Topic>();
+            TopicInstructors = new HashSet<TopicInstructor>();
+            LeadSessions = new HashSet<Session>();
+            SessionInstructors = new HashSet<SessionInstructor>();
+            TenantUserRoles = new HashSet<TenantUserRole>();
         }
 
         public string GivenName { get; set; }
@@ -33,5 +38,16 @@ namespace InstructorIQ.Core.Data.Entities
         public Guid? LastTenantId { get; set; }
 
         public bool IsGlobalAdministrator { get; set; }
+
+
+        public virtual ICollection<Topic> LeadTopics { get; set; }
+
+        public virtual ICollection<TopicInstructor> TopicInstructors { get; set; }
+
+        public virtual ICollection<Session> LeadSessions { get; set; }
+
+        public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
+
+        public virtual ICollection<TenantUserRole> TenantUserRoles { get; set; }
     }
 }

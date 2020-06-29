@@ -57,31 +57,31 @@
         <div class="list-group list-group-flush">
             @foreach (var item in Model.Items)
             {
-            <a asp-page="/member/edit"
-               asp-route-id="@item.Id"
-               asp-route-tenant="@Model.TenantRoute"
-               title="Edit @item.DisplayName"
-               class="list-group-item list-group-item-action">
-                <h5 class="mb-1">@item.DisplayName</h5>
-                <small class="d-block d-md-inline mr-2 mb-1" 
-                       exclude-if="@string.IsNullOrEmpty(item.JobTitle)">
-                    <i class="fas fa-id-badge"
-                       style="width: 14px;"></i>
-                    @item.JobTitle
-                </small>
-                <small class="d-block d-md-inline mr-2 mb-1"
-                       exclude-if="@string.IsNullOrEmpty(item.Email)">
-                    <i class="fas fa-envelope"
-                       style="width: 14px;"></i>
-                    @item.Email
-                </small>
-                <small class="d-block d-md-inline mr-2 mb-1"
-                       exclude-if="@string.IsNullOrEmpty(item.PhoneNumber)">
-                    <i class="fas fa-phone"
-                       style="width: 14px;"></i>
-                    @item.PhoneNumber
-                </small>
-            </a>
+                <a asp-page="/member/edit"
+                   asp-route-id="@item.Id"
+                   asp-route-tenant="@Model.TenantRoute"
+                   title="Edit @item.DisplayName"
+                   class="list-group-item list-group-item-action">
+                    <h5 class="mb-1">@item.DisplayName</h5>
+                    <small class="d-block d-md-inline mr-2 mb-1"
+                           exclude-if="@string.IsNullOrEmpty(item.JobTitle)">
+                        <i class="fas fa-id-badge"
+                           style="width: 14px;"></i>
+                        @item.JobTitle
+                    </small>
+                    <small class="d-block d-md-inline mr-2 mb-1"
+                           exclude-if="@string.IsNullOrEmpty(item.Email)">
+                        <i class="fas fa-envelope"
+                           style="width: 14px;"></i>
+                        @item.Email
+                    </small>
+                    <small class="d-block d-md-inline mr-2 mb-1"
+                           exclude-if="@string.IsNullOrEmpty(item.PhoneNumber)">
+                        <i class="fas fa-phone"
+                           style="width: 14px;"></i>
+                        @item.PhoneNumber
+                    </small>
+                </a>
             }
         </div>
 
@@ -92,7 +92,7 @@
                        asp-route-tenant="@Model.TenantRoute"
                        title="Add New Member"
                        class="btn btn-primary m-3">Add Member</a>
-                    
+
                     <button type="button"
                             class="btn btn-secondary dropdown-toggle"
                             id="actionDropdown"

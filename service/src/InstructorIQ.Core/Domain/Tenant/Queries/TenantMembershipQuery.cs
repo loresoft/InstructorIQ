@@ -8,15 +8,15 @@ namespace InstructorIQ.Core.Domain.Queries
 {
     public class TenantMembershipQuery : PrincipalQueryBase<TenantMembershipModel>
     {
-        public TenantMembershipQuery(IPrincipal principal, Guid tenantId, string userName) : base(principal)
+        public TenantMembershipQuery(IPrincipal principal, Guid tenantId, Guid userId) : base(principal)
         {
             TenantId = tenantId;
-            UserName = userName;
+            UserId = userId;
         }
 
         public Guid TenantId { get; set; }
 
-        public string UserName { get; set; }
+        public Guid UserId { get; set; }
 
     }
 }

@@ -1,0 +1,144 @@
+﻿@page  "/signup/{id:Guid}"
+@using System.Globalization
+@using InstructorIQ.Core.Security
+@model ViewModel
+@{
+    ViewData["Title"] = $"{Model.Entity.Name}";
+}
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-page="/Index"
+                   asp-route-tenant="@Model.TenantRoute">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-page="/signup/index"
+                   asp-route-tenant="@Model.TenantRoute">Sign Ups</a>
+            </li>
+            <li class="breadcrumb-item active"
+                aria-current="page">View Sign Up</li>
+        </ol>
+    </nav>
+
+    <alert type="@TempData["alert.type"]"
+           message="@TempData["alert.message"]" />
+
+    <div class="card mb-5">
+        <div class="card-header">
+            <i class="far fa-check-square mr-2"></i> @Model.Entity.Name
+        </div>
+        <div class="card-body">
+            <form id="signup-form"
+                  name="signup-form"
+                  role="form"
+                  method="post">
+
+                <input asp-for="Entity.TenantId"
+                       type="hidden" />
+                <input asp-for="Entity.Name"
+                       type="hidden" />
+                <input asp-for="Entity.Description"
+                       type="hidden" />
+
+                <div class="row">
+                    <div class="col">
+                        <markdown content="Entity.Description"></markdown>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                        <ul class="list-group w-100">
+                            @foreach (var signupTopic in Model.SignUpTopics)
+                            {
+                                var currentMonth = signupTopic.TopicTargetMonth.HasValue
+                                    ? CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(signupTopic.TopicTargetMonth.Value)
+                                    : "TBD";
+
+                                <li class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">@signupTopic.TopicTitle (@currentMonth)</h5>
+                                        <small>Slots: @signupTopic.TopicInstructors.Count of @signupTopic.TopicInstructorSlots</small>
+                                    </div>
+                                    <div class="ml-md-5 ml-3">
+                                        <ul class="list-group w-100">
+                                            @foreach (var instructor in signupTopic.TopicInstructors)
+                                            {
+                                                <li class="list-group-item">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h6 class="m-0">
+                                                            <gravatar email="@instructor.InstructorEmailAddress"
+                                                                      class="rounded-circle mr-2"
+                                                                      size="24"></gravatar>
+                                                            @instructor.InstructorDisplayName
+                                                        </h6>
+
+                                                        <authorize-content authorize-owner="@instructor.InstructorEmailAddress"
+                                                                           authorize-policy="@UserPolicies.AdministratorPolicy">
+                                                            <confirm-button id="delete-button-@instructor.Id"
+                                                                            class="ml-2 close"
+                                                                            title="Remove @instructor.InstructorDisplayName from topic"
+                                                                            asp-page-handler="DeleteInstructorSignUp"
+                                                                            asp-route-topicInstructorId="@instructor.Id"
+                                                                            modal-button="Delete"
+                                                                            modal-color="danger"
+                                                                            modal-text="Are you sure you want to delete this?">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </confirm-button>
+                                                        </authorize-content>
+
+                                                    </div>
+                                                </li>
+                                            }
+                                            <li class="list-group-item border-primary border-top"
+                                                exclude-if="signupTopic.TopicInstructors.Count >= signupTopic.TopicInstructorSlots">
+                                                <div class="custom-control custom-checkbox"
+                                                     title="Select">
+                                                    <input type="checkbox"
+                                                           name="Selected"
+                                                           value="@signupTopic.TopicId"
+                                                           class="custom-control-input topic-checkbox"
+                                                           id="topic-@signupTopic.TopicId">
+                                                    <label class="custom-control-label d-block"
+                                                           for="topic-@signupTopic.TopicId">Sign Up</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <button id="signup-button"
+                                type="submit"
+                                class="btn btn-primary"
+                                data-loading-text="<span class='spinner-border spinner-border-sm'></span> Saving...">
+                            Sign Up
+                        </button>
+                    </div>
+                    <div class="col">
+                        <a id="edit-button"
+                           authorize-policy="@UserPolicies.AdministratorPolicy"
+                           asp-page="/signup/edit"
+                           asp-route-tenant="@Model.TenantRoute"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-secondary fa-pull-right">
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

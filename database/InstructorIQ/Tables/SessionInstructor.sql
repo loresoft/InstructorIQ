@@ -18,7 +18,7 @@
 
     CONSTRAINT [PK_SessionInstructor] PRIMARY KEY NONCLUSTERED ([Id] ASC),
     CONSTRAINT [FK_SessionInstructor_Session_SessionId] FOREIGN KEY ([SessionId]) REFERENCES [IQ].[Session]([Id]),
-    CONSTRAINT [FK_SessionInstructor_Instructor_InstructorId] FOREIGN KEY ([InstructorId]) REFERENCES [IQ].[Instructor]([Id]),
+    CONSTRAINT [FK_SessionInstructor_Instructor_InstructorId] FOREIGN KEY ([InstructorId]) REFERENCES [Identity].[User]([Id]),
     CONSTRAINT [FK_SessionInstructor_InstructorRole_InstructorRoleId] FOREIGN KEY ([InstructorRoleId]) REFERENCES [IQ].[InstructorRole]([Id]),
 )
 WITH

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -23,10 +24,10 @@ namespace InstructorIQ.Core.Domain.Handlers
         {
             var membership = request.Membership;
             var tenantId = membership.TenantId;
-            string userName = membership.UserName;
+            var userId = membership.UserId;
 
             var roles = await DataContext.TenantUserRoles
-                .Where(q => q.TenantId == membership.TenantId && q.UserName == membership.UserName)
+                .Where(q => q.TenantId == membership.TenantId && q.UserId == membership.UserId)
                 .ToListAsync(cancellationToken);
 
             // remove all to reset
@@ -34,29 +35,29 @@ namespace InstructorIQ.Core.Domain.Handlers
                 DataContext.TenantUserRoles.Remove(role);
 
             if (membership.IsMember)
-                AddRole(tenantId, userName, Data.Constants.Role.MemberName);
+                AddRole(tenantId, userId, Data.Constants.Role.Member);
 
             if (membership.IsAttendee)
-                AddRole(tenantId, userName, Data.Constants.Role.AttendeeName);
+                AddRole(tenantId, userId, Data.Constants.Role.Attendee);
 
             if (membership.IsInstructor)
-                AddRole(tenantId, userName, Data.Constants.Role.InstructorName);
+                AddRole(tenantId, userId, Data.Constants.Role.Instructor);
 
             if (membership.IsAdministrator)
-                AddRole(tenantId, userName, Data.Constants.Role.AdministratorName);
+                AddRole(tenantId, userId, Data.Constants.Role.Administrator);
 
             await DataContext.SaveChangesAsync(cancellationToken);
 
             return membership;
         }
 
-        private void AddRole(System.Guid tenantId, string userName, string roleName)
+        private void AddRole(Guid tenantId, Guid userId, Guid roleId)
         {
             var entity = new Data.Entities.TenantUserRole
             {
                 TenantId = tenantId,
-                UserName = userName,
-                RoleName = roleName
+                UserId = userId,
+                RoleId = roleId
             };
             DataContext.TenantUserRoles.Add(entity);
         }

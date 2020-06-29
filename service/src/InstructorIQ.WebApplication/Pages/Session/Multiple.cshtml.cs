@@ -33,7 +33,7 @@ namespace InstructorIQ.WebApplication.Pages.Session
 
         public IReadOnlyCollection<TopicReadModel> Topics { get; set; }
 
-        public IReadOnlyCollection<InstructorDropdownModel> Instructors { get; set; }
+        public IReadOnlyCollection<MemberDropdownModel> Instructors { get; set; }
 
         public IReadOnlyCollection<LocationDropdownModel> Locations { get; set; }
 
@@ -142,9 +142,9 @@ namespace InstructorIQ.WebApplication.Pages.Session
             return items;
         }
 
-        private async Task<IReadOnlyCollection<InstructorDropdownModel>> LoadInstructors()
+        private async Task<IReadOnlyCollection<MemberDropdownModel>> LoadInstructors()
         {
-            var dropdownQuery = new InstructorDropdownQuery(User);
+            var dropdownQuery = new MemberDropdownQuery(User, Tenant.Value.Id) { RoleId = Core.Data.Constants.Role.Instructor };
             var items = await Mediator.Send(dropdownQuery);
 
             return items;

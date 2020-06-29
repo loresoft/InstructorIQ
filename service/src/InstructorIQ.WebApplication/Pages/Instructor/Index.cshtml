@@ -58,32 +58,38 @@
         <div class="list-group list-group-flush">
             @foreach (var item in Model.Items)
             {
-            <a asp-page="/instructor/view"
-               asp-route-tenant="@Model.TenantRoute"
-               asp-route-id="@item.Id"
-               title="Edit @item.DisplayName"
-               class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">@item.DisplayName</h5>
-                    <small title="Updated on @item.Updated.ToString("dddd, dd MMMM yyyy HH:mm")">
-                        @item.Updated.ToLocalTime().Humanize()
+                <a asp-page="/instructor/view"
+                   asp-route-tenant="@Model.TenantRoute"
+                   asp-route-id="@item.Id"
+                   title="Edit @item.SortName"
+                   class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@item.SortName</h5>
+                    </div>
+                    <small class="d-block d-md-inline mr-2 mb-1"
+                           exclude-if="@string.IsNullOrEmpty(item.JobTitle)">
+                        <i class="fas fa-id-badge"
+                           style="width: 14px;"></i>
+                        @item.JobTitle
                     </small>
-                </div>
-                <small class="d-block">@item.JobTitle</small>
-                <small class="d-block">@item.EmailAddress</small>
-                <small class="d-block">@item.MobilePhone</small>
-            </a>
+                    <small class="d-block d-md-inline mr-2 mb-1"
+                           exclude-if="@string.IsNullOrEmpty(item.Email)">
+                        <i class="fas fa-envelope"
+                           style="width: 14px;"></i>
+                        @item.Email
+                    </small>
+                    <small class="d-block d-md-inline mr-2 mb-1"
+                           exclude-if="@string.IsNullOrEmpty(item.PhoneNumber)">
+                        <i class="fas fa-phone"
+                           style="width: 14px;"></i>
+                        @item.PhoneNumber
+                    </small>
+                </a>
             }
         </div>
         <div class="card-footer p-0">
             <div class="row">
                 <div class="col-md-6">
-                    <div authorize-policy="@UserPolicies.AdministratorPolicy">
-                        <a asp-page="/instructor/create"
-                           asp-route-tenant="@Model.TenantRoute"
-                           title="Add New Instructor"
-                           class="btn btn-primary m-3">Add Instructor</a>
-                    </div>
                 </div>
                 <div class="col-md-6">
                     <pagination current-page="@Model.PageNumber"

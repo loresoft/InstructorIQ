@@ -57,6 +57,10 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("datetimeoffset")
                 .HasDefaultValueSql("(sysutcdatetime())");
 
+            builder.Property(t => t.Used)
+                .HasColumnName("Used")
+                .HasColumnType("datetimeoffset");
+
             builder.Property(t => t.Expires)
                 .HasColumnName("Expires")
                 .HasColumnType("datetimeoffset");
@@ -93,6 +97,8 @@ namespace InstructorIQ.Core.Data.Mapping
             public const string TenantId = "TenantId";
             /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Issued" /></summary>
             public const string Issued = "Issued";
+            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Used" /></summary>
+            public const string Used = "Used";
             /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Expires" /></summary>
             public const string Expires = "Expires";
         }

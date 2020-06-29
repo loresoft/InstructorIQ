@@ -1,24 +1,70 @@
-﻿using MediatR.CommandQuery.Queries;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Models;
+using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
+using MediatR.CommandQuery.Queries;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.WebApplication.Pages.Instructor
 {
     [Authorize]
-    public class IndexModel : EntityPagedModelBase<InstructorReadModel>
+    public class IndexModel : MediatorModelBase
     {
         public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
             : base(tenant, mediator, loggerFactory)
         {
-            Sort = nameof(InstructorReadModel.FamilyName);
+            Sort = nameof(MemberReadModel.SortName);
+        }
+
+        [BindProperty(Name = "p", SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
+
+        [BindProperty(Name = "z", SupportsGet = true)]
+        public int PageSize { get; set; } = 20;
+
+        [BindProperty(Name = "s", SupportsGet = true)]
+        public string Sort { get; set; }
+
+        [BindProperty(Name = "q", SupportsGet = true)]
+        public string Query { get; set; }
+
+        public long Total { get; set; }
+
+        public IReadOnlyCollection<MemberReadModel> Items { get; set; }
+
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            var query = CreateQuery();
+            var command = new MemberPagedQuery(User, query, Tenant.Value.Id);
+            command.RoleId = Core.Data.Constants.Role.Instructor;
+
+            var result = await Mediator.Send(command);
+            Total = result.Total;
+            Items = result.Data;
+
+            return Page();
         }
 
 
-        protected override EntityFilter CreateFilter()
+        protected EntityQuery CreateQuery()
+        {
+            var query = new EntityQuery(null, PageNumber, PageSize, Sort);
+
+            if (string.IsNullOrWhiteSpace(Query))
+                return query;
+
+            query.Filter = CreateFilter();
+
+            return query;
+        }
+
+        protected EntityFilter CreateFilter()
         {
             var filter = new EntityFilter
             {
@@ -27,19 +73,13 @@ namespace InstructorIQ.WebApplication.Pages.Instructor
                 {
                     new EntityFilter
                     {
-                        Name = nameof(InstructorReadModel.GivenName),
+                        Name = "DisplayName",
                         Value = Query,
                         Operator = EntityFilterOperators.Contains
                     },
                     new EntityFilter
                     {
-                        Name = nameof(InstructorReadModel.FamilyName),
-                        Value = Query,
-                        Operator = EntityFilterOperators.Contains
-                    },
-                    new EntityFilter
-                    {
-                        Name = nameof(InstructorReadModel.EmailAddress),
+                        Name = "Email",
                         Value = Query,
                         Operator = EntityFilterOperators.Contains
                     }

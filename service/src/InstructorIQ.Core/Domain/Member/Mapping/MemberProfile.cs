@@ -18,6 +18,11 @@ namespace InstructorIQ.Core.Domain.Mapping
             CreateMap<MemberReadModel, MemberUpdateModel>();
 
             CreateMap<MemberReadModel, MemberImportModel>();
+
+            CreateMap<Data.Entities.User, MemberDropdownModel>()
+                .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id.ToString().ToLowerInvariant()))
+                .ForMember(d => d.Text, opt => opt.MapFrom(s => s.SortName));
+
         }
     }
 }

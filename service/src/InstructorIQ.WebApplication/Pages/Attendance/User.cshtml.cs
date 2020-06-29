@@ -67,7 +67,7 @@ namespace InstructorIQ.WebApplication.Pages.Attendance
         private async Task<IReadOnlyCollection<MemberDropdownModel>> LoadMembers()
         {
             var command = new MemberSelectQuery(User, Tenant.Value.Id);
-            command.RoleName = Core.Data.Constants.Role.AttendeeName;
+            command.RoleId = Core.Data.Constants.Role.Attendee;
 
             var members = await Mediator.Send(command);
 

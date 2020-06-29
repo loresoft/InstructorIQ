@@ -39,6 +39,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
         {
             var query = _userManager
                 .Users
+                .OrderBy(u => u.DisplayName)
                 .AsNoTracking();
 
             if (Query.HasValue())
@@ -49,7 +50,6 @@ namespace InstructorIQ.WebApplication.Pages.Global.User
 
             Users = await query
                 .Paginate(PageNumber, PageSize)
-                .OrderBy(u => u.DisplayName)
                 .ToListAsync();
 
             return Page();

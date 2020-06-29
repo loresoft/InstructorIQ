@@ -84,7 +84,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             var updateResult = await Mediator.Send(updateCommand);
 
             // make sure correct user and tenant
-            Membership.UserName = updateResult.UserName;
+            Membership.UserId = updateResult.Id;
             Membership.TenantId = Tenant.Value.Id;
 
             var membershipCommand = new TenantMembershipCommand(User, Membership);
@@ -132,7 +132,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             if (!Tenant.HasValue)
                 return new TenantMembershipModel();
 
-            var command = new TenantMembershipQuery(User, Tenant.Value.Id, Entity.Email);
+            var command = new TenantMembershipQuery(User, Tenant.Value.Id, Id);
             return await Mediator.Send(command);
         }
 

@@ -31,7 +31,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var builder = new StringBuilder();
-            
+
             builder.AppendIf(AddressLine1, s => s.HasValue());
             builder.AppendIf(", ", s => builder.Length > 0);
             builder.AppendIf(City, s => s.HasValue());

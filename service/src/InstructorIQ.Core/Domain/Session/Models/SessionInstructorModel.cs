@@ -20,7 +20,7 @@ namespace InstructorIQ.Core.Domain.Models
 
         public string SortName { get; set; }
 
-        public string EmailAddress { get; set; }
+        public string Email { get; set; }
 
         public DateTime PeriodStart { get; set; }
 
