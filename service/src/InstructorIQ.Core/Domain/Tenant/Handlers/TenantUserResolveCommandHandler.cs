@@ -59,8 +59,8 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             var roles = await DataContext.TenantUserRoles
                 .AsNoTracking()
-                .Where(u => u.TenantId == tenant.Id && u.UserName == user.UserName)
-                .Select(o => o.RoleName)
+                .Where(u => u.TenantId == tenant.Id && u.UserId == user.Id)
+                .Select(o => o.Role.Name)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);
 
@@ -123,7 +123,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             // finally try first tenant that user has membership for
             tenant = await DataContext.TenantUserRoles
                 .AsNoTracking()
-                .Where(u => u.UserName == user.UserName)
+                .Where(u => u.UserId == user.Id)
                 .Select(o => o.Tenant)
                 .ProjectTo<TenantReadModel>(Mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync(cancellationToken)

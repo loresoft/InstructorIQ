@@ -9,8 +9,13 @@ BEGIN
 
 	DECLARE @membership TABLE
 	(
-	   [UserName] NVARCHAR(256)
+	   [UserId] UNIQUEIDENTIFIER
 	);
+	DECLARE @roleId UNIQUEIDENTIFIER;
+
+	SELECT TOP 1 @roleId = [Id]
+	FROM [Identity].[Role]
+	WHERE [Name] = @roleName
 
 	-- import users
 	MERGE [Identity].[User] WITH (ROWLOCK) AS D
@@ -57,27 +62,27 @@ BEGIN
 			@tenantId
 		)
 	OUTPUT
-	   inserted.[UserName]
+	   inserted.[Id]
 	INTO @membership;
 
 	--ensure membership
 	MERGE [IQ].[TenantUserRole] WITH (ROWLOCK) AS D
 	USING @membership AS S
-		ON D.[UserName] = S.[UserName] 
+		ON D.[UserId] = S.[UserId]
 			AND D.[TenantId] = @tenantId
-			AND D.[RoleName] = @roleName
+			AND D.[RoleId] = @roleId
 	WHEN NOT MATCHED THEN
 		INSERT
 		(
 			[TenantId],
-			[UserName],
-			[RoleName]
+			[UserId],
+			[RoleId]
 		)
 		VALUES
 		(
 			@tenantId,
-			s.[UserName],
-			@roleName
+			s.[UserId],
+			@roleId
 		);
 
 END
