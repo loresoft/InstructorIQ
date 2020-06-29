@@ -6,8 +6,7 @@ database:
   schemas:
     - IQ
   exclude:
-    - exact: dbo.Instructor
-    - exact: dbo.old_Instructor
+    - exact: IQ.Instructor
 data:
   context:
     name: 'InstructorIQContext'
@@ -42,7 +41,6 @@ model:
         - 'SessionReferenceNumber'
         - 'TenantUserRole'
         - 'LinkToken'
-        - exact: 'Instructor'
       properties:
         - '\.Id$'
         - '\.Created$'
@@ -51,11 +49,6 @@ model:
         - '\.UpdatedBy$'
         - '\.RowVersion$'
         - 'Invite\.InviteHash$'
-        - exact: 'Topic.old_LeadInstructorId'
-        - exact: 'Session.old_LeadInstructorId'
-        - exact: 'TopicInstructor.old_InstructorId'
-        - exact: 'SessionInstructor.old_InstructorId'
-
   read:
     generate: true
     name: '{Entity.Name}ReadModel'

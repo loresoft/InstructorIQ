@@ -100,7 +100,6 @@
     <Build Include="Tables\Template.sql" />
     <Build Include="Types\UserTableType.sql" />
     <Build Include="Procedures\ImportUsers.sql" />
-    <Build Include="Procedures\ImportInstructors.sql" />
     <Build Include="Types\IdentifierTableType.sql" />
     <Build Include="Schema\History.sql" />
     <Build Include="Tables\Discussion.sql" />

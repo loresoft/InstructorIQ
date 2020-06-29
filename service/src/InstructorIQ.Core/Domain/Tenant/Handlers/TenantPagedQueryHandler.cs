@@ -36,7 +36,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                   where
                   (
                       from r in DataContext.TenantUserRoles
-                      where r.UserName == userName
+                      where r.User.UserName == userName
                       select r.TenantId
                   ).Contains(t.Id)
                   select t;

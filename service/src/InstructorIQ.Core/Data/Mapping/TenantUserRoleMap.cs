@@ -36,22 +36,14 @@ namespace InstructorIQ.Core.Data.Mapping
                 .HasColumnType("uniqueidentifier");
 
             builder.Property(t => t.UserId)
+                .IsRequired()
                 .HasColumnName("UserId")
                 .HasColumnType("uniqueidentifier");
 
             builder.Property(t => t.RoleId)
+                .IsRequired()
                 .HasColumnName("RoleId")
                 .HasColumnType("uniqueidentifier");
-
-            builder.Property(t => t.UserName)
-                .HasColumnName("UserName")
-                .HasColumnType("nvarchar(100)")
-                .HasMaxLength(100);
-
-            builder.Property(t => t.RoleName)
-                .HasColumnName("RoleName")
-                .HasColumnType("nvarchar(100)")
-                .HasMaxLength(100);
 
             // relationships
             builder.HasOne(t => t.Tenant)
@@ -91,10 +83,6 @@ namespace InstructorIQ.Core.Data.Mapping
             public const string UserId = "UserId";
             /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.RoleId" /></summary>
             public const string RoleId = "RoleId";
-            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.UserName" /></summary>
-            public const string UserName = "UserName";
-            /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.RoleName" /></summary>
-            public const string RoleName = "RoleName";
         }
         #endregion
 

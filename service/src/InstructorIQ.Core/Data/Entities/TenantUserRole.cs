@@ -40,7 +40,7 @@ namespace InstructorIQ.Core.Data.Entities
         /// <value>
         /// The property value representing column 'UserId'.
         /// </value>
-        public Guid? UserId { get; set; }
+        public Guid UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'RoleId'.
@@ -48,23 +48,7 @@ namespace InstructorIQ.Core.Data.Entities
         /// <value>
         /// The property value representing column 'RoleId'.
         /// </value>
-        public Guid? RoleId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the property value representing column 'UserName'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'UserName'.
-        /// </value>
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the property value representing column 'RoleName'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'RoleName'.
-        /// </value>
-        public string RoleName { get; set; }
+        public Guid RoleId { get; set; }
 
         #endregion
 
