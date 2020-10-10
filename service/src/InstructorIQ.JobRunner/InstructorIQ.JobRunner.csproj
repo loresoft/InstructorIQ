@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.13" />
-    <PackageReference Include="HangFire.SqlServer" Version="1.7.13" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.279" />
-    <PackageReference Include="KickStart.EntityChange" Version="8.0.0.279" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.15" />
+    <PackageReference Include="HangFire.SqlServer" Version="1.7.15" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.317" />
+    <PackageReference Include="KickStart.EntityChange" Version="8.0.0.317" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.15.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
@@ -31,10 +31,9 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.8" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.Debug" Version="1.0.1" />
-    <PackageReference Include="Serilog.Sinks.Literate" Version="3.0.0" />
-    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.5.1" />
-    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>

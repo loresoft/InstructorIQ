@@ -18,15 +18,15 @@
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.14.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
-    <PackageReference Include="CsvHelper" Version="15.0.5" />
+    <PackageReference Include="CsvHelper" Version="15.0.6" />
     <PackageReference Include="EntityChange" Version="4.1.0.71" />
     <PackageReference Include="FluentCommand.SqlServer" Version="6.0.0.249" />
-    <PackageReference Include="Handlebars.Net" Version="1.10.1" />
-    <PackageReference Include="HangFire.Core" Version="1.7.13" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.279" />
+    <PackageReference Include="Handlebars.Net" Version="1.11.5" />
+    <PackageReference Include="HangFire.Core" Version="1.7.15" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.317" />
     <PackageReference Include="MailKit" Version="2.9.0" />
-    <PackageReference Include="MediatR.CommandQuery.Audit" Version="6.0.0.316" />
-    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="6.0.0.316" />
+    <PackageReference Include="MediatR.CommandQuery.Audit" Version="6.0.0.328" />
+    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="6.0.0.328" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />

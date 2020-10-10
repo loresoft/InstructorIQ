@@ -73,7 +73,7 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-attendee">
+                                            <td class="monthly-attendee word-wrap">
                                                 <a asp-page="/topic/session/view"
                                                    asp-route-topicid="@c.TopicId"
                                                    asp-route-tenant="@Model.TenantRoute"
@@ -90,7 +90,7 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-topic">
+                                            <td class="monthly-topic word-wrap">
                                                 <a asp-page="/topic/view"
                                                    asp-route-tenant="@Model.TenantRoute"
                                                    asp-route-id="@c.TopicId"
@@ -113,7 +113,7 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-data">
+                                            <td class="monthly-data word-wrap">
                                                 <google-map address="@c.LocationAddressLine1"
                                                             city="@c.LocationCity"
                                                             state="@c.LocationStateProvince"
@@ -130,7 +130,7 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-data">@c.LeadInstructorName</td>
+                                            <td class="monthly-data word-wrap">@c.LeadInstructorName</td>
                                         }
                                     </tr>
                                     <tr>
@@ -142,7 +142,7 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-data">
+                                            <td class="monthly-data word-wrap">
                                                 @foreach (var i in c.AdditionalInstructors.OrderBy(x => x.DisplayName))
                                                 {
                                                     @i.DisplayName
@@ -160,7 +160,7 @@
                                     <tr>
                                         @foreach (var c in sortedGroups)
                                         {
-                                            <td class="monthly-data">@c.Note</td>
+                                            <td class="monthly-data word-wrap">@c.Note</td>
                                         }
                                     </tr>
                                 </tbody>

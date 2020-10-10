@@ -26,7 +26,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Sinks.MSSqlServer;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace InstructorIQ.WebApplication
@@ -46,32 +45,6 @@ namespace InstructorIQ.WebApplication
             var connectionString = Configuration.GetConnectionString("InstructorIQ");
 
             services.AddApplicationInsightsTelemetry();
-
-            var sinkOptions = new Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options.SinkOptions
-            {
-                SchemaName = "Log",
-                TableName = "LogEvent"
-            };
-
-            var columnOptions = new ColumnOptions();
-            columnOptions.Store.Remove(StandardColumn.Id);
-            columnOptions.Store.Remove(StandardColumn.MessageTemplate);
-            columnOptions.Store.Remove(StandardColumn.Properties);
-            columnOptions.Store.Add(StandardColumn.LogEvent);
-            columnOptions.PrimaryKey = columnOptions.TimeStamp;
-            columnOptions.Level.DataLength = 20;
-
-            // append logging after configuration load
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .WriteTo.Logger(Log.Logger)
-                .WriteTo.MSSqlServer(
-                    connectionString: connectionString,
-                    sinkOptions: sinkOptions,
-                    columnOptions: columnOptions,
-                    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information
-                )
-                .CreateLogger();
 
             services.KickStart(c => c
                 .IncludeAssemblyFor<ConfigurationServiceModule>()
