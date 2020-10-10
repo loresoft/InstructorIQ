@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -17,8 +16,8 @@ namespace InstructorIQ.WebApplication
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Debug()
-                .WriteTo.LiterateConsole()
-                .WriteTo.RollingFile("log-{Date}.txt", LogEventLevel.Debug)
+                .WriteTo.Console()
+                .WriteTo.File("log-{Date}.txt", LogEventLevel.Debug)
                 .WriteTo.ApplicationInsights(TelemetryConfiguration.CreateDefault(), TelemetryConverter.Traces)
                 .CreateLogger();
 
