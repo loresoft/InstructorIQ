@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Serilog.Sinks.MSSqlServer;
 
 namespace InstructorIQ.JobRunner
 {
@@ -24,8 +23,8 @@ namespace InstructorIQ.JobRunner
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Debug()
-                .WriteTo.LiterateConsole()
-                .WriteTo.RollingFile("log-{Date}.txt", LogEventLevel.Debug)
+                .WriteTo.Console()
+                .WriteTo.File("log-{Date}.txt", LogEventLevel.Debug)
                 .CreateLogger();
 
             try
@@ -56,33 +55,6 @@ namespace InstructorIQ.JobRunner
 
                         services.AddOptions();
                         services.AddSingleton(p => hostContext.Configuration);
-
-                        var sinkOptions = new Serilog.Sinks.MSSqlServer.Sinks.MSSqlServer.Options.SinkOptions
-                        {
-                            SchemaName = "Log",
-                            TableName = "LogEvent"
-                        };
-
-                        var columnOptions = new ColumnOptions();
-                        columnOptions.Store.Remove(StandardColumn.Id);
-                        columnOptions.Store.Remove(StandardColumn.MessageTemplate);
-                        columnOptions.Store.Remove(StandardColumn.Properties);
-                        columnOptions.Store.Add(StandardColumn.LogEvent);
-                        columnOptions.PrimaryKey = columnOptions.TimeStamp;
-                        columnOptions.Level.DataLength = 20;
-
-                        // append logging after configuration load
-                        Log.Logger = new LoggerConfiguration()
-                            .MinimumLevel.Verbose()
-                            .WriteTo.Logger(Log.Logger)
-                            .WriteTo.MSSqlServer(
-                                connectionString: connectionString,
-                                sinkOptions: sinkOptions,
-                                columnOptions: columnOptions,
-                                restrictedToMinimumLevel: LogEventLevel.Information
-                            )
-                            .CreateLogger();
-
 
                         services.KickStart(config => config
                             .IncludeAssemblyFor<InstructorIQContext>()
