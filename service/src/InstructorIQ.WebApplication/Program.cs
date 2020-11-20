@@ -15,9 +15,8 @@ namespace InstructorIQ.WebApplication
                 .MinimumLevel.Verbose()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.Debug()
                 .WriteTo.Console()
-                .WriteTo.File("log-{Date}.txt", LogEventLevel.Debug)
+                .WriteTo.File("log.txt", LogEventLevel.Debug, rollingInterval: RollingInterval.Day)
                 .WriteTo.ApplicationInsights(TelemetryConfiguration.CreateDefault(), TelemetryConverter.Traces)
                 .CreateLogger();
 
