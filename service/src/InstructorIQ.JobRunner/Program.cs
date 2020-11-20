@@ -22,17 +22,18 @@ namespace InstructorIQ.JobRunner
                 .MinimumLevel.Verbose()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
-                .WriteTo.Debug()
                 .WriteTo.Console()
-                .WriteTo.File("log-{Date}.txt", LogEventLevel.Debug)
+                .WriteTo.File("log.txt", LogEventLevel.Debug, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             try
             {
                 Log.Information("Starting JobRunner host");
 
+                var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+
                 var host = new HostBuilder()
-                    .UseEnvironment(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production")
+                    .UseEnvironment(environment)
                     .ConfigureHostConfiguration((config) =>
                     {
                         config.AddEnvironmentVariables();
