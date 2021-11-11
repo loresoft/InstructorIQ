@@ -1,8 +1,11 @@
 using System;
 using System.Linq;
+
 using FluentValidation.AspNetCore;
+
 using Hangfire;
 using Hangfire.SqlServer;
+
 using InstructorIQ.Core.Converters;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
@@ -13,7 +16,9 @@ using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Rewrite;
 using InstructorIQ.WebApplication.Security;
+
 using KickStart;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +30,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Serilog;
+
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace InstructorIQ.WebApplication
@@ -43,8 +48,6 @@ namespace InstructorIQ.WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("InstructorIQ");
-
-            services.AddApplicationInsightsTelemetry();
 
             services.KickStart(c => c
                 .IncludeAssemblyFor<ConfigurationServiceModule>()

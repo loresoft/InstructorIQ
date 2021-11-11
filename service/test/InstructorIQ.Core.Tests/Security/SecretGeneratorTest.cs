@@ -21,7 +21,7 @@ namespace InstructorIQ.Core.Tests.Security
             int bytes = 32;
 
             byte[] data;
-            using (var rngCsp = new RNGCryptoServiceProvider())
+            using (var rngCsp = RandomNumberGenerator.Create())
             {
                 data = new byte[bytes];
                 rngCsp.GetNonZeroBytes(data);

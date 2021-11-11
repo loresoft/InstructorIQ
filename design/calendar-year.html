@@ -1,0 +1,303 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    crossorigin="anonymous">
+
+  <title>Calendar</title>
+  <style>
+    body {
+      margin: 0 2em;
+      -webkit-print-color-adjust: exact !important;
+    }
+
+    .calendar-header-title {
+      font-size: 18pt;
+      font-weight: 800;
+      width: 100%;
+    }
+
+    .calendar-header-date {
+      font-size: 14pt;
+      font-weight: 600;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .calendar-month {
+      width: 100%;
+      margin-bottom: 1rem;
+      background-color: transparent;
+      border-collapse: collapse;
+      empty-cells: show;
+    }
+
+    .calendar-date {
+      width: 100%;
+      margin-bottom: 1rem;
+      background-color: transparent;
+      border-collapse: collapse;
+      empty-cells: show;
+    }
+
+    .calendar-month .month-header {
+      background-color: #6F6F6F;
+      border: 1px solid #6F6F6F;
+      color: #FFF;
+      font-weight: 600;
+      font-size: 90%;
+      padding: .20rem;
+      text-align: center;
+    }
+
+    .calendar-month .date-header {
+      background-color: #c0c0c0;
+      border: 1px solid #6F6F6F;
+      font-weight: 600;
+      font-size: 90%;
+      padding: .20rem;
+      text-align: center;
+    }
+
+    .calendar-month .date-container {
+      border: 1px solid #6F6F6F;
+      padding: .20rem;
+      text-align: center;
+    }
+
+    .calendar-month .calendar-date .date-group {
+      text-align: center;
+      text-decoration: underline;
+      padding: .20rem;
+    }
+
+    .calendar-month .calendar-date .date-topic {
+      font-weight: 600;
+      text-align: center;
+      padding: .20rem;
+    }
+
+    .required {
+      color: #990000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="text-center calendar-header-title">Eden Prairie Fire Department</div>
+  <div class="text-center calendar-header-date">2019</div>
+  
+  <table class="calendar-month">
+    <tbody>
+      <tr>
+        <td colspan="4"
+          class="month-header">April 2019</td>
+      </tr>
+      <tr>
+        <td class="date-header">4-Apr</td>
+        <td class="date-header">11-Apr</td>
+        <td class="date-header">18-Apr</td>
+        <td class="date-header">25-Apr</td>
+      </tr>
+      <tr>
+        <td class="date-container">
+          <table class="calendar-date">
+            <tbody>
+              <tr>
+                <td class="date-group">Squads 4-6 & 1</td>
+              </tr>
+              <tr>
+                <td class="date-topic required">Q2 EMS</td>
+              </tr>
+              <tr>
+                <td class="date-group">Squads 7-9 & 2</td>
+              </tr>
+              <tr>
+                <td class="date-topic">Highway Safety</td>
+              </tr>
+              <tr>
+                <td class="date-group">Squads 10-12 & 3</td>
+              </tr>
+              <tr>
+                <td class="date-topic">Highrise Ops</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td class="date-container">
+          <table class="calendar-date">
+            <tbody>
+              <tr>
+                <td class="date-group">Squads 4-6 & 1</td>
+              </tr>
+              <tr>
+                <td class="date-topic">Highrise Ops</td>
+              </tr>
+              <tr>
+                <td class="date-group">Squads 7-9 & 2</td>
+              </tr>
+              <tr>
+                <td class="date-topic required">Q2 EMS</td>
+              </tr>
+              <tr>
+                <td class="date-group">Squads 10-12 & 3</td>
+              </tr>
+              <tr>
+                <td class="date-topic">Highway Safety</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td class="date-container">
+          <table class="calendar-date">
+            <tbody>
+              <tr>
+                <td class="date-group">Squads 4-6 & 1</td>
+              </tr>
+              <tr>
+                <td class="date-topic">Highway Safety</td>
+              </tr>
+              <tr>
+                <td class="date-group">Squads 7-9 & 2</td>
+              </tr>
+              <tr>
+                <td class="date-topic">Highrise Ops</td>
+              </tr>
+              <tr>
+                <td class="date-group">Squads 10-12 & 3</td>
+              </tr>
+              <tr>
+                <td class="date-topic required">Q2 EMS</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td class="date-container">
+          <table class="calendar-date">
+            <tbody>
+              <tr>
+                <td class="date-group">Full Department</td>
+              </tr>
+              <tr>
+                <td class="date-topic">???</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="calendar-month">
+      <tbody>
+        <tr>
+          <td colspan="4"
+            class="month-header">May 2019</td>
+        </tr>
+        <tr>
+          <td class="date-header">4-Apr</td>
+          <td class="date-header">11-Apr</td>
+          <td class="date-header">18-Apr</td>
+          <td class="date-header">25-Apr</td>
+        </tr>
+        <tr>
+          <td class="date-container">
+            <table class="calendar-date">
+              <tbody>
+                <tr>
+                  <td class="date-group">Squads 4-6 & 1</td>
+                </tr>
+                <tr>
+                  <td class="date-topic required">Q2 EMS</td>
+                </tr>
+                <tr>
+                  <td class="date-group">Squads 7-9 & 2</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">Highway Safety</td>
+                </tr>
+                <tr>
+                  <td class="date-group">Squads 10-12 & 3</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">Highrise Ops</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td class="date-container">
+            <table class="calendar-date">
+              <tbody>
+                <tr>
+                  <td class="date-group">Squads 4-6 & 1</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">Highrise Ops</td>
+                </tr>
+                <tr>
+                  <td class="date-group">Squads 7-9 & 2</td>
+                </tr>
+                <tr>
+                  <td class="date-topic required">Q2 EMS</td>
+                </tr>
+                <tr>
+                  <td class="date-group">Squads 10-12 & 3</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">Highway Safety</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td class="date-container">
+            <table class="calendar-date">
+              <tbody>
+                <tr>
+                  <td class="date-group">Squads 4-6 & 1</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">Highway Safety</td>
+                </tr>
+                <tr>
+                  <td class="date-group">Squads 7-9 & 2</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">Highrise Ops</td>
+                </tr>
+                <tr>
+                  <td class="date-group">Squads 10-12 & 3</td>
+                </tr>
+                <tr>
+                  <td class="date-topic required">Q2 EMS</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td class="date-container">
+            <table class="calendar-date">
+              <tbody>
+                <tr>
+                  <td class="date-group">Full Department</td>
+                </tr>
+                <tr>
+                  <td class="date-topic">???</td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

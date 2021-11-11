@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using InstructorIQ.Core.Data.Entities;
@@ -47,7 +48,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             var entityQuery = new EntityQuery
             {
-                Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
+                Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Name", Value = "Group", Operator = "StartsWith" }
             };
             var listQuery = new EntityPagedQuery<GroupReadModel>(MockPrincipal.Default, entityQuery);
@@ -95,7 +96,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             var query = new EntityQuery
             {
-                Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
+                Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Name", Value = "Group", Operator = "StartsWith" }
             };
             var command = new EntityPagedQuery<GroupReadModel>(MockPrincipal.Default, query);

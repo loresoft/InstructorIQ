@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\version.props" />
-
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <NoWarn>1591</NoWarn>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
@@ -16,28 +14,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.14.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="CsvHelper" Version="16.0.0" />
-    <PackageReference Include="EntityChange" Version="4.1.0.71" />
-    <PackageReference Include="FluentCommand.SqlServer" Version="7.0.0.296" />
-    <PackageReference Include="Handlebars.Net" Version="1.11.5" />
-    <PackageReference Include="HangFire.Core" Version="1.7.17" />
-    <PackageReference Include="KickStart.DependencyInjection" Version="8.0.0.345" />
-    <PackageReference Include="MailKit" Version="2.9.0" />
-    <PackageReference Include="MediatR.CommandQuery.Audit" Version="7.0.0.384" />
-    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="7.0.0.384" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+    <PackageReference Include="AngleSharp" Version="0.16.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="CsvHelper" Version="27.1.1" />
+    <PackageReference Include="EntityChange" Version="4.1.0.104" />
+    <PackageReference Include="FluentCommand.SqlServer" Version="7.0.0.393" />
+    <PackageReference Include="Handlebars.Net" Version="2.0.9" />
+    <PackageReference Include="HangFire.Core" Version="1.7.27" />
+    <PackageReference Include="KickStart.DependencyInjection" Version="9.0.467" />
+    <PackageReference Include="MailKit" Version="2.15.0" />
+    <PackageReference Include="MediatR.CommandQuery.Audit" Version="10.0.671" />
+    <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="10.0.671" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.Azure.Storage.Blob" Version="11.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
-    <PackageReference Include="NaturalSort.Extension" Version="3.0.0" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
-    <PackageReference Include="UAParser" Version="3.1.44" />
-    <PackageReference Include="YamlDotNet" Version="9.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+    <PackageReference Include="NaturalSort.Extension" Version="3.1.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.0" />
+    <PackageReference Include="UAParser" Version="3.1.47" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 
   <ItemGroup>
