@@ -39,7 +39,7 @@ for:
       - provider: SqlDatabase
         artifact: Database
         connection_string:
-          secure: MrZDPoUNN3lixNAZ8Z56md0n52EpKdJlL7QFHaIb/XFpvtO3Mt3q15f4KJM0+vmTysSGiTbpA7oIHK3DVKfOwhvsb5QbeXzvOhC6qyks+pYkjq6z3LEZMKRWUzKhcqOKGAZBm7fn8LRCBGpVbT7stzIEYsk38IOIOhkY+6cMiaxwlZ/pns9mGDD5n4rbsrf+THjLCmVAmBorACs3LqTGxg==
+          secure: MrZDPoUNN3lixNAZ8Z56md0n52EpKdJlL7QFHaIb/XFpvtO3Mt3q15f4KJM0+vmTysSGiTbpA7oIHK3DVKfOwhvsb5QbeXzvOhC6qyks+pYd99utft55zeo7qsttUm488DYuEjVLVd4i1boHoci2XCrqvSybzCGLopZGZi8JP+AZ8sLlQGu7Y4URCXyaNpAFR+QQBDZDl54h/NV7umWSfK6372uMtAAxm9328D18gTbYjeb5AG0daN6X33S17XY1J3Cs4WdL2WvCw9ZfOMP27G4BPoznJs6SiQBeahJA+xMo7Kye7WxOX2HDD/IcWFRyApZyNYIjk3FvUzEf8ZvwXw3fq1/QM/gKhhX3T3G786A=
       - provider: AzureAppServiceZipDeploy
         artifact: Website
         website: ls-usc-app-iq-stage
@@ -54,7 +54,7 @@ for:
       - provider: SqlDatabase
         artifact: Database
         connection_string:
-          secure: MrZDPoUNN3lixNAZ8Z56md0n52EpKdJlL7QFHaIb/XFpvtO3Mt3q15f4KJM0+vmTysSGiTbpA7oIHK3DVKfOwl0/n94G58SEgVeeImVv9JMMilfn/jTgViP63gFRcSPfuF/5DK3kVhTuYIgID3C58ExBBe37zGNZgJ5bWybhTBquxtCRd5qFa9FudRfhtGm0
+          secure: MrZDPoUNN3lixNAZ8Z56md0n52EpKdJlL7QFHaIb/XFpvtO3Mt3q15f4KJM0+vmTysSGiTbpA7oIHK3DVKfOwl0/n94G58SEgVeeImVv9JPi7Kj/Iw3ZGiuEk7se/awPbNgqM8/+YcjcAXBXKSUQcQv00+5oaa2LHNT1BHUDxFckC6R/cAMGixlnVN7S+FvCGwlJrV6w+/Sebn/JOAo5AipF7/PUYGQKGeWX6AggFtBqLe+accEQU8EQK3cvmXJDEfeULIj9njCm9YebZNnrwfTgxLLalFExjwBYp023IqFbWhCx65b8r9ngktOTWRZIBFxAropvMTTG8tAo2QAOig==
       - provider: AzureAppServiceZipDeploy
         artifact: Website
         website: ls-usc-app-iq-prod
