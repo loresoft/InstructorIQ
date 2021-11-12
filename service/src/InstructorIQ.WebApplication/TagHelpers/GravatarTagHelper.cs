@@ -44,7 +44,7 @@ namespace InstructorIQ.WebApplication.TagHelpers
             var queryString = queryBuilder.ToQueryString().ToString();
 
             var url = $"https://gravatar.com/avatar/{hash}";
-            url = url + Uri.EscapeUriString(queryString);
+            url = url + queryBuilder.ToQueryString();
 
             output.TagName = "img";
             output.Attributes.SetAttribute("src", url);

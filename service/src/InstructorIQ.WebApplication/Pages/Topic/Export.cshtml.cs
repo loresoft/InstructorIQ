@@ -103,7 +103,7 @@ namespace InstructorIQ.WebApplication.Pages.Topic
             var textFilter = new EntityFilter
             {
                 Logic = EntityFilterLogic.Or,
-                Filters = new[]
+                Filters = new List<EntityFilter>
                 {
                     new EntityFilter
                     {

@@ -7,6 +7,7 @@ using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace InstructorIQ.WebApplication.Pages.Global.Tenant
 {
@@ -23,7 +24,7 @@ namespace InstructorIQ.WebApplication.Pages.Global.Tenant
             var filter = new EntityFilter
             {
                 Logic = EntityFilterLogic.Or,
-                Filters = new[]
+                Filters = new List<EntityFilter>
                 {
                     new EntityFilter
                     {

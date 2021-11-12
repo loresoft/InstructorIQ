@@ -1,4 +1,4 @@
-version: 1.6.0.{build}
+version: 1.7.0.{build}
 os: Visual Studio 2019
 
 environment:
@@ -6,11 +6,9 @@ environment:
 
 configuration: Release
 
-services:
-  - mssql2017
-
 init:
   - git config --global core.autocrlf true
+  - net start MSSQL$SQL2019
 
 dotnet_csproj:
   patch: true
@@ -38,15 +36,28 @@ for:
       only:
         - develop
     deploy:
-      - provider: Environment
-        name: InstructorIQ-Database-Staging
-      - provider: Environment
-        name: InstructorIQ-Website-Staging
+      - provider: SqlDatabase
+        artifact: Database
+        connection_string:
+          secure: MrZDPoUNN3lixNAZ8Z56md0n52EpKdJlL7QFHaIb/XFpvtO3Mt3q15f4KJM0+vmTysSGiTbpA7oIHK3DVKfOwhvsb5QbeXzvOhC6qyks+pYkjq6z3LEZMKRWUzKhcqOKGAZBm7fn8LRCBGpVbT7stzIEYsk38IOIOhkY+6cMiaxwlZ/pns9mGDD5n4rbsrf+THjLCmVAmBorACs3LqTGxg==
+      - provider: AzureAppServiceZipDeploy
+        artifact: Website
+        website: ls-usc-app-iq-stage
+        username: loresoft-azure
+        password:
+          secure: oYie4BaAC7RU5xupBc6NWLBNtwUpkfv5IodtvafvWQ0=
+
   - branches:
       only:
         - master
     deploy:
-      - provider: Environment
-        name: InstructorIQ-Database
-      - provider: Environment
-        name: InstructorIQ-Website
+      - provider: SqlDatabase
+        artifact: Database
+        connection_string:
+          secure: MrZDPoUNN3lixNAZ8Z56md0n52EpKdJlL7QFHaIb/XFpvtO3Mt3q15f4KJM0+vmTysSGiTbpA7oIHK3DVKfOwl0/n94G58SEgVeeImVv9JMMilfn/jTgViP63gFRcSPfuF/5DK3kVhTuYIgID3C58ExBBe37zGNZgJ5bWybhTBquxtCRd5qFa9FudRfhtGm0
+      - provider: AzureAppServiceZipDeploy
+        artifact: Website
+        website: ls-usc-app-iq-prod
+        username: loresoft-azure
+        password:
+          secure: oYie4BaAC7RU5xupBc6NWLBNtwUpkfv5IodtvafvWQ0=

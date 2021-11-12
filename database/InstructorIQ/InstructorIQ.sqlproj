@@ -77,7 +77,6 @@
     <Build Include="Tables\SessionInstructor.sql" />
     <Build Include="Tables\Location.sql" />
     <Build Include="Tables\Group.sql" />
-    <Build Include="Tables\Instructor.sql" />
     <Build Include="Tables\RefreshToken.sql" />
     <Build Include="Tables\EmailTemplate.sql" />
     <Build Include="Tables\EmailDelivery.sql" />
@@ -107,10 +106,6 @@
     <Build Include="Tables\ImportJob.sql" />
     <Build Include="Tables\Attendance.sql" />
     <Build Include="Procedures\FrequentSessionTimes.sql" />
-    <Build Include="Schema\Log.sql" />
-    <Build Include="Tables\LogEvent.sql" />
-    <Build Include="Procedures\PurgeLogs.sql" />
-    <Build Include="Procedures\SearchLogs.sql" />
     <Build Include="Procedures\PurgeEmailDelivery.sql" />
     <Build Include="Tables\SignUp.sql" />
     <Build Include="Tables\SignUpTopic.sql" />

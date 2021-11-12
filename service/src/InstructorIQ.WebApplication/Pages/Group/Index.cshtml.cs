@@ -4,6 +4,7 @@ using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace InstructorIQ.WebApplication.Pages.Group
 {
@@ -21,7 +22,7 @@ namespace InstructorIQ.WebApplication.Pages.Group
             var filter = new EntityFilter
             {
                 Logic = EntityFilterLogic.Or,
-                Filters = new[]
+                Filters = new List<EntityFilter>
                 {
                     new EntityFilter
                     {

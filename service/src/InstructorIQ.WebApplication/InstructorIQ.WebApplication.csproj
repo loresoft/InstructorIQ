@@ -1,11 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <Import Project="..\..\version.props" />
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <NoWarn>1591</NoWarn>
     <UserSecretsId>903022c7-65a9-40cf-8939-9a3388f50b0f</UserSecretsId>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
