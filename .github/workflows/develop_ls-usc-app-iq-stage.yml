@@ -18,12 +18,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Output Environment 
+        run: |
+          echo Run ID: ${{ github.run_id }}
+          echo Run Number: ${{ github.run_number }}
+          echo Event: ${{ github.event_name }}
+          echo Branch: ${{ github.ref }}
+          echo Branch Name: ${{ github.ref_name }}
+          echo Hash: ${{ github.sha }}
+
       - name: Setup .NET 6.0
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 6.0.x
 
-      - name: Build Solution
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Restore Dependencies
         run: dotnet restore ./service/InstructorIQ.sln
 
       - name: Build Solution
@@ -38,9 +50,11 @@ jobs:
         run: dotnet publish ./service/src/InstructorIQ.JobRunner/InstructorIQ.JobRunner.csproj --no-build --configuration Release --output publish/JobRunner
 
       - name: Build Database
-        run: msbuild ./database/InstructorIQ.sln /t:Build /p:Configuration=Release  /p:OutputPath=publish/database
+        if: success()
+        run: msbuild ./database/InstructorIQ.sln /t:Build /p:Configuration=Release /p:OutputPath=publish/database
 
       - name: Upload Artifact
+        if: success()
         uses: actions/upload-artifact@v2
         with:
           name: application
