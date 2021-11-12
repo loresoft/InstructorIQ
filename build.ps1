@@ -16,6 +16,8 @@ If (!$version) {
     $version = "1.0.0.0"
 }
 
+Write-Host "Build Version: $version"
+
 # build database
 Write-Host "*** Build Database ***"
 & msbuild $workingDirectory\database\InstructorIQ.sln /t:Build /p:Configuration=Release  /p:OutputPath=$buildDirectory\database
@@ -27,7 +29,7 @@ Write-Host "*** Build Service ***"
 
 # create package
 Write-Host "*** Create Packages ***"
-#Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\App_Data\jobs\continuous\runner -Recurse -Force
+Copy-Item -Path $buildDirectory\runner -Destination $buildDirectory\website\App_Data\jobs\continuous\runner -Recurse -Force
 
 # zip package
 Write-Host "*** Zip Packages ***"
