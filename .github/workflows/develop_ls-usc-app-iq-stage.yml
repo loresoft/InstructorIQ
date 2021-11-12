@@ -107,6 +107,6 @@ jobs:
       - uses: azure/sql-action@v1
         with:
           server-name: ${{ secrets.AZURE_SQL_SERVER}}
-          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING}}
+          connection-string: ${{ secrets.AZURE_STAGING_SQL_CONNECTION}}
           dacpac-package: './InstructorIQ.dacpac'
 
