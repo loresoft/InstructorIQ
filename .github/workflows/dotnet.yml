@@ -80,30 +80,27 @@ jobs:
     if: success() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
 
     steps:
-      - name: Determine Production Environment
-        if: github.ref == 'refs/heads/master'
-        run: |
-          echo "AZURE_NAME=ls-usc-app-iq-prod" >> $GITHUB_ENV
-          echo "PUBLISH_PROFILE=${{secrets.PUBLISH_PROFILE_PRODUCTION}}" >> $GITHUB_ENV
-
-      - name: Determine Staging Environment
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          echo "AZURE_NAME=ls-usc-app-iq-stage" >> $GITHUB_ENV
-          echo "PUBLISH_PROFILE=${{secrets.PUBLISH_PROFILE_STAGING}}" >> $GITHUB_ENV
-
       - name: Download Web Application Artifact
         uses: actions/download-artifact@v2
         with:
           name: WebApplication
 
-      - name: Deploy Web Application to Azure
-        id: deploy-web
+      - name: Deploy Web Application to Azure Staging
+        if: github.ref == 'refs/heads/develop'
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{env.AZURE_NAME}}
+          app-name: 'ls-usc-app-iq-stage'
           slot-name: 'Production'
-          publish-profile: ${{env.PUBLISH_PROFILE}}
+          publish-profile: ${{secrets.PUBLISH_PROFILE_STAGING}}
+          package: ./
+
+      - name: Deploy Web Application to Azure Production
+        if: github.ref == 'refs/heads/master'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'ls-usc-app-iq-prod'
+          slot-name: 'Production'
+          publish-profile: ${{secrets.PUBLISH_PROFILE_PRODUCTION}}
           package: ./
 
   deploy-database:
@@ -112,22 +109,23 @@ jobs:
     if: success() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
 
     steps:
-      - name: Determine Production Environment
-        if: github.ref == 'refs/heads/master'
-        run: echo "AZURE_SQL_CONNECTION=${{secrets.AZURE_SQL_CONNECTION_PRODUCTION}}" >> $GITHUB_ENV
-
-      - name: Determine Staging Environment
-        if: github.ref == 'refs/heads/develop'
-        run: echo "AZURE_SQL_CONNECTION=${{secrets.AZURE_SQL_CONNECTION_STAGING}}" >> $GITHUB_ENV
-
       - name: Download Database Artifact
         uses: actions/download-artifact@v2
         with:
           name: Database
 
-      - name: Deploy SQL Server Database to Azure
+      - name: Deploy SQL Server Database to Azure Staging
+        if: github.ref == 'refs/heads/develop'
         uses: azure/sql-action@v1
         with:
           server-name: ${{secrets.AZURE_SQL_SERVER}}
-          connection-string: ${{env.AZURE_SQL_CONNECTION}}
+          connection-string: ${{secrets.AZURE_SQL_CONNECTION_STAGING}}
+          dacpac-package: './InstructorIQ.dacpac'
+
+      - name: Deploy SQL Server Database to Azure Production
+        if: github.ref == 'refs/heads/master'
+        uses: azure/sql-action@v1
+        with:
+          server-name: ${{secrets.AZURE_SQL_SERVER}}
+          connection-string: ${{secrets.AZURE_SQL_CONNECTION_PRODUCTION}}
           dacpac-package: './InstructorIQ.dacpac'
