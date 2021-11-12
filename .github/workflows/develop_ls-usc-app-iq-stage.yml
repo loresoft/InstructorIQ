@@ -7,51 +7,63 @@ on:
   push:
     branches:
       - develop
-  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-      - name: Set up .NET Core
+      - name: Setup .NET 6.0
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
-          include-prerelease: true
+          dotnet-version: 6.0.x
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Build Solution
+        run: dotnet restore ./service/InstructorIQ.sln
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Build Solution
+        run: dotnet build ./service/InstructorIQ.sln --no-restore --configuration Release
 
-      - name: Upload artifact for deployment job
+      - name: Publish Web Application
+        if: success()
+        run: dotnet publish ./service/src/InstructorIQ.WebApplication/InstructorIQ.WebApplication.csproj --no-build --configuration Release --output publish/WebApplication
+
+      - name: Publish Job Runner
+        if: success()
+        run: dotnet publish ./service/src/InstructorIQ.JobRunner/InstructorIQ.JobRunner.csproj --no-build --configuration Release --output publish/JobRunner
+
+      - name: Build Database
+        run: msbuild ./database/InstructorIQ.sln /t:Build /p:Configuration=Release  /p:OutputPath=publish/database
+
+      - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: application
+          path: publish
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'Staging'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
+      - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
-          name: .net-app
+          name: application
 
-      - name: Deploy to Azure Web App
+      - name: Deploy Web Application to Azure
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'ls-usc-app-iq-stage'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A55215C074554B6E86332273D364C877 }}
-          package: .
+          package: ./WebApplication

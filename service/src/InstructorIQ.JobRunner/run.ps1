@@ -1,0 +1,2 @@
+
+& dotnet ./InstructorIQ.JobRunner.dll
