@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -302,7 +302,7 @@ namespace InstructorIQ.Core.Extensions
             byte[] bytes = Encoding.ASCII.GetBytes(value);
             byte[] hashBytes;
 
-            using (var sha = new SHA512Managed())
+            using (var sha = SHA512.Create())
                 hashBytes = sha.ComputeHash(bytes);
 
             var hash = Convert.ToBase64String(hashBytes);

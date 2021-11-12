@@ -16,6 +16,8 @@ If (!$version) {
     $version = "1.0.0.0"
 }
 
+Write-Host "Build Version: $version"
+
 # build database
 Write-Host "*** Build Database ***"
 & msbuild $workingDirectory\database\InstructorIQ.sln /t:Build /p:Configuration=Release  /p:OutputPath=$buildDirectory\database

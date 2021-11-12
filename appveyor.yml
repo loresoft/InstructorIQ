@@ -1,16 +1,14 @@
-version: 1.6.0.{build}
-os: Visual Studio 2019
+version: 1.7.0.{build}
+os: Visual Studio 2022
 
 environment:
   ASPNETCORE_ENVIRONMENT: appveyor
 
 configuration: Release
 
-services:
-  - mssql2017
-
 init:
   - git config --global core.autocrlf true
+  - net start MSSQL$SQL2019
 
 dotnet_csproj:
   patch: true
@@ -32,21 +30,3 @@ artifacts:
     name: Website
   - path: 'build\database\*.dacpac'
     name: Database
-
-for:
-  - branches:
-      only:
-        - develop
-    deploy:
-      - provider: Environment
-        name: InstructorIQ-Database-Staging
-      - provider: Environment
-        name: InstructorIQ-Website-Staging
-  - branches:
-      only:
-        - master
-    deploy:
-      - provider: Environment
-        name: InstructorIQ-Database
-      - provider: Environment
-        name: InstructorIQ-Website

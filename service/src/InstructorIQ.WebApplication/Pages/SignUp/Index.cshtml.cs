@@ -1,4 +1,6 @@
-﻿using InstructorIQ.Core.Domain.Models;
+﻿using System.Collections.Generic;
+
+using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
 using MediatR;
@@ -19,7 +21,7 @@ namespace InstructorIQ.WebApplication.Pages.SignUp
             var filter = new EntityFilter
             {
                 Logic = EntityFilterLogic.Or,
-                Filters = new[]
+                Filters = new List<EntityFilter>
                 {
                     new EntityFilter
                     {

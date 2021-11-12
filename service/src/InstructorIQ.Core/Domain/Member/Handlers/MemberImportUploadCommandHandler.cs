@@ -93,7 +93,7 @@ namespace InstructorIQ.Core.Domain.Handlers
                 csv.Read();
                 csv.ReadHeader();
 
-                importModel.Headers = csv.Context.HeaderRecord;
+                importModel.Headers = csv.HeaderRecord;
             }
 
             // default match headers

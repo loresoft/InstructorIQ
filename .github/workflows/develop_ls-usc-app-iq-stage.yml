@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build for Production
+name: Build for Staging
 
 env:
   BUILD_PATH: '${{github.workspace}}/publish'
@@ -11,7 +11,7 @@ env:
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   build-project:
@@ -77,7 +77,7 @@ jobs:
     needs: build-project
 
     environment:
-      name: 'Production'
+      name: 'Staging'
       url: '${{steps.deploy-web.outputs.webapp-url}}'
 
     steps:
@@ -90,9 +90,9 @@ jobs:
         id: deploy-web
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'ls-usc-app-iq-prod'
+          app-name: 'ls-usc-app-iq-stage'
           slot-name: 'Production'
-          publish-profile: ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_94D10264B7AE4FDE9D03D16BA5A3D647}}
+          publish-profile: ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A55215C074554B6E86332273D364C877}}
           package: ./
 
   deploy-database:
@@ -109,5 +109,5 @@ jobs:
         uses: azure/sql-action@v1
         with:
           server-name: ${{ secrets.AZURE_SQL_SERVER}}
-          connection-string: ${{ secrets.AZURE_PRODUCTION_SQL_CONNECTION}}
+          connection-string: ${{ secrets.AZURE_STAGING_SQL_CONNECTION}}
           dacpac-package: './InstructorIQ.dacpac'

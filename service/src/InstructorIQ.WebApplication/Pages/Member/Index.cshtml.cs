@@ -69,7 +69,7 @@ namespace InstructorIQ.WebApplication.Pages.Member
             var filter = new EntityFilter
             {
                 Logic = EntityFilterLogic.Or,
-                Filters = new[]
+                Filters = new List<EntityFilter>
                 {
                     new EntityFilter
                     {

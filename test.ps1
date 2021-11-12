@@ -7,7 +7,7 @@ $buildDirectory = Join-Path -Path $workingDirectory -ChildPath "build"
 
 $connectionString = "Data Source=(local);Initial Catalog=InstructorIQUnitTest;Integrated Security=True"
 If ((Test-Path -Path env:APPVEYOR)) {
-    $connectionString = "Server=(local)\SQL2017;Database=InstructorIQUnitTest;Integrated security=SSPI;"
+    $connectionString = "Server=(local)\SQL2019;Database=InstructorIQUnitTest;Integrated security=SSPI;"
 }  
 
 Write-Host "*** Deploy Database ***"

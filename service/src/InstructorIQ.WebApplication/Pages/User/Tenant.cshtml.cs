@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
@@ -62,7 +63,7 @@ namespace InstructorIQ.WebApplication.Pages.User
             var filter = new EntityFilter
             {
                 Logic = EntityFilterLogic.Or,
-                Filters = new[]
+                Filters = new List<EntityFilter>
                 {
                     new EntityFilter
                     {

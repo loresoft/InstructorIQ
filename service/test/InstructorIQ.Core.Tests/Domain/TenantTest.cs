@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;
+using System.Collections.Generic;
 
 namespace InstructorIQ.Core.Tests.Domain
 {
@@ -51,7 +52,7 @@ namespace InstructorIQ.Core.Tests.Domain
             // Query Entity
             var entityQuery = new EntityQuery
             {
-                Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
+                Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
             var listQuery = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, entityQuery);
@@ -119,7 +120,7 @@ namespace InstructorIQ.Core.Tests.Domain
 
             var query = new EntityQuery
             {
-                Sort = new[] { new EntitySort { Name = "Updated", Direction = "Descending" } },
+                Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
                 Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
             };
             var command = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, query);

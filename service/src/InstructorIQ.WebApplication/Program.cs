@@ -1,7 +1,8 @@
 ﻿using System;
-using Microsoft.ApplicationInsights.Extensibility;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+
 using Serilog;
 using Serilog.Events;
 
@@ -17,7 +18,6 @@ namespace InstructorIQ.WebApplication
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .WriteTo.File("log.txt", LogEventLevel.Debug, rollingInterval: RollingInterval.Day)
-                .WriteTo.ApplicationInsights(TelemetryConfiguration.CreateDefault(), TelemetryConverter.Traces)
                 .CreateLogger();
 
             try
