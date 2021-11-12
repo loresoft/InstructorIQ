@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\version.props" />
 
   <PropertyGroup>
@@ -14,8 +14,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="run.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\InstructorIQ.WebApplication\appsettings.json" Link="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="run.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -37,12 +44,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\InstructorIQ.Core\InstructorIQ.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="run.cmd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
