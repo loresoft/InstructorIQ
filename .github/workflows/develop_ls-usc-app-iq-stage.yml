@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - ls-usc-app-iq-stage
 env:
   BUILD_PATH: '${{github.workspace}}/publish'
   BUILD_VERSION: '1.7.${{github.run_number}}'
-  BUILD_INFORMATION: '1.7.${{github.run_number}}+Branch.${{github.ref}}.Sha.${{github.sha}}'
+  BUILD_INFORMATION: '1.7.${{github.run_number}}+Branch.${{github.ref_name}}.Sha.${{github.sha}}'
 
 on:
   push:
@@ -54,22 +54,25 @@ jobs:
         if: success()
         run: 'dotnet publish ./service/src/InstructorIQ.WebApplication/InstructorIQ.WebApplication.csproj --no-build --configuration Release --output "${{env.BUILD_PATH}}/WebApplication"'
 
-      - name: Publish Job Runner
-        if: success()
-        run: 'dotnet publish ./service/src/InstructorIQ.JobRunner/InstructorIQ.JobRunner.csproj --no-build --configuration Release --output "${{env.BUILD_PATH}}/WebApplication/App_Data/jobs/continuous/runner"'
-
       - name: Build Database
         if: success()
         run: 'msbuild ./database/InstructorIQ.sln /t:Build /p:Configuration=Release /p:OutputPath="${{env.BUILD_PATH}}/database"'
 
-      - name: Upload Artifact
+      - name: Upload WebApplication Artifact
         if: success()
         uses: actions/upload-artifact@v2
         with:
-          name: application
-          path: '${{env.BUILD_PATH}}'
+          name: WebApplication
+          path: '${{env.BUILD_PATH}}/WebApplication'
 
-  deploy:
+      - name: Upload Database Artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Database
+          path: '${{env.BUILD_PATH}}/Database'
+
+  deploy-application:
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -80,7 +83,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v2
         with:
-          name: application
+          name: WebApplication
 
       - name: Deploy Web Application to Azure
         id: deploy-to-webapp
@@ -89,4 +92,21 @@ jobs:
           app-name: 'ls-usc-app-iq-stage'
           slot-name: 'Production'
           publish-profile: ${{secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A55215C074554B6E86332273D364C877}}
-          package: ./WebApplication
+          package: ./
+
+  deploy-database:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Database
+
+      - uses: azure/sql-action@v1
+        with:
+          server-name: ${{ secrets.AZURE_SQL_SERVER}}
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING}}
+          dacpac-package: './InstructorIQ.dacpac'
+
