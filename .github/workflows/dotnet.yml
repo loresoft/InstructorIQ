@@ -1,0 +1,131 @@
+name: Build Project
+
+env:
+  BUILD_PATH: '${{github.workspace}}/publish'
+  BUILD_VERSION: '1.8.${{github.run_number}}'
+  BUILD_INFORMATION: '1.8.${{github.run_number}}+Branch.${{github.ref_name}}.Sha.${{github.sha}}'
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build-project:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Output Environment
+        run: |
+          echo "Workspace: ${{github.workspace}}"
+          echo "Run ID: ${{github.run_id}}"
+          echo "Run Number: ${{github.run_number}}"
+          echo "Event: ${{github.event_name}}"
+          echo "Branch: ${{github.ref}}"
+          echo "Branch Name: ${{github.ref_name}}"
+          echo "Hash: ${{github.sha}}"
+          echo "Build Path: ${{env.BUILD_PATH}}"
+          echo "Build Version: ${{env.BUILD_VERSION}}"
+          echo "Build Information: ${{env.BUILD_INFORMATION}}"
+
+      - name: Setup .NET 6.0
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Restore Dependencies
+        run: dotnet restore ./service/InstructorIQ.sln
+
+      - name: Build Solution
+        run: 'dotnet build ./service/InstructorIQ.sln --no-restore --configuration Release -p:Version="${{env.BUILD_VERSION}}" -p:InformationalVersion="${{env.BUILD_INFORMATION}}"'
+
+      - name: Publish Web Application
+        if: success()
+        run: 'dotnet publish ./service/src/InstructorIQ.WebApplication/InstructorIQ.WebApplication.csproj --no-build --configuration Release --output "${{env.BUILD_PATH}}/WebApplication"'
+
+      - name: Build Database
+        if: success()
+        run: 'msbuild ./database/InstructorIQ.sln /t:Build /p:Configuration=Release /p:OutputPath="${{env.BUILD_PATH}}/database"'
+
+      - name: Upload WebApplication Artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: WebApplication
+          path: '${{env.BUILD_PATH}}/WebApplication'
+
+      - name: Upload Database Artifact
+        if: success()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Database
+          path: '${{env.BUILD_PATH}}/Database'
+
+  deploy-website:
+    runs-on: ubuntu-latest
+    needs: build-project
+    if: success() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+
+    steps:
+      - name: Download Web Application Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: WebApplication
+
+      - name: Deploy Web Application to Azure Staging
+        if: github.ref == 'refs/heads/develop'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'ls-usc-app-iq-stage'
+          slot-name: 'Production'
+          publish-profile: ${{secrets.PUBLISH_PROFILE_STAGING}}
+          package: ./
+
+      - name: Deploy Web Application to Azure Production
+        if: github.ref == 'refs/heads/master'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'ls-usc-app-iq-prod'
+          slot-name: 'Production'
+          publish-profile: ${{secrets.PUBLISH_PROFILE_PRODUCTION}}
+          package: ./
+
+  deploy-database:
+    runs-on: windows-latest
+    needs: build-project
+    if: success() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+
+    steps:
+      - name: Download Database Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Database
+
+      - name: Deploy SQL Server Database to Azure Staging
+        if: github.ref == 'refs/heads/develop'
+        uses: azure/sql-action@v1
+        with:
+          server-name: ${{secrets.AZURE_SQL_SERVER}}
+          connection-string: ${{secrets.AZURE_SQL_CONNECTION_STAGING}}
+          dacpac-package: './InstructorIQ.dacpac'
+
+      - name: Deploy SQL Server Database to Azure Production
+        if: github.ref == 'refs/heads/master'
+        uses: azure/sql-action@v1
+        with:
+          server-name: ${{secrets.AZURE_SQL_SERVER}}
+          connection-string: ${{secrets.AZURE_SQL_CONNECTION_PRODUCTION}}
+          dacpac-package: './InstructorIQ.dacpac'
