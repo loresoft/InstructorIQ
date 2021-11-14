@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using KickStart.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,14 +11,27 @@ namespace InstructorIQ.Core.Options
 
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
-            data.TryGetValue(ConfigurationKey, out var configurationData);
+            services
+                .AddOptions<StorageConfiguration>()
+                .Configure<IConfiguration>((settings, configuration) => configuration
+                    .GetSection(StorageConfiguration.ConfigurationName)
+                    .Bind(settings)
+                );
 
-            if (!(configurationData is IConfiguration configuration))
-                return;
+            services
+                .AddOptions<SendGridConfiguration>()
+                .Configure<IConfiguration>((settings, configuration) => configuration
+                    .GetSection(SendGridConfiguration.ConfigurationName)
+                    .Bind(settings)
+                );
 
-            services.Configure<SmtpConfiguration>(configuration.GetSection("Smtp"));
-            services.Configure<StorageConfiguration>(configuration.GetSection("Storage"));
-            services.Configure<SecurityOptions>(configuration.GetSection("Security"));
+            services
+                .AddOptions<SecurityOptions>()
+                .Configure<IConfiguration>((settings, configuration) => configuration
+                    .GetSection(SecurityOptions.ConfigurationName)
+                    .Bind(settings)
+                );
+
         }
     }
 }

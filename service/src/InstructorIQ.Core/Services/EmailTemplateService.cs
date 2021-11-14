@@ -1,22 +1,31 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+
 using HandlebarsDotNet;
-using Hangfire;
+
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
 using InstructorIQ.Core.Options;
+
 using MediatR.CommandQuery;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+
 using MimeKit;
+
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -26,15 +35,19 @@ namespace InstructorIQ.Core.Services
     {
         private readonly InstructorIQContext _dataContext;
         private readonly IMemoryCache _cache;
-        private readonly IOptions<SmtpConfiguration> _smtpOptions;
+        private readonly IOptions<SendGridConfiguration> _sendGridOptions;
         private readonly IHtmlService _htmlService;
+        private readonly ILogger<EmailTemplateService> _logger;
+        private readonly ISendGridClient _sendGridClient;
 
-        public EmailTemplateService(InstructorIQContext dataContext, IMemoryCache cache, IOptions<SmtpConfiguration> smtpOptions, IHtmlService htmlService)
+        public EmailTemplateService(InstructorIQContext dataContext, IMemoryCache cache, IOptions<SendGridConfiguration> sendGridOptions, IHtmlService htmlService, ILogger<EmailTemplateService> logger, ISendGridClient sendGridClient)
         {
             _dataContext = dataContext;
             _cache = cache;
-            _smtpOptions = smtpOptions;
+            _sendGridOptions = sendGridOptions;
             _htmlService = htmlService;
+            _logger = logger;
+            _sendGridClient = sendGridClient;
         }
 
 
@@ -95,76 +108,61 @@ namespace InstructorIQ.Core.Services
             return true;
         }
 
+
         public async Task SendTemplate<TModel>(IEmailTemplate emailTemplate, TModel emailModel)
             where TModel : IEmailRecipient
         {
-            var subject = ApplyTemplate(emailTemplate.Subject, emailModel);
-            var htmlBody = ApplyTemplate(emailTemplate.HtmlBody, emailModel);
-            var textBody = ApplyTemplate(emailTemplate.TextBody, emailModel);
-            
-            // ensure text body has value
-            if (textBody.IsNullOrWhiteSpace() && htmlBody.HasValue())
-                textBody = _htmlService.PlainText(htmlBody);
+            if (emailTemplate == null)
+                throw new ArgumentNullException(nameof(emailTemplate));
 
-            var message = new MimeMessage();
-            message.Headers.Add("X-Mailer-Machine", Environment.MachineName);
-            message.Headers.Add("X-Mailer-Date", DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            if (emailModel == null)
+                throw new ArgumentNullException(nameof(emailModel));
 
-            message.Subject = subject;
-
-            // first try reply to name, next try model from address, default to option address
-            var fromName = emailTemplate.ReplyToName.HasValue() 
-                ? emailTemplate.ReplyToName
-                : emailTemplate.FromName.HasValue()
-                    ? emailTemplate.FromName
-                    : _smtpOptions.Value.FromName;
-
-            var fromEmail = emailTemplate.FromAddress.HasValue() 
-                ? emailTemplate.FromAddress 
-                : _smtpOptions.Value.FromAddress;
-
-            var fromAddress = new MailboxAddress(fromName, fromEmail);
-
-            message.From.Add(fromAddress);
-
-            if (emailTemplate.ReplyToAddress.HasValue())
-                message.ReplyTo.Add(new MailboxAddress(emailTemplate.ReplyToName, emailTemplate.ReplyToAddress));
-
-            message.To.Add(new MailboxAddress(emailModel.RecipientName, emailModel.RecipientAddress));
-
-            var builder = new BodyBuilder();
-            builder.TextBody = textBody;
-            builder.HtmlBody = htmlBody;
-
-            message.Body = builder.ToMessageBody();
-
-            await SendMessage(message).ConfigureAwait(false);
-        }
-
-        public async Task SendMessage(MimeMessage message)
-        {
-            var emailDelivery = new EmailDelivery();
-
-            // for reference only
-            emailDelivery.From = message.From.ToDelimitedString(";").Truncate(256);
-            emailDelivery.To = message.To.ToDelimitedString(";").Truncate(256);
-            emailDelivery.Subject = message.Subject.Truncate(256);
-
-            using (var memoryStream = new MemoryStream())
+            try
             {
-                await message.WriteToAsync(memoryStream).ConfigureAwait(false);
-                emailDelivery.MimeMessage = memoryStream.ToArray();
+                var subject = ApplyTemplate(emailTemplate.Subject, emailModel);
+                var htmlBody = ApplyTemplate(emailTemplate.HtmlBody, emailModel);
+                var textBody = ApplyTemplate(emailTemplate.TextBody, emailModel);
+
+                // ensure text body has value
+                if (textBody.IsNullOrWhiteSpace() && htmlBody.HasValue())
+                    textBody = _htmlService.PlainText(htmlBody);
+
+                var message = new SendGridMessage();
+                message.Subject = subject;
+
+                // first try reply to name, next try model from address, default to option address
+                var fromName = emailTemplate.ReplyToName.HasValue()
+                    ? emailTemplate.ReplyToName
+                    : emailTemplate.FromName.HasValue()
+                        ? emailTemplate.FromName
+                        : _sendGridOptions.Value.FromName;
+
+                var fromEmail = emailTemplate.FromAddress.HasValue()
+                    ? emailTemplate.FromAddress
+                    : _sendGridOptions.Value.FromEmail;
+
+                message.From = new EmailAddress(fromEmail, fromName);
+
+                if (emailTemplate.ReplyToAddress.HasValue())
+                    message.ReplyTo = new EmailAddress(emailTemplate.ReplyToAddress, emailTemplate.ReplyToName);
+
+                message.AddTo(new EmailAddress(emailModel.RecipientAddress, emailModel.RecipientName));
+
+                message.PlainTextContent = textBody;
+                message.HtmlContent = htmlBody;
+
+                _logger.LogInformation("Sending Email To: {email}, Subject: {subject} ...", emailModel.RecipientAddress, subject);
+
+                var response = await _sendGridClient.SendEmailAsync(message).ConfigureAwait(false);
+
+                _logger.LogInformation("Sent Email To: {email}, Subject: {subject}: Status Code: {statusCode}", emailModel.RecipientAddress, subject, response.StatusCode);
             }
-
-            emailDelivery.NextAttempt = DateTimeOffset.UtcNow;
-
-            await _dataContext.EmailDeliveries.AddAsync(emailDelivery).ConfigureAwait(false);
-
-            await _dataContext.SaveChangesAsync().ConfigureAwait(false);
-
-            // trigger email job
-            BackgroundJob.Enqueue<IEmailDeliveryService>(emailService =>
-                emailService.ProcessEmailQueueAsync(CancellationToken.None));
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error Sending Email To: {email}; {message}", emailModel.RecipientAddress, ex.Message);
+                throw;
+            }
         }
 
 
@@ -174,9 +172,7 @@ namespace InstructorIQ.Core.Services
                 return string.Empty;
 
             var compiledTemplate = Handlebars.Compile(handlebarTemplate);
-            var result = compiledTemplate(model);
-
-            return result;
+            return compiledTemplate(model);
         }
 
         public async Task<IEmailTemplate> GetEmailTemplate(string templateKey)
@@ -214,22 +210,18 @@ namespace InstructorIQ.Core.Services
             var assembly = Assembly.GetExecutingAssembly();
             var resourceName = $"InstructorIQ.Core.Templates.{templateKey}.yml";
 
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                if (stream == null)
-                    return null;
+            using var stream = assembly.GetManifestResourceStream(resourceName);
+            if (stream == null)
+                return null;
 
-                using (var reader = new StreamReader(stream))
-                {
-                    var deserializer = new DeserializerBuilder()
-                        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                        .Build();
+            using var reader = new StreamReader(stream);
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
 
-                    return deserializer.Deserialize<EmailTemplate>(reader);
-                }
-            }
-
+            return deserializer.Deserialize<EmailTemplate>(reader);
         }
+
 
         public static class Templates
         {
