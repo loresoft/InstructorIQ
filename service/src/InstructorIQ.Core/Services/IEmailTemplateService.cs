@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using InstructorIQ.Core.Models;
 using MimeKit;
 
@@ -14,8 +14,6 @@ namespace InstructorIQ.Core.Services
 
         Task SendTemplate<TModel>(IEmailTemplate emailTemplate, TModel emailModel)
             where TModel : IEmailRecipient;
-
-        Task SendMessage(MimeMessage message);
 
         Task<IEmailTemplate> GetEmailTemplate(string templateKey);
         Task<IEmailTemplate> GetDatabaseTemplate(string templateKey);

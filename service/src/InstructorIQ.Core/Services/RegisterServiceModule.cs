@@ -1,10 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using EntityChange;
+using InstructorIQ.Core.Options;
+
 using KickStart.DependencyInjection;
 using MediatR.CommandQuery.Definitions;
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+
+using SendGrid.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Services
 {
@@ -13,7 +20,6 @@ namespace InstructorIQ.Core.Services
         public void Register(IServiceCollection services, IDictionary<string, object> data)
         {
             services.TryAddTransient<IEmailTemplateService, EmailTemplateService>();
-            services.TryAddTransient<IEmailDeliveryService, EmailDeliveryService>();
             services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();
             services.TryAddTransient<IImportProcessService, ImportProcessService>();
 
@@ -24,6 +30,12 @@ namespace InstructorIQ.Core.Services
             services.TryAddSingleton<ICleanupService, CleanupService>();
 
             services.AddMemoryCache();
+
+            services.AddSendGrid((serviceProvider, options) =>
+            {
+                var configuration = serviceProvider.GetRequiredService<IOptions<SendGridConfiguration>>();
+                options.ApiKey = configuration.Value.ApiKey;
+            });
 
         }
     }

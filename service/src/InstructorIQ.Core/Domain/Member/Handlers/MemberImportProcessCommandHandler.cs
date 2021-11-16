@@ -1,14 +1,18 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
+
 using AutoMapper;
-using Hangfire;
+
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Services;
+
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
+
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json;
 
 // ReSharper disable once CheckNamespace
@@ -16,9 +20,12 @@ namespace InstructorIQ.Core.Domain.Handlers
 {
     public class MemberImportProcessCommandHandler : DataContextHandlerBase<InstructorIQContext, MemberImportProcessCommand, MemberImportJobModel>
     {
-        public MemberImportProcessCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
+        private readonly IImportProcessService _importProcessService;
+
+        public MemberImportProcessCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, IImportProcessService importProcessService)
             : base(loggerFactory, dataContext, mapper)
         {
+            _importProcessService = importProcessService;
         }
 
         protected override async Task<MemberImportJobModel> Process(MemberImportProcessCommand request, CancellationToken cancellationToken)
@@ -37,9 +44,7 @@ namespace InstructorIQ.Core.Domain.Handlers
 
             await DataContext.SaveChangesAsync(cancellationToken);
 
-            // trigger process job
-            BackgroundJob.Enqueue<IImportProcessService>(service =>
-                service.ImportMembersAsync(id, CancellationToken.None));
+            await _importProcessService.ImportMembersAsync(id);
 
             return request.Import;
         }

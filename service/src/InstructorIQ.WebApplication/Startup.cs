@@ -3,9 +3,6 @@ using System.Linq;
 
 using FluentValidation.AspNetCore;
 
-using Hangfire;
-using Hangfire.SqlServer;
-
 using InstructorIQ.Core.Converters;
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
@@ -15,7 +12,6 @@ using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Rewrite;
-using InstructorIQ.WebApplication.Security;
 
 using KickStart;
 
@@ -163,18 +159,6 @@ namespace InstructorIQ.WebApplication
                     )
                 );
             });
-
-            // hangfire options
-            services.TryAddSingleton(new SqlServerStorageOptions());
-
-            services.AddHangfire((provider, configuration) => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseSqlServerStorage(
-                    connectionString,
-                    provider.GetRequiredService<SqlServerStorageOptions>())
-                );
-
         }
 
 
@@ -239,11 +223,6 @@ namespace InstructorIQ.WebApplication
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseHangfireDashboard(options: new DashboardOptions
-            {
-                Authorization = new[] { new DashboardAuthorization() }
-            });
 
             app.UseResponseCaching();
 
