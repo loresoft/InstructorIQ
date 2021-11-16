@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.16.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="CsvHelper" Version="27.1.1" />
+    <PackageReference Include="CsvHelper" Version="27.2.0" />
     <PackageReference Include="EntityChange" Version="4.1.0.104" />
     <PackageReference Include="FluentCommand.SqlServer" Version="7.0.0.393" />
     <PackageReference Include="Handlebars.Net" Version="2.0.9" />
