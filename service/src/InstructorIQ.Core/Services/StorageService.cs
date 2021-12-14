@@ -1,7 +1,11 @@
-﻿using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Azure.Storage.Blobs;
+
 using InstructorIQ.Core.Options;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
+
 using Microsoft.Extensions.Options;
 
 namespace InstructorIQ.Core.Services
@@ -10,32 +14,34 @@ namespace InstructorIQ.Core.Services
     {
         private readonly IOptions<StorageConfiguration> _storageOptions;
 
-        private readonly Lazy<CloudStorageAccount> _storageAccount;
-        private readonly Lazy<CloudBlobClient> _blobClient;
-        private readonly Lazy<CloudBlobContainer> _container;
-
         public StorageService(IOptions<StorageConfiguration> storageOptions)
         {
             _storageOptions = storageOptions;
+        }
 
-            _storageAccount = new Lazy<CloudStorageAccount>(() => CloudStorageAccount.Parse(_storageOptions.Value.ConnectionString));
+        public async Task UploadAsync(string blobName, Stream stream, CancellationToken cancellationToken)
+        {
+            var blob = await GetBlobClient(blobName, cancellationToken);
 
-            _blobClient = new Lazy<CloudBlobClient>(() => StorageAccount.CreateCloudBlobClient());
+            await blob.UploadAsync(stream, cancellationToken);
+        }
 
-            _container = new Lazy<CloudBlobContainer>(() =>
-            {
-                var container = Client.GetContainerReference(_storageOptions.Value.Container);
-                container.CreateIfNotExists(BlobContainerPublicAccessType.Off);
+        public async Task<Stream> OpenReadAsync(string blobName, CancellationToken cancellationToken)
+        {
+            var blob = await GetBlobClient(blobName, cancellationToken);
 
-                return container;
-            });
+            return await blob.OpenReadAsync(cancellationToken: cancellationToken);
         }
 
 
-        public CloudStorageAccount StorageAccount => _storageAccount.Value;
+        private async Task<BlobClient> GetBlobClient(string blobName, CancellationToken cancellationToken)
+        {
+            var options = _storageOptions.Value;
 
-        public CloudBlobClient Client => _blobClient.Value;
+            var container = new BlobContainerClient(options.ConnectionString, options.Container);
+            await container.CreateIfNotExistsAsync(Azure.Storage.Blobs.Models.PublicAccessType.None, cancellationToken: cancellationToken);
 
-        public CloudBlobContainer Container => _container.Value;
+            return container.GetBlobClient(blobName);
+        }
     }
 }
