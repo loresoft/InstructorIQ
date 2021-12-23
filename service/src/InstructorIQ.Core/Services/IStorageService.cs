@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace InstructorIQ.Core.Services
 {
     public interface IStorageService
     {
-        CloudStorageAccount StorageAccount { get; }
-
-        CloudBlobClient Client { get; }
-
-        CloudBlobContainer Container { get; }
+        Task<Stream> OpenReadAsync(string blobName, CancellationToken cancellationToken);
+        Task UploadAsync(string blobName, Stream stream, CancellationToken cancellationToken);
     }
 }

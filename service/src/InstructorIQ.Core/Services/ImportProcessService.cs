@@ -1,20 +1,27 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+
 using CsvHelper;
 using CsvHelper.Configuration;
+
 using FluentCommand;
 using FluentCommand.Extensions;
+
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
+
 using MediatR;
 using MediatR.CommandQuery.Commands;
+
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json;
+
 using StringExtensions = InstructorIQ.Core.Extensions.StringExtensions;
 
 namespace InstructorIQ.Core.Services
@@ -72,7 +79,7 @@ namespace InstructorIQ.Core.Services
                 throw;
             }
         }
-        
+
         private async Task SendNotification(ImportJob importJob, string message, CancellationToken cancellationToken)
         {
             var createModel = new NotificationCreateModel
@@ -112,52 +119,48 @@ namespace InstructorIQ.Core.Services
         {
             var dataList = new List<MemberImportModel>();
 
-            var blobReference = await _storageService.Container
-                .GetBlobReferenceFromServerAsync(importJob.StorageFile, cancellationToken);
-
             var configuration = new CsvConfiguration(CultureInfo.CurrentCulture) { HasHeaderRecord = true };
 
-            using (var blobStream = await blobReference.OpenReadAsync(cancellationToken))
-            using (var reader = new StreamReader(blobStream))
-            using (var csv = new CsvReader(reader, configuration))
+            using var blobStream = await _storageService.OpenReadAsync(importJob.StorageFile, cancellationToken);
+            using var reader = new StreamReader(blobStream);
+            using var csv = new CsvReader(reader, configuration);
+
+            csv.Read();
+            csv.ReadHeader();
+
+            while (csv.Read())
             {
-                csv.Read();
-                csv.ReadHeader();
+                var item = new MemberImportModel();
+                item.Email = csv.GetField(importModel.EmailMapping);
 
-                while (csv.Read())
-                {
-                    var item = new MemberImportModel();
-                    item.Email = csv.GetField(importModel.EmailMapping);
+                if (StringExtensions.IsNullOrEmpty(item.Email))
+                    continue;
 
-                    if (StringExtensions.IsNullOrEmpty(item.Email))
-                        continue;
+                if (StringExtensions.HasValue(importModel.DisplayNameMapping))
+                    item.DisplayName = csv.GetField(importModel.DisplayNameMapping);
 
-                    if (StringExtensions.HasValue(importModel.DisplayNameMapping))
-                        item.DisplayName = csv.GetField(importModel.DisplayNameMapping);
+                if (StringExtensions.HasValue(importModel.SortNameMapping))
+                    item.SortName = csv.GetField(importModel.SortNameMapping);
 
-                    if (StringExtensions.HasValue(importModel.SortNameMapping))
-                        item.SortName = csv.GetField(importModel.SortNameMapping);
+                if (StringExtensions.HasValue(importModel.GivenNameMapping))
+                    item.GivenName = csv.GetField(importModel.GivenNameMapping);
 
-                    if (StringExtensions.HasValue(importModel.GivenNameMapping))
-                        item.GivenName = csv.GetField(importModel.GivenNameMapping);
+                if (StringExtensions.HasValue(importModel.FamilyNameMapping))
+                    item.FamilyName = csv.GetField(importModel.FamilyNameMapping);
 
-                    if (StringExtensions.HasValue(importModel.FamilyNameMapping))
-                        item.FamilyName = csv.GetField(importModel.FamilyNameMapping);
+                if (StringExtensions.HasValue(importModel.JobTitleMapping))
+                    item.JobTitle = csv.GetField(importModel.JobTitleMapping);
 
-                    if (StringExtensions.HasValue(importModel.JobTitleMapping))
-                        item.JobTitle = csv.GetField(importModel.JobTitleMapping);
+                if (StringExtensions.HasValue(importModel.PhoneNumberMapping))
+                    item.PhoneNumber = csv.GetField(importModel.PhoneNumberMapping);
 
-                    if (StringExtensions.HasValue(importModel.PhoneNumberMapping))
-                        item.PhoneNumber = csv.GetField(importModel.PhoneNumberMapping);
+                if (StringExtensions.IsNullOrEmpty(item.DisplayName))
+                    item.DisplayName = $"{item.GivenName} {item.FamilyName}".Trim();
 
-                    if (StringExtensions.IsNullOrEmpty(item.DisplayName))
-                        item.DisplayName = $"{item.GivenName} {item.FamilyName}".Trim();
+                if (StringExtensions.IsNullOrEmpty(item.SortName))
+                    item.SortName = $"{item.FamilyName}, {item.GivenName}".Trim();
 
-                    if (StringExtensions.IsNullOrEmpty(item.SortName))
-                        item.SortName = $"{item.FamilyName}, {item.GivenName}".Trim();
-
-                    dataList.Add(item);
-                }
+                dataList.Add(item);
             }
 
             return dataList;

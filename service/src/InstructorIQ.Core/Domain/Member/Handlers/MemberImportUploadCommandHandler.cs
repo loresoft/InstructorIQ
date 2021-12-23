@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -121,8 +121,7 @@ namespace InstructorIQ.Core.Domain.Handlers
             // reset stream
             memoryStream.Position = 0;
 
-            var blockBlob = _storageService.Container.GetBlockBlobReference(blobName);
-            await blockBlob.UploadFromStreamAsync(memoryStream, cancellationToken);
+            await _storageService.UploadAsync(blobName, memoryStream, cancellationToken);
         }
     }
 }
