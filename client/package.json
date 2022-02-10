@@ -90,7 +90,7 @@
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.5.0",
     "minimatch": "^3.0.4",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "nps": "^5.9.3",
     "nps-utils": "^1.7.0",
     "opn": "^5.4.0",
