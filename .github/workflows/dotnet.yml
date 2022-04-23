@@ -25,19 +25,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Output Environment
-        run: |
-          echo "Workspace: ${{github.workspace}}"
-          echo "Run ID: ${{github.run_id}}"
-          echo "Run Number: ${{github.run_number}}"
-          echo "Event: ${{github.event_name}}"
-          echo "Branch: ${{github.ref}}"
-          echo "Branch Name: ${{github.ref_name}}"
-          echo "Hash: ${{github.sha}}"
-          echo "Build Path: ${{env.BUILD_PATH}}"
-          echo "Build Version: ${{env.BUILD_VERSION}}"
-          echo "Build Information: ${{env.BUILD_INFORMATION}}"
-
       - name: Setup .NET 6.0
         uses: actions/setup-dotnet@v1
         with:
