@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+
 using InstructorIQ.Core.Behaviors;
 using InstructorIQ.Core.Data;
+
 using KickStart.DependencyInjection;
+
 using MediatR;
 using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Definitions;
 using MediatR.CommandQuery.EntityFrameworkCore;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Domain
@@ -30,6 +34,7 @@ namespace InstructorIQ.Core.Domain
 
         protected virtual void RegisterEntityQuery<TKey, TEntity, TReadModel>(IServiceCollection services)
            where TEntity : class, IHaveIdentifier<TKey>, new()
+           where TReadModel : class
         {
             services.AddEntityQueries<InstructorIQContext, TEntity, TKey, TReadModel>();
         }
