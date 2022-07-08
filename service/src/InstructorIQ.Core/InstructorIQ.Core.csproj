@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.16.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.11.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
     <PackageReference Include="CsvHelper" Version="27.2.1" />
     <PackageReference Include="EntityChange" Version="4.1.0.104" />
     <PackageReference Include="FluentCommand.SqlServer" Version="8.0.468" />
