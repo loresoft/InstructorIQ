@@ -1,5 +1,5 @@
-﻿using System;
-using KickStart;
+using System;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -15,6 +15,6 @@ namespace InstructorIQ.Core.Tests
             DependencyInjection = dependencyInjection;
         }
 
-        public IServiceProvider ServiceProvider => Kick.ServiceProvider;
+        public IServiceProvider ServiceProvider => DependencyInjection.ServiceProvider;
     }
 }

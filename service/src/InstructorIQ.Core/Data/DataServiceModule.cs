@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
 using FluentCommand;
-using InstructorIQ.Core.Options;
-using KickStart.DependencyInjection;
+
+using Injectio.Attributes;
+
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,23 +10,26 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace InstructorIQ.Core.Data
 {
-    public class DataServiceModule : IDependencyInjectionRegistration
+    public class DataServiceModule
     {
-        public void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public void Register(IServiceCollection services)
         {
-            data.TryGetValue(ConfigurationServiceModule.ConfigurationKey, out var configurationData);
+            services.AddDbContextPool<InstructorIQContext>((provider, options) =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("InstructorIQ");
+                options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
+            });
 
-            if (!(configurationData is IConfiguration configuration))
-                return;
+            services.TryAddSingleton<IDataConfiguration>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("InstructorIQ");
+                return new DataConfiguration(SqlClientFactory.Instance, connectionString);
+            });
 
-            var connectionString = configuration.GetConnectionString("InstructorIQ");
-
-            services.AddDbContext<InstructorIQContext>(
-                options => options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure()),
-                ServiceLifetime.Transient
-            );
-
-            services.TryAddSingleton<IDataConfiguration>(s => new DataConfiguration(SqlClientFactory.Instance, connectionString));
             services.TryAddTransient<IDataSession, DataSession>();
         }
     }

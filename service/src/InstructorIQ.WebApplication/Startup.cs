@@ -9,11 +9,8 @@ using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Multitenancy;
-using InstructorIQ.Core.Options;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Rewrite;
-
-using KickStart;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,19 +37,9 @@ namespace InstructorIQ.WebApplication
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("InstructorIQ");
-
-            services.KickStart(c => c
-                .IncludeAssemblyFor<ConfigurationServiceModule>()
-                .IncludeAssemblyFor<Startup>()
-                .Data(ConfigurationServiceModule.ConfigurationKey, Configuration)
-                .Data("hostProcess", "web")
-                .UseEntityChange()
-                .UseStartupTask()
-            );
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -76,6 +63,9 @@ namespace InstructorIQ.WebApplication
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
+
+            services.AddInstructorIQCore();
+            services.AddInstructorIQWebApplication();
 
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<InstructorIQContext>()
@@ -119,9 +109,11 @@ namespace InstructorIQ.WebApplication
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());
-                })
-                .AddFluentValidation();
+                });
 
+            services
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
 
             services.AddUrlHelper();
 
@@ -162,7 +154,6 @@ namespace InstructorIQ.WebApplication
         }
 
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -1,9 +1,8 @@
-﻿using System;
-using InstructorIQ.Core.Data;
+using System;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
-using InstructorIQ.Core.Options;
-using KickStart;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -32,20 +31,16 @@ namespace InstructorIQ.Core.Tests
                 Name = "Test"
             }));
 
-            services.KickStart(config => config
-                .IncludeAssemblyFor<InstructorIQContext>()
-                .IncludeAssemblyFor<DependencyInjectionFixture>()
-                .Data(ConfigurationServiceModule.ConfigurationKey, configuration)
-                .Data("hostProcess", "test")
-                .UseStartupTask()
-            );
+            services.AddInstructorIQCore();
+
+            ServiceProvider = services.BuildServiceProvider();
+
         }
 
-        public IServiceProvider ServiceProvider => Kick.ServiceProvider;
+        public IServiceProvider ServiceProvider { get; }
 
         public void Dispose()
         {
-
         }
     }
 }

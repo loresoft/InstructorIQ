@@ -1,9 +1,5 @@
-using System.Collections.Generic;
-
 using InstructorIQ.Core.Behaviors;
 using InstructorIQ.Core.Data;
-
-using KickStart.DependencyInjection;
 
 using MediatR;
 using MediatR.CommandQuery.Commands;
@@ -14,9 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Domain
 {
-    public abstract class DomainServiceRegistrationBase : IDependencyInjectionRegistration
+    public abstract class DomainServiceRegistrationBase
     {
-        public abstract void Register(IServiceCollection services, IDictionary<string, object> data);
+
+        public abstract void Register(IServiceCollection services);
 
         protected virtual void RegisterEntityCommand<TKey, TEntity, TReadModel, TCreateModel, TUpdateModel>(IServiceCollection services)
             where TEntity : class, IHaveIdentifier<TKey>, new()

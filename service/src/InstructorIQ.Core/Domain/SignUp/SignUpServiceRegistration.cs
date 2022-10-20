@@ -1,19 +1,25 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.DependencyInjection;
-using InstructorIQ.Core.Domain.Models;
+
+using Injectio.Attributes;
+
 using InstructorIQ.Core.Domain.Commands;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using InstructorIQ.Core.Domain.Handlers;
+using InstructorIQ.Core.Domain.Models;
+
 using MediatR;
 using MediatR.CommandQuery.Models;
-using InstructorIQ.Core.Domain.Handlers;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain
 {
     public class SignUpServiceRegistration : DomainServiceRegistrationBase
     {
-        public override void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public override void Register(IServiceCollection services)
         {
             RegisterEntityQuery<Guid, Data.Entities.SignUp, SignUpReadModel>(services);
             RegisterEntityCommand<Guid, Data.Entities.SignUp, SignUpReadModel, SignUpCreateModel, SignUpUpdateModel>(services);

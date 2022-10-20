@@ -1,10 +1,14 @@
 using System;
-using System.Collections.Generic;
+
+using Injectio.Attributes;
+
 using InstructorIQ.Core.Domain.Commands;
 using InstructorIQ.Core.Domain.Handlers;
 using InstructorIQ.Core.Domain.Models;
+
 using MediatR;
 using MediatR.CommandQuery.Models;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -13,7 +17,9 @@ namespace InstructorIQ.Core.Domain
 {
     public class TopicInstructorServiceRegistration : DomainServiceRegistrationBase
     {
-        public override void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public override void Register(IServiceCollection services)
         {
             RegisterEntityQuery<Guid, Data.Entities.TopicInstructor, TopicInstructorReadModel>(services);
 

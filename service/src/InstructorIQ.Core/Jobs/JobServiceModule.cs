@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using KickStart.DependencyInjection;
+using Injectio.Attributes;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Jobs
 {
-    public class JobServiceModule : IDependencyInjectionRegistration
+    public class JobServiceModule
     {
-        public void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public void Register(IServiceCollection services)
         {
             services.AddTransient<IOneTimeJob, TopicSummaryOneTimeJob>();
         }
