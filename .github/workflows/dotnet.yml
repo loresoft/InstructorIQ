@@ -103,16 +103,16 @@ jobs:
 
       - name: Deploy SQL Server Database to Azure Staging
         if: github.ref == 'refs/heads/develop'
-        uses: azure/sql-action@v1
+        uses: azure/sql-action@v2
         with:
-          server-name: ${{secrets.AZURE_SQL_SERVER}}
           connection-string: ${{secrets.AZURE_SQL_CONNECTION_STAGING}}
-          dacpac-package: './InstructorIQ.dacpac'
+          path: './InstructorIQ.dacpac'
+          action: 'publish'
 
       - name: Deploy SQL Server Database to Azure Production
         if: github.ref == 'refs/heads/master'
-        uses: azure/sql-action@v1
+        uses: azure/sql-action@v2
         with:
-          server-name: ${{secrets.AZURE_SQL_SERVER}}
           connection-string: ${{secrets.AZURE_SQL_CONNECTION_PRODUCTION}}
-          dacpac-package: './InstructorIQ.dacpac'
+          path: './InstructorIQ.dacpac'
+          action: 'publish'
