@@ -23,7 +23,7 @@
     <PackageReference Include="FluentCommand.SqlServer" Version="9.5.552" />
     <PackageReference Include="Handlebars.Net" Version="2.1.2" />
     <PackageReference Include="Injectio" Version="1.0.23" PrivateAssets="all" />
-    <PackageReference Include="MailKit" Version="3.4.1" />
+    <PackageReference Include="MailKit" Version="3.4.3" />
     <PackageReference Include="MediatR.CommandQuery.Audit" Version="12.0.849" />
     <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="12.0.849" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
