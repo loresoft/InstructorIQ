@@ -1,15 +1,17 @@
-using System.Collections.Generic;
-using KickStart.DependencyInjection;
+using Injectio.Attributes;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Options
 {
-    public class ConfigurationServiceModule : IDependencyInjectionRegistration
+    public class ConfigurationServiceModule
     {
         public const string ConfigurationKey = "configuration";
 
-        public void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public void Register(IServiceCollection services)
         {
             services
                 .AddOptions<StorageConfiguration>()

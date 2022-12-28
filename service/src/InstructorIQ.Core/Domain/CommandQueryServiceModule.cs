@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+using Injectio.Attributes;
+
 using InstructorIQ.Core.Data;
-using KickStart.DependencyInjection;
+
 using MediatR.CommandQuery.Audit;
 using MediatR.CommandQuery.EntityFrameworkCore;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Domain
 {
-    public class CommandQueryServiceModule : IDependencyInjectionRegistration
+
+    public class CommandQueryServiceModule
     {
-        public void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public void Register(IServiceCollection services)
         {
             services.AddMediator();
             services.AddAutoMapper(typeof(InstructorIQContext).Assembly);

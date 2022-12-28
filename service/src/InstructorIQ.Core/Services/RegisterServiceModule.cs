@@ -1,12 +1,13 @@
 using System;
-using System.Collections.Generic;
+
 using EntityChange;
+
+using Injectio.Attributes;
+
 using InstructorIQ.Core.Options;
 
-using KickStart.DependencyInjection;
 using MediatR.CommandQuery.Definitions;
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -15,9 +16,11 @@ using SendGrid.Extensions.DependencyInjection;
 
 namespace InstructorIQ.Core.Services
 {
-    public class RegisterServiceModule : IDependencyInjectionRegistration
+    public class RegisterServiceModule
     {
-        public void Register(IServiceCollection services, IDictionary<string, object> data)
+
+        [RegisterServices]
+        public void Register(IServiceCollection services)
         {
             services.TryAddTransient<IEmailTemplateService, EmailTemplateService>();
             services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();

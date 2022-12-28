@@ -1,8 +1,10 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
+
 using MediatR;
 using MediatR.CommandQuery.Behaviors;
 using MediatR.CommandQuery.Commands;
+
 using Microsoft.Extensions.Logging;
 
 namespace InstructorIQ.Core.Behaviors
@@ -14,7 +16,7 @@ namespace InstructorIQ.Core.Behaviors
         {
         }
 
-        protected override async Task<TReadModel> Process(EntityIdentifierCommand<TKey, TReadModel> request, CancellationToken cancellationToken, RequestHandlerDelegate<TReadModel> next)
+        protected override async Task<TReadModel> Process(EntityIdentifierCommand<TKey, TReadModel> request, RequestHandlerDelegate<TReadModel> next, CancellationToken cancellationToken)
         {
             // continue pipeline
             return await next().ConfigureAwait(false);
