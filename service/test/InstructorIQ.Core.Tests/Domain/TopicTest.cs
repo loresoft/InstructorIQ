@@ -1,19 +1,26 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using AutoMapper;
-using DataGenerator;
-using MediatR.CommandQuery.Commands;
-using MediatR.CommandQuery.Queries;
+
+using Bogus;
+
 using FluentAssertions;
+
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
+
 using MediatR;
+using MediatR.CommandQuery.Commands;
+using MediatR.CommandQuery.Queries;
+
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
+
 using Xunit;
 using Xunit.Abstractions;
-using System.Collections.Generic;
 
 namespace InstructorIQ.Core.Tests.Domain
 {
@@ -35,7 +42,10 @@ namespace InstructorIQ.Core.Tests.Domain
             mapper.Should().NotBeNull();
 
             // Create Entity
-            var createModel = Generator.Default.Single<TopicCreateModel>();
+            var generator = new Faker<TopicCreateModel>()
+                .RuleFor(p => p.Description, f => f.Lorem.Sentence());
+
+            var createModel = generator.Generate();
             createModel.TenantId = Data.Constants.Tenant.Test;
             createModel.Title = "TEST";
 

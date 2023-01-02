@@ -1,13 +1,17 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Text;
+
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
+
+using Bogus;
+
 using CsvHelper;
-using DataGenerator;
-using DataGenerator.Sources;
+
 using InstructorIQ.Core.Domain.Models;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -23,19 +27,14 @@ namespace InstructorIQ.Core.Tests
         [Fact]
         public void Generate()
         {
-            var generator = Generator.Create(c =>
-                {
-                    c.Entity<MemberImportModel>(e =>
-                    {
-                        e.Property(p => p.GivenName).DataSource<FirstNameSource>();
-                        e.Property(p => p.FamilyName).DataSource<LastNameSource>();
-                        e.Property(p => p.Email).Value(m => $"{m.GivenName}.{m.FamilyName}@mailinator.com");
-                        e.Property(p => p.DisplayName).Value(m => $"{m.GivenName} {m.FamilyName}");
-                        e.Property(p => p.SortName).Value(m => $"{m.FamilyName}, {m.GivenName}");
-                    });
-                });
+            var generator = new Faker<MemberImportModel>()
+                .RuleFor(p => p.GivenName, faker => faker.Name.FirstName())
+                .RuleFor(p => p.FamilyName, faker => faker.Name.LastName())
+                .RuleFor(p => p.FamilyName, (faker, instance) => $"{instance.GivenName}.{instance.FamilyName}@mailinator.com")
+                .RuleFor(p => p.DisplayName, (faker, instance) => $"{instance.GivenName} {instance.FamilyName}")
+                .RuleFor(p => p.SortName, (faker, instance) => $"{instance.FamilyName}, {instance.GivenName}");
 
-            var users = generator.List<MemberImportModel>(20);
+            var users = generator.Generate(20);
 
             var configuration = new CsvHelper.Configuration.CsvConfiguration(CultureInfo.CurrentCulture);
             configuration.HasHeaderRecord = true;
