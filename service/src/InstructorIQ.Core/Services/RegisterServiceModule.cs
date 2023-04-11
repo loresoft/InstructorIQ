@@ -1,13 +1,14 @@
 using System;
 
-using EntityChange;
+using Azure.Data.Tables;
 
-using Injectio.Attributes;
+using EntityChange;
 
 using InstructorIQ.Core.Options;
 
 using MediatR.CommandQuery.Definitions;
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -31,6 +32,13 @@ namespace InstructorIQ.Core.Services
             services.TryAddSingleton<IHtmlService, HtmlService>();
             services.TryAddSingleton<IStateService, CookieStateService>();
             services.TryAddSingleton<ICleanupService, CleanupService>();
+
+            services.TryAddSingleton<TableServiceClient>(sp =>
+            {
+                var configuration = sp.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("StorageAccount");
+                return new TableServiceClient(connectionString);
+            });
 
             services.AddMemoryCache();
 

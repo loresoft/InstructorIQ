@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
+
 using Humanizer;
+
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Services;
+
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 

@@ -78,20 +78,12 @@ namespace InstructorIQ.WebApplication
                         .Enrich.WithProperty("EnvironmentName", builder.Environment.EnvironmentName)
                         .WriteTo.Console(outputTemplate: OutputTemplate)
                         .WriteTo.File(
-                            path: $"{logDirectory}/boot.txt",
+                            path: $"{logDirectory}/log.txt",
                             rollingInterval: RollingInterval.Day,
                             shared: true,
                             flushToDiskInterval: TimeSpan.FromSeconds(1),
                             outputTemplate: OutputTemplate,
                             retainedFileCountLimit: 10
-                        )
-                        .WriteTo.File(
-                            formatter: new CompactJsonFormatter(),
-                            path: $"{logDirectory}/boot.clef",
-                            rollingInterval: RollingInterval.Day,
-                            shared: true,
-                            flushToDiskInterval: TimeSpan.FromSeconds(1),
-                            retainedFileCountLimit: 30
                         )
                         .WriteTo.AzureTableStorage(
                             connectionString: context.Configuration.GetConnectionString("StorageAccount"),

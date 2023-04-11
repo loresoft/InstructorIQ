@@ -1,13 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using FluentCommand.Extensions;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,9 +26,6 @@ namespace InstructorIQ.WebApplication.Pages.Global.Logging
         {
         }
 
-        [BindProperty(Name = "p", SupportsGet = true)]
-        public int PageNumber { get; set; } = 1;
-
         [BindProperty(Name = "z", SupportsGet = true)]
         public int PageSize { get; set; } = 100;
 
@@ -37,7 +38,10 @@ namespace InstructorIQ.WebApplication.Pages.Global.Logging
         [BindProperty(Name = "d", SupportsGet = true)]
         public DateTime Date { get; set; } = DateTime.Today;
 
-        public long Total { get; set; }
+        [BindProperty(Name = "t", SupportsGet = true)]
+        public string ContinuationToken { get; set; } = string.Empty;
+
+        public string NextToken { get; set; }
 
         public IReadOnlyCollection<LogEventModel> Logs { get; set; }
 
@@ -47,14 +51,13 @@ namespace InstructorIQ.WebApplication.Pages.Global.Logging
             {
                 Date = Date.Date,
                 Level = Level.IsNullOrWhiteSpace() ? null : Level,
-                Search = Query.IsNullOrWhiteSpace() ? null : $"%{Query}%",
-                Page = PageNumber,
-                PageSize = PageSize
+                PageSize = PageSize,
+                ContinuationToken = ContinuationToken
             };
 
             var result = await Mediator.Send(query);
 
-            Total = result.Total;
+            NextToken = result.ContinuationToken;
             Logs = result.Data ?? new List<LogEventModel>();
 
             return Page();

@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace InstructorIQ.Core.Extensions
 {
@@ -131,6 +132,13 @@ namespace InstructorIQ.Core.Extensions
             return query.Skip(skip).Take(pageSize);
         }
 
+        public static async Task<T> FirstOrDefault<T>(this IAsyncEnumerable<T> enumerable)
+        {
+            await foreach (var item in enumerable)
+                return item;
+
+            return default;
+        }
     }
 
     public class IndexedValue<T>
