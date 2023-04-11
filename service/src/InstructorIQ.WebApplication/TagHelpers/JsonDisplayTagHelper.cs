@@ -1,7 +1,9 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
+
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Services;
+
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -55,6 +57,9 @@ public class JsonDisplayTagHelper : TagHelper
                 AppendObject(parent, jsonElement);
                 break;
             case JsonValueKind.Array:
+                foreach (var arrayElement in jsonElement.EnumerateArray())
+                    AppendValue(parent, arrayElement);
+
                 break;
             case JsonValueKind.String:
             case JsonValueKind.Number:
