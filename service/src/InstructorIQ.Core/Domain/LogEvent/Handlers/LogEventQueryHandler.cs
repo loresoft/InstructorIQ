@@ -34,10 +34,10 @@ namespace InstructorIQ.Core.Domain.Handlers
             var upper = $"{DateTime.MaxValue.Ticks - dateTime.Ticks:D19}";
             var lower = $"{DateTime.MaxValue.Ticks - dateTime.AddDays(1).Ticks:D19}";
 
-            var filter = $"PartitionKey ge {lower} and PartitionKey lt {upper}";
+            var filter = $"(PartitionKey ge '{lower}') and (PartitionKey lt '{upper}')";
 
             if (request.Level.HasValue())
-                filter += $" and Level eq '{request.Level}'";
+                filter += $" and (Level eq '{request.Level}')";
 
             var resultPageable = logTable.QueryAsync<LogEventModel>(filter, cancellationToken: cancellationToken);
 
