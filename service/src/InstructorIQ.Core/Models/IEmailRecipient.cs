@@ -1,8 +1,7 @@
-﻿namespace InstructorIQ.Core.Models
+namespace InstructorIQ.Core.Models;
+
+public interface IEmailRecipient
 {
-    public interface IEmailRecipient
-    {
-        string RecipientName { get; set; }
-        string RecipientAddress { get; set; }
-    }
+    string RecipientName { get; set; }
+    string RecipientAddress { get; set; }
 }

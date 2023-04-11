@@ -1,22 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace InstructorIQ.Core.Models
+namespace InstructorIQ.Core.Models;
+
+public class SummaryReportEmail : IEmailRecipient, IEmailReplyTo
 {
-    public class SummaryReportEmail : IEmailRecipient, IEmailReplyTo
-    {
-        [Required]
-        public string RecipientAddress { get; set; }
-        public string RecipientName { get; set; }
-        
-        [Required]
-        public string ReplyToAddress { get; set; }
-        public string ReplyToName { get; set; }
-        
-        [Required]
-        public string Subject { get; set; }
-        
-        public string TextBody { get; set; }
+    [Required]
+    public string RecipientAddress { get; set; }
+    public string RecipientName { get; set; }
 
-        public string HtmlBody { get; set; }
-    }
+    [Required]
+    public string ReplyToAddress { get; set; }
+    public string ReplyToName { get; set; }
+
+    [Required]
+    public string Subject { get; set; }
+
+    public string TextBody { get; set; }
+
+    public string HtmlBody { get; set; }
 }

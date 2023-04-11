@@ -1,12 +1,11 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace InstructorIQ.Core.Jobs
+namespace InstructorIQ.Core.Jobs;
+
+public interface IOneTimeJob
 {
-    public interface IOneTimeJob
-    {
-        Guid Id { get; }
-        Task ExecuteAsync(CancellationToken stoppingToken);
-    }
+    Guid Id { get; }
+    Task ExecuteAsync(CancellationToken stoppingToken);
 }

@@ -1,45 +1,47 @@
-﻿using MediatR.CommandQuery.Queries;
+using System.Collections.Generic;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
+
 using MediatR;
+using MediatR.CommandQuery.Queries;
+
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 
-namespace InstructorIQ.WebApplication.Pages.Group
+namespace InstructorIQ.WebApplication.Pages.Group;
+
+public class IndexModel : EntityPagedModelBase<GroupReadModel>
 {
-    public class IndexModel : EntityPagedModelBase<GroupReadModel>
+
+    public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        : base(tenant, mediator, loggerFactory)
     {
+        Sort = nameof(GroupReadModel.Sequence);
+    }
 
-        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
-            : base(tenant, mediator, loggerFactory)
+    protected override EntityFilter CreateFilter()
+    {
+        var filter = new EntityFilter
         {
-            Sort = nameof(GroupReadModel.Sequence);
-        }
-
-        protected override EntityFilter CreateFilter()
-        {
-            var filter = new EntityFilter
+            Logic = EntityFilterLogic.Or,
+            Filters = new List<EntityFilter>
             {
-                Logic = EntityFilterLogic.Or,
-                Filters = new List<EntityFilter>
+                new EntityFilter
                 {
-                    new EntityFilter
-                    {
-                        Name = nameof(GroupReadModel.Name),
-                        Value = Query,
-                        Operator = EntityFilterOperators.Contains
-                    },
-                    new EntityFilter
-                    {
-                        Name = nameof(GroupReadModel.Description),
-                        Value = Query,
-                        Operator = EntityFilterOperators.Contains
-                    }
+                    Name = nameof(GroupReadModel.Name),
+                    Value = Query,
+                    Operator = EntityFilterOperators.Contains
+                },
+                new EntityFilter
+                {
+                    Name = nameof(GroupReadModel.Description),
+                    Value = Query,
+                    Operator = EntityFilterOperators.Contains
                 }
-            };
+            }
+        };
 
-            return filter;
-        }
+        return filter;
     }
 }

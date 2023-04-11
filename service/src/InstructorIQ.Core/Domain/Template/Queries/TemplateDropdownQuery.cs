@@ -1,19 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Security.Principal;
-using MediatR.CommandQuery.Queries;
+
 using InstructorIQ.Core.Domain.Models;
 
-// ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Queries
-{
-    public class TemplateDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<TemplateDropdownModel>>
-    {
-        public TemplateDropdownQuery(IPrincipal principal, string templateType) : base(principal)
-        {
-            TemplateType = templateType;
-        }
+using MediatR.CommandQuery.Queries;
 
-        public string TemplateType { get; set; }
+// ReSharper disable once CheckNamespace
+namespace InstructorIQ.Core.Domain.Queries;
+
+public class TemplateDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<TemplateDropdownModel>>
+{
+    public TemplateDropdownQuery(IPrincipal principal, string templateType) : base(principal)
+    {
+        TemplateType = templateType;
     }
+
+    public string TemplateType { get; set; }
 }

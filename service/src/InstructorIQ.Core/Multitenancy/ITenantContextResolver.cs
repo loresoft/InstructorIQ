@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 
-namespace InstructorIQ.Core.Multitenancy
-{
-    public interface ITenantContextResolver<TTenant>
-    {
-        Task<TenantContext<TTenant>> ResolveAsync();
+namespace InstructorIQ.Core.Multitenancy;
 
-        Task<TenantContext<TTenant>> ResolveAsync(HttpContext context);
-    }
+public interface ITenantContextResolver<TTenant>
+{
+    Task<TenantContext<TTenant>> ResolveAsync();
+
+    Task<TenantContext<TTenant>> ResolveAsync(HttpContext context);
 }

@@ -1,11 +1,10 @@
-﻿using System;
+using System;
 
-namespace InstructorIQ.Core.Domain.Models
+namespace InstructorIQ.Core.Domain.Models;
+
+public class SessionFrequentTimeModel
 {
-    public class SessionFrequentTimeModel
-    {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public int Count { get; set; }
-    }
+    public TimeSpan StartTime { get; set; }
+    public TimeSpan EndTime { get; set; }
+    public int Count { get; set; }
 }

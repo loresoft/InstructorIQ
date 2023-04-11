@@ -1,19 +1,20 @@
-﻿using System.Security.Principal;
-using MediatR.CommandQuery.Commands;
+using System.Security.Principal;
+
 using InstructorIQ.Core.Domain.Models;
 
+using MediatR.CommandQuery.Commands;
+
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Queries
+namespace InstructorIQ.Core.Domain.Queries;
+
+public class TenantMembershipCommand : PrincipalCommandBase<TenantMembershipModel>
 {
-    public class TenantMembershipCommand : PrincipalCommandBase<TenantMembershipModel>
+
+    public TenantMembershipCommand(IPrincipal principal, TenantMembershipModel membership) : base(principal)
     {
-
-        public TenantMembershipCommand(IPrincipal principal, TenantMembershipModel membership) : base(principal)
-        {
-            Membership = membership;
-        }
-
-        public TenantMembershipModel Membership { get; set; }
+        Membership = membership;
     }
+
+    public TenantMembershipModel Membership { get; set; }
 }
 

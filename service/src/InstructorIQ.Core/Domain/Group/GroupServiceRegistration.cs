@@ -14,19 +14,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class GroupServiceRegistration : DomainServiceRegistrationBase
 {
-    public class GroupServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Group, GroupReadModel>(services);
+        RegisterEntityCommand<Guid, Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Group, GroupReadModel>(services);
-            RegisterEntityCommand<Guid, Group, GroupReadModel, GroupCreateModel, GroupUpdateModel>(services);
-
-            services.TryAddTransient<IRequestHandler<GroupDropdownQuery, IReadOnlyCollection<GroupDropdownModel>>, GroupDropdownQueryHandler>();
-            services.TryAddTransient<IRequestHandler<GroupSequenceQuery, IReadOnlyCollection<GroupSequenceModel>>, GroupSequenceQueryHandler>();
-        }
+        services.TryAddTransient<IRequestHandler<GroupDropdownQuery, IReadOnlyCollection<GroupDropdownModel>>, GroupDropdownQueryHandler>();
+        services.TryAddTransient<IRequestHandler<GroupSequenceQuery, IReadOnlyCollection<GroupSequenceModel>>, GroupSequenceQueryHandler>();
     }
 }

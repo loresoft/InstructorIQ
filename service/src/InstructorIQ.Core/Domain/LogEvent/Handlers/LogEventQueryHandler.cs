@@ -1,81 +1,55 @@
-﻿using System;
+using System;
 using System.Linq;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentCommand;
-using FluentCommand.Extensions;
+
+using Azure.Data.Tables;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
+using InstructorIQ.Core.Extensions;
+
 using MediatR.CommandQuery.Handlers;
-using MediatR.CommandQuery.Queries;
+
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.Core.Domain.Handlers
+namespace InstructorIQ.Core.Domain.Handlers;
+
+public class LogEventQueryHandler : RequestHandlerBase<LogEventQuery, LogPagedResult>
 {
-    public class LogEventQueryHandler : RequestHandlerBase<LogEventQuery, EntityPagedResult<LogEventModel>>
+    private readonly TableServiceClient _tableServiceClient;
+
+    public LogEventQueryHandler(ILoggerFactory loggerFactory, TableServiceClient tableServiceClient) : base(loggerFactory)
     {
-        private readonly IDataSession _dataSession;
+        _tableServiceClient = tableServiceClient;
+    }
 
-        public LogEventQueryHandler(ILoggerFactory loggerFactory, IDataSession dataSession) : base(loggerFactory)
+    protected override async Task<LogPagedResult> Process(LogEventQuery request, CancellationToken cancellationToken)
+    {
+        int pageSize = request.PageSize == 0 ? 100 : request.PageSize;
+
+        var logTable = _tableServiceClient.GetTableClient("LogEvent");
+
+        var dateTime = request.Date.Date.ToUniversalTime();
+        var upper = $"{DateTime.MaxValue.Ticks - dateTime.Ticks:D19}";
+        var lower = $"{DateTime.MaxValue.Ticks - dateTime.AddDays(1).Ticks:D19}";
+
+        var filter = $"(PartitionKey ge '{lower}') and (PartitionKey lt '{upper}')";
+
+        if (request.Level.HasValue())
+            filter += $" and (Level eq '{request.Level}')";
+
+        var resultPageable = logTable.QueryAsync<LogEventModel>(filter, cancellationToken: cancellationToken);
+
+        var resultPage = await resultPageable
+            .AsPages(continuationToken: request.ContinuationToken, pageSizeHint: pageSize)
+            .FirstOrDefault();
+
+        return new LogPagedResult
         {
-            _dataSession = dataSession;
-        }
+            ContinuationToken = resultPage.ContinuationToken,
+            Data = resultPage.Values.ToList()
+        };
 
-        protected override async Task<EntityPagedResult<LogEventModel>> Process(LogEventQuery request, CancellationToken cancellationToken)
-        {
-            int page = request.Page == 0 ? 1 : request.Page;
-            int pageSize = request.PageSize == 0 ? 100 : request.PageSize;
-            int offset = Math.Max(pageSize * (page - 1), 0);
-
-            long total = 0;
-
-            var rows = await _dataSession
-                .StoredProcedure("[Log].[SearchLogs]")
-                .Parameter("@Date", request.Date)
-                .Parameter("@Level", request.Level)
-                .Parameter("@Search", request.Search)
-                .Parameter("@Offset", offset)
-                .Parameter("@Size", pageSize)
-                .ParameterOut("@Total", (Action<long>)(v => total = v))
-                .QueryAsync(r =>
-                {
-                    return new LogEventModel
-                    {
-                        TimeStamp = r.GetDateTime("TimeStamp"),
-                        Level = r.GetString("Level"),
-                        Message = r.GetString("Message"),
-                        Exception = r.GetString("Exception"),
-                        Properties = GetJson(r, "LogEvent")
-                    };
-                });
-
-            return new EntityPagedResult<LogEventModel>
-            {
-                Total = total,
-                Data = rows.ToList()
-            };
-
-        }
-
-        private JsonElement GetJson(System.Data.IDataReader reader, string name)
-        {
-            var json = reader.GetString(name);
-            if (json.IsNullOrWhiteSpace())
-                return default;
-
-            try
-            {
-                JsonDocument jsonDocument = JsonDocument.Parse(json);
-                jsonDocument.RootElement.TryGetProperty("Properties", out JsonElement jsonElement);
-
-                return jsonElement;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(ex, "Error parsing JSON: {message}", ex.Message);
-                return default;
-            }
-        }
     }
 }

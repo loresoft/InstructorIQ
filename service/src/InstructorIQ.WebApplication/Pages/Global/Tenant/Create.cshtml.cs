@@ -1,51 +1,53 @@
-﻿using System.Threading.Tasks;
-using MediatR.CommandQuery.Commands;
+using System.Threading.Tasks;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.Core.Security;
 using InstructorIQ.WebApplication.Models;
+
 using MediatR;
+using MediatR.CommandQuery.Commands;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.Global.Tenant
+namespace InstructorIQ.WebApplication.Pages.Global.Tenant;
+
+[Authorize(Policy = UserPolicies.GlobalAdministratorPolicy)]
+public class CreateModel : EntityCreateModelBase<TenantCreateModel>
 {
-    [Authorize(Policy = UserPolicies.GlobalAdministratorPolicy)]
-    public class CreateModel : EntityCreateModelBase<TenantCreateModel>
+    public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        : base(tenant, mediator, loggerFactory)
     {
-        public CreateModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
-            : base(tenant, mediator, loggerFactory)
-        {
 
-        }
+    }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-                return Page();
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+            return Page();
 
-            var createModel = new TenantCreateModel();
+        var createModel = new TenantCreateModel();
 
-            // only update input fields
-            await TryUpdateModelAsync(
-                createModel,
-                nameof(Entity),
-                p => p.Name,
-                p => p.Description,
-                p => p.Slug,
-                p => p.City,
-                p => p.StateProvince,
-                p => p.TimeZone,
-                p => p.DomainName
-            );
+        // only update input fields
+        await TryUpdateModelAsync(
+            createModel,
+            nameof(Entity),
+            p => p.Name,
+            p => p.Description,
+            p => p.Slug,
+            p => p.City,
+            p => p.StateProvince,
+            p => p.TimeZone,
+            p => p.DomainName
+        );
 
-            var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(User, createModel);
-            var result = await Mediator.Send(command);
+        var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(User, createModel);
+        var result = await Mediator.Send(command);
 
-            ShowAlert("Successfully created tenant");
+        ShowAlert("Successfully created tenant");
 
-            return RedirectToPage("/Global/Tenant/Edit", new { id = result.Id });
-        }
+        return RedirectToPage("/Global/Tenant/Edit", new { id = result.Id });
     }
 }

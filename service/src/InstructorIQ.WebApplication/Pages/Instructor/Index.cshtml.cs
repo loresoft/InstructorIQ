@@ -1,92 +1,94 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Domain.Queries;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
+
 using MediatR;
 using MediatR.CommandQuery.Queries;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.Instructor
+namespace InstructorIQ.WebApplication.Pages.Instructor;
+
+[Authorize]
+public class IndexModel : MediatorModelBase
 {
-    [Authorize]
-    public class IndexModel : MediatorModelBase
+    public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        : base(tenant, mediator, loggerFactory)
     {
-        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
-            : base(tenant, mediator, loggerFactory)
-        {
-            Sort = nameof(MemberReadModel.SortName);
-        }
+        Sort = nameof(MemberReadModel.SortName);
+    }
 
-        [BindProperty(Name = "p", SupportsGet = true)]
-        public int PageNumber { get; set; } = 1;
+    [BindProperty(Name = "p", SupportsGet = true)]
+    public int PageNumber { get; set; } = 1;
 
-        [BindProperty(Name = "z", SupportsGet = true)]
-        public int PageSize { get; set; } = 20;
+    [BindProperty(Name = "z", SupportsGet = true)]
+    public int PageSize { get; set; } = 20;
 
-        [BindProperty(Name = "s", SupportsGet = true)]
-        public string Sort { get; set; }
+    [BindProperty(Name = "s", SupportsGet = true)]
+    public string Sort { get; set; }
 
-        [BindProperty(Name = "q", SupportsGet = true)]
-        public string Query { get; set; }
+    [BindProperty(Name = "q", SupportsGet = true)]
+    public string Query { get; set; }
 
-        public long Total { get; set; }
+    public long Total { get; set; }
 
-        public IReadOnlyCollection<MemberReadModel> Items { get; set; }
+    public IReadOnlyCollection<MemberReadModel> Items { get; set; }
 
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var query = CreateQuery();
-            var command = new MemberPagedQuery(User, query, Tenant.Value.Id);
-            command.RoleId = Core.Data.Constants.Role.Instructor;
+    public async Task<IActionResult> OnGetAsync()
+    {
+        var query = CreateQuery();
+        var command = new MemberPagedQuery(User, query, Tenant.Value.Id);
+        command.RoleId = Core.Data.Constants.Role.Instructor;
 
-            var result = await Mediator.Send(command);
-            Total = result.Total;
-            Items = result.Data;
+        var result = await Mediator.Send(command);
+        Total = result.Total;
+        Items = result.Data;
 
-            return Page();
-        }
+        return Page();
+    }
 
 
-        protected EntityQuery CreateQuery()
-        {
-            var query = new EntityQuery(null, PageNumber, PageSize, Sort);
+    protected EntityQuery CreateQuery()
+    {
+        var query = new EntityQuery(null, PageNumber, PageSize, Sort);
 
-            if (string.IsNullOrWhiteSpace(Query))
-                return query;
-
-            query.Filter = CreateFilter();
-
+        if (string.IsNullOrWhiteSpace(Query))
             return query;
-        }
 
-        protected EntityFilter CreateFilter()
+        query.Filter = CreateFilter();
+
+        return query;
+    }
+
+    protected EntityFilter CreateFilter()
+    {
+        var filter = new EntityFilter
         {
-            var filter = new EntityFilter
+            Logic = EntityFilterLogic.Or,
+            Filters = new List<EntityFilter>
             {
-                Logic = EntityFilterLogic.Or,
-                Filters = new List<EntityFilter>
+                new EntityFilter
                 {
-                    new EntityFilter
-                    {
-                        Name = "DisplayName",
-                        Value = Query,
-                        Operator = EntityFilterOperators.Contains
-                    },
-                    new EntityFilter
-                    {
-                        Name = "Email",
-                        Value = Query,
-                        Operator = EntityFilterOperators.Contains
-                    }
+                    Name = "DisplayName",
+                    Value = Query,
+                    Operator = EntityFilterOperators.Contains
+                },
+                new EntityFilter
+                {
+                    Name = "Email",
+                    Value = Query,
+                    Operator = EntityFilterOperators.Contains
                 }
-            };
+            }
+        };
 
-            return filter;
-        }
+        return filter;
     }
 }

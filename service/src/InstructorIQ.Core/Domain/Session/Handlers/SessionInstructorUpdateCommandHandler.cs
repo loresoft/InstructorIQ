@@ -1,105 +1,108 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+
 using AutoMapper;
+
 using InstructorIQ.Core.Data;
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Commands;
+
 using MediatR.CommandQuery;
 using MediatR.CommandQuery.EntityFrameworkCore.Handlers;
 using MediatR.CommandQuery.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.Core.Domain.Handlers
+namespace InstructorIQ.Core.Domain.Handlers;
+
+public class SessionInstructorUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionInstructorUpdateCommand, CompleteModel>
 {
-    public class SessionInstructorUpdateCommandHandler : DataContextHandlerBase<InstructorIQContext, SessionInstructorUpdateCommand, CompleteModel>
+    public SessionInstructorUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
+        : base(loggerFactory, dataContext, mapper)
     {
-        public SessionInstructorUpdateCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper)
-            : base(loggerFactory, dataContext, mapper)
+    }
+
+    protected override async Task<CompleteModel> Process(SessionInstructorUpdateCommand request, CancellationToken cancellationToken)
+    {
+        var sessionId = request.SessionId;
+        var session = await DataContext.Sessions.FindAsync(sessionId);
+        if (session == null)
+            throw new DomainException(HttpStatusCode.NotFound, $"Session with id '{sessionId}' not found.");
+
+        var identityName = request.Principal?.Identity?.Name;
+
+        var existingInstructors = await DataContext.SessionInstructors
+            .Where(s => s.SessionId == sessionId)
+            .ToListAsync(cancellationToken);
+
+        var updatedInstructors = request.Instructors ?? new List<Guid>();
+
+        AddInstructors(existingInstructors, updatedInstructors, sessionId);
+        RemoveInstructors(existingInstructors, updatedInstructors, sessionId);
+
+        session.Updated = DateTimeOffset.UtcNow;
+        session.UpdatedBy = identityName;
+
+        await DataContext.SaveChangesAsync(cancellationToken);
+
+        return new CompleteModel();
+    }
+
+    private void RemoveInstructors(IReadOnlyCollection<SessionInstructor> existingInstructors, IEnumerable<Guid> updated, Guid sessionId)
+    {
+        if (existingInstructors.Count == 0)
+            return;
+
+        var existing = existingInstructors
+            .Select(i => i.InstructorId)
+            .ToList();
+
+        var remove = existing
+            .Except(updated)
+            .ToList();
+
+        if (remove.Count == 0)
+            return;
+
+        foreach (var instructorId in remove)
         {
+            var sessionInstructor = existingInstructors
+                .FirstOrDefault(s => s.SessionId == sessionId && s.InstructorId == instructorId);
+
+            if (sessionInstructor == null)
+                continue;
+
+            DataContext.SessionInstructors.Remove(sessionInstructor);
         }
+    }
 
-        protected override async Task<CompleteModel> Process(SessionInstructorUpdateCommand request, CancellationToken cancellationToken)
+    private void AddInstructors(IReadOnlyCollection<SessionInstructor> existingInstructors, IEnumerable<Guid> updated, Guid sessionId)
+    {
+        var existing = existingInstructors
+            .Select(i => i.InstructorId)
+            .ToList();
+
+        var insert = updated
+            .Except(existing)
+            .ToList();
+
+        if (insert.Count == 0)
+            return;
+
+        foreach (var instructorId in insert)
         {
-            var sessionId = request.SessionId;
-            var session = await DataContext.Sessions.FindAsync(sessionId);
-            if (session == null)
-                throw new DomainException(HttpStatusCode.NotFound, $"Session with id '{sessionId}' not found.");
-
-            var identityName = request.Principal?.Identity?.Name;
-
-            var existingInstructors = await DataContext.SessionInstructors
-                .Where(s => s.SessionId == sessionId)
-                .ToListAsync(cancellationToken);
-
-            var updatedInstructors = request.Instructors ?? new List<Guid>();
-
-            AddInstructors(existingInstructors, updatedInstructors, sessionId);
-            RemoveInstructors(existingInstructors, updatedInstructors, sessionId);
-
-            session.Updated = DateTimeOffset.UtcNow;
-            session.UpdatedBy = identityName;
-
-            await DataContext.SaveChangesAsync(cancellationToken);
-
-            return new CompleteModel();
-        }
-
-        private void RemoveInstructors(IReadOnlyCollection<SessionInstructor> existingInstructors, IEnumerable<Guid> updated, Guid sessionId)
-        {
-            if (existingInstructors.Count == 0)
-                return;
-
-            var existing = existingInstructors
-                .Select(i => i.InstructorId)
-                .ToList();
-
-            var remove = existing
-                .Except(updated)
-                .ToList();
-
-            if (remove.Count == 0)
-                return;
-
-            foreach (var instructorId in remove)
+            var sessionInstructor = new SessionInstructor
             {
-                var sessionInstructor = existingInstructors
-                    .FirstOrDefault(s => s.SessionId == sessionId && s.InstructorId == instructorId);
+                SessionId = sessionId,
+                InstructorId = instructorId
+            };
 
-                if (sessionInstructor == null)
-                    continue;
-
-                DataContext.SessionInstructors.Remove(sessionInstructor);
-            }
-        }
-
-        private void AddInstructors(IReadOnlyCollection<SessionInstructor> existingInstructors, IEnumerable<Guid> updated, Guid sessionId)
-        {
-            var existing = existingInstructors
-                .Select(i => i.InstructorId)
-                .ToList();
-
-            var insert = updated
-                .Except(existing)
-                .ToList();
-
-            if (insert.Count == 0)
-                return;
-
-            foreach (var instructorId in insert)
-            {
-                var sessionInstructor = new SessionInstructor
-                {
-                    SessionId = sessionId,
-                    InstructorId = instructorId
-                };
-
-                DataContext.SessionInstructors.Add(sessionInstructor);
-            }
+            DataContext.SessionInstructors.Add(sessionInstructor);
         }
     }
 }

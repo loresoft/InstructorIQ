@@ -1,17 +1,16 @@
 using System;
 
-namespace InstructorIQ.Core.Options
+namespace InstructorIQ.Core.Options;
+
+public class SecurityOptions
 {
-    public class SecurityOptions
+    public const string ConfigurationName = "Security";
+
+    public SecurityOptions()
     {
-        public const string ConfigurationName = "Security";
-
-        public SecurityOptions()
-        {
-            PasswordlessTokenLifespan = TimeSpan.FromHours(4);
-        }
-
-        public TimeSpan PasswordlessTokenLifespan { get; set; }
-
+        PasswordlessTokenLifespan = TimeSpan.FromHours(4);
     }
+
+    public TimeSpan PasswordlessTokenLifespan { get; set; }
+
 }

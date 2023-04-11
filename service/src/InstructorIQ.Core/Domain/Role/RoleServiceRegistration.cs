@@ -8,15 +8,14 @@ using InstructorIQ.Core.Domain.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
-{
-    public class RoleServiceRegistration : DomainServiceRegistrationBase
-    {
+namespace InstructorIQ.Core.Domain;
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Role, RoleReadModel>(services);
-        }
+public class RoleServiceRegistration : DomainServiceRegistrationBase
+{
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
+    {
+        RegisterEntityQuery<Guid, Role, RoleReadModel>(services);
     }
 }

@@ -1,10 +1,9 @@
 using System;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Models
+namespace InstructorIQ.Core.Domain.Models;
+
+public class NotificationUnreadModel
 {
-    public class NotificationUnreadModel
-    {
-        public int Count { get; set; }
-    }
+    public int Count { get; set; }
 }

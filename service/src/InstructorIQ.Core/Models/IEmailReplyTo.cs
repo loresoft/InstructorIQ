@@ -1,8 +1,7 @@
-﻿namespace InstructorIQ.Core.Models
+namespace InstructorIQ.Core.Models;
+
+public interface IEmailReplyTo
 {
-    public interface IEmailReplyTo
-    {
-        string ReplyToName { get; set; }
-        string ReplyToAddress { get; set; }
-    }
+    string ReplyToName { get; set; }
+    string ReplyToAddress { get; set; }
 }

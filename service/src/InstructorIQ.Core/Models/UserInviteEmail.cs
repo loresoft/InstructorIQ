@@ -1,12 +1,11 @@
-﻿using System;
+using System;
 
-namespace InstructorIQ.Core.Models
+namespace InstructorIQ.Core.Models;
+
+public class UserInviteEmail : EmailModelBase
 {
-    public class UserInviteEmail : EmailModelBase
-    {
-        public string TenantName { get; set; }
+    public string TenantName { get; set; }
 
-        public string SenderName { get; set; }
-        public string SenderEmail { get; set; }
-    }
+    public string SenderName { get; set; }
+    public string SenderEmail { get; set; }
 }

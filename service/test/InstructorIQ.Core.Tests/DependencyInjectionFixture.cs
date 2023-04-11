@@ -6,41 +6,40 @@ using InstructorIQ.Core.Multitenancy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InstructorIQ.Core.Tests
+namespace InstructorIQ.Core.Tests;
+
+public class DependencyInjectionFixture : IDisposable
 {
-    public class DependencyInjectionFixture : IDisposable
+    public DependencyInjectionFixture()
     {
-        public DependencyInjectionFixture()
+        var enviromentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Test";
+        var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile($"appsettings.{enviromentName}.json", true);
+
+        var configuration = builder.Build();
+
+        var services = new ServiceCollection();
+        services.AddSingleton(p => configuration);
+        services.AddLogging();
+        services.AddOptions();
+
+        services.AddTransient<ITenant<TenantReadModel>>(provider => new TenantValue<TenantReadModel>(new TenantReadModel
         {
-            var enviromentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Test";
-            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{enviromentName}.json", true);
+            Id = Data.Constants.Tenant.Test,
+            Slug = "Test",
+            Name = "Test"
+        }));
 
-            var configuration = builder.Build();
+        services.AddInstructorIQCore();
 
-            var services = new ServiceCollection();
-            services.AddSingleton(p => configuration);
-            services.AddLogging();
-            services.AddOptions();
+        ServiceProvider = services.BuildServiceProvider();
 
-            services.AddTransient<ITenant<TenantReadModel>>(provider => new TenantValue<TenantReadModel>(new TenantReadModel
-            {
-                Id = Data.Constants.Tenant.Test,
-                Slug = "Test",
-                Name = "Test"
-            }));
+    }
 
-            services.AddInstructorIQCore();
+    public IServiceProvider ServiceProvider { get; }
 
-            ServiceProvider = services.BuildServiceProvider();
-
-        }
-
-        public IServiceProvider ServiceProvider { get; }
-
-        public void Dispose()
-        {
-        }
+    public void Dispose()
+    {
     }
 }

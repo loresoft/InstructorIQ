@@ -1,25 +1,26 @@
 using System;
+
 using AutoMapper;
+
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Mapping
+namespace InstructorIQ.Core.Domain.Mapping;
+
+/// <summary>
+/// Mapper class for entity <see cref="HistoryRecord"/> .
+/// </summary>
+public class HistoryRecordProfile
+    : Profile
 {
     /// <summary>
-    /// Mapper class for entity <see cref="HistoryRecord"/> .
+    /// Initializes a new instance of the <see cref="HistoryRecordProfile"/> class.
     /// </summary>
-    public class HistoryRecordProfile
-        : Profile
+    public HistoryRecordProfile()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HistoryRecordProfile"/> class.
-        /// </summary>
-        public HistoryRecordProfile()
-        {
-            CreateMap<HistoryRecord, HistoryRecordReadModel>()
-                .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
-        }
-
+        CreateMap<HistoryRecord, HistoryRecordReadModel>()
+            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
     }
+
 }

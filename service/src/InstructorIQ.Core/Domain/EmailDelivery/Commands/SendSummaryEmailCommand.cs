@@ -1,17 +1,18 @@
-﻿using System.Security.Principal;
+using System.Security.Principal;
+
 using InstructorIQ.Core.Models;
+
 using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Models;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Commands
-{
-    public class SendSummaryEmailCommand : EntityModelCommand<SummaryReportModel, CompleteModel>
-    {
-        public SendSummaryEmailCommand(IPrincipal principal, SummaryReportModel model)
-            : base(principal, model)
-        {
+namespace InstructorIQ.Core.Domain.Commands;
 
-        }
+public class SendSummaryEmailCommand : EntityModelCommand<SummaryReportModel, CompleteModel>
+{
+    public SendSummaryEmailCommand(IPrincipal principal, SummaryReportModel model)
+        : base(principal, model)
+    {
+
     }
 }

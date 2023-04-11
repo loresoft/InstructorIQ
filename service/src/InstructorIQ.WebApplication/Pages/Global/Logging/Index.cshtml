@@ -1,4 +1,5 @@
-﻿@page
+@page
+@using InstructorIQ.Core.Extensions
 @model InstructorIQ.WebApplication.Pages.Global.Logging.IndexModel
 @{
     ViewData["Title"] = "Logs";
@@ -25,10 +26,11 @@
           name="log-search-form"
           role="form"
           method="get">
+
         <div class="card mb-5">
             <div class="card-header">
                 <div class="row no-gutters">
-                    <div class="col-sm-4">
+                    <div class="col">
                         <i class="fas fa-file-alt mr-2"
                            aria-hidden="true"></i> Logs
                     </div>
@@ -70,17 +72,6 @@
                                     <i class="fas fa-chevron-right"
                                        aria-hidden="true"></i>
                                 </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="input-group input-group-sm mr-2">
-                            <input type="text"
-                                   name="q"
-                                   asp-for="Query"
-                                   class="form-control"
-                                   placeholder="Search" />
-                            <div class="input-group-append">
                                 <button class="btn btn-sm btn-outline-secondary"
                                         type="submit">
                                     <i class="fas fa-search"
@@ -114,94 +105,80 @@
                         @foreach (var log in Model.Logs)
                         {
                             <tr>
-                                <td style="text-align:center;">
+                                <td style="text-align: center;">
                                     <a class="d-block"
                                        data-toggle="collapse"
-                                       href="#collapse-@log.TimeStamp.Ticks"
+                                       href="#collapse-@log.RowKey"
                                        role="button"
                                        aria-expanded="false"
-                                       aria-controls="collapse-@log.TimeStamp.Ticks">
+                                       aria-controls="collapse-@log.RowKey">
                                         <i class="fas fa-caret-right"></i>
                                         <i class="fas fa-caret-down"></i>
                                     </a>
                                 </td>
-                                <td style="text-align:center;">
-                                    @if (log.Level == "Warning")
+                                <td style="text-align: center;">
+                                    @switch (log.Level)
                                     {
-                                        <i class="fas fa-exclamation-triangle text-warning"></i>
-                                    }
-                                    else if (log.Level == "Error" || log.Level == "Critical")
-                                    {
-                                        <i class="fas fa-times-circle text-danger"></i>
-                                    }
-                                    else if (log.Level == "Information")
-                                    {
-                                        <i class="fas fa-info-circle text-primary"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fas fa-info-circle text-secondary"></i>
+                                        case "Warning":
+                                            <i class="fas fa-exclamation-triangle text-warning"></i>
+                                            break;
+                                        case "Error":
+                                        case "Critical":
+                                            <i class="fas fa-times-circle text-danger"></i>
+                                            break;
+                                        case "Information":
+                                            <i class="fas fa-info-circle text-primary"></i>
+                                            break;
+                                        default:
+                                            <i class="fas fa-info-circle text-secondary"></i>
+                                            break;
                                     }
                                 </td>
-                                <td>@log.TimeStamp.ToString()</td>
+                                <td>@log.Timestamp?.ToString("g")</td>
                                 <td>@log.Level</td>
-                                <td>@log.Message</td>
+                                <td>@log.RenderedMessage</td>
                             </tr>
-                            <tr class="collapse" id="collapse-@log.TimeStamp.Ticks" style="background-color: #f9f9f9;">
+                            <tr class="collapse" id="collapse-@log.RowKey" style="background-color: #f9f9f9;">
                                 <td colspan="5">
                                     <div class="tab-container">
-                                        <ul class="nav nav-tabs" id="log-tabs-@log.TimeStamp.Ticks" role="tablist">
+                                        <ul class="nav nav-tabs" id="log-tabs-@log.RowKey" role="tablist">
                                             <li class="nav-item" role="presentation">
                                                 <a class="nav-link active"
-                                                   id="properties-tab-@log.TimeStamp.Ticks"
-                                                   href="#properties-panel-@log.TimeStamp.Ticks"
+                                                   id="properties-tab-@log.RowKey"
+                                                   href="#properties-panel-@log.RowKey"
                                                    data-toggle="tab"
-                                                   aria-controls="properties-panel-@log.TimeStamp.Ticks"
+                                                   aria-controls="properties-panel-@log.RowKey"
                                                    aria-selected="true"
                                                    role="tab">Properties</a>
                                             </li>
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link"
-                                                   id="exception-tab-@log.TimeStamp.Ticks"
-                                                   href="#exception-panel-@log.TimeStamp.Ticks"
-                                                   data-toggle="tab"
-                                                   aria-controls="exception-panel-@log.TimeStamp.Ticks"
-                                                   role="tab">Exception</a>
-                                            </li>
+                                            @if (log.Exception.HasValue())
+                                            {
+                                                <li class="nav-item" role="presentation">
+                                                    <a class="nav-link"
+                                                       id="exception-tab-@log.RowKey"
+                                                       href="#exception-panel-@log.RowKey"
+                                                       data-toggle="tab"
+                                                       aria-controls="exception-panel-@log.RowKey"
+                                                       role="tab">Exception</a>
+                                                </li>
+                                            }
                                         </ul>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active"
-                                                 id="properties-panel-@log.TimeStamp.Ticks"
-                                                 aria-labelledby="properties-tab-@log.TimeStamp.Ticks"
+                                                 id="properties-panel-@log.RowKey"
+                                                 aria-labelledby="properties-tab-@log.RowKey"
                                                  role="tabpanel">
-                                                <table class="table table-bordered table-sm table-striped table-property">
-                                                    <colgroup>
-                                                        <col style="width: 200px" />
-                                                        <col style="" />
-                                                    </colgroup>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Value</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (var property in log.Properties.EnumerateObject())
-                                                        {
-                                                            <tr>
-                                                                <th>@property.Name</th>
-                                                                <td>@property.Value</td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
+                                                <json-display>@log.Data</json-display>
                                             </div>
-                                            <div class="tab-pane fade"
-                                                 id="exception-panel-@log.TimeStamp.Ticks"
-                                                 aria-labelledby="exception-tab-@log.TimeStamp.Ticks"
-                                                 role="tabpanel">
-                                                <pre style="overflow: auto; max-height: 400px; font-family: Courier New">@(string.IsNullOrWhiteSpace(log.Exception) ? "No Exception Found" : log.Exception)</pre>
-                                            </div>
+                                            @if (log.Exception.HasValue())
+                                            {
+                                                <div class="tab-pane fade"
+                                                     id="exception-panel-@log.RowKey"
+                                                     aria-labelledby="exception-tab-@log.RowKey"
+                                                     role="tabpanel">
+                                                    <pre style="overflow: auto; max-height: 400px; font-family: Courier New">@(string.IsNullOrWhiteSpace(log.Exception) ? "No Exception Found" : log.Exception)</pre>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </td>
@@ -212,36 +189,50 @@
             </div>
 
             <div class="card-footer p-0">
+
                 <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="center-block text-center m-3">
-                            <span>
-                                Showing @((Model.PageNumber * Model.PageSize) - (Model.PageSize -1)) to @(Math.Min(Model.PageNumber * Model.PageSize, Model.Total)) of @Model.Total rows.
-                            </span>
-                            <span style="margin-left: 10px">
-                                <select class="form-control"
-                                        style="width: 75px; display: inline"
-                                        name="PageSize"
-                                        asp-for="PageSize"
-                                        onchange="this.form.submit()">
-                                    <option value="20">20</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                                records per page
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <pagination current-page="@Model.PageNumber"
-                                    page-size="@Model.PageSize"
-                                    total-items="@Model.Total"
-                                    asp-route-z="@Model.PageSize"
-                                    asp-route-l="@Model.Level"
-                                    asp-route-d="@Model.Date"
-                                    asp-route-q="@Model.Query"
-                                    class="justify-content-md-end m-3" />
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <nav aria-label="Log Pagination">
+                            <ul class="justify-content-md-end m-3 pagination">
+                                @if (Model.ContinuationToken.HasValue())
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                       asp-page="/global/logging/index"
+                                       asp-route-z="@Model.PageSize"
+                                       asp-route-q="@Model.Query"
+                                       asp-route-l="@Model.Level"
+                                       asp-route-d="@Model.Date.Date"
+                                       asp-route-t="">First</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">First</span>
+                                    </li>
+                                }
+                                @if (Model.NextToken.HasValue())
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                       asp-page="/global/logging/index"
+                                       asp-route-z="@Model.PageSize"
+                                       asp-route-q="@Model.Query"
+                                       asp-route-l="@Model.Level"
+                                       asp-route-d="@Model.Date.Date"
+                                       asp-route-t="@Model.NextToken">Next</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Next</span>
+                                    </li>
+                                }
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

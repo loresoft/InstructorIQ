@@ -1,7 +1,6 @@
-﻿namespace InstructorIQ.Core.Services
+namespace InstructorIQ.Core.Services;
+
+public interface IHtmlService
 {
-    public interface IHtmlService
-    {
-        string PlainText(string htmlText);
-    }
+    string PlainText(string htmlText);
 }

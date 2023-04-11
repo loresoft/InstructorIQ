@@ -1,16 +1,16 @@
-﻿using System;
+using System;
+
 using Xunit.Abstractions;
 
-namespace InstructorIQ.Core.Tests
+namespace InstructorIQ.Core.Tests;
+
+public abstract class UnitTestBase
 {
-    public abstract class UnitTestBase
+    protected UnitTestBase(ITestOutputHelper outputHelper)
     {
-        protected UnitTestBase(ITestOutputHelper outputHelper)
-        {
-            OutputHelper = outputHelper;
+        OutputHelper = outputHelper;
 
-        }
-
-        public ITestOutputHelper OutputHelper { get; }
     }
+
+    public ITestOutputHelper OutputHelper { get; }
 }

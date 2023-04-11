@@ -1,29 +1,31 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.Report.Summary
+namespace InstructorIQ.WebApplication.Pages.Report.Summary;
+
+public class IndexModel : SummaryModel
 {
-    public class IndexModel : SummaryModel
+    public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
+        : base(tenant, mediator, loggerFactory)
     {
-        public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
-            : base(tenant, mediator, loggerFactory)
-        {
-            Date = DateTime.Now;
-        }
+        Date = DateTime.Now;
+    }
 
-        public virtual async Task<IActionResult> OnGetAsync()
-        {
-            if (Tenant == null || !Tenant.HasValue)
-                return RedirectToPage("/Index");
+    public virtual async Task<IActionResult> OnGetAsync()
+    {
+        if (Tenant == null || !Tenant.HasValue)
+            return RedirectToPage("/Index");
 
-            await Load();
+        await Load();
 
-            return Page();
-        }
+        return Page();
     }
 }

@@ -1,22 +1,23 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Security.Principal;
+
 using InstructorIQ.Core.Domain.Models;
+
 using MediatR.CommandQuery.Queries;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Queries
+namespace InstructorIQ.Core.Domain.Queries;
+
+public class MemberDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<MemberDropdownModel>>
 {
-    public class MemberDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<MemberDropdownModel>>
+    public MemberDropdownQuery(IPrincipal principal, Guid tenantId)
+        : base(principal)
     {
-        public MemberDropdownQuery(IPrincipal principal, Guid tenantId)
-            : base(principal)
-        {
-            TenantId = tenantId;
-        }
-
-        public Guid TenantId { get; }
-
-        public Guid? RoleId { get; set; }
+        TenantId = tenantId;
     }
+
+    public Guid TenantId { get; }
+
+    public Guid? RoleId { get; set; }
 }
