@@ -1,23 +1,24 @@
 using System;
+
 using FluentValidation;
+
 using InstructorIQ.Core.Domain.Models;
 
-namespace InstructorIQ.Core.Domain.Validation
+namespace InstructorIQ.Core.Domain.Validation;
+
+/// <summary>
+/// Validator class for <see cref="SessionInstructorCreateModel"/> .
+/// </summary>
+public partial class SessionInstructorCreateModelValidator
+    : AbstractValidator<SessionInstructorCreateModel>
 {
     /// <summary>
-    /// Validator class for <see cref="SessionInstructorCreateModel"/> .
+    /// Initializes a new instance of the <see cref="SessionInstructorCreateModelValidator"/> class.
     /// </summary>
-    public partial class SessionInstructorCreateModelValidator
-        : AbstractValidator<SessionInstructorCreateModel>
+    public SessionInstructorCreateModelValidator()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SessionInstructorCreateModelValidator"/> class.
-        /// </summary>
-        public SessionInstructorCreateModelValidator()
-        {
-            #region Generated Constructor
-            #endregion
-        }
-
+        #region Generated Constructor
+        #endregion
     }
+
 }

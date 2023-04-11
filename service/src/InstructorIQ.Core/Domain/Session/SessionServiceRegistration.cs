@@ -17,26 +17,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class SessionServiceRegistration : DomainServiceRegistrationBase
 {
-    public class SessionServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Session, SessionReadModel>(services);
+        RegisterEntityCommand<Guid, Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Session, SessionReadModel>(services);
-            RegisterEntityCommand<Guid, Session, SessionReadModel, SessionCreateModel, SessionUpdateModel>(services);
-
-            services.TryAddTransient<IRequestHandler<SessionTopicQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionTopicQueryHandler>();
-            services.TryAddTransient<IRequestHandler<SessionCalendarQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionCalendarQueryHandler>();
-            services.TryAddTransient<IRequestHandler<SessionInstructorQuery, IReadOnlyCollection<SessionInstructorModel>>, SessionInstructorQueryHandler>();
-            services.TryAddTransient<IRequestHandler<SessionMultipleUpdateCommand, CompleteModel>, SessionMultipleUpdateCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SessionSequenceCreateCommand, CompleteModel>, SessionSequenceCreateCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SessionInstructorUpdateCommand, CompleteModel>, SessionInstructorUpdateCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SessionHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, SessionHistoryQueryHandler>();
-            services.TryAddTransient<IRequestHandler<SessionInstructorHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, SessionInstructorHistoryQueryHandler>();
-            services.TryAddTransient<IRequestHandler<SessionFrequentTimeQuery, IReadOnlyCollection<SessionFrequentTimeModel>>, SessionFrequentTimeHandler>();
-        }
+        services.TryAddTransient<IRequestHandler<SessionTopicQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionTopicQueryHandler>();
+        services.TryAddTransient<IRequestHandler<SessionCalendarQuery, IReadOnlyCollection<SessionCalendarModel>>, SessionCalendarQueryHandler>();
+        services.TryAddTransient<IRequestHandler<SessionInstructorQuery, IReadOnlyCollection<SessionInstructorModel>>, SessionInstructorQueryHandler>();
+        services.TryAddTransient<IRequestHandler<SessionMultipleUpdateCommand, CompleteModel>, SessionMultipleUpdateCommandHandler>();
+        services.TryAddTransient<IRequestHandler<SessionSequenceCreateCommand, CompleteModel>, SessionSequenceCreateCommandHandler>();
+        services.TryAddTransient<IRequestHandler<SessionInstructorUpdateCommand, CompleteModel>, SessionInstructorUpdateCommandHandler>();
+        services.TryAddTransient<IRequestHandler<SessionHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, SessionHistoryQueryHandler>();
+        services.TryAddTransient<IRequestHandler<SessionInstructorHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, SessionInstructorHistoryQueryHandler>();
+        services.TryAddTransient<IRequestHandler<SessionFrequentTimeQuery, IReadOnlyCollection<SessionFrequentTimeModel>>, SessionFrequentTimeHandler>();
     }
 }

@@ -7,19 +7,18 @@ using MediatR.CommandQuery.EntityFrameworkCore;
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+
+public class CommandQueryServiceModule
 {
 
-    public class CommandQueryServiceModule
+    [RegisterServices]
+    public void Register(IServiceCollection services)
     {
-
-        [RegisterServices]
-        public void Register(IServiceCollection services)
-        {
-            services.AddMediator();
-            services.AddAutoMapper(typeof(InstructorIQContext).Assembly);
-            services.AddValidatorsFromAssembly<InstructorIQContext>();
-            services.AddEntityAudit();
-        }
+        services.AddMediator();
+        services.AddAutoMapper(typeof(InstructorIQContext).Assembly);
+        services.AddValidatorsFromAssembly<InstructorIQContext>();
+        services.AddEntityAudit();
     }
 }

@@ -7,15 +7,14 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace InstructorIQ.Core.Domain
-{
-    public class LogEventServiceRegistration : DomainServiceRegistrationBase
-    {
+namespace InstructorIQ.Core.Domain;
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            services.TryAddTransient<IRequestHandler<LogEventQuery, LogPagedResult>, LogEventQueryHandler>();
-        }
+public class LogEventServiceRegistration : DomainServiceRegistrationBase
+{
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
+    {
+        services.TryAddTransient<IRequestHandler<LogEventQuery, LogPagedResult>, LogEventQueryHandler>();
     }
 }

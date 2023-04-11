@@ -16,37 +16,36 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Handlers
+namespace InstructorIQ.Core.Domain.Handlers;
+
+public class MemberImportProcessCommandHandler : DataContextHandlerBase<InstructorIQContext, MemberImportProcessCommand, MemberImportJobModel>
 {
-    public class MemberImportProcessCommandHandler : DataContextHandlerBase<InstructorIQContext, MemberImportProcessCommand, MemberImportJobModel>
+    private readonly IImportProcessService _importProcessService;
+
+    public MemberImportProcessCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, IImportProcessService importProcessService)
+        : base(loggerFactory, dataContext, mapper)
     {
-        private readonly IImportProcessService _importProcessService;
+        _importProcessService = importProcessService;
+    }
 
-        public MemberImportProcessCommandHandler(ILoggerFactory loggerFactory, InstructorIQContext dataContext, IMapper mapper, IImportProcessService importProcessService)
-            : base(loggerFactory, dataContext, mapper)
-        {
-            _importProcessService = importProcessService;
-        }
+    protected override async Task<MemberImportJobModel> Process(MemberImportProcessCommand request, CancellationToken cancellationToken)
+    {
+        var id = request.Import.Id;
+        var importJob = await DataContext.ImportJobs.FindAsync(id);
+        if (importJob == null)
+            return null;
 
-        protected override async Task<MemberImportJobModel> Process(MemberImportProcessCommand request, CancellationToken cancellationToken)
-        {
-            var id = request.Import.Id;
-            var importJob = await DataContext.ImportJobs.FindAsync(id);
-            if (importJob == null)
-                return null;
+        var mappingJson = JsonConvert.SerializeObject(request.Import);
+        var identityName = request.Principal?.Identity?.Name;
 
-            var mappingJson = JsonConvert.SerializeObject(request.Import);
-            var identityName = request.Principal?.Identity?.Name;
+        importJob.Updated = DateTimeOffset.UtcNow;
+        importJob.UpdatedBy = identityName;
+        importJob.MappingJson = mappingJson;
 
-            importJob.Updated = DateTimeOffset.UtcNow;
-            importJob.UpdatedBy = identityName;
-            importJob.MappingJson = mappingJson;
+        await DataContext.SaveChangesAsync(cancellationToken);
 
-            await DataContext.SaveChangesAsync(cancellationToken);
+        await _importProcessService.ImportMembersAsync(id);
 
-            await _importProcessService.ImportMembersAsync(id);
-
-            return request.Import;
-        }
+        return request.Import;
     }
 }

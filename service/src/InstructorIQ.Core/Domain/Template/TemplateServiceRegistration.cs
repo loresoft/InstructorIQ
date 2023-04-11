@@ -16,20 +16,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class TemplateServiceRegistration : DomainServiceRegistrationBase
 {
-    public class TemplateServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Template, TemplateReadModel>(services);
+        RegisterEntityCommand<Guid, Template, TemplateReadModel, TemplateCreateModel, TemplateUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Template, TemplateReadModel>(services);
-            RegisterEntityCommand<Guid, Template, TemplateReadModel, TemplateCreateModel, TemplateUpdateModel>(services);
+        services.TryAddTransient<IRequestHandler<TemplateDropdownQuery, IReadOnlyCollection<TemplateDropdownModel>>, TemplateDropdownQueryHandler>();
 
-            services.TryAddTransient<IRequestHandler<TemplateDropdownQuery, IReadOnlyCollection<TemplateDropdownModel>>, TemplateDropdownQueryHandler>();
-
-            services.AddEntityQueries<InstructorIQContext, Template, Guid, TemplateEditorModel>();
-        }
+        services.AddEntityQueries<InstructorIQContext, Template, Guid, TemplateEditorModel>();
     }
 }

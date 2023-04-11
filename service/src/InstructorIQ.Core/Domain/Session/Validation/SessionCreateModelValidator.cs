@@ -1,24 +1,25 @@
 using System;
+
 using FluentValidation;
+
 using InstructorIQ.Core.Domain.Models;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Validation
+namespace InstructorIQ.Core.Domain.Validation;
+
+/// <summary>
+/// Validator class for <see cref="SessionCreateModel"/> .
+/// </summary>
+public class SessionCreateModelValidator
+    : AbstractValidator<SessionCreateModel>
 {
     /// <summary>
-    /// Validator class for <see cref="SessionCreateModel"/> .
+    /// Initializes a new instance of the <see cref="SessionCreateModelValidator"/> class.
     /// </summary>
-    public class SessionCreateModelValidator
-        : AbstractValidator<SessionCreateModel>
+    public SessionCreateModelValidator()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SessionCreateModelValidator"/> class.
-        /// </summary>
-        public SessionCreateModelValidator()
-        {
-            #region Generated Constructor
-            #endregion
-        }
-
+        #region Generated Constructor
+        #endregion
     }
+
 }

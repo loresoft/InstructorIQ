@@ -15,20 +15,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class DiscussionServiceRegistration : DomainServiceRegistrationBase
 {
-    public class DiscussionServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Discussion, DiscussionReadModel>(services);
+        RegisterEntityCommand<Guid, Discussion, DiscussionReadModel, DiscussionCreateModel, DiscussionUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Discussion, DiscussionReadModel>(services);
-            RegisterEntityCommand<Guid, Discussion, DiscussionReadModel, DiscussionCreateModel, DiscussionUpdateModel>(services);
+        services.TryAddTransient<IRequestHandler<DiscussionTopicQuery, IReadOnlyCollection<DiscussionReadModel>>, DiscussionTopicQueryHandler>();
+        services.TryAddTransient<IRequestHandler<DiscussionHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, DiscussionHistoryQueryHandler>();
 
-            services.TryAddTransient<IRequestHandler<DiscussionTopicQuery, IReadOnlyCollection<DiscussionReadModel>>, DiscussionTopicQueryHandler>();
-            services.TryAddTransient<IRequestHandler<DiscussionHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, DiscussionHistoryQueryHandler>();
-
-        }
     }
 }

@@ -14,19 +14,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class EmailDeliveryServiceRegistration : DomainServiceRegistrationBase
 {
-    public class EmailDeliveryServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, EmailDelivery, EmailDeliveryReadModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, EmailDelivery, EmailDeliveryReadModel>(services);
-
-            services.TryAddTransient<IRequestHandler<SendUserInviteEmailCommand, CompleteModel>, SendUserInviteEmailCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SendUserLinkEmailCommand, CompleteModel>, SendUserLinkEmailCommandHandler>();
-            services.TryAddTransient<IRequestHandler<SendSummaryEmailCommand, CompleteModel>, SendSummaryEmailCommandHandler>();
-        }
+        services.TryAddTransient<IRequestHandler<SendUserInviteEmailCommand, CompleteModel>, SendUserInviteEmailCommandHandler>();
+        services.TryAddTransient<IRequestHandler<SendUserLinkEmailCommand, CompleteModel>, SendUserLinkEmailCommandHandler>();
+        services.TryAddTransient<IRequestHandler<SendSummaryEmailCommand, CompleteModel>, SendSummaryEmailCommandHandler>();
     }
 }

@@ -22,123 +22,122 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace InstructorIQ.Core.Tests.Domain
+namespace InstructorIQ.Core.Tests.Domain;
+
+[Collection("DependencyInjectionCollection")]
+public class TenantTest : DependencyInjectionBase
 {
-    [Collection("DependencyInjectionCollection")]
-    public class TenantTest : DependencyInjectionBase
+    public TenantTest(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
+        : base(outputHelper, dependencyInjection)
     {
-        public TenantTest(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)
-            : base(outputHelper, dependencyInjection)
+    }
+
+    [Fact]
+    public async Task FullTest()
+    {
+        var mediator = ServiceProvider.GetService<IMediator>();
+        mediator.Should().NotBeNull();
+
+        var mapper = ServiceProvider.GetService<IMapper>();
+        mapper.Should().NotBeNull();
+
+        var generator = new Faker<TenantCreateModel>()
+            .RuleFor(p => p.Name, f => f.Company.CompanyName())
+            .RuleFor(p => p.Description, f => f.Lorem.Sentence());
+
+        // Create Entity
+        var createModel = generator.Generate();
+        createModel.Slug = "Test" + DateTime.Now.Ticks;
+        createModel.TimeZone = "Central Standard Time";
+
+        var createCommand = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(MockPrincipal.Default, createModel);
+        var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
+        createResult.Should().NotBeNull();
+
+        // Get Entity by Key
+        var identifierQuery = new EntityIdentifierQuery<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id);
+        var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
+        identifierResult.Should().NotBeNull();
+        identifierResult.Name.Should().Be(createModel.Name);
+
+        // Query Entity
+        var entityQuery = new EntityQuery
         {
-        }
+            Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
+            Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
+        };
+        var listQuery = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, entityQuery);
 
-        [Fact]
-        public async Task FullTest()
+        var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
+        listResult.Should().NotBeNull();
+
+        // Patch Entity
+        var patchModel = new JsonPatchDocument<Tenant>();
+        patchModel.Operations.Add(new Operation<Tenant>
         {
-            var mediator = ServiceProvider.GetService<IMediator>();
-            mediator.Should().NotBeNull();
+            op = "replace",
+            path = "/Description",
+            value = "Patch Update"
+        });
 
-            var mapper = ServiceProvider.GetService<IMapper>();
-            mapper.Should().NotBeNull();
+        var patchCommand = new EntityPatchCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id, patchModel);
+        var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
+        patchResult.Should().NotBeNull();
+        patchResult.Description.Should().Be("Patch Update");
 
-            var generator = new Faker<TenantCreateModel>()
-                .RuleFor(p => p.Name, f => f.Company.CompanyName())
-                .RuleFor(p => p.Description, f => f.Lorem.Sentence());
+        // Update Entity
+        var updateModel = mapper.Map<TenantUpdateModel>(patchResult);
+        updateModel.Description = "Update Command";
 
-            // Create Entity
-            var createModel = generator.Generate();
-            createModel.Slug = "Test" + DateTime.Now.Ticks;
-            createModel.TimeZone = "Central Standard Time";
+        var updateCommand = new EntityUpdateCommand<Guid, TenantUpdateModel, TenantReadModel>(MockPrincipal.Default, createResult.Id, updateModel);
+        var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
+        updateResult.Should().NotBeNull();
+        updateResult.Description.Should().Be("Update Command");
 
-            var createCommand = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(MockPrincipal.Default, createModel);
-            var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
-            createResult.Should().NotBeNull();
-
-            // Get Entity by Key
-            var identifierQuery = new EntityIdentifierQuery<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id);
-            var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
-            identifierResult.Should().NotBeNull();
-            identifierResult.Name.Should().Be(createModel.Name);
-
-            // Query Entity
-            var entityQuery = new EntityQuery
-            {
-                Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
-                Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
-            };
-            var listQuery = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, entityQuery);
-
-            var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
-            listResult.Should().NotBeNull();
-
-            // Patch Entity
-            var patchModel = new JsonPatchDocument<Tenant>();
-            patchModel.Operations.Add(new Operation<Tenant>
-            {
-                op = "replace",
-                path = "/Description",
-                value = "Patch Update"
-            });
-
-            var patchCommand = new EntityPatchCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id, patchModel);
-            var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
-            patchResult.Should().NotBeNull();
-            patchResult.Description.Should().Be("Patch Update");
-
-            // Update Entity
-            var updateModel = mapper.Map<TenantUpdateModel>(patchResult);
-            updateModel.Description = "Update Command";
-
-            var updateCommand = new EntityUpdateCommand<Guid, TenantUpdateModel, TenantReadModel>(MockPrincipal.Default, createResult.Id, updateModel);
-            var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
-            updateResult.Should().NotBeNull();
-            updateResult.Description.Should().Be("Update Command");
-
-            // Delete Entity
-            var deleteCommand = new EntityDeleteCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id);
-            var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
-            deleteResult.Should().NotBeNull();
-            deleteResult.Id.Should().Be(createResult.Id);
-        }
+        // Delete Entity
+        var deleteCommand = new EntityDeleteCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id);
+        var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
+        deleteResult.Should().NotBeNull();
+        deleteResult.Id.Should().Be(createResult.Id);
+    }
 
 
-        [Fact]
-        public async Task CreateTenant()
+    [Fact]
+    public async Task CreateTenant()
+    {
+        var mediator = ServiceProvider.GetService<IMediator>();
+        mediator.Should().NotBeNull();
+
+        var createModel = new TenantCreateModel
         {
-            var mediator = ServiceProvider.GetService<IMediator>();
-            mediator.Should().NotBeNull();
+            Slug = "Test" + DateTime.Now.Ticks,
+            Name = "Test Department " + DateTime.Now.Ticks,
+            Description = "Created from Unit Test",
+            TimeZone = "Central Standard Time"
+        };
 
-            var createModel = new TenantCreateModel
-            {
-                Slug = "Test" + DateTime.Now.Ticks,
-                Name = "Test Department " + DateTime.Now.Ticks,
-                Description = "Created from Unit Test",
-                TimeZone = "Central Standard Time"
-            };
+        var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(MockPrincipal.Default, createModel);
 
-            var command = new EntityCreateCommand<TenantCreateModel, TenantReadModel>(MockPrincipal.Default, createModel);
+        var result = await mediator.Send(command).ConfigureAwait(false);
+        result.Should().NotBeNull();
 
-            var result = await mediator.Send(command).ConfigureAwait(false);
-            result.Should().NotBeNull();
+    }
 
-        }
+    [Fact]
+    public async Task QueryList()
+    {
+        var mediator = ServiceProvider.GetService<IMediator>();
+        mediator.Should().NotBeNull();
 
-        [Fact]
-        public async Task QueryList()
+        var query = new EntityQuery
         {
-            var mediator = ServiceProvider.GetService<IMediator>();
-            mediator.Should().NotBeNull();
+            Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
+            Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
+        };
+        var command = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, query);
 
-            var query = new EntityQuery
-            {
-                Sort = new List<EntitySort> { new EntitySort { Name = "Updated", Direction = "Descending" } },
-                Filter = new EntityFilter { Name = "Slug", Value = "TEST" }
-            };
-            var command = new EntityPagedQuery<TenantReadModel>(MockPrincipal.Default, query);
+        var result = await mediator.Send(command).ConfigureAwait(false);
+        result.Should().NotBeNull();
 
-            var result = await mediator.Send(command).ConfigureAwait(false);
-            result.Should().NotBeNull();
-
-        }
     }
 }

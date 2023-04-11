@@ -14,20 +14,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class AttendanceServiceRegistration : DomainServiceRegistrationBase
 {
-    public class AttendanceServiceRegistration : DomainServiceRegistrationBase
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Attendance, AttendanceReadModel>(services);
-            RegisterEntityQuery<Guid, Attendance, AttendanceSessionModel>(services);
+        RegisterEntityQuery<Guid, Attendance, AttendanceReadModel>(services);
+        RegisterEntityQuery<Guid, Attendance, AttendanceSessionModel>(services);
 
-            RegisterEntityCommand<Guid, Attendance, AttendanceReadModel, AttendanceCreateModel, AttendanceUpdateModel>(services);
-            RegisterEntityCommand<Guid, Attendance, AttendanceSessionModel, AttendanceCreateModel, AttendanceUpdateModel>(services);
+        RegisterEntityCommand<Guid, Attendance, AttendanceReadModel, AttendanceCreateModel, AttendanceUpdateModel>(services);
+        RegisterEntityCommand<Guid, Attendance, AttendanceSessionModel, AttendanceCreateModel, AttendanceUpdateModel>(services);
 
-            services.TryAddTransient<IRequestHandler<AttendanceSessionQuery, IReadOnlyCollection<AttendanceSessionModel>>, AttendanceSessionQueryHandler>();
-        }
+        services.TryAddTransient<IRequestHandler<AttendanceSessionQuery, IReadOnlyCollection<AttendanceSessionModel>>, AttendanceSessionQueryHandler>();
     }
 }

@@ -17,29 +17,28 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class TenantServiceRegistration : DomainServiceRegistrationBase
 {
-    public class TenantServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Tenant, TenantReadModel>(services);
+        RegisterEntityCommand<Guid, Tenant, TenantReadModel, TenantCreateModel, TenantUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Tenant, TenantReadModel>(services);
-            RegisterEntityCommand<Guid, Tenant, TenantReadModel, TenantCreateModel, TenantUpdateModel>(services);
+        services.TryAddTransient<IRequestHandler<TenantUserResolveCommand, TenantUserModel>, TenantUserResolveCommandHandler>();
 
-            services.TryAddTransient<IRequestHandler<TenantUserResolveCommand, TenantUserModel>, TenantUserResolveCommandHandler>();
+        services.TryAddTransient<IRequestHandler<TenantSlugQuery, TenantReadModel>, TenantSlugQueryHandler>();
+        services.AddTransient<IPipelineBehavior<TenantSlugQuery, TenantReadModel>, MemoryCacheQueryBehavior<TenantSlugQuery, TenantReadModel>>();
 
-            services.TryAddTransient<IRequestHandler<TenantSlugQuery, TenantReadModel>, TenantSlugQueryHandler>();
-            services.AddTransient<IPipelineBehavior<TenantSlugQuery, TenantReadModel>, MemoryCacheQueryBehavior<TenantSlugQuery, TenantReadModel>>();
+        services.TryAddTransient<IRequestHandler<TenantDropdownQuery, IReadOnlyCollection<TenantDropdownModel>>, TenantDropdownQueryHandler>();
 
-            services.TryAddTransient<IRequestHandler<TenantDropdownQuery, IReadOnlyCollection<TenantDropdownModel>>, TenantDropdownQueryHandler>();
+        services.TryAddTransient<IRequestHandler<TenantMembershipQuery, TenantMembershipModel>, TenantMembershipQueryHandler>();
+        services.TryAddTransient<IRequestHandler<TenantMembershipCommand, TenantMembershipModel>, TenantMembershipCommandHandler>();
 
-            services.TryAddTransient<IRequestHandler<TenantMembershipQuery, TenantMembershipModel>, TenantMembershipQueryHandler>();
-            services.TryAddTransient<IRequestHandler<TenantMembershipCommand, TenantMembershipModel>, TenantMembershipCommandHandler>();
+        services.TryAddTransient<IRequestHandler<TenantPagedQuery, EntityPagedResult<TenantReadModel>>, TenantPagedQueryHandler>();
 
-            services.TryAddTransient<IRequestHandler<TenantPagedQuery, EntityPagedResult<TenantReadModel>>, TenantPagedQueryHandler>();
-
-        }
     }
 }

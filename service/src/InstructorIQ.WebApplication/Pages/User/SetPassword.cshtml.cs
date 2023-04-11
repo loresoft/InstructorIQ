@@ -1,87 +1,89 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Multitenancy;
 using InstructorIQ.WebApplication.Models;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace InstructorIQ.WebApplication.Pages.User
+namespace InstructorIQ.WebApplication.Pages.User;
+
+[Authorize]
+public class SetPasswordModel : MediatorModelBase
 {
-    [Authorize]
-    public class SetPasswordModel : MediatorModelBase
+    private readonly UserManager<Core.Data.Entities.User> _userManager;
+    private readonly SignInManager<Core.Data.Entities.User> _signInManager;
+
+    public SetPasswordModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager, SignInManager<Core.Data.Entities.User> signInManager)
+        : base(tenant, mediator, loggerFactory)
     {
-        private readonly UserManager<Core.Data.Entities.User> _userManager;
-        private readonly SignInManager<Core.Data.Entities.User> _signInManager;
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
 
-        public SetPasswordModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory, UserManager<Core.Data.Entities.User> userManager, SignInManager<Core.Data.Entities.User> signInManager)
-            : base(tenant, mediator, loggerFactory)
+    [BindProperty]
+    public InputModel Input { get; set; }
+
+    public class InputModel
+    {
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public async Task<IActionResult> OnGetAsync()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+            return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+
+        var hasPassword = await _userManager.HasPasswordAsync(user);
+        if (hasPassword)
+            return RedirectToPage("/User/Password");
+
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (!ModelState.IsValid)
+            return Page();
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            var userId = _userManager.GetUserId(User);
+            return NotFound($"Unable to load user with ID '{userId}'.");
         }
 
-        [BindProperty]
-        public InputModel Input { get; set; }
-
-        public class InputModel
+        var changePasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
+        if (!changePasswordResult.Succeeded)
         {
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "New password")]
-            public string NewPassword { get; set; }
-
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
-        }
-
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-
-            var hasPassword = await _userManager.HasPasswordAsync(user);
-            if (hasPassword)
-                return RedirectToPage("/User/Password");
+            foreach (var error in changePasswordResult.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-                return Page();
+        await _signInManager.RefreshSignInAsync(user);
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                var userId = _userManager.GetUserId(User);
-                return NotFound($"Unable to load user with ID '{userId}'.");
-            }
+        Logger.LogInformation("User set their password successfully.");
+        ShowAlert("Your password has been changed");
 
-            var changePasswordResult = await _userManager.AddPasswordAsync(user, Input.NewPassword);
-            if (!changePasswordResult.Succeeded)
-            {
-                foreach (var error in changePasswordResult.Errors)
-                    ModelState.AddModelError(string.Empty, error.Description);
-
-                return Page();
-            }
-
-            await _signInManager.RefreshSignInAsync(user);
-
-            Logger.LogInformation("User set their password successfully.");
-            ShowAlert("Your password has been changed");
-
-            return RedirectToPage();
-        }
-
+        return RedirectToPage();
     }
+
 }

@@ -1,16 +1,15 @@
-﻿using System;
+using System;
 
-namespace InstructorIQ.Core.Multitenancy
+namespace InstructorIQ.Core.Multitenancy;
+
+public class TenantValue<TTenant> : ITenant<TTenant>
 {
-    public class TenantValue<TTenant> : ITenant<TTenant>
+    public TenantValue(TTenant tenant)
     {
-        public TenantValue(TTenant tenant)
-        {
-            Value = tenant;
-        }
-
-        public TTenant Value { get; }
-
-        public bool HasValue => Value != null;
+        Value = tenant;
     }
+
+    public TTenant Value { get; }
+
+    public bool HasValue => Value != null;
 }

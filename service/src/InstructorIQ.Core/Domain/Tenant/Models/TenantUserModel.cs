@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+
 using InstructorIQ.Core.Data.Entities;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Models
+namespace InstructorIQ.Core.Domain.Models;
+
+public class TenantUserModel
 {
-    public class TenantUserModel
-    {
-        public User User { get; set; }
+    public User User { get; set; }
 
-        public TenantReadModel Tenant { get; set; }
+    public TenantReadModel Tenant { get; set; }
 
-        public List<string> Roles { get; set; }
-    }
+    public List<string> Roles { get; set; }
 }

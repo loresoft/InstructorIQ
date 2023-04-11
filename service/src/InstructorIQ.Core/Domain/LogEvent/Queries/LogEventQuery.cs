@@ -5,21 +5,20 @@ using InstructorIQ.Core.Domain.Models;
 
 using MediatR.CommandQuery.Queries;
 
-namespace InstructorIQ.Core.Domain.Queries
+namespace InstructorIQ.Core.Domain.Queries;
+
+public class LogEventQuery : PrincipalQueryBase<LogPagedResult>
 {
-    public class LogEventQuery : PrincipalQueryBase<LogPagedResult>
+    public LogEventQuery(IPrincipal principal) : base(principal)
     {
-        public LogEventQuery(IPrincipal principal) : base(principal)
-        {
 
-        }
-
-        public string ContinuationToken { get; set; }
-
-        public DateTime Date { get; set; } = DateTime.Today;
-
-        public string Level { get; set; }
-
-        public int PageSize { get; set; } = 100;
     }
+
+    public string ContinuationToken { get; set; }
+
+    public DateTime Date { get; set; } = DateTime.Today;
+
+    public string Level { get; set; }
+
+    public int PageSize { get; set; } = 100;
 }

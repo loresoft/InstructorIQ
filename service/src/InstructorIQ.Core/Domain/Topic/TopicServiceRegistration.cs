@@ -17,24 +17,23 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class TopicServiceRegistration : DomainServiceRegistrationBase
 {
-    public class TopicServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Topic, TopicReadModel>(services);
+        RegisterEntityQuery<Guid, Topic, TopicListModel>(services);
+        RegisterEntityCommand<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Topic, TopicReadModel>(services);
-            RegisterEntityQuery<Guid, Topic, TopicListModel>(services);
-            RegisterEntityCommand<Guid, Topic, TopicReadModel, TopicCreateModel, TopicUpdateModel>(services);
+        RegisterEntityQuery<Guid, Topic, TopicMultipleUpdateModel>(services);
+        RegisterEntityQuery<Guid, Topic, TopicDropdownModel>(services);
 
-            RegisterEntityQuery<Guid, Topic, TopicMultipleUpdateModel>(services);
-            RegisterEntityQuery<Guid, Topic, TopicDropdownModel>(services);
+        services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, TopicHistoryQueryHandler>();
+        services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CompleteModel>, TopicMultipleUpdateCommandHandler>();
 
-            services.TryAddTransient<IRequestHandler<TopicHistoryQuery, IReadOnlyCollection<AuditRecord<Guid>>>, TopicHistoryQueryHandler>();
-            services.TryAddTransient<IRequestHandler<TopicMultipleUpdateCommand, CompleteModel>, TopicMultipleUpdateCommandHandler>();
-
-        }
     }
 }

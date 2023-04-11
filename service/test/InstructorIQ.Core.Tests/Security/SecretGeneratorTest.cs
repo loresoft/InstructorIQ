@@ -1,57 +1,59 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+
 using FluentAssertions;
+
 using Microsoft.AspNetCore.WebUtilities;
+
 using Xunit;
 using Xunit.Abstractions;
 
-namespace InstructorIQ.Core.Tests.Security
+namespace InstructorIQ.Core.Tests.Security;
+
+public class SecretGeneratorTest : UnitTestBase
 {
-    public class SecretGeneratorTest : UnitTestBase
+    public SecretGeneratorTest(ITestOutputHelper outputHelper) : base(outputHelper)
     {
-        public SecretGeneratorTest(ITestOutputHelper outputHelper) : base(outputHelper)
+    }
+
+    [Fact]
+    public void GenerateClientSecret()
+    {
+        int bytes = 32;
+
+        byte[] data;
+        using (var rngCsp = RandomNumberGenerator.Create())
         {
+            data = new byte[bytes];
+            rngCsp.GetNonZeroBytes(data);
         }
 
-        [Fact]
-        public void GenerateClientSecret()
-        {
-            int bytes = 32;
+        var audienceSecret = Base64UrlTextEncoder.Encode(data);
+        var audienceId = Guid.NewGuid().ToString("N");
 
-            byte[] data;
-            using (var rngCsp = RandomNumberGenerator.Create())
-            {
-                data = new byte[bytes];
-                rngCsp.GetNonZeroBytes(data);
-            }
+        OutputHelper.WriteLine($"audienceId: {audienceId}");
+        OutputHelper.WriteLine($"audienceSecret: {audienceSecret}");
+    }
 
-            var audienceSecret = Base64UrlTextEncoder.Encode(data);
-            var audienceId = Guid.NewGuid().ToString("N");
+    [Fact]
+    public void UnionTest()
+    {
+        var existing = new List<int> { 1, 2, 3 };
+        var updated = new List<int> { 2, 4 };
 
-            OutputHelper.WriteLine($"audienceId: {audienceId}");
-            OutputHelper.WriteLine($"audienceSecret: {audienceSecret}");
-        }
+        var remove = existing
+            .Except(updated)
+            .ToList();
 
-        [Fact]
-        public void UnionTest()
-        {
-            var existing = new List<int> { 1, 2, 3 };
-            var updated = new List<int> { 2, 4 };
+        remove.Should().Contain(new[] { 1, 3 });
 
-            var remove = existing
-                .Except(updated)
-                .ToList();
+        var insert = updated
+            .Except(existing)
+            .ToList();
 
-            remove.Should().Contain(new[] {1, 3});
+        insert.Should().Contain(new[] { 4 });
 
-            var insert = updated
-                .Except(existing)
-                .ToList();
-
-            insert.Should().Contain(new[] { 4 });
-
-        }
     }
 }

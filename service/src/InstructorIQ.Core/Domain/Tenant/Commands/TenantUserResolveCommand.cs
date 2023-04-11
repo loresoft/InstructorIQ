@@ -1,18 +1,19 @@
-﻿using System.Security.Principal;
-using MediatR.CommandQuery.Commands;
+using System.Security.Principal;
+
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
 
-// ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Commands
-{
-    public class TenantUserResolveCommand : PrincipalCommandBase<TenantUserModel>
-    {
-        public TenantUserResolveCommand(IPrincipal principal, User user) : base(principal)
-        {
-            User = user;
-        }
+using MediatR.CommandQuery.Commands;
 
-        public User User { get; set; }
+// ReSharper disable once CheckNamespace
+namespace InstructorIQ.Core.Domain.Commands;
+
+public class TenantUserResolveCommand : PrincipalCommandBase<TenantUserModel>
+{
+    public TenantUserResolveCommand(IPrincipal principal, User user) : base(principal)
+    {
+        User = user;
     }
+
+    public User User { get; set; }
 }

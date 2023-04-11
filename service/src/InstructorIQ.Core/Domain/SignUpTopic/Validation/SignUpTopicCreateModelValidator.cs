@@ -1,23 +1,24 @@
 using System;
+
 using FluentValidation;
+
 using InstructorIQ.Core.Domain.Models;
 
-namespace InstructorIQ.Core.Domain.Validation
+namespace InstructorIQ.Core.Domain.Validation;
+
+/// <summary>
+/// Validator class for <see cref="SignUpTopicCreateModel"/> .
+/// </summary>
+public partial class SignUpTopicCreateModelValidator
+    : AbstractValidator<SignUpTopicCreateModel>
 {
     /// <summary>
-    /// Validator class for <see cref="SignUpTopicCreateModel"/> .
+    /// Initializes a new instance of the <see cref="SignUpTopicCreateModelValidator"/> class.
     /// </summary>
-    public partial class SignUpTopicCreateModelValidator
-        : AbstractValidator<SignUpTopicCreateModel>
+    public SignUpTopicCreateModelValidator()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SignUpTopicCreateModelValidator"/> class.
-        /// </summary>
-        public SignUpTopicCreateModelValidator()
-        {
-            #region Generated Constructor
-            #endregion
-        }
-
+        #region Generated Constructor
+        #endregion
     }
+
 }

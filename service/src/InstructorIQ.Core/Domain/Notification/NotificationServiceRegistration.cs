@@ -13,18 +13,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain
+namespace InstructorIQ.Core.Domain;
+
+public class NotificationServiceRegistration : DomainServiceRegistrationBase
 {
-    public class NotificationServiceRegistration : DomainServiceRegistrationBase
+
+    [RegisterServices]
+    public override void Register(IServiceCollection services)
     {
+        RegisterEntityQuery<Guid, Notification, NotificationReadModel>(services);
+        RegisterEntityCommand<Guid, Notification, NotificationReadModel, NotificationCreateModel, NotificationUpdateModel>(services);
 
-        [RegisterServices]
-        public override void Register(IServiceCollection services)
-        {
-            RegisterEntityQuery<Guid, Notification, NotificationReadModel>(services);
-            RegisterEntityCommand<Guid, Notification, NotificationReadModel, NotificationCreateModel, NotificationUpdateModel>(services);
-
-            services.TryAddTransient<IRequestHandler<NotificationUnreadQuery, NotificationUnreadModel>, NotificationUnreadQueryHandler>();
-        }
+        services.TryAddTransient<IRequestHandler<NotificationUnreadQuery, NotificationUnreadModel>, NotificationUnreadQueryHandler>();
     }
 }

@@ -1,36 +1,38 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using InstructorIQ.Core.Domain.Models;
 using InstructorIQ.Core.Security;
+
 using MediatR;
 using MediatR.CommandQuery.Queries;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InstructorIQ.WebApplication.Controllers
+namespace InstructorIQ.WebApplication.Controllers;
+
+[Route("api/template")]
+public class TemplateController : MediatorControllerBase
 {
-    [Route("api/template")]
-    public class TemplateController : MediatorControllerBase
+    private readonly UserClaimManager _userClaimManager;
+
+    public TemplateController(IMediator mediator, UserClaimManager userClaimManager) : base(mediator)
     {
-        private readonly UserClaimManager _userClaimManager;
-
-        public TemplateController(IMediator mediator, UserClaimManager userClaimManager) : base(mediator)
-        {
-            _userClaimManager = userClaimManager;
-        }
-
-        [Authorize]
-        [HttpGet("editor")]
-        public async Task<ActionResult<IReadOnlyCollection<TemplateEditorModel>>> Get(CancellationToken cancellationToken)
-        {
-            var command = new EntitySelectQuery<TemplateEditorModel>(User, new EntitySelect());
-            var result = await Mediator.Send(command, cancellationToken);
-
-            return Ok(result);
-        }
-
-
+        _userClaimManager = userClaimManager;
     }
+
+    [Authorize]
+    [HttpGet("editor")]
+    public async Task<ActionResult<IReadOnlyCollection<TemplateEditorModel>>> Get(CancellationToken cancellationToken)
+    {
+        var command = new EntitySelectQuery<TemplateEditorModel>(User, new EntitySelect());
+        var result = await Mediator.Send(command, cancellationToken);
+
+        return Ok(result);
+    }
+
+
 }

@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 
-namespace InstructorIQ.Core.Multitenancy
+namespace InstructorIQ.Core.Multitenancy;
+
+public interface ITenant<out TTenant>
 {
-    public interface ITenant<out TTenant>
-    {
-        TTenant Value { get; }
-        bool HasValue { get; }
-    }
+    TTenant Value { get; }
+    bool HasValue { get; }
 }

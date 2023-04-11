@@ -1,14 +1,14 @@
-﻿using AutoMapper;
+using AutoMapper;
+
 using InstructorIQ.Core.Domain.Models;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Mapping
+namespace InstructorIQ.Core.Domain.Mapping;
+
+public class RoleProfile : Profile
 {
-    public class RoleProfile : Profile
+    public RoleProfile()
     {
-        public RoleProfile()
-        {
-            CreateMap<Data.Entities.Role, RoleReadModel>();
-        }
+        CreateMap<Data.Entities.Role, RoleReadModel>();
     }
 }

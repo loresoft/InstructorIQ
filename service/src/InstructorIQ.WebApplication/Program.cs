@@ -28,275 +28,274 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Compact;
 
-namespace InstructorIQ.WebApplication
+namespace InstructorIQ.WebApplication;
+
+public static class Program
 {
-    public static class Program
+    private const string OutputTemplate = "{Timestamp:HH:mm:ss.fff} [{Level:u1}] {Message:lj}{NewLine}{Exception}";
+
+    public static async Task<int> Main(string[] args)
     {
-        private const string OutputTemplate = "{Timestamp:HH:mm:ss.fff} [{Level:u1}] {Message:lj}{NewLine}{Exception}";
+        // azure home directory
+        var homeDirectory = Environment.GetEnvironmentVariable("HOME") ?? ".";
+        var logDirectory = Path.Combine(homeDirectory, "LogFiles");
 
-        public static async Task<int> Main(string[] args)
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .Enrich.FromLogContext()
+            .WriteTo.Console(outputTemplate: OutputTemplate)
+            .WriteTo.File(
+                path: $"{logDirectory}/boot.txt",
+                rollingInterval: RollingInterval.Day,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(1),
+                outputTemplate: OutputTemplate,
+                retainedFileCountLimit: 10
+            )
+            .WriteTo.File(
+                formatter: new CompactJsonFormatter(),
+                path: $"{logDirectory}/boot.clef",
+                rollingInterval: RollingInterval.Day,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(1),
+                retainedFileCountLimit: 30
+            )
+            .CreateBootstrapLogger();
+
+        try
         {
-            // azure home directory
-            var homeDirectory = Environment.GetEnvironmentVariable("HOME") ?? ".";
-            var logDirectory = Path.Combine(homeDirectory, "LogFiles");
+            Log.Information("Starting web host");
 
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: OutputTemplate)
-                .WriteTo.File(
-                    path: $"{logDirectory}/boot.txt",
-                    rollingInterval: RollingInterval.Day,
-                    shared: true,
-                    flushToDiskInterval: TimeSpan.FromSeconds(1),
-                    outputTemplate: OutputTemplate,
-                    retainedFileCountLimit: 10
-                )
-                .WriteTo.File(
-                    formatter: new CompactJsonFormatter(),
-                    path: $"{logDirectory}/boot.clef",
-                    rollingInterval: RollingInterval.Day,
-                    shared: true,
-                    flushToDiskInterval: TimeSpan.FromSeconds(1),
-                    retainedFileCountLimit: 30
-                )
-                .CreateBootstrapLogger();
+            var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
-            try
-            {
-                Log.Information("Starting web host");
+            builder.Host
+                .UseSerilog((context, services, configuration) => configuration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext()
+                    .Enrich.WithProperty("ApplicationName", builder.Environment.ApplicationName)
+                    .Enrich.WithProperty("EnvironmentName", builder.Environment.EnvironmentName)
+                    .WriteTo.Console(outputTemplate: OutputTemplate)
+                    .WriteTo.File(
+                        path: $"{logDirectory}/log.txt",
+                        rollingInterval: RollingInterval.Day,
+                        shared: true,
+                        flushToDiskInterval: TimeSpan.FromSeconds(1),
+                        outputTemplate: OutputTemplate,
+                        retainedFileCountLimit: 10
+                    )
+                    .WriteTo.AzureTableStorage(
+                        connectionString: context.Configuration.GetConnectionString("StorageAccount"),
+                        propertyColumns: new[] { "SourceContext", "RequestId", "RequestPath", "ConnectionId", "ApplicationName", "EnvironmentName" }
+                    )
+                );
 
-                var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
+            ConfigureServices(builder);
 
-                builder.Host
-                    .UseSerilog((context, services, configuration) => configuration
-                        .ReadFrom.Configuration(context.Configuration)
-                        .ReadFrom.Services(services)
-                        .Enrich.FromLogContext()
-                        .Enrich.WithProperty("ApplicationName", builder.Environment.ApplicationName)
-                        .Enrich.WithProperty("EnvironmentName", builder.Environment.EnvironmentName)
-                        .WriteTo.Console(outputTemplate: OutputTemplate)
-                        .WriteTo.File(
-                            path: $"{logDirectory}/log.txt",
-                            rollingInterval: RollingInterval.Day,
-                            shared: true,
-                            flushToDiskInterval: TimeSpan.FromSeconds(1),
-                            outputTemplate: OutputTemplate,
-                            retainedFileCountLimit: 10
-                        )
-                        .WriteTo.AzureTableStorage(
-                            connectionString: context.Configuration.GetConnectionString("StorageAccount"),
-                            propertyColumns: new[] { "SourceContext", "RequestId", "RequestPath", "ConnectionId", "ApplicationName", "EnvironmentName" }
-                        )
-                    );
+            var app = builder.Build();
 
-                ConfigureServices(builder);
+            ConfigureMiddleware(app);
 
-                var app = builder.Build();
+            await app.RunAsync();
 
-                ConfigureMiddleware(app);
-
-                await app.RunAsync();
-
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "Host terminated unexpectedly");
-                return 1;
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
+            return 0;
         }
-
-        private static void ConfigureServices(WebApplicationBuilder builder)
+        catch (Exception ex)
         {
-            var services = builder.Services;
-            var configuration = builder.Configuration;
-
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.CheckConsentNeeded = context => false;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Name = ".InstructorIQ.Authentication";
-                options.SlidingExpiration = true;
-                options.LoginPath = "/Account/Login";
-                options.LogoutPath = "/Account/Logout";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-            });
-
-            services.AddInstructorIQCore();
-            services.AddInstructorIQWebApplication();
-
-            services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<InstructorIQContext>()
-                .AddDefaultTokenProviders();
-
-            services.AddMultitenancy<TenantReadModel, TenantContextResolver>();
-
-            services.AddResponseCaching();
-
-            services.AddResponseCompression(options =>
-            {
-                options.Providers.Add<BrotliCompressionProvider>();
-                options.Providers.Add<GzipCompressionProvider>();
-                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
-                {
-                    "font/woff2",
-                    "image/svg+xml"
-                });
-                options.EnableForHttps = true;
-            });
-
-            services
-                .AddRazorPages()
-                .AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AddPageTenantRoute("/Index", false);
-                    options.Conventions.AddFolderTenantRoute("/Account", false);
-                    options.Conventions.AddFolderTenantRoute("/Attendance");
-                    options.Conventions.AddFolderTenantRoute("/Calendar");
-                    options.Conventions.AddFolderTenantRoute("/Group");
-                    options.Conventions.AddFolderTenantRoute("/Instructor");
-                    options.Conventions.AddFolderTenantRoute("/Location");
-                    options.Conventions.AddFolderTenantRoute("/Member");
-                    options.Conventions.AddFolderTenantRoute("/Report");
-                    options.Conventions.AddFolderTenantRoute("/Session");
-                    options.Conventions.AddFolderTenantRoute("/SignUp");
-                    options.Conventions.AddFolderTenantRoute("/Topic");
-                    options.Conventions.AddFolderTenantRoute("/Template");
-                    options.Conventions.AddFolderTenantRoute("/User", false);
-                })
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());
-                });
-
-            services
-                .AddFluentValidationAutoValidation()
-                .AddFluentValidationClientsideAdapters();
-
-            services.AddUrlHelper();
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(
-                    UserPolicies.UserPolicy,
-                    policy => policy.RequireRole(
-                        Core.Data.Constants.Role.GlobalAdministrator,
-                        Core.Data.Constants.Role.AdministratorName,
-                        Core.Data.Constants.Role.InstructorName,
-                        Core.Data.Constants.Role.AttendeeName,
-                        Core.Data.Constants.Role.MemberName
-                    )
-                );
-                options.AddPolicy(
-                    UserPolicies.InstructorPolicy,
-                    policy => policy.RequireRole(
-                        Core.Data.Constants.Role.GlobalAdministrator,
-                        Core.Data.Constants.Role.AdministratorName,
-                        Core.Data.Constants.Role.InstructorName
-                    )
-                );
-                options.AddPolicy(
-                    UserPolicies.AdministratorPolicy,
-                    policy => policy.RequireRole(
-                        Core.Data.Constants.Role.GlobalAdministrator,
-                        Core.Data.Constants.Role.AdministratorName
-                    )
-                );
-                options.AddPolicy(
-                    UserPolicies.GlobalAdministratorPolicy,
-                    policy => policy.RequireRole(
-                        Core.Data.Constants.Role.GlobalAdministrator
-                    )
-                );
-            });
-
+            Log.Fatal(ex, "Host terminated unexpectedly");
+            return 1;
         }
-
-        private static void ConfigureMiddleware(Microsoft.AspNetCore.Builder.WebApplication app)
+        finally
         {
-            if (app.Environment.IsDevelopment())
+            Log.CloseAndFlush();
+        }
+    }
+
+    private static void ConfigureServices(WebApplicationBuilder builder)
+    {
+        var services = builder.Services;
+        var configuration = builder.Configuration;
+
+        services.Configure<CookiePolicyOptions>(options =>
+        {
+            options.CheckConsentNeeded = context => false;
+            options.MinimumSameSitePolicy = SameSiteMode.None;
+        });
+        services.Configure<IdentityOptions>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+        });
+
+        services.ConfigureApplicationCookie(options =>
+        {
+            options.Cookie.HttpOnly = true;
+            options.Cookie.Name = ".InstructorIQ.Authentication";
+            options.SlidingExpiration = true;
+            options.LoginPath = "/Account/Login";
+            options.LogoutPath = "/Account/Logout";
+            options.AccessDeniedPath = "/Account/AccessDenied";
+        });
+
+        services.AddInstructorIQCore();
+        services.AddInstructorIQWebApplication();
+
+        services.AddIdentity<User, Role>()
+            .AddEntityFrameworkStores<InstructorIQContext>()
+            .AddDefaultTokenProviders();
+
+        services.AddMultitenancy<TenantReadModel, TenantContextResolver>();
+
+        services.AddResponseCaching();
+
+        services.AddResponseCompression(options =>
+        {
+            options.Providers.Add<BrotliCompressionProvider>();
+            options.Providers.Add<GzipCompressionProvider>();
+            options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
+                "font/woff2",
+                "image/svg+xml"
+            });
+            options.EnableForHttps = true;
+        });
+
+        services
+            .AddRazorPages()
+            .AddRazorPagesOptions(options =>
             {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+                options.Conventions.AddPageTenantRoute("/Index", false);
+                options.Conventions.AddFolderTenantRoute("/Account", false);
+                options.Conventions.AddFolderTenantRoute("/Attendance");
+                options.Conventions.AddFolderTenantRoute("/Calendar");
+                options.Conventions.AddFolderTenantRoute("/Group");
+                options.Conventions.AddFolderTenantRoute("/Instructor");
+                options.Conventions.AddFolderTenantRoute("/Location");
+                options.Conventions.AddFolderTenantRoute("/Member");
+                options.Conventions.AddFolderTenantRoute("/Report");
+                options.Conventions.AddFolderTenantRoute("/Session");
+                options.Conventions.AddFolderTenantRoute("/SignUp");
+                options.Conventions.AddFolderTenantRoute("/Topic");
+                options.Conventions.AddFolderTenantRoute("/Template");
+                options.Conventions.AddFolderTenantRoute("/User", false);
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());
+            });
 
-            var policyCollection = new HeaderPolicyCollection()
-                .AddXssProtectionBlock()
-                .AddContentTypeOptionsNoSniff()
-                .AddStrictTransportSecurityMaxAge()
-                .AddReferrerPolicyStrictOriginWhenCrossOrigin()
-                .RemoveServerHeader()
-                .AddContentSecurityPolicy(builder =>
-                {
-                    builder.AddObjectSrc().None();
-                    builder.AddFormAction().Self();
-                });
+        services
+            .AddFluentValidationAutoValidation()
+            .AddFluentValidationClientsideAdapters();
 
-            app.UseSecurityHeaders(policyCollection);
+        services.AddUrlHelper();
 
-            app.UseResponseCompression();
-
-            app.UseRewriter(new RewriteOptions()
-                .Add(new RedirectToNonWwwRule(308))
-                .AddRedirectToHttpsPermanent()
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy(
+                UserPolicies.UserPolicy,
+                policy => policy.RequireRole(
+                    Core.Data.Constants.Role.GlobalAdministrator,
+                    Core.Data.Constants.Role.AdministratorName,
+                    Core.Data.Constants.Role.InstructorName,
+                    Core.Data.Constants.Role.AttendeeName,
+                    Core.Data.Constants.Role.MemberName
+                )
             );
-            app.UseHttpsRedirection();
+            options.AddPolicy(
+                UserPolicies.InstructorPolicy,
+                policy => policy.RequireRole(
+                    Core.Data.Constants.Role.GlobalAdministrator,
+                    Core.Data.Constants.Role.AdministratorName,
+                    Core.Data.Constants.Role.InstructorName
+                )
+            );
+            options.AddPolicy(
+                UserPolicies.AdministratorPolicy,
+                policy => policy.RequireRole(
+                    Core.Data.Constants.Role.GlobalAdministrator,
+                    Core.Data.Constants.Role.AdministratorName
+                )
+            );
+            options.AddPolicy(
+                UserPolicies.GlobalAdministratorPolicy,
+                policy => policy.RequireRole(
+                    Core.Data.Constants.Role.GlobalAdministrator
+                )
+            );
+        });
 
-            app.UseStaticFiles(new StaticFileOptions
+    }
+
+    private static void ConfigureMiddleware(Microsoft.AspNetCore.Builder.WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
+
+        var policyCollection = new HeaderPolicyCollection()
+            .AddXssProtectionBlock()
+            .AddContentTypeOptionsNoSniff()
+            .AddStrictTransportSecurityMaxAge()
+            .AddReferrerPolicyStrictOriginWhenCrossOrigin()
+            .RemoveServerHeader()
+            .AddContentSecurityPolicy(builder =>
             {
-                ContentTypeProvider = new FileExtensionContentTypeProvider
-                {
-                    Mappings =
-                    {
-                        [".webmanifest"] = "application/manifest+json"
-                    }
-                },
-                OnPrepareResponse = context =>
-                {
-                    var headers = context.Context.Response.GetTypedHeaders();
-                    headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue
-                    {
-                        Public = true,
-                        MaxAge = TimeSpan.FromDays(365)
-                    };
-                }
+                builder.AddObjectSrc().None();
+                builder.AddFormAction().Self();
             });
 
-            app.UseCookiePolicy();
+        app.UseSecurityHeaders(policyCollection);
 
-            app.UseRouting();
+        app.UseResponseCompression();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+        app.UseRewriter(new RewriteOptions()
+            .Add(new RedirectToNonWwwRule(308))
+            .AddRedirectToHttpsPermanent()
+        );
+        app.UseHttpsRedirection();
 
-            app.UseResponseCaching();
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            ContentTypeProvider = new FileExtensionContentTypeProvider
+            {
+                Mappings =
+                {
+                    [".webmanifest"] = "application/manifest+json"
+                }
+            },
+            OnPrepareResponse = context =>
+            {
+                var headers = context.Context.Response.GetTypedHeaders();
+                headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue
+                {
+                    Public = true,
+                    MaxAge = TimeSpan.FromDays(365)
+                };
+            }
+        });
 
-            app.UseMultitenancy<TenantReadModel>();
+        app.UseCookiePolicy();
 
-            app.MapRazorPages();
-            app.MapControllers();
-        }
+        app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseResponseCaching();
+
+        app.UseMultitenancy<TenantReadModel>();
+
+        app.MapRazorPages();
+        app.MapControllers();
     }
 }

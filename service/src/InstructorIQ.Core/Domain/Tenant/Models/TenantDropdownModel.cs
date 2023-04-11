@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // ReSharper disable once CheckNamespace
-namespace InstructorIQ.Core.Domain.Models
+namespace InstructorIQ.Core.Domain.Models;
+
+public class TenantDropdownModel : SelectListItem
 {
-    public class TenantDropdownModel : SelectListItem
-    {
-    }
 }

@@ -15,39 +15,38 @@ using Microsoft.Extensions.Options;
 
 using SendGrid.Extensions.DependencyInjection;
 
-namespace InstructorIQ.Core.Services
+namespace InstructorIQ.Core.Services;
+
+public class RegisterServiceModule
 {
-    public class RegisterServiceModule
+
+    [RegisterServices]
+    public void Register(IServiceCollection services)
     {
+        services.TryAddTransient<IEmailTemplateService, EmailTemplateService>();
+        services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();
+        services.TryAddTransient<IImportProcessService, ImportProcessService>();
 
-        [RegisterServices]
-        public void Register(IServiceCollection services)
+        services.TryAddSingleton<IStorageService, StorageService>();
+        services.TryAddSingleton<IEntityComparer, EntityComparer>();
+        services.TryAddSingleton<IHtmlService, HtmlService>();
+        services.TryAddSingleton<IStateService, CookieStateService>();
+        services.TryAddSingleton<ICleanupService, CleanupService>();
+
+        services.TryAddSingleton<TableServiceClient>(sp =>
         {
-            services.TryAddTransient<IEmailTemplateService, EmailTemplateService>();
-            services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();
-            services.TryAddTransient<IImportProcessService, ImportProcessService>();
+            var configuration = sp.GetRequiredService<IConfiguration>();
+            var connectionString = configuration.GetConnectionString("StorageAccount");
+            return new TableServiceClient(connectionString);
+        });
 
-            services.TryAddSingleton<IStorageService, StorageService>();
-            services.TryAddSingleton<IEntityComparer, EntityComparer>();
-            services.TryAddSingleton<IHtmlService, HtmlService>();
-            services.TryAddSingleton<IStateService, CookieStateService>();
-            services.TryAddSingleton<ICleanupService, CleanupService>();
+        services.AddMemoryCache();
 
-            services.TryAddSingleton<TableServiceClient>(sp =>
-            {
-                var configuration = sp.GetRequiredService<IConfiguration>();
-                var connectionString = configuration.GetConnectionString("StorageAccount");
-                return new TableServiceClient(connectionString);
-            });
+        services.AddSendGrid((serviceProvider, options) =>
+        {
+            var configuration = serviceProvider.GetRequiredService<IOptions<SendGridConfiguration>>();
+            options.ApiKey = configuration.Value.ApiKey;
+        });
 
-            services.AddMemoryCache();
-
-            services.AddSendGrid((serviceProvider, options) =>
-            {
-                var configuration = serviceProvider.GetRequiredService<IOptions<SendGridConfiguration>>();
-                options.ApiKey = configuration.Value.ApiKey;
-            });
-
-        }
     }
 }

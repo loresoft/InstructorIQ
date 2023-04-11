@@ -1,17 +1,17 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace InstructorIQ.WebApplication.Pages.Account
-{
-    public class PasswordlessConfirmationModel : PageModel
-    {
-        public void OnGet()
-        {
+namespace InstructorIQ.WebApplication.Pages.Account;
 
-        }
+public class PasswordlessConfirmationModel : PageModel
+{
+    public void OnGet()
+    {
+
     }
 }
