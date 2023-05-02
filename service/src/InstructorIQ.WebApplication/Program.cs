@@ -173,6 +173,10 @@ public static class Program
                 options.Conventions.AddFolderTenantRoute("/Template");
                 options.Conventions.AddFolderTenantRoute("/User", false);
             })
+            .AddMvcOptions(options =>
+            {
+                options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+            })
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new TimeSpanConverter());

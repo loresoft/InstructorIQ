@@ -27,8 +27,10 @@ public class RegisterServiceModule
         services.TryAddTransient<ITenantResolver<Guid>, TenantResolver>();
         services.TryAddTransient<IImportProcessService, ImportProcessService>();
 
-        services.TryAddSingleton<IStorageService, StorageService>();
+        services.TryAddSingleton<IEntityConfiguration>(sp => new EntityConfiguration(sp.GetServices<IEntityProfile>()));
         services.TryAddSingleton<IEntityComparer, EntityComparer>();
+
+        services.TryAddSingleton<IStorageService, StorageService>();
         services.TryAddSingleton<IHtmlService, HtmlService>();
         services.TryAddSingleton<IStateService, CookieStateService>();
         services.TryAddSingleton<ICleanupService, CleanupService>();

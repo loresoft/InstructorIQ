@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 4.5rem;
 }
 
@@ -371,4 +371,25 @@ fieldset.standard {
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     hyphens: auto;
+}
+
+.json-object {
+  border: 1px solid #dee2e6;
+  border-collapse: collapse;
+  width: 100%;
+  color: #212529;
+}
+
+.json-name,
+.json-value {
+  border-width: 1px;
+  padding: .25rem .25rem;
+}
+
+.json-name {
+  background-color: rgb(249, 249, 249);
+}
+
+.json-value {
+  background-color: #fff
 }
