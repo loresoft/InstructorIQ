@@ -1,7 +1,5 @@
 using FluentCommand;
 
-using Injectio.Attributes;
-
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,12 +14,12 @@ public class DataServiceModule
     [RegisterServices]
     public void Register(IServiceCollection services)
     {
-        services.AddDbContextPool<InstructorIQContext>((provider, options) =>
+        services.AddDbContext<InstructorIQContext>((provider, options) =>
         {
             var configuration = provider.GetRequiredService<IConfiguration>();
             var connectionString = configuration.GetConnectionString("InstructorIQ");
             options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
-        });
+        }, ServiceLifetime.Transient);
 
         services.TryAddSingleton<IDataConfiguration>(provider =>
         {

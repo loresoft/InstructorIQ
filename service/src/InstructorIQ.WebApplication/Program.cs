@@ -26,7 +26,6 @@ using Microsoft.Extensions.Hosting;
 
 using Serilog;
 using Serilog.Events;
-using Serilog.Formatting.Compact;
 
 namespace InstructorIQ.WebApplication;
 
@@ -52,14 +51,6 @@ public static class Program
                 flushToDiskInterval: TimeSpan.FromSeconds(1),
                 outputTemplate: OutputTemplate,
                 retainedFileCountLimit: 10
-            )
-            .WriteTo.File(
-                formatter: new CompactJsonFormatter(),
-                path: $"{logDirectory}/boot.clef",
-                rollingInterval: RollingInterval.Day,
-                shared: true,
-                flushToDiskInterval: TimeSpan.FromSeconds(1),
-                retainedFileCountLimit: 30
             )
             .CreateBootstrapLogger();
 
@@ -108,7 +99,7 @@ public static class Program
         }
         finally
         {
-            Log.CloseAndFlush();
+            await Log.CloseAndFlushAsync();
         }
     }
 
@@ -181,6 +172,10 @@ public static class Program
                 options.Conventions.AddFolderTenantRoute("/Topic");
                 options.Conventions.AddFolderTenantRoute("/Template");
                 options.Conventions.AddFolderTenantRoute("/User", false);
+            })
+            .AddMvcOptions(options =>
+            {
+                options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
             })
             .AddJsonOptions(options =>
             {

@@ -5,7 +5,7 @@ using InstructorIQ.Core.Domain.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Mapping;
 
-
+[RegisterSingleton(Duplicate = DuplicateStrategy.Append)]
 public class SessionInstructorModelProfile : EntityProfile<SessionInstructorModel>
 {
     public override void Configure()
