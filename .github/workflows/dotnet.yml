@@ -31,7 +31,7 @@ jobs:
           dotnet-version: 7.0.x
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v1.3
 
       - name: Restore Dependencies
         run: dotnet restore ./service/InstructorIQ.sln
