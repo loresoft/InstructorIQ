@@ -103,7 +103,7 @@ jobs:
 
       - name: Deploy SQL Server Database to Azure Staging
         if: github.ref == 'refs/heads/develop'
-        uses: azure/sql-action@v2.1
+        uses: azure/sql-action@v2.2
         with:
           connection-string: ${{secrets.AZURE_SQL_CONNECTION_STAGING}}
           path: './InstructorIQ.dacpac'
@@ -111,7 +111,7 @@ jobs:
 
       - name: Deploy SQL Server Database to Azure Production
         if: github.ref == 'refs/heads/master'
-        uses: azure/sql-action@v2.1
+        uses: azure/sql-action@v2.2
         with:
           connection-string: ${{secrets.AZURE_SQL_CONNECTION_PRODUCTION}}
           path: './InstructorIQ.dacpac'
