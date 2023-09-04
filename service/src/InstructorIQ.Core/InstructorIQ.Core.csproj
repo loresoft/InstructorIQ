@@ -27,7 +27,7 @@
     <PackageReference Include="EntityChange" Version="5.1.0" />
     <PackageReference Include="FluentCommand.SqlServer" Version="10.2.0" />
     <PackageReference Include="Handlebars.Net" Version="2.1.4" />
-    <PackageReference Include="MailKit" Version="4.1.0" />
+    <PackageReference Include="MailKit" Version="4.2.0" />
     <PackageReference Include="MediatR.CommandQuery.Audit" Version="12.1.0" />
     <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="12.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
