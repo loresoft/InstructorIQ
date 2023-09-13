@@ -30,7 +30,7 @@
     <PackageReference Include="MailKit" Version="4.1.0" />
     <PackageReference Include="MediatR.CommandQuery.Audit" Version="12.1.0" />
     <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="12.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
     <PackageReference Include="NaturalSort.Extension" Version="4.0.0" />
