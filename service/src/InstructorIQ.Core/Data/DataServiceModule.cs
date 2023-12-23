@@ -14,12 +14,16 @@ public class DataServiceModule
     [RegisterServices]
     public void Register(IServiceCollection services)
     {
-        services.AddDbContext<InstructorIQContext>((provider, options) =>
-        {
-            var configuration = provider.GetRequiredService<IConfiguration>();
-            var connectionString = configuration.GetConnectionString("InstructorIQ");
-            options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
-        }, ServiceLifetime.Transient);
+        services.AddDbContext<InstructorIQContext>(
+            optionsAction: (provider, options) =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("InstructorIQ");
+                options.UseSqlServer(connectionString, providerOptions => providerOptions.EnableRetryOnFailure());
+            },
+            contextLifetime: ServiceLifetime.Transient,
+            optionsLifetime: ServiceLifetime.Transient
+        );
 
         services.TryAddSingleton<IDataConfiguration>(provider =>
         {

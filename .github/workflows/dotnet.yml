@@ -1,9 +1,11 @@
 name: Build Project
 
 env:
-  BUILD_PATH: '${{github.workspace}}/publish'
-  BUILD_VERSION: '1.8.${{github.run_number}}'
-  BUILD_INFORMATION: '1.8.${{github.run_number}}+Branch.${{github.ref_name}}.Sha.${{github.sha}}'
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_ENVIRONMENT: github
+  ASPNETCORE_ENVIRONMENT: github
+  BUILD_PATH: '${{github.workspace}}/artifacts'
 
 on:
   push:
@@ -21,14 +23,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup .NET 7.0
+      - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
@@ -37,7 +39,7 @@ jobs:
         run: dotnet restore ./service/InstructorIQ.sln
 
       - name: Build Solution
-        run: 'dotnet build ./service/InstructorIQ.sln --no-restore --configuration Release -p:Version="${{env.BUILD_VERSION}}" -p:InformationalVersion="${{env.BUILD_INFORMATION}}"'
+        run: 'dotnet build ./service/InstructorIQ.sln --no-restore --configuration Release'
 
       - name: Publish Web Application
         if: success()

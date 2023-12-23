@@ -13,6 +13,7 @@ using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Services;
 
+[Collection("DependencyInjectionCollection")]
 public class EmailTemplateServiceTests : DependencyInjectionBase
 {
     public EmailTemplateServiceTests(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection)

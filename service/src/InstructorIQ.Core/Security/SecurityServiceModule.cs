@@ -13,7 +13,7 @@ public class SecurityServiceModule
     [RegisterServices]
     public void Register(IServiceCollection services)
     {
-        services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory>();
-        services.AddScoped<UserClaimManager>();
+        services.AddTransient<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory>();
+        services.AddTransient<UserClaimManager>();
     }
 }

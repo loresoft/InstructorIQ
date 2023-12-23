@@ -15,17 +15,17 @@ public static class ServiceCollectionExtensions
         if (services == null)
             throw new ArgumentNullException(nameof(services));
 
-        services.AddScoped<ITenantContextResolver<TTenant>, TResolver>();
+        services.AddTransient<ITenantContextResolver<TTenant>, TResolver>();
 
         // No longer registered by default
         services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         // Make Tenant and TenantContext injectable
-        services.AddScoped(prov => prov.GetService<IHttpContextAccessor>()?.HttpContext?.GetTenantContext<TTenant>());
-        services.AddScoped(prov => prov.GetService<TenantContext<TTenant>>()?.Tenant);
+        services.AddTransient(prov => prov.GetService<IHttpContextAccessor>()?.HttpContext?.GetTenantContext<TTenant>());
+        services.AddTransient(prov => prov.GetService<TenantContext<TTenant>>()?.Tenant);
 
         // Make ITenant injectable for handling null injection, similar to IOptions
-        services.AddScoped<ITenant<TTenant>>(prov => new TenantValue<TTenant>(prov.GetService<TTenant>()));
+        services.AddTransient<ITenant<TTenant>>(prov => new TenantValue<TTenant>(prov.GetService<TTenant>()));
 
         return services;
     }
