@@ -18,16 +18,13 @@ public partial class SignUpProfile
     /// </summary>
     public SignUpProfile()
     {
-        CreateMap<SignUp, SignUpReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<SignUp, SignUpReadModel>();
 
         CreateMap<SignUpCreateModel, SignUp>();
 
-        CreateMap<SignUp, SignUpUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<SignUp, SignUpUpdateModel>();
 
-        CreateMap<SignUpUpdateModel, SignUp>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<SignUpUpdateModel, SignUp>();
 
         CreateMap<SignUpReadModel, SignUpUpdateModel>();
 

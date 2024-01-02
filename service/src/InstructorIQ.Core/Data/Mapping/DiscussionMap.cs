@@ -121,23 +121,22 @@ public partial class DiscussionMap
 
         builder.Property(t => t.RowVersion)
             .IsRequired()
+            .HasConversion<byte[]>()
             .IsRowVersion()
+            .IsConcurrencyToken()
             .HasColumnName("RowVersion")
             .HasColumnType("rowversion")
-            .HasMaxLength(8)
             .ValueGeneratedOnAddOrUpdate();
 
         builder.Property(t => t.PeriodStart)
-            .IsRequired()
             .HasColumnName("PeriodStart")
             .HasColumnType("datetime2")
-            .HasDefaultValueSql("(sysutcdatetime())");
+            .ValueGeneratedOnAddOrUpdate();
 
         builder.Property(t => t.PeriodEnd)
-            .IsRequired()
             .HasColumnName("PeriodEnd")
             .HasColumnType("datetime2")
-            .HasDefaultValueSql("('9999-12-31 23:59:59.9999999')");
+            .ValueGeneratedOnAddOrUpdate();
 
         // relationships
         builder.HasOne(t => t.Tenant)
@@ -160,7 +159,7 @@ public partial class DiscussionMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Discussion" /></summary>
         public const string Schema = "IQ";
@@ -168,7 +167,7 @@ public partial class DiscussionMap
         public const string Name = "Discussion";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Discussion.Id" /></summary>
         public const string Id = "Id";

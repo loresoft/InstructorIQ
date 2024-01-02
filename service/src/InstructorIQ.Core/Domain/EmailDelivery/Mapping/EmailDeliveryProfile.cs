@@ -19,8 +19,7 @@ public class EmailDeliveryProfile
     /// </summary>
     public EmailDeliveryProfile()
     {
-        CreateMap<EmailDelivery, EmailDeliveryReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<EmailDelivery, EmailDeliveryReadModel>();
     }
 
 }

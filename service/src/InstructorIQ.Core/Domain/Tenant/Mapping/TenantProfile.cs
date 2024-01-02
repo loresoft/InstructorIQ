@@ -21,14 +21,11 @@ public class TenantProfile
     {
         CreateMap<TenantCreateModel, Tenant>();
 
-        CreateMap<TenantUpdateModel, Tenant>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<TenantUpdateModel, Tenant>();
 
-        CreateMap<Tenant, TenantReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Tenant, TenantReadModel>();
 
-        CreateMap<Tenant, TenantUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Tenant, TenantUpdateModel>();
 
         CreateMap<Tenant, TenantDropdownModel>()
             .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))

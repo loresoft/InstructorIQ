@@ -166,7 +166,7 @@ public class Topic : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveT
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'PeriodStart'.
@@ -191,7 +191,7 @@ public class Topic : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveT
     /// Gets or sets the navigation collection for entity <see cref="Discussion" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Discussion" />.
+    /// The navigation collection for entity <see cref="Discussion" />.
     /// </value>
     public virtual ICollection<Discussion> Discussions { get; set; }
 
@@ -199,7 +199,7 @@ public class Topic : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveT
     /// Gets or sets the navigation collection for entity <see cref="Session" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Session" />.
+    /// The navigation collection for entity <see cref="Session" />.
     /// </value>
     public virtual ICollection<Session> Sessions { get; set; }
 
@@ -207,7 +207,7 @@ public class Topic : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveT
     /// Gets or sets the navigation collection for entity <see cref="SignUpTopic" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="SignUpTopic" />.
+    /// The navigation collection for entity <see cref="SignUpTopic" />.
     /// </value>
     public virtual ICollection<SignUpTopic> SignUpTopics { get; set; }
 
@@ -215,7 +215,7 @@ public class Topic : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveT
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }
@@ -224,7 +224,7 @@ public class Topic : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHaveT
     /// Gets or sets the navigation collection for entity <see cref="TopicInstructor" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="TopicInstructor" />.
+    /// The navigation collection for entity <see cref="TopicInstructor" />.
     /// </value>
     public virtual ICollection<TopicInstructor> TopicInstructors { get; set; }
 

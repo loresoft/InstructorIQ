@@ -80,7 +80,8 @@ public partial class AuthenticationEventMap
         builder.Property(t => t.IsSuccessful)
             .IsRequired()
             .HasColumnName("IsSuccessful")
-            .HasColumnType("bit");
+            .HasColumnType("bit")
+            .HasDefaultValue(false);
 
         builder.Property(t => t.FailureMessage)
             .HasColumnName("FailureMessage")
@@ -111,10 +112,11 @@ public partial class AuthenticationEventMap
 
         builder.Property(t => t.RowVersion)
             .IsRequired()
+            .HasConversion<byte[]>()
             .IsRowVersion()
+            .IsConcurrencyToken()
             .HasColumnName("RowVersion")
             .HasColumnType("rowversion")
-            .HasMaxLength(8)
             .ValueGeneratedOnAddOrUpdate();
 
         // relationships
@@ -122,7 +124,7 @@ public partial class AuthenticationEventMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent" /></summary>
         public const string Schema = "IQ";
@@ -130,7 +132,7 @@ public partial class AuthenticationEventMap
         public const string Name = "AuthenticationEvent";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.AuthenticationEvent.Id" /></summary>
         public const string Id = "Id";

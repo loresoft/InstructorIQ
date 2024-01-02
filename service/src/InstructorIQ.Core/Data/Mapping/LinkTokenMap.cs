@@ -76,7 +76,7 @@ public partial class LinkTokenMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.LinkToken" /></summary>
         public const string Schema = "IQ";
@@ -84,7 +84,7 @@ public partial class LinkTokenMap
         public const string Name = "LinkToken";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.LinkToken.Id" /></summary>
         public const string Id = "Id";

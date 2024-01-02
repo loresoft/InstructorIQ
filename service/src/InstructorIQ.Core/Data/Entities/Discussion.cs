@@ -170,7 +170,7 @@ public partial class Discussion : IHaveIdentifier<Guid>, ITrackCreated, ITrackUp
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'PeriodStart'.
@@ -195,7 +195,7 @@ public partial class Discussion : IHaveIdentifier<Guid>, ITrackCreated, ITrackUp
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }
@@ -204,7 +204,7 @@ public partial class Discussion : IHaveIdentifier<Guid>, ITrackCreated, ITrackUp
     /// Gets or sets the navigation property for entity <see cref="Topic" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Topic" />.
+    /// The navigation property for entity <see cref="Topic" />.
     /// </value>
     /// <seealso cref="TopicId" />
     public virtual Topic Topic { get; set; }

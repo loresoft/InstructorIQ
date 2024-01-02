@@ -22,16 +22,13 @@ public class DiscussionProfile
     {
         CreateMap<DiscussionCreateModel, Discussion>();
 
-        CreateMap<DiscussionUpdateModel, Discussion>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<DiscussionUpdateModel, Discussion>();
 
         CreateMap<Discussion, DiscussionReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
             .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name));
 
-        CreateMap<Discussion, DiscussionUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Discussion, DiscussionUpdateModel>();
 
         CreateMap<UserAgentModel, DiscussionCreateModel>();
     }

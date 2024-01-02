@@ -16,7 +16,7 @@ public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<Sessi
     {
         TenantId = tenantId;
 
-        StartDate = new DateTime(year, 1, 1);
+        StartDate = new DateOnly(year, 1, 1);
         EndDate = StartDate.AddYears(1);
     }
 
@@ -25,11 +25,11 @@ public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<Sessi
     {
         TenantId = tenantId;
 
-        StartDate = new DateTime(year, month, 1);
+        StartDate = new DateOnly(year, month, 1);
         EndDate = StartDate.AddMonths(1);
     }
 
-    public SessionCalendarQuery(IPrincipal principal, Guid tenantId, DateTime startDate, DateTime endDate)
+    public SessionCalendarQuery(IPrincipal principal, Guid tenantId, DateOnly startDate, DateOnly endDate)
         : base(principal)
     {
         TenantId = tenantId;
@@ -41,7 +41,7 @@ public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<Sessi
 
     public Guid TenantId { get; set; }
 
-    public DateTime StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
 
-    public DateTime EndDate { get; set; }
+    public DateOnly EndDate { get; set; }
 }

@@ -22,7 +22,7 @@ public class AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<Att
     {
         TenantId = tenantId;
 
-        StartDate = new DateTime(year, 1, 1);
+        StartDate = new DateOnly(year, 1, 1);
         EndDate = StartDate.Value.AddYears(1);
     }
 
@@ -31,7 +31,7 @@ public class AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<Att
     {
         TenantId = tenantId;
 
-        StartDate = new DateTime(year, month, 1);
+        StartDate = new DateOnly(year, month, 1);
         EndDate = StartDate.Value.AddMonths(1);
     }
 
@@ -44,9 +44,9 @@ public class AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<Att
 
     public Guid TenantId { get; }
 
-    public DateTime? StartDate { get; set; }
+    public DateOnly? StartDate { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 
     public Guid? TopicId { get; set; }
 

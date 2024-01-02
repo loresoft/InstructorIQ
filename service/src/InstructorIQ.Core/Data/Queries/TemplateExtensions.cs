@@ -19,8 +19,11 @@ public static partial class TemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Template"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.Template GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.Template GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Template> dbSet)
             return dbSet.Find(id);
 
@@ -32,14 +35,17 @@ public static partial class TemplateExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Template"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.Template> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.Template> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Template> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.Template>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Template> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -48,8 +54,11 @@ public static partial class TemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="name">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Template> ByName(this IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, string name)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> ByName(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, string name)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.Name == name);
     }
 
@@ -59,8 +68,11 @@ public static partial class TemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="templateType">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Template> ByTemplateType(this IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, string templateType)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> ByTemplateType(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, string templateType)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TemplateType == templateType);
     }
 
@@ -70,8 +82,11 @@ public static partial class TemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="tenantId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Template> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, Guid tenantId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> ByTenantId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Template> queryable, Guid tenantId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TenantId == tenantId);
     }
 

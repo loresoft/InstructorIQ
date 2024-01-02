@@ -19,8 +19,11 @@ public static partial class TenantExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Tenant"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.Tenant GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.Tenant GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Tenant> dbSet)
             return dbSet.Find(id);
 
@@ -32,14 +35,17 @@ public static partial class TenantExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Tenant"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.Tenant> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.Tenant> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Tenant> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.Tenant>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Tenant> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -48,8 +54,11 @@ public static partial class TenantExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="isDeleted">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Tenant> ByIsDeleted(this IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, bool isDeleted)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> ByIsDeleted(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, bool isDeleted)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.IsDeleted == isDeleted);
     }
 
@@ -59,8 +68,11 @@ public static partial class TenantExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="name">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Tenant> ByName(this IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, string name)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> ByName(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, string name)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.Name == name);
     }
 
@@ -70,8 +82,11 @@ public static partial class TenantExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="slug">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Tenant"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.Tenant GetBySlug(this IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, string slug)
+    public static InstructorIQ.Core.Data.Entities.Tenant GetBySlug(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, string slug)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.FirstOrDefault(q => q.Slug == slug);
     }
 
@@ -80,10 +95,14 @@ public static partial class TenantExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="slug">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Tenant"/> or null if not found.</returns>
-    public static Task<InstructorIQ.Core.Data.Entities.Tenant> GetBySlugAsync(this IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, string slug)
+    public static async System.Threading.Tasks.Task<InstructorIQ.Core.Data.Entities.Tenant> GetBySlugAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Tenant> queryable, string slug, System.Threading.CancellationToken cancellationToken = default)
     {
-        return queryable.FirstOrDefaultAsync(q => q.Slug == slug);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
+        return await queryable.FirstOrDefaultAsync(q => q.Slug == slug, cancellationToken);
     }
 
     #endregion

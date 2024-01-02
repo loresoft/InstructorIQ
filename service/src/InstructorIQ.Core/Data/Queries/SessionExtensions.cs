@@ -19,8 +19,11 @@ public static partial class SessionExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="groupId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByGroupId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? groupId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> ByGroupId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? groupId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => (q.GroupId == groupId || (groupId == null && q.GroupId == null)));
     }
 
@@ -30,8 +33,11 @@ public static partial class SessionExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Session"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.Session GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.Session GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Session> dbSet)
             return dbSet.Find(id);
 
@@ -43,14 +49,17 @@ public static partial class SessionExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.Session"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.Session> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.Session> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Session> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.Session>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.Session> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -59,8 +68,11 @@ public static partial class SessionExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="locationId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByLocationId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? locationId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> ByLocationId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid? locationId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => (q.LocationId == locationId || (locationId == null && q.LocationId == null)));
     }
 
@@ -70,8 +82,11 @@ public static partial class SessionExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="startDate">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByStartDate(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, DateTime? startDate)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> ByStartDate(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, DateOnly? startDate)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => (q.StartDate == startDate || (startDate == null && q.StartDate == null)));
     }
 
@@ -81,8 +96,11 @@ public static partial class SessionExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="tenantId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid tenantId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> ByTenantId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid tenantId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TenantId == tenantId);
     }
 
@@ -92,8 +110,11 @@ public static partial class SessionExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="topicId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.Session> ByTopicId(this IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid topicId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> ByTopicId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.Session> queryable, Guid topicId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TopicId == topicId);
     }
 

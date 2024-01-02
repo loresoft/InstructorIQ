@@ -194,7 +194,7 @@ public partial class HistoryRecord : IHaveIdentifier<Guid>, ITrackCreated, ITrac
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     #endregion
 

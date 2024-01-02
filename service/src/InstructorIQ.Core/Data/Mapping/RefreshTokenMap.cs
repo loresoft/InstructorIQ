@@ -67,7 +67,7 @@ public partial class RefreshTokenMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.RefreshToken" /></summary>
         public const string Schema = "IQ";
@@ -75,7 +75,7 @@ public partial class RefreshTokenMap
         public const string Name = "RefreshToken";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.RefreshToken.Id" /></summary>
         public const string Id = "Id";

@@ -22,11 +22,9 @@ public class SessionProfile
     {
         CreateMap<SessionCreateModel, Session>();
 
-        CreateMap<SessionUpdateModel, Session>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<SessionUpdateModel, Session>();
 
         CreateMap<Session, SessionReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
             .ForMember(d => d.TopicSummary, opt => opt.MapFrom(s => s.Topic.Summary))
             .ForMember(d => d.IsRequired, opt => opt.MapFrom(s => s.Topic.IsRequired))
@@ -55,12 +53,10 @@ public class SessionProfile
                 Email = i.Instructor.Email
             })));
 
-        CreateMap<Session, SessionUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Session, SessionUpdateModel>();
 
 
         CreateMap<SessionInstructor, SessionInstructorModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.DisplayName, opt => opt.MapFrom(s => s.Instructor.DisplayName))
             .ForMember(d => d.SortName, opt => opt.MapFrom(s => s.Instructor.SortName))
             .ForMember(d => d.GivenName, opt => opt.MapFrom(s => s.Instructor.GivenName))

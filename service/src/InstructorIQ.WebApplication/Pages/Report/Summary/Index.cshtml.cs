@@ -16,7 +16,7 @@ public class IndexModel : SummaryModel
     public IndexModel(ITenant<TenantReadModel> tenant, IMediator mediator, ILoggerFactory loggerFactory)
         : base(tenant, mediator, loggerFactory)
     {
-        Date = DateTime.Now;
+        Date = DateOnly.FromDateTime(DateTime.Now);
     }
 
     public virtual async Task<IActionResult> OnGetAsync()

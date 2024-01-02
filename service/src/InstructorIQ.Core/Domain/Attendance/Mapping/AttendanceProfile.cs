@@ -21,11 +21,9 @@ public class AttendanceProfile
     {
         CreateMap<AttendanceCreateModel, Attendance>();
 
-        CreateMap<AttendanceUpdateModel, Attendance>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<AttendanceUpdateModel, Attendance>();
 
         CreateMap<Attendance, AttendanceReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TopicId, opt => opt.MapFrom(s => s.Session.TopicId))
             .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Session.Topic.Title))
             .ForMember(d => d.IsRequired, opt => opt.MapFrom(s => s.Session.Topic.IsRequired))
@@ -33,7 +31,6 @@ public class AttendanceProfile
             .ForMember(d => d.LocationName, opt => opt.MapFrom(s => s.Session.Location.Name));
 
         CreateMap<Attendance, AttendanceSessionModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TopicId, opt => opt.MapFrom(s => s.Session.TopicId))
             .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Session.Topic.Title))
             .ForMember(d => d.IsRequired, opt => opt.MapFrom(s => s.Session.Topic.IsRequired))
@@ -46,8 +43,7 @@ public class AttendanceProfile
             .ForMember(d => d.EndDate, opt => opt.MapFrom(s => s.Session.EndDate))
             .ForMember(d => d.EndTime, opt => opt.MapFrom(s => s.Session.EndTime));
 
-        CreateMap<Attendance, AttendanceUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Attendance, AttendanceUpdateModel>();
     }
 
 }

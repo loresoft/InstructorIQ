@@ -19,8 +19,11 @@ public static partial class HistoryRecordExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.HistoryRecord"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.HistoryRecord GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.HistoryRecord GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.HistoryRecord> dbSet)
             return dbSet.Find(id);
 
@@ -32,14 +35,17 @@ public static partial class HistoryRecordExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.HistoryRecord"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.HistoryRecord> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.HistoryRecord> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.HistoryRecord> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.HistoryRecord>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.HistoryRecord> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -49,8 +55,11 @@ public static partial class HistoryRecordExtensions
     /// <param name="key">The value to filter by.</param>
     /// <param name="entity">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> ByKeyEntity(this IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> queryable, Guid key, string entity)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> ByKeyEntity(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.HistoryRecord> queryable, Guid key, string entity)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.Key == key
             && q.Entity == entity);
     }

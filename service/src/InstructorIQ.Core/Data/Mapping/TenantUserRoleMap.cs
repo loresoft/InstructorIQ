@@ -66,7 +66,7 @@ public partial class TenantUserRoleMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole" /></summary>
         public const string Schema = "IQ";
@@ -74,7 +74,7 @@ public partial class TenantUserRoleMap
         public const string Name = "TenantUserRole";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.TenantUserRole.Id" /></summary>
         public const string Id = "Id";
