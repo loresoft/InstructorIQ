@@ -80,10 +80,11 @@ public partial class NotificationMap
 
         builder.Property(t => t.RowVersion)
             .IsRequired()
+            .HasConversion<byte[]>()
             .IsRowVersion()
+            .IsConcurrencyToken()
             .HasColumnName("RowVersion")
             .HasColumnType("rowversion")
-            .HasMaxLength(8)
             .ValueGeneratedOnAddOrUpdate();
 
         // relationships
@@ -96,7 +97,7 @@ public partial class NotificationMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Notification" /></summary>
         public const string Schema = "IQ";
@@ -104,7 +105,7 @@ public partial class NotificationMap
         public const string Name = "Notification";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Notification.Id" /></summary>
         public const string Id = "Id";

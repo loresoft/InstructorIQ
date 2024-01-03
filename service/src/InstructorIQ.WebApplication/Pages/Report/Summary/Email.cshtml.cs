@@ -34,7 +34,7 @@ public class EmailModel : SummaryModel
         : base(tenant, mediator, loggerFactory)
     {
         _userClaimManager = userClaimManager;
-        Date = DateTime.Now;
+        Date = DateOnly.FromDateTime(DateTime.Now);
     }
 
     [BindProperty]

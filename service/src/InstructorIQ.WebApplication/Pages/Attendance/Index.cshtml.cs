@@ -63,7 +63,7 @@ public class IndexModel : MediatorModelBase
 
         ConfigureNext(formatInfo, startDate);
 
-        var command = new SessionCalendarQuery(User, Tenant.Value.Id, startDate, endDate);
+        var command = new SessionCalendarQuery(User, Tenant.Value.Id, DateOnly.FromDateTime(startDate), DateOnly.FromDateTime(endDate));
         var result = await Mediator.Send(command);
 
         Items = result

@@ -34,12 +34,14 @@ public class EmailDeliveryMap
         builder.Property(t => t.IsProcessing)
             .IsRequired()
             .HasColumnName("IsProcessing")
-            .HasColumnType("bit");
+            .HasColumnType("bit")
+            .HasDefaultValue(false);
 
         builder.Property(t => t.IsDelivered)
             .IsRequired()
             .HasColumnName("IsDelivered")
-            .HasColumnType("bit");
+            .HasColumnType("bit")
+            .HasDefaultValue(false);
 
         builder.Property(t => t.Delivered)
             .HasColumnName("Delivered")
@@ -48,7 +50,8 @@ public class EmailDeliveryMap
         builder.Property(t => t.Attempts)
             .IsRequired()
             .HasColumnName("Attempts")
-            .HasColumnType("int");
+            .HasColumnType("int")
+            .HasDefaultValue(0);
 
         builder.Property(t => t.LastAttempt)
             .HasColumnName("LastAttempt")
@@ -113,10 +116,11 @@ public class EmailDeliveryMap
 
         builder.Property(t => t.RowVersion)
             .IsRequired()
+            .HasConversion<byte[]>()
             .IsRowVersion()
+            .IsConcurrencyToken()
             .HasColumnName("RowVersion")
             .HasColumnType("rowversion")
-            .HasMaxLength(8)
             .ValueGeneratedOnAddOrUpdate();
 
         // relationships
@@ -129,7 +133,7 @@ public class EmailDeliveryMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery" /></summary>
         public const string Schema = "IQ";
@@ -137,7 +141,7 @@ public class EmailDeliveryMap
         public const string Name = "EmailDelivery";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.EmailDelivery.Id" /></summary>
         public const string Id = "Id";

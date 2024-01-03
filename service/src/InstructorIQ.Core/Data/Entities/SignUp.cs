@@ -91,7 +91,7 @@ public partial class SignUp : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     #endregion
 
@@ -100,7 +100,7 @@ public partial class SignUp : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// Gets or sets the navigation collection for entity <see cref="SignUpTopic" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="SignUpTopic" />.
+    /// The navigation collection for entity <see cref="SignUpTopic" />.
     /// </value>
     public virtual ICollection<SignUpTopic> SignUpTopics { get; set; }
 
@@ -108,7 +108,7 @@ public partial class SignUp : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }

@@ -121,7 +121,7 @@ public class Attendance : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, I
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     #endregion
 
@@ -130,7 +130,7 @@ public class Attendance : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, I
     /// Gets or sets the navigation property for entity <see cref="Session" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Session" />.
+    /// The navigation property for entity <see cref="Session" />.
     /// </value>
     /// <seealso cref="SessionId" />
     public virtual Session Session { get; set; }
@@ -139,7 +139,7 @@ public class Attendance : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, I
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }

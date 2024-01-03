@@ -19,8 +19,7 @@ public class HistoryRecordProfile
     /// </summary>
     public HistoryRecordProfile()
     {
-        CreateMap<HistoryRecord, HistoryRecordReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<HistoryRecord, HistoryRecordReadModel>();
     }
 
 }

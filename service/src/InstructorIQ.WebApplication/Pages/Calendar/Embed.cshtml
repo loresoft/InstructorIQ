@@ -1,4 +1,4 @@
-﻿@page "/calendar/embed/{year:int?}/{month:int?}"
+@page "/calendar/embed/{year:int?}/{month:int?}"
 @using System.Globalization
 @using InstructorIQ.Core.Extensions
 @using NaturalSort.Extension
@@ -63,7 +63,7 @@
 
     <div class="embed-calendar">
 
-        @foreach (var grouping in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate ?? DateTime.MinValue))
+        @foreach (var grouping in Model.Items.OrderBy(g => g.StartDate).GroupBy(g => g.StartDate ?? DateOnly.MinValue))
         {
             var sortedGroups = grouping
                 .OrderBy(i => i.StartTime)

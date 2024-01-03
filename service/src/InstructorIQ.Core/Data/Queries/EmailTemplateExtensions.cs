@@ -19,8 +19,11 @@ public static partial class EmailTemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.EmailTemplate"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.EmailTemplate GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.EmailTemplate GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> dbSet)
             return dbSet.Find(id);
 
@@ -32,14 +35,17 @@ public static partial class EmailTemplateExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.EmailTemplate"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.EmailTemplate> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.EmailTemplate> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.EmailTemplate>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.EmailTemplate> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -48,8 +54,11 @@ public static partial class EmailTemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="key">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.EmailTemplate"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.EmailTemplate GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, string key)
+    public static InstructorIQ.Core.Data.Entities.EmailTemplate GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, string key)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.FirstOrDefault(q => q.Key == key);
     }
 
@@ -58,10 +67,14 @@ public static partial class EmailTemplateExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="key">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.EmailTemplate"/> or null if not found.</returns>
-    public static Task<InstructorIQ.Core.Data.Entities.EmailTemplate> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, string key)
+    public static async System.Threading.Tasks.Task<InstructorIQ.Core.Data.Entities.EmailTemplate> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, string key, System.Threading.CancellationToken cancellationToken = default)
     {
-        return queryable.FirstOrDefaultAsync(q => q.Key == key);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
+        return await queryable.FirstOrDefaultAsync(q => q.Key == key, cancellationToken);
     }
 
     /// <summary>
@@ -70,8 +83,11 @@ public static partial class EmailTemplateExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="tenantId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid? tenantId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> ByTenantId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.EmailTemplate> queryable, Guid? tenantId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => (q.TenantId == tenantId || (tenantId == null && q.TenantId == null)));
     }
 

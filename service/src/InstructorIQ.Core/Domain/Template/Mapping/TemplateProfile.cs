@@ -21,14 +21,11 @@ public partial class TemplateProfile
     {
         CreateMap<TemplateCreateModel, Template>();
 
-        CreateMap<TemplateUpdateModel, Template>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<TemplateUpdateModel, Template>();
 
-        CreateMap<Template, TemplateReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Template, TemplateReadModel>();
 
-        CreateMap<Template, TemplateUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Template, TemplateUpdateModel>();
 
         CreateMap<Template, TemplateDropdownModel>()
             .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id))

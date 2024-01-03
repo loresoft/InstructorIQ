@@ -19,8 +19,11 @@ public static partial class TopicInstructorExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.TopicInstructor"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.TopicInstructor GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.TopicInstructor GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.TopicInstructor> dbSet)
             return dbSet.Find(id);
 
@@ -32,14 +35,17 @@ public static partial class TopicInstructorExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.TopicInstructor"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.TopicInstructor> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.TopicInstructor> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.TopicInstructor> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.TopicInstructor>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.TopicInstructor> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -48,8 +54,11 @@ public static partial class TopicInstructorExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="instructorRoleId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> ByInstructorRoleId(this IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid? instructorRoleId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> ByInstructorRoleId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid? instructorRoleId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => (q.InstructorRoleId == instructorRoleId || (instructorRoleId == null && q.InstructorRoleId == null)));
     }
 
@@ -59,8 +68,11 @@ public static partial class TopicInstructorExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="topicId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> ByTopicId(this IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid topicId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> ByTopicId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid topicId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TopicId == topicId);
     }
 
@@ -72,13 +84,16 @@ public static partial class TopicInstructorExtensions
     /// <param name="instructorId">The value to filter by.</param>
     /// <param name="instructorRoleId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> ByTopicIdInstructorIdInstructorRoleId(this IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid topicId, Guid instructorId, Guid? instructorRoleId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> ByTopicIdInstructorIdInstructorRoleId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TopicInstructor> queryable, Guid topicId, Guid instructorId, Guid? instructorRoleId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TopicId == topicId
             && q.InstructorId == instructorId
                 && (q.InstructorRoleId == instructorRoleId || (instructorRoleId == null && q.InstructorRoleId == null)));
-    }
+        }
 
-    #endregion
+        #endregion
 
 }

@@ -1,8 +1,9 @@
 project:
   namespace: 'InstructorIQ.Core'
   directory: .\
+  fileScopedNamespace: true
 database:
-  connectionString: 'Data Source=(local);Initial Catalog=InstructorIQ;Integrated Security=True'
+  connectionString: 'Data Source=(local);Initial Catalog=InstructorIQ;Integrated Security=True;TrustServerCertificate=True;'
   schemas:
     - IQ
   exclude:
@@ -22,6 +23,8 @@ data:
     namespace: '{Project.Namespace}.Data.Mapping'
     directory: '{Project.Directory}\Data\Mapping'
     document: true
+    temporal: false
+    rowVersion: long
   query:
     generate: true
     indexPrefix: By

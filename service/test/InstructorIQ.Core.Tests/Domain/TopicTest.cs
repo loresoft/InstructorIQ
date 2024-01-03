@@ -50,12 +50,12 @@ public class TopicTest : DependencyInjectionBase
         createModel.Title = "TEST";
 
         var createCommand = new EntityCreateCommand<TopicCreateModel, TopicReadModel>(MockPrincipal.Default, createModel);
-        var createResult = await mediator.Send(createCommand).ConfigureAwait(false);
+        var createResult = await mediator.Send(createCommand);
         createResult.Should().NotBeNull();
 
         // Get Entity by Key
         var identifierQuery = new EntityIdentifierQuery<Guid, TopicReadModel>(MockPrincipal.Default, createResult.Id);
-        var identifierResult = await mediator.Send(identifierQuery).ConfigureAwait(false);
+        var identifierResult = await mediator.Send(identifierQuery);
         identifierResult.Should().NotBeNull();
         identifierResult.Title.Should().Be(createModel.Title);
 
@@ -67,7 +67,7 @@ public class TopicTest : DependencyInjectionBase
         };
         var listQuery = new EntityPagedQuery<TopicReadModel>(MockPrincipal.Default, entityQuery);
 
-        var listResult = await mediator.Send(listQuery).ConfigureAwait(false);
+        var listResult = await mediator.Send(listQuery);
         listResult.Should().NotBeNull();
 
         // Patch Entity
@@ -80,7 +80,7 @@ public class TopicTest : DependencyInjectionBase
         });
 
         var patchCommand = new EntityPatchCommand<Guid, TopicReadModel>(MockPrincipal.Default, createResult.Id, patchModel);
-        var patchResult = await mediator.Send(patchCommand).ConfigureAwait(false);
+        var patchResult = await mediator.Send(patchCommand);
         patchResult.Should().NotBeNull();
         patchResult.Description.Should().Be("Patch Update");
 
@@ -89,13 +89,13 @@ public class TopicTest : DependencyInjectionBase
         updateModel.Description = "Update Command";
 
         var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(MockPrincipal.Default, createResult.Id, updateModel);
-        var updateResult = await mediator.Send(updateCommand).ConfigureAwait(false);
+        var updateResult = await mediator.Send(updateCommand);
         updateResult.Should().NotBeNull();
         updateResult.Description.Should().Be("Update Command");
 
         // Delete Entity
         var deleteCommand = new EntityDeleteCommand<Guid, TopicReadModel>(MockPrincipal.Default, createResult.Id);
-        var deleteResult = await mediator.Send(deleteCommand).ConfigureAwait(false);
+        var deleteResult = await mediator.Send(deleteCommand);
         deleteResult.Should().NotBeNull();
         deleteResult.Id.Should().Be(createResult.Id);
     }

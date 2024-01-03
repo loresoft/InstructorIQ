@@ -27,7 +27,7 @@ public class SessionUpdateModel
     /// <value>
     /// The property value for 'StartDate'.
     /// </value>
-    public DateTime? StartDate { get; set; }
+    public DateOnly? StartDate { get; set; }
 
     /// <summary>
     /// Gets or sets the property value for 'StartTime'.
@@ -35,7 +35,7 @@ public class SessionUpdateModel
     /// <value>
     /// The property value for 'StartTime'.
     /// </value>
-    public TimeSpan? StartTime { get; set; }
+    public TimeOnly? StartTime { get; set; }
 
     /// <summary>
     /// Gets or sets the property value for 'EndDate'.
@@ -43,7 +43,7 @@ public class SessionUpdateModel
     /// <value>
     /// The property value for 'EndDate'.
     /// </value>
-    public DateTime? EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 
     /// <summary>
     /// Gets or sets the property value for 'EndTime'.
@@ -51,7 +51,7 @@ public class SessionUpdateModel
     /// <value>
     /// The property value for 'EndTime'.
     /// </value>
-    public TimeSpan? EndTime { get; set; }
+    public TimeOnly? EndTime { get; set; }
 
     /// <summary>
     /// Gets or sets the property value for 'TenantId'.

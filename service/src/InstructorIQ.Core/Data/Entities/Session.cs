@@ -44,7 +44,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// <value>
     /// The property value representing column 'StartDate'.
     /// </value>
-    public DateTime? StartDate { get; set; }
+    public DateOnly? StartDate { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'StartTime'.
@@ -52,7 +52,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// <value>
     /// The property value representing column 'StartTime'.
     /// </value>
-    public TimeSpan? StartTime { get; set; }
+    public TimeOnly? StartTime { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'EndDate'.
@@ -60,7 +60,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// <value>
     /// The property value representing column 'EndDate'.
     /// </value>
-    public DateTime? EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'EndTime'.
@@ -68,7 +68,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// <value>
     /// The property value representing column 'EndTime'.
     /// </value>
-    public TimeSpan? EndTime { get; set; }
+    public TimeOnly? EndTime { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'TenantId'.
@@ -148,7 +148,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'PeriodStart'.
@@ -173,7 +173,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// Gets or sets the navigation collection for entity <see cref="Attendance" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Attendance" />.
+    /// The navigation collection for entity <see cref="Attendance" />.
     /// </value>
     public virtual ICollection<Attendance> Attendances { get; set; }
 
@@ -181,7 +181,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// Gets or sets the navigation property for entity <see cref="Group" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Group" />.
+    /// The navigation property for entity <see cref="Group" />.
     /// </value>
     /// <seealso cref="GroupId" />
     public virtual Group Group { get; set; }
@@ -190,7 +190,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// Gets or sets the navigation property for entity <see cref="Location" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Location" />.
+    /// The navigation property for entity <see cref="Location" />.
     /// </value>
     /// <seealso cref="LocationId" />
     public virtual Location Location { get; set; }
@@ -199,7 +199,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="SessionInstructor" />.
+    /// The navigation collection for entity <see cref="SessionInstructor" />.
     /// </value>
     public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
 
@@ -207,7 +207,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }
@@ -216,7 +216,7 @@ public class Session : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHav
     /// Gets or sets the navigation property for entity <see cref="Topic" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Topic" />.
+    /// The navigation property for entity <see cref="Topic" />.
     /// </value>
     /// <seealso cref="TopicId" />
     public virtual Topic Topic { get; set; }

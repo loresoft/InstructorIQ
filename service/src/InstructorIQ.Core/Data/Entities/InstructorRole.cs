@@ -92,7 +92,7 @@ public class InstructorRole : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     #endregion
 
@@ -101,7 +101,7 @@ public class InstructorRole : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// Gets or sets the navigation collection for entity <see cref="SessionInstructor" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="SessionInstructor" />.
+    /// The navigation collection for entity <see cref="SessionInstructor" />.
     /// </value>
     public virtual ICollection<SessionInstructor> SessionInstructors { get; set; }
 
@@ -109,7 +109,7 @@ public class InstructorRole : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }
@@ -118,7 +118,7 @@ public class InstructorRole : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdate
     /// Gets or sets the navigation collection for entity <see cref="TopicInstructor" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="TopicInstructor" />.
+    /// The navigation collection for entity <see cref="TopicInstructor" />.
     /// </value>
     public virtual ICollection<TopicInstructor> TopicInstructors { get; set; }
 

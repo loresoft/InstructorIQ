@@ -1,4 +1,4 @@
-﻿@page "/calendar/yearly/{year:int?}"
+@page "/calendar/yearly/{year:int?}"
 @using System.Globalization
 @using InstructorIQ.Core.Services
 @using NaturalSort.Extension
@@ -55,7 +55,7 @@
             }
 
             var currentMonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Value);
-            var dayGroups = monthGroup.GroupBy(g => g.StartDate ?? DateTime.MinValue).ToList();
+            var dayGroups = monthGroup.GroupBy(g => g.StartDate ?? DateOnly.MinValue).ToList();
             var dayCount = dayGroups.Count();
 
             <table class="year-month-table">

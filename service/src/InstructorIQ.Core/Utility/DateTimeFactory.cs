@@ -6,13 +6,13 @@ public static class DateTimeFactory
 {
     public static string DefaultTimeZone { get; set; } = "Central Standard Time";
 
-    public static DateTimeOffset? Create(DateTime? date, TimeSpan? time, string timeZone)
+    public static DateTimeOffset? Create(DateOnly? date, TimeOnly? time, string timeZone)
     {
         var zone = TimeZoneInfo.FindSystemTimeZoneById(timeZone ?? DefaultTimeZone);
         return Create(date, time, zone);
     }
 
-    public static DateTimeOffset? Create(DateTime? date, TimeSpan? time, TimeZoneInfo timeZoneInfo)
+    public static DateTimeOffset? Create(DateOnly? date, TimeOnly? time, TimeZoneInfo timeZoneInfo)
     {
         if (date == null || time == null)
             return default;
@@ -21,28 +21,26 @@ public static class DateTimeFactory
     }
 
 
-    public static DateTimeOffset Create(DateTime date, TimeSpan time, string timeZone)
+    public static DateTimeOffset Create(DateOnly date, TimeOnly time, string timeZone)
     {
         var zone = TimeZoneInfo.FindSystemTimeZoneById(timeZone ?? DefaultTimeZone);
         return Create(date, time, zone);
     }
 
-    public static DateTimeOffset Create(DateTime date, TimeSpan time, TimeZoneInfo timeZoneInfo)
+    public static DateTimeOffset Create(DateOnly date, TimeOnly time, TimeZoneInfo timeZoneInfo)
     {
         if (timeZoneInfo == null)
             throw new ArgumentNullException(nameof(timeZoneInfo));
-
-        var offset = timeZoneInfo.GetUtcOffset(date);
 
         return new DateTimeOffset(
             date.Year,
             date.Month,
             date.Day,
-            time.Hours,
-            time.Minutes,
-            time.Seconds,
-            time.Milliseconds,
-            offset);
+            time.Hour,
+            time.Minute,
+            time.Second,
+            time.Millisecond,
+            timeZoneInfo.BaseUtcOffset);
     }
 
 

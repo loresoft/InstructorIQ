@@ -19,8 +19,11 @@ public static partial class TenantUserRoleExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.TenantUserRole"/> or null if not found.</returns>
-    public static InstructorIQ.Core.Data.Entities.TenantUserRole GetByKey(this IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid id)
+    public static InstructorIQ.Core.Data.Entities.TenantUserRole GetByKey(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid id)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         if (queryable is DbSet<InstructorIQ.Core.Data.Entities.TenantUserRole> dbSet)
             return dbSet.Find(id);
 
@@ -32,14 +35,17 @@ public static partial class TenantUserRoleExtensions
     /// </summary>
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="id">The value to filter by.</param>
+    /// <param name="cancellationToken">A <see cref="System.Threading.CancellationToken" /> to observe while waiting for the task to complete.</param>
     /// <returns>An instance of <see cref="T:InstructorIQ.Core.Data.Entities.TenantUserRole"/> or null if not found.</returns>
-    public static ValueTask<InstructorIQ.Core.Data.Entities.TenantUserRole> GetByKeyAsync(this IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid id)
+    public static async System.Threading.Tasks.ValueTask<InstructorIQ.Core.Data.Entities.TenantUserRole> GetByKeyAsync(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid id, System.Threading.CancellationToken cancellationToken = default)
     {
-        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.TenantUserRole> dbSet)
-            return dbSet.FindAsync(id);
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
 
-        var task = queryable.FirstOrDefaultAsync(q => q.Id == id);
-        return new ValueTask<InstructorIQ.Core.Data.Entities.TenantUserRole>(task);
+        if (queryable is DbSet<InstructorIQ.Core.Data.Entities.TenantUserRole> dbSet)
+            return await dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+        return await queryable.FirstOrDefaultAsync(q => q.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -48,8 +54,11 @@ public static partial class TenantUserRoleExtensions
     /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
     /// <param name="tenantId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> ByTenantId(this IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid tenantId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> ByTenantId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid tenantId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TenantId == tenantId);
     }
 
@@ -60,8 +69,11 @@ public static partial class TenantUserRoleExtensions
     /// <param name="tenantId">The value to filter by.</param>
     /// <param name="userId">The value to filter by.</param>
     /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-    public static IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> ByTenantIdUserId(this IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid tenantId, Guid userId)
+    public static System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> ByTenantIdUserId(this System.Linq.IQueryable<InstructorIQ.Core.Data.Entities.TenantUserRole> queryable, Guid tenantId, Guid userId)
     {
+        if (queryable is null)
+            throw new ArgumentNullException(nameof(queryable));
+
         return queryable.Where(q => q.TenantId == tenantId
             && q.UserId == userId);
     }

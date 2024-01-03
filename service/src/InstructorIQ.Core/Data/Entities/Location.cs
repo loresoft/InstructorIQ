@@ -179,7 +179,7 @@ public class Location : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHa
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'PeriodStart'.
@@ -204,7 +204,7 @@ public class Location : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHa
     /// Gets or sets the navigation collection for entity <see cref="Session" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Session" />.
+    /// The navigation collection for entity <see cref="Session" />.
     /// </value>
     public virtual ICollection<Session> Sessions { get; set; }
 
@@ -212,7 +212,7 @@ public class Location : IHaveIdentifier<Guid>, ITrackCreated, ITrackUpdated, IHa
     /// Gets or sets the navigation property for entity <see cref="Tenant" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Tenant" />.
+    /// The navigation property for entity <see cref="Tenant" />.
     /// </value>
     /// <seealso cref="TenantId" />
     public virtual Tenant Tenant { get; set; }

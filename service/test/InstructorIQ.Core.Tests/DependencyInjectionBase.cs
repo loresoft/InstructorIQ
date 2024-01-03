@@ -3,17 +3,17 @@ using System;
 using Xunit;
 using Xunit.Abstractions;
 
+using XUnit.Hosting;
+
 namespace InstructorIQ.Core.Tests;
 
 [Collection("DependencyInjectionCollection")]
-public abstract class DependencyInjectionBase : UnitTestBase
+public abstract class DependencyInjectionBase : TestHostBase<DependencyInjectionFixture>
 {
-    public DependencyInjectionFixture DependencyInjection { get; }
-
-    protected DependencyInjectionBase(ITestOutputHelper outputHelper, DependencyInjectionFixture dependencyInjection) : base(outputHelper)
+    protected DependencyInjectionBase(ITestOutputHelper output, DependencyInjectionFixture databaseFixture)
+        : base(output, databaseFixture)
     {
-        DependencyInjection = dependencyInjection;
     }
 
-    public IServiceProvider ServiceProvider => DependencyInjection.ServiceProvider;
+    public IServiceProvider ServiceProvider => Fixture.Services;
 }

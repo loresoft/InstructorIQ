@@ -21,15 +21,12 @@ public class GroupProfile
     {
         CreateMap<GroupCreateModel, Group>();
 
-        CreateMap<GroupUpdateModel, Group>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<GroupUpdateModel, Group>();
 
         CreateMap<Group, GroupReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name));
 
-        CreateMap<Group, GroupUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Group, GroupUpdateModel>();
 
         CreateMap<Group, GroupDropdownModel>()
             .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id.ToString().ToLowerInvariant()))

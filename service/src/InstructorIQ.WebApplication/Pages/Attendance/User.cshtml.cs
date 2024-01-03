@@ -92,13 +92,13 @@ public class UserModel : MediatorModelBase
 
         if (Year.HasValue && Month.HasValue && Month.Value > 0)
         {
-            var startDate = new DateTime(Year.Value, Month.Value, 1);
+            var startDate = new DateOnly(Year.Value, Month.Value, 1);
             command.StartDate = startDate;
             command.EndDate = startDate.AddMonths(1);
         }
         else if (Year.HasValue)
         {
-            var startDate = new DateTime(Year.Value, 1, 1);
+            var startDate = new DateOnly(Year.Value, 1, 1);
             command.StartDate = startDate;
             command.EndDate = startDate.AddYears(1);
         }

@@ -12,13 +12,13 @@ public class SessionMultipleUpdateModel : IHaveIdentifier<Guid>
 
     public Guid TenantId { get; set; }
 
-    public DateTime? StartDate { get; set; }
+    public DateOnly? StartDate { get; set; }
 
-    public TimeSpan? StartTime { get; set; }
+    public TimeOnly? StartTime { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
 
-    public TimeSpan? EndTime { get; set; }
+    public TimeOnly? EndTime { get; set; }
 
     public Guid? LocationId { get; set; }
 

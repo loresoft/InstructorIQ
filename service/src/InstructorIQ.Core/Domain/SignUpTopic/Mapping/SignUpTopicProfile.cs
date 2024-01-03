@@ -20,7 +20,6 @@ public partial class SignUpTopicProfile
     public SignUpTopicProfile()
     {
         CreateMap<SignUpTopic, SignUpTopicReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
             .ForMember(d => d.TopicCalendarYear, opt => opt.MapFrom(s => s.Topic.CalendarYear))
             .ForMember(d => d.TopicTargetMonth, opt => opt.MapFrom(s => s.Topic.TargetMonth))
@@ -47,14 +46,12 @@ public partial class SignUpTopicProfile
         CreateMap<SignUpTopicCreateModel, SignUpTopic>();
 
         CreateMap<SignUpTopic, SignUpTopicUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TopicTitle, opt => opt.MapFrom(s => s.Topic.Title))
             .ForMember(d => d.TopicCalendarYear, opt => opt.MapFrom(s => s.Topic.CalendarYear))
             .ForMember(d => d.TopicTargetMonth, opt => opt.MapFrom(s => s.Topic.TargetMonth))
             .ForMember(d => d.TopicInstructorSlots, opt => opt.MapFrom(s => s.Topic.InstructorSlots));
 
-        CreateMap<SignUpTopicUpdateModel, SignUpTopic>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<SignUpTopicUpdateModel, SignUpTopic>();
 
         CreateMap<SignUpTopicReadModel, SignUpTopicUpdateModel>();
 

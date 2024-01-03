@@ -19,16 +19,13 @@ public class NotificationProfile
     /// </summary>
     public NotificationProfile()
     {
-        CreateMap<Notification, NotificationReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Notification, NotificationReadModel>();
 
         CreateMap<NotificationCreateModel, Notification>();
 
-        CreateMap<Notification, NotificationUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Notification, NotificationUpdateModel>();
 
-        CreateMap<NotificationUpdateModel, Notification>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<NotificationUpdateModel, Notification>();
     }
 
 }

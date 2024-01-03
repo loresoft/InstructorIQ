@@ -145,7 +145,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'PeriodStart'.
@@ -170,7 +170,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Attendance" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Attendance" />.
+    /// The navigation collection for entity <see cref="Attendance" />.
     /// </value>
     public virtual ICollection<Attendance> Attendances { get; set; }
 
@@ -178,7 +178,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Discussion" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Discussion" />.
+    /// The navigation collection for entity <see cref="Discussion" />.
     /// </value>
     public virtual ICollection<Discussion> Discussions { get; set; }
 
@@ -186,7 +186,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="EmailDelivery" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="EmailDelivery" />.
+    /// The navigation collection for entity <see cref="EmailDelivery" />.
     /// </value>
     public virtual ICollection<EmailDelivery> EmailDeliveries { get; set; }
 
@@ -194,7 +194,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="EmailTemplate" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="EmailTemplate" />.
+    /// The navigation collection for entity <see cref="EmailTemplate" />.
     /// </value>
     public virtual ICollection<EmailTemplate> EmailTemplates { get; set; }
 
@@ -202,7 +202,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Group" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Group" />.
+    /// The navigation collection for entity <see cref="Group" />.
     /// </value>
     public virtual ICollection<Group> Groups { get; set; }
 
@@ -210,7 +210,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="ImportJob" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="ImportJob" />.
+    /// The navigation collection for entity <see cref="ImportJob" />.
     /// </value>
     public virtual ICollection<ImportJob> ImportJobs { get; set; }
 
@@ -218,7 +218,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="InstructorRole" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="InstructorRole" />.
+    /// The navigation collection for entity <see cref="InstructorRole" />.
     /// </value>
     public virtual ICollection<InstructorRole> InstructorRoles { get; set; }
 
@@ -226,7 +226,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="LinkToken" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="LinkToken" />.
+    /// The navigation collection for entity <see cref="LinkToken" />.
     /// </value>
     public virtual ICollection<LinkToken> LinkTokens { get; set; }
 
@@ -234,7 +234,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Location" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Location" />.
+    /// The navigation collection for entity <see cref="Location" />.
     /// </value>
     public virtual ICollection<Location> Locations { get; set; }
 
@@ -242,7 +242,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Notification" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Notification" />.
+    /// The navigation collection for entity <see cref="Notification" />.
     /// </value>
     public virtual ICollection<Notification> Notifications { get; set; }
 
@@ -250,7 +250,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Session" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Session" />.
+    /// The navigation collection for entity <see cref="Session" />.
     /// </value>
     public virtual ICollection<Session> Sessions { get; set; }
 
@@ -258,7 +258,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="SignUp" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="SignUp" />.
+    /// The navigation collection for entity <see cref="SignUp" />.
     /// </value>
     public virtual ICollection<SignUp> SignUps { get; set; }
 
@@ -266,7 +266,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Template" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Template" />.
+    /// The navigation collection for entity <see cref="Template" />.
     /// </value>
     public virtual ICollection<Template> Templates { get; set; }
 
@@ -274,7 +274,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="TenantUserRole" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="TenantUserRole" />.
+    /// The navigation collection for entity <see cref="TenantUserRole" />.
     /// </value>
     public virtual ICollection<TenantUserRole> TenantUserRoles { get; set; }
 
@@ -282,7 +282,7 @@ public partial class Tenant : IHaveIdentifier<Guid>
     /// Gets or sets the navigation collection for entity <see cref="Topic" />.
     /// </summary>
     /// <value>
-    /// The the navigation collection for entity <see cref="Topic" />.
+    /// The navigation collection for entity <see cref="Topic" />.
     /// </value>
     public virtual ICollection<Topic> Topics { get; set; }
 

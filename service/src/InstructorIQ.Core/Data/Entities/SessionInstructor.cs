@@ -90,7 +90,7 @@ public class SessionInstructor : IHaveIdentifier<Guid>
     /// <value>
     /// The property value representing column 'RowVersion'.
     /// </value>
-    public Byte[] RowVersion { get; set; }
+    public long RowVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the property value representing column 'PeriodStart'.
@@ -115,7 +115,7 @@ public class SessionInstructor : IHaveIdentifier<Guid>
     /// Gets or sets the navigation property for entity <see cref="InstructorRole" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="InstructorRole" />.
+    /// The navigation property for entity <see cref="InstructorRole" />.
     /// </value>
     /// <seealso cref="InstructorRoleId" />
     public virtual InstructorRole InstructorRole { get; set; }
@@ -124,7 +124,7 @@ public class SessionInstructor : IHaveIdentifier<Guid>
     /// Gets or sets the navigation property for entity <see cref="Session" />.
     /// </summary>
     /// <value>
-    /// The the navigation property for entity <see cref="Session" />.
+    /// The navigation property for entity <see cref="Session" />.
     /// </value>
     /// <seealso cref="SessionId" />
     public virtual Session Session { get; set; }

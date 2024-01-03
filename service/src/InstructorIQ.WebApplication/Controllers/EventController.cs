@@ -11,6 +11,7 @@ using InstructorIQ.Core.Domain.Queries;
 
 using MediatR;
 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InstructorIQ.WebApplication.Controllers;
@@ -25,7 +26,10 @@ public class EventController : MediatorControllerBase
     [HttpGet("{tenantId}")]
     public async Task<IActionResult> Get(CancellationToken cancellationToken, Guid tenantId, DateTimeOffset start, DateTimeOffset end)
     {
-        var command = new EventRangeQuery(User, tenantId, start, end);
+        var startOnly = DateOnly.FromDateTime(start.DateTime);
+        var endOnly = DateOnly.FromDateTime(end.DateTime);
+
+        var command = new EventRangeQuery(User, tenantId, startOnly, endOnly);
         var result = await Mediator.Send(command, cancellationToken);
 
         return Ok(result);
@@ -45,7 +49,10 @@ public class EventController : MediatorControllerBase
         if (end == null)
             end = start.Value.AddMonths(6);
 
-        var command = new EventRangeQuery(User, tenantId, start.Value, end.Value);
+        var startOnly = DateOnly.FromDateTime(start.Value.DateTime);
+        var endOnly = DateOnly.FromDateTime(end.Value.DateTime);
+
+        var command = new EventRangeQuery(User, tenantId, startOnly, endOnly);
         var events = await Mediator.Send(command, cancellationToken);
 
 
@@ -84,8 +91,8 @@ public class EventController : MediatorControllerBase
         contentDisposition.FileName = "training.ics";
         contentDisposition.Inline = true;
 
-        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
-        Response.Headers.Add("X-Content-Type-Options", "nosniff");
+        Response.Headers.Append("Content-Disposition", contentDisposition.ToString());
+        Response.Headers.Append("X-Content-Type-Options", "nosniff");
 
         return Content(calendarText, contentType, Encoding.UTF8);
     }

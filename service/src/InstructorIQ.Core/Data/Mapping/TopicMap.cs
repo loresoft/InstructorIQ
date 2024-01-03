@@ -66,12 +66,14 @@ public class TopicMap
         builder.Property(t => t.IsRequired)
             .IsRequired()
             .HasColumnName("IsRequired")
-            .HasColumnType("bit");
+            .HasColumnType("bit")
+            .HasDefaultValue(false);
 
         builder.Property(t => t.IsPublished)
             .IsRequired()
             .HasColumnName("IsPublished")
-            .HasColumnType("bit");
+            .HasColumnType("bit")
+            .HasDefaultValue(false);
 
         builder.Property(t => t.InstructorSlots)
             .HasColumnName("InstructorSlots")
@@ -111,23 +113,22 @@ public class TopicMap
 
         builder.Property(t => t.RowVersion)
             .IsRequired()
+            .HasConversion<byte[]>()
             .IsRowVersion()
+            .IsConcurrencyToken()
             .HasColumnName("RowVersion")
             .HasColumnType("rowversion")
-            .HasMaxLength(8)
             .ValueGeneratedOnAddOrUpdate();
 
         builder.Property(t => t.PeriodStart)
-            .IsRequired()
             .HasColumnName("PeriodStart")
             .HasColumnType("datetime2")
-            .HasDefaultValueSql("(sysutcdatetime())");
+            .ValueGeneratedOnAddOrUpdate();
 
         builder.Property(t => t.PeriodEnd)
-            .IsRequired()
             .HasColumnName("PeriodEnd")
             .HasColumnType("datetime2")
-            .HasDefaultValueSql("('9999-12-31 23:59:59.9999999')");
+            .ValueGeneratedOnAddOrUpdate();
 
         // relationships
         builder.HasOne(t => t.Tenant)
@@ -150,7 +151,7 @@ public class TopicMap
     }
 
     #region Generated Constants
-    public struct Table
+    public readonly struct Table
     {
         /// <summary>Table Schema name constant for entity <see cref="InstructorIQ.Core.Data.Entities.Topic" /></summary>
         public const string Schema = "IQ";
@@ -158,7 +159,7 @@ public class TopicMap
         public const string Name = "Topic";
     }
 
-    public struct Columns
+    public readonly struct Columns
     {
         /// <summary>Column Name constant for property <see cref="InstructorIQ.Core.Data.Entities.Topic.Id" /></summary>
         public const string Id = "Id";

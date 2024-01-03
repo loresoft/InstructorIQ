@@ -21,15 +21,12 @@ public class LocationProfile
     {
         CreateMap<LocationCreateModel, Location>();
 
-        CreateMap<LocationUpdateModel, Location>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.FromBase64String(s.RowVersion)));
+        CreateMap<LocationUpdateModel, Location>();
 
         CreateMap<Location, LocationReadModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)))
             .ForMember(d => d.TenantName, opt => opt.MapFrom(s => s.Tenant.Name));
 
-        CreateMap<Location, LocationUpdateModel>()
-            .ForMember(d => d.RowVersion, opt => opt.MapFrom(s => Convert.ToBase64String(s.RowVersion)));
+        CreateMap<Location, LocationUpdateModel>();
 
         CreateMap<Location, LocationDropdownModel>()
             .ForMember(d => d.Value, opt => opt.MapFrom(s => s.Id.ToString().ToLowerInvariant()))

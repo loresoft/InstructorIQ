@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddUrlHelper(this IServiceCollection services)
     {
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-        services.AddScoped(it =>
+        services.AddTransient(it =>
         {
             var urlHelperFactory = it.GetRequiredService<IUrlHelperFactory>();
             var actionContextAccessor = it.GetRequiredService<IActionContextAccessor>();
