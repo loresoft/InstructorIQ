@@ -1,5 +1,6 @@
 using InstructorIQ.Core.Data;
 
+using MediatR.CommandQuery;
 using MediatR.CommandQuery.Audit;
 using MediatR.CommandQuery.EntityFrameworkCore;
 

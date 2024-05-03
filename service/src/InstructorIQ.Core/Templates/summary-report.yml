@@ -1,4 +1,4 @@
-﻿fromName: InstructorIQ
+fromName: InstructorIQ
 fromAddress: noreply@InstructorIQ.com
 
 subject: '{{ Subject }}'
@@ -21,7 +21,7 @@ htmlBody: |
         </xml><![endif]-->
     </head>
     <body style="font-family: Helvetica,Arial,sans-serif; font-size: 16px;">
-    
+
     {{{ HtmlBody }}}
 
     </body>

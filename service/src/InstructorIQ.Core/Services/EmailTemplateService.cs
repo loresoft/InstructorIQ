@@ -1,14 +1,8 @@
-using System;
-using System.Globalization;
-using System.IO;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 
 using HandlebarsDotNet;
 
 using InstructorIQ.Core.Data;
-using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Data.Queries;
 using InstructorIQ.Core.Extensions;
 using InstructorIQ.Core.Models;
@@ -20,8 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
-using MimeKit;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;

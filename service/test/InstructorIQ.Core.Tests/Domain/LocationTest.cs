@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using FluentAssertions;
 
 using InstructorIQ.Core.Data.Entities;
@@ -11,9 +7,10 @@ using MediatR;
 using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Queries;
 
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
+
+using SystemTextJsonPatch;
+using SystemTextJsonPatch.Operations;
 
 using Xunit;
 using Xunit.Abstractions;
@@ -61,12 +58,12 @@ public class LocationTest : DependencyInjectionBase
         var listResult = await mediator.Send(listQuery);
         listResult.Should().NotBeNull();
 
-        var patchModel = new JsonPatchDocument<Location>();
+        var patchModel = new JsonPatchDocument();
         patchModel.Operations.Add(new Operation<Location>
         {
-            op = "replace",
-            path = "/Description",
-            value = "Patch Update"
+            Op = "replace",
+            Path = "/Description",
+            Value = "Patch Update"
         });
 
         var patchCommand = new EntityPatchCommand<Guid, LocationReadModel>(MockPrincipal.Default, createResult.Id, patchModel);

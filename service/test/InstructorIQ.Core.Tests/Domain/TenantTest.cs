@@ -15,8 +15,8 @@ using MediatR;
 using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Queries;
 
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
+using SystemTextJsonPatch;
+using SystemTextJsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
 
 using Xunit;
@@ -72,12 +72,12 @@ public class TenantTest : DependencyInjectionBase
         listResult.Should().NotBeNull();
 
         // Patch Entity
-        var patchModel = new JsonPatchDocument<Tenant>();
+        var patchModel = new JsonPatchDocument();
         patchModel.Operations.Add(new Operation<Tenant>
         {
-            op = "replace",
-            path = "/Description",
-            value = "Patch Update"
+            Op = "replace",
+            Path = "/Description",
+            Value = "Patch Update"
         });
 
         var patchCommand = new EntityPatchCommand<Guid, TenantReadModel>(MockPrincipal.Default, createResult.Id, patchModel);

@@ -1,8 +1,4 @@
-using System.Threading.Tasks;
-
 using InstructorIQ.Core.Models;
-
-using MimeKit;
 
 namespace InstructorIQ.Core.Services;
 

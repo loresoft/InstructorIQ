@@ -11,8 +11,8 @@ using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Queries;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Operations;
+using SystemTextJsonPatch;
+using SystemTextJsonPatch.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -35,9 +35,9 @@ public class NotificationModel : EntityPagedModelBase<NotificationReadModel>
         var patchModel = new JsonPatchDocument();
         patchModel.Operations.Add(new Operation
         {
-            op = "replace",
-            path = $"/{nameof(NotificationReadModel.Read)}",
-            value = DateTimeOffset.UtcNow
+            Op = "replace",
+            Path = $"/{nameof(NotificationReadModel.Read)}",
+            Value = DateTimeOffset.UtcNow
         });
         var updateCommand = new EntityPatchCommand<Guid, NotificationReadModel>(User, notificationId, patchModel);
         var result = await Mediator.Send(updateCommand);
