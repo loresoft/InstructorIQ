@@ -53,14 +53,14 @@ jobs:
 
       - name: Upload WebApplication Artifact
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: WebApplication
           path: "${{env.BUILD_PATH}}/WebApplication"
 
       - name: Upload Database Artifact
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Database
           path: "${{env.BUILD_PATH}}/Database"
