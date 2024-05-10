@@ -12,10 +12,14 @@ using XUnit.Hosting;
 
 namespace InstructorIQ.Core.Tests;
 
-public class DependencyInjectionFixture : TestHostFixture
+public class DependencyInjectionFixture : TestApplicationFixture
 {
-    protected override void ConfigureServices(HostBuilderContext context, IServiceCollection services)
+    protected override void ConfigureApplication(HostApplicationBuilder builder)
     {
+        base.ConfigureApplication(builder);
+
+        var services = builder.Services;
+
         services.AddTransient<ITenant<TenantReadModel>>(provider => new TenantValue<TenantReadModel>(new TenantReadModel
         {
             Id = Data.Constants.Tenant.Test,
