@@ -19,7 +19,7 @@
     <PackageReference Include="Azure.Data.Tables" Version="12.8.3" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
     <PackageReference Include="CsvHelper" Version="32.0.2" />
-    <PackageReference Include="FluentCommand.SqlServer" Version="12.10.2" />
+    <PackageReference Include="FluentCommand.SqlServer" Version="12.10.3" />
     <PackageReference Include="Handlebars.Net" Version="2.1.6" />
     <PackageReference Include="MediatR.CommandQuery.Audit" Version="15.8.0" />
     <PackageReference Include="MediatR.CommandQuery.EntityFrameworkCore" Version="15.8.0" />
