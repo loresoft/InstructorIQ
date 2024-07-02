@@ -87,7 +87,7 @@ jobs:
 
       - name: Deploy SQL Server Database to Azure
         if: success() && github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
-        uses: azure/sql-action@v2.2
+        uses: azure/sql-action@v2.3
         with:
           connection-string: ${{secrets.AZURE_SQL_CONNECTION_STAGING}}
           path: "./InstructorIQ.dacpac"
@@ -124,7 +124,7 @@ jobs:
 
       - name: Deploy SQL Server Database to Azure
         if: success() && github.event_name != 'pull_request' && startsWith(github.ref, 'refs/tags/v')
-        uses: azure/sql-action@v2.2
+        uses: azure/sql-action@v2.3
         with:
           connection-string: ${{secrets.AZURE_SQL_CONNECTION_PRODUCTION}}
           path: "./InstructorIQ.dacpac"
