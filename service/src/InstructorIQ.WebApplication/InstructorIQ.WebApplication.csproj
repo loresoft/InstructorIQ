@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
     <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.24.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
-    <PackageReference Include="Serilog.Sinks.AzureTableStorage" Version="10.0.1" />
+    <PackageReference Include="Serilog.Sinks.AzureTableStorage" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
