@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.3.0" />
-    <PackageReference Include="Azure.Data.Tables" Version="12.10.0" />
+    <PackageReference Include="Azure.Data.Tables" Version="12.11.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.24.0" />
     <PackageReference Include="CsvHelper" Version="33.0.1" />
     <PackageReference Include="FluentCommand.SqlServer" Version="13.1.0" />
