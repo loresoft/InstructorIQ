@@ -39,7 +39,7 @@
   <ItemGroup>
     <PackageReference Include="AssemblyMetadata.Generators" Version="2.1.0" PrivateAssets="All" />
     <PackageReference Include="Injectio" Version="5.1.0" PrivateAssets="all" />
-    <PackageReference Include="MinVer" Version="6.0.0" PrivateAssets="All" />
+    <PackageReference Include="MinVer" Version="6.1.0" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
