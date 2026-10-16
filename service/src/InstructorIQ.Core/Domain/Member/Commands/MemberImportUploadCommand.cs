@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -10,10 +10,10 @@ using Microsoft.AspNetCore.Http;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class MemberImportUploadCommand : PrincipalCommandBase<MemberImportJobModel>
+public record MemberImportUploadCommand : PrincipalCommandBase<MemberImportJobModel>
 {
 
-    public MemberImportUploadCommand(IPrincipal principal, IFormFile upload, Guid tenantId) : base(principal)
+    public MemberImportUploadCommand(ClaimsPrincipal principal, IFormFile upload, Guid tenantId) : base(principal)
     {
         Upload = upload;
         TenantId = tenantId;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class SessionMultipleUpdateCommand : PrincipalCommandBase<CompleteModel>
+public record SessionMultipleUpdateCommand : PrincipalCommandBase<CompleteModel>
 {
-    public SessionMultipleUpdateCommand(IPrincipal principal, IReadOnlyCollection<SessionMultipleUpdateModel> models) : base(principal)
+    public SessionMultipleUpdateCommand(ClaimsPrincipal principal, IReadOnlyCollection<SessionMultipleUpdateModel> models) : base(principal)
     {
         Models = models;
     }

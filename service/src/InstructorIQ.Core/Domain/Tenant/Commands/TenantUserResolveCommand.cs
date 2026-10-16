@@ -1,4 +1,4 @@
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Data.Entities;
 using InstructorIQ.Core.Domain.Models;
@@ -8,9 +8,9 @@ using MediatR.CommandQuery.Commands;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class TenantUserResolveCommand : PrincipalCommandBase<TenantUserModel>
+public record TenantUserResolveCommand : PrincipalCommandBase<TenantUserModel>
 {
-    public TenantUserResolveCommand(IPrincipal principal, User user) : base(principal)
+    public TenantUserResolveCommand(ClaimsPrincipal principal, User user) : base(principal)
     {
         User = user;
     }

@@ -1,0 +1,1251 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-10-16T14:27:28.7134197Z",
+  "analysisEndTime": "2026-10-16T14:27:30.2290413Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 3,
+      "issues": 6,
+      "incidents": 38,
+      "effort": 38
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 4,
+        "Optional": 4,
+        "Potential": 30,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 7,
+        "Project": 3,
+        "Api": 28
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+      "startingProject": true,
+      "issues": 6,
+      "storyPoints": 18,
+      "properties": {
+        "appName": "InstructorIQ.Core",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 415,
+        "numberOfCodeFiles": 410,
+        "linesTotal": 24828,
+        "linesOfCode": 24548,
+        "totalApiScanned": 24103,
+        "minLinesOfCodeToChange": 13,
+        "maxLinesOfCodeToChange": 13
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "4c9981e2-33a1-4190-8f23-c210bed34acf",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.32\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.13",
+              "protected": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.32\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.13"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+            "snippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.32\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.13",
+            "protectedSnippet": "Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.32\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Identity.EntityFrameworkCore, and replace with new package Microsoft.AspNetCore.Identity.EntityFrameworkCore 10.0.13",
+            "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore 8.0.32",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageVersion": "8.0.32",
+              "PackageNewVersion": "10.0.13",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "f54340d5-38ab-4cb7-9e82-aad5c0e64a93",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.21\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.13",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.21\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.13"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.21\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.13",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 9.0.21\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.13",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 9.0.21",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "9.0.21",
+              "PackageNewVersion": "10.0.13",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "3184e1d1-d390-4eb7-bdb5-6f87bc09bda7",
+          "ruleId": "NuGet.0005",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "MediatR.CommandQuery.Audit, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.Audit, and replace with new package MediatR.CommandQuery.Audit, 16.6.2",
+              "protected": "MediatR.CommandQuery.Audit, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.Audit, and replace with new package MediatR.CommandQuery.Audit, 16.6.2"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+            "snippet": "MediatR.CommandQuery.Audit, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.Audit, and replace with new package MediatR.CommandQuery.Audit, 16.6.2",
+            "protectedSnippet": "MediatR.CommandQuery.Audit, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.Audit, and replace with new package MediatR.CommandQuery.Audit, 16.6.2",
+            "label": "MediatR.CommandQuery.Audit 16.6.2",
+            "properties": {
+              "PackageId": "MediatR.CommandQuery.Audit",
+              "PackageVersion": "16.6.2",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "98a40de5-f908-471c-a3c8-69e0e792f252",
+          "ruleId": "NuGet.0005",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "MediatR.CommandQuery.EntityFrameworkCore, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.EntityFrameworkCore, and replace with new package MediatR.CommandQuery.EntityFrameworkCore, 16.6.2",
+              "protected": "MediatR.CommandQuery.EntityFrameworkCore, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.EntityFrameworkCore, and replace with new package MediatR.CommandQuery.EntityFrameworkCore, 16.6.2"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+            "snippet": "MediatR.CommandQuery.EntityFrameworkCore, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.EntityFrameworkCore, and replace with new package MediatR.CommandQuery.EntityFrameworkCore, 16.6.2",
+            "protectedSnippet": "MediatR.CommandQuery.EntityFrameworkCore, 16.6.2\n\nRecommendation:\n\nDue to the commercialization of MediatR, this project has been restructured and is now maintained under the Arbiter repository with MediatR removed.\nRemove MediatR.CommandQuery.EntityFrameworkCore, and replace with new package MediatR.CommandQuery.EntityFrameworkCore, 16.6.2",
+            "label": "MediatR.CommandQuery.EntityFrameworkCore 16.6.2",
+            "properties": {
+              "PackageId": "MediatR.CommandQuery.EntityFrameworkCore",
+              "PackageVersion": "16.6.2",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "512f33c5-21fa-4699-902a-e5ab45eb47e6",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "8b84145c-65c7-464b-a4dc-d7768bbba05d",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "PasswordlessTokenLifespan = TimeSpan.FromHours(4);",
+              "protected": "M:System.TimeSpan.FromHours(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Options\\SecurityOptions.cs",
+            "snippet": "PasswordlessTokenLifespan = TimeSpan.FromHours(4);",
+            "protectedSnippet": "M:System.TimeSpan.FromHours(System.Double)",
+            "label": "M:System.TimeSpan.FromHours(System.Double)",
+            "properties": {
+              "CharCount": "321"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 10,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "b661a95e-c67d-470b-bbee-ed0ffa42af30",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "PasswordlessTokenLifespan = TimeSpan.FromHours(4);",
+              "protected": "M:System.TimeSpan.FromHours(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Options\\SecurityOptions.cs",
+            "snippet": "PasswordlessTokenLifespan = TimeSpan.FromHours(4);",
+            "protectedSnippet": "M:System.TimeSpan.FromHours(System.Double)",
+            "label": "M:System.TimeSpan.FromHours(System.Double)",
+            "properties": {
+              "CharCount": "321"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 10,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "5583087b-cd70-451a-86aa-9e300d132a6e",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "public static string ToLocalPath(this Uri uri)",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Extensions\\UriExtensions.cs",
+            "snippet": "public static string ToLocalPath(this Uri uri)",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "properties": {
+              "CharCount": "344"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 8,
+            "column": 4
+          }
+        },
+        {
+          "incidentId": "2b2b84d7-92c5-4e9d-9a5d-afb8aa6f6753",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return uri.PathAndQuery \u002B uri.Fragment;",
+              "protected": "P:System.Uri.PathAndQuery"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Extensions\\UriExtensions.cs",
+            "snippet": "return uri.PathAndQuery \u002B uri.Fragment;",
+            "protectedSnippet": "P:System.Uri.PathAndQuery",
+            "label": "P:System.Uri.PathAndQuery",
+            "properties": {
+              "CharCount": "344"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 14,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "dea91337-69e7-4bc6-938b-b6bbc830bf60",
+          "ruleId": "Api.0002",
+          "description": "IActionContextAccessor and ActionContextAccessor are obsolete ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var actionContextAccessor = it.GetRequiredService\u003CIActionContextAccessor\u003E();",
+              "protected": "T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Extensions\\ServiceCollectionExtensions.cs",
+            "snippet": "var actionContextAccessor = it.GetRequiredService\u003CIActionContextAccessor\u003E();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor",
+            "label": "T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor",
+            "properties": {
+              "CharCount": "767"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/iactioncontextaccessor-obsolete.md",
+                "isCustom": false
+              }
+            ],
+            "line": 14,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "8b73cb78-b03e-4018-9a8f-a79dd39b365f",
+          "ruleId": "Api.0002",
+          "description": "IActionContextAccessor and ActionContextAccessor are obsolete ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddSingleton\u003CIActionContextAccessor, ActionContextAccessor\u003E();",
+              "protected": "T:Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Extensions\\ServiceCollectionExtensions.cs",
+            "snippet": "services.AddSingleton\u003CIActionContextAccessor, ActionContextAccessor\u003E();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor",
+            "label": "T:Microsoft.AspNetCore.Mvc.Infrastructure.ActionContextAccessor",
+            "properties": {
+              "CharCount": "767"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/iactioncontextaccessor-obsolete.md",
+                "isCustom": false
+              }
+            ],
+            "line": 10,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "7fd18a0c-89fb-4f6d-9762-51ab60328c23",
+          "ruleId": "Api.0002",
+          "description": "IActionContextAccessor and ActionContextAccessor are obsolete ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddSingleton\u003CIActionContextAccessor, ActionContextAccessor\u003E();",
+              "protected": "T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Extensions\\ServiceCollectionExtensions.cs",
+            "snippet": "services.AddSingleton\u003CIActionContextAccessor, ActionContextAccessor\u003E();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor",
+            "label": "T:Microsoft.AspNetCore.Mvc.Infrastructure.IActionContextAccessor",
+            "properties": {
+              "CharCount": "767"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/iactioncontextaccessor-obsolete.md",
+                "isCustom": false
+              }
+            ],
+            "line": 10,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "634b78bd-42df-468b-971e-b477fb44e0be",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var createModel = new LinkTokenCreateModel\r\n        {\r\n            Expires = DateTimeOffset.UtcNow.Add(TimeSpan.FromDays(30)),\r\n            Url = returnUrl,\r\n            UserName = user.UserName,\r\n            TenantId = _userClaimManager.GetTenantId(principal),\r\n        };",
+              "protected": "M:System.TimeSpan.FromDays(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Domain\\EmailDelivery\\Handlers\\SendUserInviteEmailCommandHandler.cs",
+            "snippet": "var createModel = new LinkTokenCreateModel\r\n        {\r\n            Expires = DateTimeOffset.UtcNow.Add(TimeSpan.FromDays(30)),\r\n            Url = returnUrl,\r\n            UserName = user.UserName,\r\n            TenantId = _userClaimManager.GetTenantId(principal),\r\n        };",
+            "protectedSnippet": "M:System.TimeSpan.FromDays(System.Double)",
+            "label": "M:System.TimeSpan.FromDays(System.Double)",
+            "properties": {
+              "CharCount": "4290"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 108,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "6836281d-6761-4e81-b279-707853bef01a",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var linkUri = new Uri(linkUrl, UriKind.RelativeOrAbsolute);",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Domain\\LinkToken\\Handlers\\LinkTokenCreateCommandHandler.cs",
+            "snippet": "var linkUri = new Uri(linkUrl, UriKind.RelativeOrAbsolute);",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "properties": {
+              "CharCount": "2494"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 72,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "22e253f2-80b9-4ef6-b970-97f425f3b702",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var linkUri = new Uri(linkUrl, UriKind.RelativeOrAbsolute);",
+              "protected": "M:System.Uri.#ctor(System.String,System.UriKind)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Domain\\LinkToken\\Handlers\\LinkTokenCreateCommandHandler.cs",
+            "snippet": "var linkUri = new Uri(linkUrl, UriKind.RelativeOrAbsolute);",
+            "protectedSnippet": "M:System.Uri.#ctor(System.String,System.UriKind)",
+            "label": "M:System.Uri.#ctor(System.String,System.UriKind)",
+            "properties": {
+              "CharCount": "2494"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 72,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "07f9c412-e032-47b6-b1e2-408c4c6ea6a3",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return DateTimeOffset.UtcNow.Add(TimeSpan.FromMinutes(30));",
+              "protected": "M:System.TimeSpan.FromMinutes(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Domain\\Tenant\\Queries\\TenantSlugQuery.cs",
+            "snippet": "return DateTimeOffset.UtcNow.Add(TimeSpan.FromMinutes(30));",
+            "protectedSnippet": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "label": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "properties": {
+              "CharCount": "969"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 33,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "ef99aebe-7ebb-48ff-ab59-4c03a7a51d38",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return TimeSpan.FromMinutes(10);",
+              "protected": "M:System.TimeSpan.FromMinutes(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Domain\\Tenant\\Queries\\TenantSlugQuery.cs",
+            "snippet": "return TimeSpan.FromMinutes(10);",
+            "protectedSnippet": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "label": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "properties": {
+              "CharCount": "969"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 28,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "b046f291-74f3-4054-934e-3a08213b6560",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\InstructorIQ.Core\\InstructorIQ.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddAutoMapper(typeof(InstructorIQContext).Assembly);",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.Core\\Domain\\CommandQueryServiceModule.cs",
+            "snippet": "services.AddAutoMapper(typeof(InstructorIQContext).Assembly);",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions",
+            "properties": {
+              "CharCount": "589"
+            },
+            "line": 18,
+            "column": 8
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+      "startingProject": true,
+      "issues": 4,
+      "storyPoints": 8,
+      "properties": {
+        "appName": "InstructorIQ.Core.Tests",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": true,
+        "numberOfFiles": 18,
+        "numberOfCodeFiles": 15,
+        "linesTotal": 3598,
+        "linesOfCode": 944,
+        "totalApiScanned": 1771,
+        "minLinesOfCodeToChange": 6,
+        "maxLinesOfCodeToChange": 6
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "d2ef6c5c-fb3a-4dff-a1e3-6e1d2a2e65ed",
+          "ruleId": "NuGet.0005",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+              "protected": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+            "snippet": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "protectedSnippet": "xunit, 2.9.3\n\nRecommendation:\n\nThis package will only be updated for security issues. All future feature work has moved onto v3.\n\nGuide for migrating from xUnit.net v2 to v3: https://xunit.net/docs/getting-started/v3/migration\nRemove xunit, and replace with new package xunit, 2.9.3",
+            "label": "xunit 2.9.3",
+            "properties": {
+              "PackageId": "xunit",
+              "PackageVersion": "2.9.3",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "6d0a2cb8-337e-4ad5-bfab-cd965f630848",
+          "ruleId": "Project.0002",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "0ef55ec0-6dcf-41c9-b62a-59ce81bd908c",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "uri = new Uri(\u0022/blah/test?test=v#one\u0022, UriKind.Relative);",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\Extensions\\UriExtensionsTests.cs",
+            "snippet": "uri = new Uri(\u0022/blah/test?test=v#one\u0022, UriKind.Relative);",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "properties": {
+              "CharCount": "732"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 25,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "c11d20da-99a1-418f-b689-cb38d282f25c",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "uri = new Uri(\u0022/blah/test?test=v#one\u0022, UriKind.Relative);",
+              "protected": "M:System.Uri.#ctor(System.String,System.UriKind)"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\Extensions\\UriExtensionsTests.cs",
+            "snippet": "uri = new Uri(\u0022/blah/test?test=v#one\u0022, UriKind.Relative);",
+            "protectedSnippet": "M:System.Uri.#ctor(System.String,System.UriKind)",
+            "label": "M:System.Uri.#ctor(System.String,System.UriKind)",
+            "properties": {
+              "CharCount": "732"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 25,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "8b115e3d-7061-43fe-9e6b-20f3b6e30f4d",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var uri = new Uri(\u0022https://instructoriq.com/path/test?test=v#one\u0022);",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\Extensions\\UriExtensionsTests.cs",
+            "snippet": "var uri = new Uri(\u0022https://instructoriq.com/path/test?test=v#one\u0022);",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "properties": {
+              "CharCount": "732"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 20,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "d3da54fb-4c34-42b0-9e48-aecb668dc1bd",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var uri = new Uri(\u0022https://instructoriq.com/path/test?test=v#one\u0022);",
+              "protected": "M:System.Uri.#ctor(System.String)"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\Extensions\\UriExtensionsTests.cs",
+            "snippet": "var uri = new Uri(\u0022https://instructoriq.com/path/test?test=v#one\u0022);",
+            "protectedSnippet": "M:System.Uri.#ctor(System.String)",
+            "label": "M:System.Uri.#ctor(System.String)",
+            "properties": {
+              "CharCount": "732"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 20,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "cc3b2a76-9981-4ad0-9d36-bb4033994883",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\DependencyInjectionFixture.cs",
+            "snippet": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "1113"
+            },
+            "line": 31,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "47b1f9a1-b38f-40ff-ac2d-5af7afa1671a",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "test\\InstructorIQ.Core.Tests\\InstructorIQ.Core.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)"
+            },
+            "kind": "File",
+            "path": "test\\InstructorIQ.Core.Tests\\DependencyInjectionFixture.cs",
+            "snippet": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "1113"
+            },
+            "line": 31,
+            "column": 8
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+      "startingProject": true,
+      "issues": 5,
+      "storyPoints": 12,
+      "properties": {
+        "appName": "InstructorIQ.WebApplication",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net8.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "isTestProject": false,
+        "numberOfFiles": 238,
+        "numberOfCodeFiles": 207,
+        "linesTotal": 67880,
+        "linesOfCode": 18660,
+        "totalApiScanned": 97297,
+        "minLinesOfCodeToChange": 9,
+        "maxLinesOfCodeToChange": 9
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "8bf8f1bb-a50e-44e2-bb9c-2cee0bca2f04",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 9.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2",
+              "protected": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 9.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+            "snippet": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 9.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2",
+            "protectedSnippet": "Microsoft.VisualStudio.Web.CodeGeneration.Design, 9.0.0\n\nRecommendation:\n\nRemove Microsoft.VisualStudio.Web.CodeGeneration.Design, and replace with new package Microsoft.VisualStudio.Web.CodeGeneration.Design 10.0.2",
+            "label": "Microsoft.VisualStudio.Web.CodeGeneration.Design 9.0.0",
+            "properties": {
+              "PackageId": "Microsoft.VisualStudio.Web.CodeGeneration.Design",
+              "PackageVersion": "9.0.0",
+              "PackageNewVersion": "10.0.2",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "f966761f-cc95-4f5a-b191-cd7943bc23e8",
+          "ruleId": "NuGet.0005",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "FluentValidation.AspNetCore, 11.3.1\n\nRecommendation:\n\nShould be replaced.\nRemove FluentValidation.AspNetCore, and replace with new package FluentValidation.AspNetCore, 11.3.1",
+              "protected": "FluentValidation.AspNetCore, 11.3.1\n\nRecommendation:\n\nShould be replaced.\nRemove FluentValidation.AspNetCore, and replace with new package FluentValidation.AspNetCore, 11.3.1"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+            "snippet": "FluentValidation.AspNetCore, 11.3.1\n\nRecommendation:\n\nShould be replaced.\nRemove FluentValidation.AspNetCore, and replace with new package FluentValidation.AspNetCore, 11.3.1",
+            "protectedSnippet": "FluentValidation.AspNetCore, 11.3.1\n\nRecommendation:\n\nShould be replaced.\nRemove FluentValidation.AspNetCore, and replace with new package FluentValidation.AspNetCore, 11.3.1",
+            "label": "FluentValidation.AspNetCore 11.3.1",
+            "properties": {
+              "PackageId": "FluentValidation.AspNetCore",
+              "PackageVersion": "11.3.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "81330566-9e75-4817-8489-734ce19709f8",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net8.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net8.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+            "snippet": "Current target framework: net8.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net8.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net8.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "5f99a0d0-cb42-4a39-9fe3-931b99eae9de",
+          "ruleId": "Api.0003",
+          "description": "Nullable JsonDocument properties deserialize to JsonValueKind.Null ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var document = JsonDocument.Parse(text);",
+              "protected": "T:System.Text.Json.JsonDocument"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\TagHelpers\\JsonDisplayTagHelper.cs",
+            "snippet": "var document = JsonDocument.Parse(text);",
+            "protectedSnippet": "T:System.Text.Json.JsonDocument",
+            "label": "T:System.Text.Json.JsonDocument",
+            "properties": {
+              "CharCount": "3213"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/serialization/9.0/jsondocument-props.md",
+                "isCustom": false
+              }
+            ],
+            "line": 37,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "05774576-9e36-4ebc-829b-fb6a598b6659",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "addess = Uri.EscapeDataString(addess);",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\TagHelpers\\GoogleMapTagHelper.cs",
+            "snippet": "addess = Uri.EscapeDataString(addess);",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "properties": {
+              "CharCount": "1847"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 51,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "40e20164-1966-4448-af49-b085b6e13540",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "start = DateTimeOffset.UtcNow.Subtract(TimeSpan.FromDays(60));",
+              "protected": "M:System.TimeSpan.FromDays(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Controllers\\EventController.cs",
+            "snippet": "start = DateTimeOffset.UtcNow.Subtract(TimeSpan.FromDays(60));",
+            "protectedSnippet": "M:System.TimeSpan.FromDays(System.Double)",
+            "label": "M:System.TimeSpan.FromDays(System.Double)",
+            "properties": {
+              "CharCount": "3503"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 46,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "0e6b2619-7e46-433b-b09a-f0fda20b2c5b",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue\r\n                {\r\n                    Public = true,\r\n                    MaxAge = TimeSpan.FromDays(365)\r\n                };",
+              "protected": "M:System.TimeSpan.FromDays(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Program.cs",
+            "snippet": "headers.CacheControl = new Microsoft.Net.Http.Headers.CacheControlHeaderValue\r\n                {\r\n                    Public = true,\r\n                    MaxAge = TimeSpan.FromDays(365)\r\n                };",
+            "protectedSnippet": "M:System.TimeSpan.FromDays(System.Double)",
+            "label": "M:System.TimeSpan.FromDays(System.Double)",
+            "properties": {
+              "CharCount": "10809"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 273,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "2e12eb9e-3f71-49d4-acf1-d7a0da014206",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: Exception diagnostics are suppressed when IExceptionHandler.TryHandleAsync returns true ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "app.UseExceptionHandler(\u0022/Error\u0022);",
+              "protected": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Program.cs",
+            "snippet": "app.UseExceptionHandler(\u0022/Error\u0022);",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)",
+            "label": "M:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.String)",
+            "properties": {
+              "CharCount": "10809"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/exception-handler-diagnostics-suppressed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 235,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "0ca18ee2-d187-43d5-9a0e-c83655af9a52",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Program.cs",
+            "snippet": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "10809"
+            },
+            "line": 136,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "6a0ced96-0863-4915-b1af-e093d399f2a6",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6. Add package reference to Microsoft.AspNetCore.Identity.EntityFrameworkCore, 8.0.6",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Program.cs",
+            "snippet": "services.AddIdentity\u003CUser, Role\u003E()\r\n            .AddEntityFrameworkStores\u003CInstructorIQContext\u003E()\r\n            .AddDefaultTokenProviders();",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores\u0060\u00601(Microsoft.AspNetCore.Identity.IdentityBuilder)",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Identity.EntityFrameworkCore",
+              "PackageNewVersion": "8.0.6",
+              "CharCount": "10809"
+            },
+            "line": 136,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "3f1fff6d-aa81-4d23-b3a7-70e58abdf0d6",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "builder.Host\r\n                .UseSerilog((context, services, configuration) =\u003E configuration\r\n                    .ReadFrom.Configuration(context.Configuration)\r\n                    .ReadFrom.Services(services)\r\n                    .Enrich.FromLogContext()\r\n                    .Enrich.WithProperty(\u0022ApplicationName\u0022, builder.Environment.ApplicationName)\r\n                    .Enrich.WithProperty(\u0022EnvironmentName\u0022, builder.Environment.EnvironmentName)\r\n                    .WriteTo.Console(outputTemplate: OutputTemplate)\r\n                    .WriteTo.File(\r\n                        path: $\u0022{logDirectory}/log.txt\u0022,\r\n                        rollingInterval: RollingInterval.Day,\r\n                        shared: true,\r\n                        flushToDiskInterval: TimeSpan.FromSeconds(1),\r\n                        outputTemplate: OutputTemplate,\r\n                        retainedFileCountLimit: 10\r\n                    )\r\n                    .WriteTo.AzureTableStorage(\r\n                        connectionString: context.Configuration.GetConnectionString(\u0022StorageAccount\u0022),\r\n                        propertyColumns: new[] { \u0022SourceContext\u0022, \u0022RequestId\u0022, \u0022RequestPath\u0022, \u0022ConnectionId\u0022, \u0022ApplicationName\u0022, \u0022EnvironmentName\u0022 }\r\n                    )\r\n                );",
+              "protected": "M:System.TimeSpan.FromSeconds(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Program.cs",
+            "snippet": "builder.Host\r\n                .UseSerilog((context, services, configuration) =\u003E configuration\r\n                    .ReadFrom.Configuration(context.Configuration)\r\n                    .ReadFrom.Services(services)\r\n                    .Enrich.FromLogContext()\r\n                    .Enrich.WithProperty(\u0022ApplicationName\u0022, builder.Environment.ApplicationName)\r\n                    .Enrich.WithProperty(\u0022EnvironmentName\u0022, builder.Environment.EnvironmentName)\r\n                    .WriteTo.Console(outputTemplate: OutputTemplate)\r\n                    .WriteTo.File(\r\n                        path: $\u0022{logDirectory}/log.txt\u0022,\r\n                        rollingInterval: RollingInterval.Day,\r\n                        shared: true,\r\n                        flushToDiskInterval: TimeSpan.FromSeconds(1),\r\n                        outputTemplate: OutputTemplate,\r\n                        retainedFileCountLimit: 10\r\n                    )\r\n                    .WriteTo.AzureTableStorage(\r\n                        connectionString: context.Configuration.GetConnectionString(\u0022StorageAccount\u0022),\r\n                        propertyColumns: new[] { \u0022SourceContext\u0022, \u0022RequestId\u0022, \u0022RequestPath\u0022, \u0022ConnectionId\u0022, \u0022ApplicationName\u0022, \u0022EnvironmentName\u0022 }\r\n                    )\r\n                );",
+            "protectedSnippet": "M:System.TimeSpan.FromSeconds(System.Double)",
+            "label": "M:System.TimeSpan.FromSeconds(System.Double)",
+            "properties": {
+              "CharCount": "10809"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 62,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "ea0e7da3-9acc-4793-bd52-6f9a7c8e530f",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\InstructorIQ.WebApplication\\InstructorIQ.WebApplication.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Log.Logger = new LoggerConfiguration()\r\n            .MinimumLevel.Verbose()\r\n            .MinimumLevel.Override(\u0022Microsoft\u0022, LogEventLevel.Information)\r\n            .Enrich.FromLogContext()\r\n            .WriteTo.Console(outputTemplate: OutputTemplate)\r\n            .WriteTo.File(\r\n                path: $\u0022{logDirectory}/boot.txt\u0022,\r\n                rollingInterval: RollingInterval.Day,\r\n                shared: true,\r\n                flushToDiskInterval: TimeSpan.FromSeconds(1),\r\n                outputTemplate: OutputTemplate,\r\n                retainedFileCountLimit: 10\r\n            )\r\n            .CreateBootstrapLogger();",
+              "protected": "M:System.TimeSpan.FromSeconds(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\InstructorIQ.WebApplication\\Program.cs",
+            "snippet": "Log.Logger = new LoggerConfiguration()\r\n            .MinimumLevel.Verbose()\r\n            .MinimumLevel.Override(\u0022Microsoft\u0022, LogEventLevel.Information)\r\n            .Enrich.FromLogContext()\r\n            .WriteTo.Console(outputTemplate: OutputTemplate)\r\n            .WriteTo.File(\r\n                path: $\u0022{logDirectory}/boot.txt\u0022,\r\n                rollingInterval: RollingInterval.Day,\r\n                shared: true,\r\n                flushToDiskInterval: TimeSpan.FromSeconds(1),\r\n                outputTemplate: OutputTemplate,\r\n                retainedFileCountLimit: 10\r\n            )\r\n            .CreateBootstrapLogger();",
+            "protectedSnippet": "M:System.TimeSpan.FromSeconds(System.Double)",
+            "label": "M:System.TimeSpan.FromSeconds(System.Double)",
+            "properties": {
+              "CharCount": "10809"
+            },
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 41,
+            "column": 8
+          }
+        }
+      ],
+      "features": []
+    }
+  ],
+  "rules": {
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0005": {
+      "id": "NuGet.0005",
+      "isFeature": false,
+      "description": "NuGet package is deprecated.\n\nGo to its documentation and if there is a guidance for replacement of functionality provided by this package.",
+      "label": "NuGet package is deprecated",
+      "severity": "Optional",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262531",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "API is source incompatible for selected .NET version: requires code changes to compile successfully when targeting a new version, such as removing obsolete APIs or changing method signatures.",
+      "label": "Source incompatible for selected .NET version",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    },
+    "Api.0001": {
+      "id": "Api.0001",
+      "isFeature": false,
+      "description": "API is binary incompatible for selected .NET version: affects existing binaries, often requiring recompilation, because the API has changed in a way that prevents older binaries from loading or executing.",
+      "label": "Binary incompatible for selected .NET version",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}

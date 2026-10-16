@@ -8,7 +8,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.WebUtilities;
 
 using Xunit;
-using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Security;
 

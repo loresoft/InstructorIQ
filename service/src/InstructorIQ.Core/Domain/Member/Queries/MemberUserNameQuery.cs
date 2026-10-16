@@ -1,4 +1,4 @@
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -7,9 +7,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class MemberUserNameQuery : CacheableQueryBase<MemberReadModel>
+public record MemberUserNameQuery : CacheableQueryBase<MemberReadModel>
 {
-    public MemberUserNameQuery(IPrincipal principal, string userName)
+    public MemberUserNameQuery(ClaimsPrincipal principal, string userName)
         : base(principal)
     {
         UserName = userName;

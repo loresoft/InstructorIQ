@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -11,9 +11,9 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class TopicMultipleUpdateCommand : PrincipalCommandBase<CompleteModel>
+public record TopicMultipleUpdateCommand : PrincipalCommandBase<CompleteModel>
 {
-    public TopicMultipleUpdateCommand(IPrincipal principal, IEnumerable<TopicMultipleUpdateModel> topics) : base(principal)
+    public TopicMultipleUpdateCommand(ClaimsPrincipal principal, IEnumerable<TopicMultipleUpdateModel> topics) : base(principal)
     {
         if (topics == null)
             throw new ArgumentNullException(nameof(topics));

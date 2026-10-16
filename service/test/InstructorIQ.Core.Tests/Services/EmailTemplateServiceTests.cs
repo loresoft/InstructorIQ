@@ -9,7 +9,6 @@ using InstructorIQ.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 using Xunit;
-using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Services;
 

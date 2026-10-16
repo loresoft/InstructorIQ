@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -7,9 +7,9 @@ using MediatR.CommandQuery.Commands;
 
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class MemberChangeTenantCommand : PrincipalCommandBase<MemberReadModel>
+public record MemberChangeTenantCommand : PrincipalCommandBase<MemberReadModel>
 {
-    public MemberChangeTenantCommand(IPrincipal principal, Guid tenantId) : base(principal)
+    public MemberChangeTenantCommand(ClaimsPrincipal principal, Guid tenantId) : base(principal)
     {
         TenantId = tenantId;
     }

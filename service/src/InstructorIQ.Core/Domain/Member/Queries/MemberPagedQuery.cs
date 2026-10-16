@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -8,9 +8,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class MemberPagedQuery : EntityPagedQuery<MemberReadModel>
+public record MemberPagedQuery : EntityPagedQuery<MemberReadModel>
 {
-    public MemberPagedQuery(IPrincipal principal, EntityQuery query, Guid tenantId) : base(principal, query)
+    public MemberPagedQuery(ClaimsPrincipal principal, EntityQuery query, Guid tenantId) : base(principal, query)
     {
         TenantId = tenantId;
     }

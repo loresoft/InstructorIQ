@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 using System.Text;
 
 using InstructorIQ.Core.Domain.Models;
@@ -10,14 +10,14 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<AttendanceSessionModel>>
+public record AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<AttendanceSessionModel>>
 {
-    public AttendanceSessionQuery(IPrincipal principal, Guid tenantId) : base(principal)
+    public AttendanceSessionQuery(ClaimsPrincipal principal, Guid tenantId) : base(principal)
     {
         TenantId = tenantId;
     }
 
-    public AttendanceSessionQuery(IPrincipal principal, Guid tenantId, int year)
+    public AttendanceSessionQuery(ClaimsPrincipal principal, Guid tenantId, int year)
         : base(principal)
     {
         TenantId = tenantId;
@@ -26,7 +26,7 @@ public class AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<Att
         EndDate = StartDate.Value.AddYears(1);
     }
 
-    public AttendanceSessionQuery(IPrincipal principal, Guid tenantId, int year, int month)
+    public AttendanceSessionQuery(ClaimsPrincipal principal, Guid tenantId, int year, int month)
         : base(principal)
     {
         TenantId = tenantId;
@@ -35,7 +35,7 @@ public class AttendanceSessionQuery : PrincipalQueryBase<IReadOnlyCollection<Att
         EndDate = StartDate.Value.AddMonths(1);
     }
 
-    public AttendanceSessionQuery(IPrincipal principal, Guid tenantId, Guid topicId) : base(principal)
+    public AttendanceSessionQuery(ClaimsPrincipal principal, Guid tenantId, Guid topicId) : base(principal)
     {
         TenantId = tenantId;
         TopicId = topicId;

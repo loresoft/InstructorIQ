@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using MediatR.CommandQuery.Audit;
 using MediatR.CommandQuery.Queries;
 
 namespace InstructorIQ.Core.Domain.Models;
 
-public class DiscussionHistoryQuery : CacheableQueryBase<IReadOnlyCollection<AuditRecord<Guid>>>
+public record DiscussionHistoryQuery : CacheableQueryBase<IReadOnlyCollection<AuditRecord<Guid>>>
 {
-    public DiscussionHistoryQuery(IPrincipal principal) : base(principal)
+    public DiscussionHistoryQuery(ClaimsPrincipal principal) : base(principal)
     {
     }
 

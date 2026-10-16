@@ -1,4 +1,4 @@
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Models;
 
@@ -8,9 +8,9 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class SendUserLinkEmailCommand : EntityModelCommand<UserLinkModel, CompleteModel>
+public record SendUserLinkEmailCommand : EntityModelCommand<UserLinkModel, CompleteModel>
 {
-    public SendUserLinkEmailCommand(IPrincipal principal, UserLinkModel model)
+    public SendUserLinkEmailCommand(ClaimsPrincipal principal, UserLinkModel model)
         : base(principal, model)
     {
 

@@ -1,6 +1,5 @@
 using System;
 using System.Security.Claims;
-using System.Security.Principal;
 
 using InstructorIQ.Core.Security;
 
@@ -15,9 +14,9 @@ public class MockPrincipal
     }
 
 
-    public static IPrincipal Default { get; }
+    public static ClaimsPrincipal Default { get; }
 
-    public static IPrincipal GlobalAdmin { get; }
+    public static ClaimsPrincipal GlobalAdmin { get; }
 
 
     public static ClaimsPrincipal CreatePrincipal(string email, string name, Guid userId, Guid organizationId, string organizationName, bool isGlobalAdmin = false)

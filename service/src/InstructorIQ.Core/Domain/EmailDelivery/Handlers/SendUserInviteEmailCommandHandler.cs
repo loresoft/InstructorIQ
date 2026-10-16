@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -56,7 +56,7 @@ public class SendUserInviteEmailCommandHandler : EmailTemplateCommandHandlerBase
         return completeModel;
     }
 
-    private async Task SendInvite(UserInviteModel inviteModel, User recipientUser, IPrincipal principal, string link)
+    private async Task SendInvite(UserInviteModel inviteModel, User recipientUser, ClaimsPrincipal principal, string link)
     {
         var name = _userClaimManager.GetDisplayName(principal);
         var email = _userClaimManager.GetEmail(principal);
@@ -104,7 +104,7 @@ public class SendUserInviteEmailCommandHandler : EmailTemplateCommandHandlerBase
         return emailLink;
     }
 
-    private async Task CreateLinkToken(User user, string token, string returnUrl, IPrincipal principal)
+    private async Task CreateLinkToken(User user, string token, string returnUrl, ClaimsPrincipal principal)
     {
         var createModel = new LinkTokenCreateModel
         {

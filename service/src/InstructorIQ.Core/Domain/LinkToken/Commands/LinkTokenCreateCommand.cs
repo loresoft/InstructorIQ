@@ -1,4 +1,4 @@
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -7,9 +7,9 @@ using MediatR.CommandQuery.Commands;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class LinkTokenCreateCommand : EntityModelCommand<LinkTokenCreateModel, LinkTokenReadModel>
+public record LinkTokenCreateCommand : EntityModelCommand<LinkTokenCreateModel, LinkTokenReadModel>
 {
-    public LinkTokenCreateCommand(IPrincipal principal, LinkTokenCreateModel model, string token)
+    public LinkTokenCreateCommand(ClaimsPrincipal principal, LinkTokenCreateModel model, string token)
         : base(principal, model)
     {
         Token = token;

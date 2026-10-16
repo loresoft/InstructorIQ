@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class SessionInstructorQuery : PrincipalQueryBase<IReadOnlyCollection<SessionInstructorModel>>
+public record SessionInstructorQuery : PrincipalQueryBase<IReadOnlyCollection<SessionInstructorModel>>
 {
-    public SessionInstructorQuery(IPrincipal principal, Guid sessionId) : base(principal)
+    public SessionInstructorQuery(ClaimsPrincipal principal, Guid sessionId) : base(principal)
     {
         SessionId = sessionId;
     }

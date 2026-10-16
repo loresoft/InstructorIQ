@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class TemplateDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<TemplateDropdownModel>>
+public record TemplateDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<TemplateDropdownModel>>
 {
-    public TemplateDropdownQuery(IPrincipal principal, string templateType) : base(principal)
+    public TemplateDropdownQuery(ClaimsPrincipal principal, string templateType) : base(principal)
     {
         TemplateType = templateType;
     }

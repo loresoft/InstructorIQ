@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class TenantSlugQuery : PrincipalQueryBase<TenantReadModel>, ICacheQueryResult
+public record TenantSlugQuery : PrincipalQueryBase<TenantReadModel>, ICacheResult
 {
-    public TenantSlugQuery(IPrincipal principal, string slug) : base(principal)
+    public TenantSlugQuery(ClaimsPrincipal principal, string slug) : base(principal)
     {
         Slug = slug;
     }
@@ -19,22 +19,27 @@ public class TenantSlugQuery : PrincipalQueryBase<TenantReadModel>, ICacheQueryR
     public string Slug { get; set; }
 
 
-    string ICacheQueryResult.GetCacheKey()
+    string ICacheResult.GetCacheKey()
     {
         return $"tenant-slug-{Slug?.ToLowerInvariant()}";
     }
 
-    TimeSpan? ICacheQueryResult.SlidingExpiration()
+    string ICacheResult.GetCacheTag()
+    {
+        return "Tenant";
+    }
+
+    TimeSpan? ICacheResult.SlidingExpiration()
     {
         return TimeSpan.FromMinutes(10);
     }
 
-    DateTimeOffset? ICacheQueryResult.AbsoluteExpiration()
+    DateTimeOffset? ICacheResult.AbsoluteExpiration()
     {
         return DateTimeOffset.UtcNow.Add(TimeSpan.FromMinutes(30));
     }
 
-    bool ICacheQueryResult.IsCacheable()
+    bool ICacheResult.IsCacheable()
     {
         return true;
     }

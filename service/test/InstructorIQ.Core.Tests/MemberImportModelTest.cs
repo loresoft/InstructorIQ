@@ -13,7 +13,6 @@ using CsvHelper;
 using InstructorIQ.Core.Domain.Models;
 
 using Xunit;
-using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests;
 

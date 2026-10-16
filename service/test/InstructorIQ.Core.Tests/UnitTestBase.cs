@@ -1,6 +1,6 @@
 using System;
 
-using Xunit.Abstractions;
+using Xunit;
 
 namespace InstructorIQ.Core.Tests;
 

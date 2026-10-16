@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using MediatR.CommandQuery.Commands;
 using MediatR.CommandQuery.Models;
@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Models;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class MemberAssignRoleCommand : PrincipalCommandBase<CompleteModel>
+public record MemberAssignRoleCommand : PrincipalCommandBase<CompleteModel>
 {
-    public MemberAssignRoleCommand(IPrincipal principal, Guid tenantId, IEnumerable<string> users, IEnumerable<string> roles)
+    public MemberAssignRoleCommand(ClaimsPrincipal principal, Guid tenantId, IEnumerable<string> users, IEnumerable<string> roles)
         : base(principal)
     {
         TenantId = tenantId;

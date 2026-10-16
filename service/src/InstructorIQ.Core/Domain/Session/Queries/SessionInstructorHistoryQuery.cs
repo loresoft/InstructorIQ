@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using MediatR.CommandQuery.Audit;
 using MediatR.CommandQuery.Queries;
@@ -8,9 +8,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class SessionInstructorHistoryQuery : CacheableQueryBase<IReadOnlyCollection<AuditRecord<Guid>>>
+public record SessionInstructorHistoryQuery : CacheableQueryBase<IReadOnlyCollection<AuditRecord<Guid>>>
 {
-    public SessionInstructorHistoryQuery(IPrincipal principal) : base(principal)
+    public SessionInstructorHistoryQuery(ClaimsPrincipal principal) : base(principal)
     {
     }
 

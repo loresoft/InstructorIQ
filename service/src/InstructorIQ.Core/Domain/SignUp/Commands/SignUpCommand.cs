@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -10,9 +10,9 @@ using MediatR.CommandQuery.Models;
 
 namespace InstructorIQ.Core.Domain.Commands;
 
-public class SignUpCommand : PrincipalCommandBase<CompleteModel>
+public record SignUpCommand : PrincipalCommandBase<CompleteModel>
 {
-    public SignUpCommand(IPrincipal principal, Guid id, SignUpUpdateModel instructorSignUp, IEnumerable<SignUpTopicUpdateModel> instructorSignUpTopics)
+    public SignUpCommand(ClaimsPrincipal principal, Guid id, SignUpUpdateModel instructorSignUp, IEnumerable<SignUpTopicUpdateModel> instructorSignUpTopics)
         : base(principal)
     {
         InstructorSignUp = instructorSignUp;

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -8,9 +8,9 @@ using MediatR.CommandQuery.Queries;
 
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class SessionFrequentTimeQuery : PrincipalQueryBase<IReadOnlyCollection<SessionFrequentTimeModel>>
+public record SessionFrequentTimeQuery : PrincipalQueryBase<IReadOnlyCollection<SessionFrequentTimeModel>>
 {
-    public SessionFrequentTimeQuery(IPrincipal principal, Guid tenantId) : base(principal)
+    public SessionFrequentTimeQuery(ClaimsPrincipal principal, Guid tenantId) : base(principal)
     {
         TenantId = tenantId;
     }

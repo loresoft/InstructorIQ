@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -8,9 +8,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class TenantDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<TenantDropdownModel>>
+public record TenantDropdownQuery : PrincipalQueryBase<IReadOnlyCollection<TenantDropdownModel>>
 {
-    public TenantDropdownQuery(IPrincipal principal) : base(principal)
+    public TenantDropdownQuery(ClaimsPrincipal principal) : base(principal)
     {
     }
 }

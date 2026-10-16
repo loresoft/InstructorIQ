@@ -71,10 +71,10 @@ public class EventController : MediatorControllerBase
             calendarEvent.Categories.Add("Training");
 
             if (e.Start.HasValue)
-                calendarEvent.Start = new CalDateTime(e.Start.Value.UtcDateTime) { HasTime = true };
+                calendarEvent.Start = new CalDateTime(e.Start.Value.UtcDateTime, hasTime: true);
 
             if (e.End.HasValue)
-                calendarEvent.End = new CalDateTime(e.End.Value.UtcDateTime) { HasTime = true };
+                calendarEvent.End = new CalDateTime(e.End.Value.UtcDateTime, hasTime: true);
 
             calendarEvent.LastModified = new CalDateTime(e.Modified.UtcDateTime);
 

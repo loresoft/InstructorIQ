@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -9,9 +9,9 @@ using MediatR.CommandQuery.Queries;
 // ReSharper disable once CheckNamespace
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<SessionCalendarModel>>
+public record SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<SessionCalendarModel>>
 {
-    public SessionCalendarQuery(IPrincipal principal, Guid tenantId, int year)
+    public SessionCalendarQuery(ClaimsPrincipal principal, Guid tenantId, int year)
         : base(principal)
     {
         TenantId = tenantId;
@@ -20,7 +20,7 @@ public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<Sessi
         EndDate = StartDate.AddYears(1);
     }
 
-    public SessionCalendarQuery(IPrincipal principal, Guid tenantId, int year, int month)
+    public SessionCalendarQuery(ClaimsPrincipal principal, Guid tenantId, int year, int month)
         : base(principal)
     {
         TenantId = tenantId;
@@ -29,7 +29,7 @@ public class SessionCalendarQuery : PrincipalQueryBase<IReadOnlyCollection<Sessi
         EndDate = StartDate.AddMonths(1);
     }
 
-    public SessionCalendarQuery(IPrincipal principal, Guid tenantId, DateOnly startDate, DateOnly endDate)
+    public SessionCalendarQuery(ClaimsPrincipal principal, Guid tenantId, DateOnly startDate, DateOnly endDate)
         : base(principal)
     {
         TenantId = tenantId;

@@ -6,7 +6,6 @@ using FluentAssertions;
 using InstructorIQ.Core.Extensions;
 
 using Xunit;
-using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Extensions;
 

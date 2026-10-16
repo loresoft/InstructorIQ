@@ -20,7 +20,6 @@ using SystemTextJsonPatch.Operations;
 using Microsoft.Extensions.DependencyInjection;
 
 using Xunit;
-using Xunit.Abstractions;
 
 namespace InstructorIQ.Core.Tests.Domain;
 
@@ -50,12 +49,12 @@ public class TopicTest : DependencyInjectionBase
         createModel.Title = "TEST";
 
         var createCommand = new EntityCreateCommand<TopicCreateModel, TopicReadModel>(MockPrincipal.Default, createModel);
-        var createResult = await mediator.Send(createCommand);
+        var createResult = await mediator.Send(createCommand, TestCancellation);
         createResult.Should().NotBeNull();
 
         // Get Entity by Key
         var identifierQuery = new EntityIdentifierQuery<Guid, TopicReadModel>(MockPrincipal.Default, createResult.Id);
-        var identifierResult = await mediator.Send(identifierQuery);
+        var identifierResult = await mediator.Send(identifierQuery, TestCancellation);
         identifierResult.Should().NotBeNull();
         identifierResult.Title.Should().Be(createModel.Title);
 
@@ -67,7 +66,7 @@ public class TopicTest : DependencyInjectionBase
         };
         var listQuery = new EntityPagedQuery<TopicReadModel>(MockPrincipal.Default, entityQuery);
 
-        var listResult = await mediator.Send(listQuery);
+        var listResult = await mediator.Send(listQuery, TestCancellation);
         listResult.Should().NotBeNull();
 
         // Patch Entity
@@ -80,7 +79,7 @@ public class TopicTest : DependencyInjectionBase
         });
 
         var patchCommand = new EntityPatchCommand<Guid, TopicReadModel>(MockPrincipal.Default, createResult.Id, patchModel);
-        var patchResult = await mediator.Send(patchCommand);
+        var patchResult = await mediator.Send(patchCommand, TestCancellation);
         patchResult.Should().NotBeNull();
         patchResult.Description.Should().Be("Patch Update");
 
@@ -89,13 +88,13 @@ public class TopicTest : DependencyInjectionBase
         updateModel.Description = "Update Command";
 
         var updateCommand = new EntityUpdateCommand<Guid, TopicUpdateModel, TopicReadModel>(MockPrincipal.Default, createResult.Id, updateModel);
-        var updateResult = await mediator.Send(updateCommand);
+        var updateResult = await mediator.Send(updateCommand, TestCancellation);
         updateResult.Should().NotBeNull();
         updateResult.Description.Should().Be("Update Command");
 
         // Delete Entity
         var deleteCommand = new EntityDeleteCommand<Guid, TopicReadModel>(MockPrincipal.Default, createResult.Id);
-        var deleteResult = await mediator.Send(deleteCommand);
+        var deleteResult = await mediator.Send(deleteCommand, TestCancellation);
         deleteResult.Should().NotBeNull();
         deleteResult.Id.Should().Be(createResult.Id);
     }

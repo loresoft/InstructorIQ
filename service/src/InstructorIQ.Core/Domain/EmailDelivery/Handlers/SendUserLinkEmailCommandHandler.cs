@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -46,7 +46,7 @@ public class SendUserLinkEmailCommandHandler : EmailTemplateCommandHandlerBase<S
         return completeModel;
     }
 
-    private async Task SendRecipientLinkEmail(UserLinkModel userLinkModel, IPrincipal principal, string recipient, CancellationToken cancellationToken)
+    private async Task SendRecipientLinkEmail(UserLinkModel userLinkModel, ClaimsPrincipal principal, string recipient, CancellationToken cancellationToken)
     {
         // lookup user
         var recipientUser = await _userManager.FindByEmailAsync(recipient);

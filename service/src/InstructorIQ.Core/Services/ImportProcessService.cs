@@ -109,7 +109,7 @@ public class ImportProcessService : IImportProcessService
         var dataTable = dataList.ToDataTable();
 
         await _dataSession.StoredProcedure("[IQ].[ImportUsers]")
-            .SqlParameter("@userTable", dataTable)
+            .ParameterStructured("@userTable", dataTable)
             .Parameter("@tenantId", importJob.TenantId)
             .Parameter("@roleName", Data.Constants.Role.MemberName)
             .ExecuteAsync(cancellationToken);

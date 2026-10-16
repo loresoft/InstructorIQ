@@ -1,5 +1,5 @@
 using System;
-using System.Security.Principal;
+using System.Security.Claims;
 
 using InstructorIQ.Core.Domain.Models;
 
@@ -7,9 +7,9 @@ using MediatR.CommandQuery.Queries;
 
 namespace InstructorIQ.Core.Domain.Queries;
 
-public class LogEventQuery : PrincipalQueryBase<LogPagedResult>
+public record LogEventQuery : PrincipalQueryBase<LogPagedResult>
 {
-    public LogEventQuery(IPrincipal principal) : base(principal)
+    public LogEventQuery(ClaimsPrincipal principal) : base(principal)
     {
 
     }
